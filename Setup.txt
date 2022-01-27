@@ -1,0 +1,58 @@
+Pages:
+
+  - Home which lists the available stores 
+  - Store page based from offered ID
+  - Reservation page 
+  - Confirm page 
+
+Components:
+
+  - Navbar (redirecting logo to home)
+  - Footer with Owner door and design note
+  - Page container
+
+    - Top Info container 
+      - Home descript container
+      - Store showcase container 
+       - Store display container 
+        - Store container 
+          - Picture
+          - Store name 
+
+    - Store page container 
+      - Picture
+      - Location, hours 
+      - Description 
+    - Available stylist container 
+      - Stylist contanier 
+        - Picture
+        - Name 
+        - Job title 
+        - Select button 
+    
+    - Reservation top page 
+      - Page title 
+      - Stylist info 
+        - Name 
+        - Job title 
+        - Picture 
+    - Customer form container 
+      - Title 
+      - Name 
+      - Phone number 
+      - Email 
+    - Service container 
+      - Individual service 
+        - Name 
+        - Price 
+    - Schedule container 
+      - Header 
+      - Top bar 
+      - Row container 
+        - Column container 
+    - Comment container 
+      - Title 
+      - Form 
+      - Reserve button 
+    
+    - Confirmation message
