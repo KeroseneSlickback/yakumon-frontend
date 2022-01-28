@@ -54,4 +54,7 @@ They would be:
 
 
 - Bilingual JP/EN (make in English, have context created for switch, and later change to Japanese)
-- 
+
+
+Testing: 
+
