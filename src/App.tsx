@@ -1,7 +1,36 @@
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+
+import { DarkTheme, LightTheme, GlobalStyles } from "./Styles/Variables";
 
 function App() {
-  return <div className="App"></div>;
+  const [theme, setTheme] = useState("dark");
+
+  const setMode = (mode: string) => {
+    localStorage.setItem("theme", mode);
+    setTheme(mode);
+  };
+
+  const themeToggle = () => {
+    theme === "dark" ? setMode("light") : setMode("dark");
+  };
+
+  useEffect(() => {
+    const localTheme = localStorage.getItem("theme");
+    localTheme ? setTheme(localTheme) : setMode("dark");
+  }, []);
+
+  return (
+    <ThemeProvider theme={theme === "dark" ? DarkTheme : LightTheme}>
+      <GlobalStyles />
+      {/* Layout */}
+      <Routes>
+        <Route></Route>
+      </Routes>
+      {/* Layout */}
+    </ThemeProvider>
+  );
 }
 
 export default App;
