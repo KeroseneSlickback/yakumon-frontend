@@ -9,14 +9,14 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => {
-    if (
-      // Find user in localStorage or cookies
-      1 === 1
-    ) {
-      setLoggedIn(true);
-    }
-  });
+  // useEffect(() => {
+  //   if (
+  //     // Find user in localStorage or cookies
+  //     1 === 1
+  //   ) {
+  //     setLoggedIn(true);
+  //   }
+  // }, []);
 
   const login = () => {
     setLoggedIn(true);
@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const authContextValue = {
     login,
+    logout,
     loggedIn,
   };
 
