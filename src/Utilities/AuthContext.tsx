@@ -1,13 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
 
-interface AuthProviderProps {
-  children: JSX.Element;
-}
-
 const AuthContext = createContext({});
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+export const AuthProvider: React.FC = ({ children }) => {
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   // useEffect(() => {
   //   if (
@@ -32,7 +28,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     loggedIn,
   };
 
-  return <AuthContext.Provider value={authContextValue} {...children} />;
+  return (
+    <AuthContext.Provider value={authContextValue}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => React.useContext(AuthContext);
