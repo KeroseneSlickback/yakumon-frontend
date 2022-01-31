@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import DateTest from "./Pages/DateTest";
 import Home from "./Pages/Home";
 
 import { DarkTheme, LightTheme, GlobalStyles } from "./Styles/Variables";
@@ -26,10 +27,10 @@ function App() {
     <ThemeProvider theme={theme === "dark" ? DarkTheme : LightTheme}>
       <GlobalStyles />
       {/* Layout */}
-      <Home />
-      {/* <Routes>
-        <Route path="/"></Route>
-      </Routes> */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/datetest" element={<DateTest />} />
+      </Routes>
       {/* Layout */}
     </ThemeProvider>
   );
