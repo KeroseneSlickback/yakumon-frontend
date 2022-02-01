@@ -18,10 +18,6 @@ function MainLayout({ children, themeToggle, theme }: ThemeProps) {
       <MainPageContainer>{children}</MainPageContainer>
       <Footer themeToggle={themeToggle} theme={theme} />
     </OverallPageContainer>
-    // Page Container
-    // Navbar
-    // Content Container
-    // Footer
   );
 }
 
