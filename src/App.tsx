@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import MainLayout from "./Modules/Layout/MainLayout";
 import DateTest from "./Pages/DateTest";
 import Home from "./Pages/Home";
 
@@ -14,7 +15,7 @@ function App() {
     setTheme(mode);
   };
 
-  const themeToggle = () => {
+  const themeToggle = (): void => {
     theme === "dark" ? setMode("light") : setMode("dark");
   };
 
@@ -26,12 +27,12 @@ function App() {
   return (
     <ThemeProvider theme={theme === "dark" ? DarkTheme : LightTheme}>
       <GlobalStyles />
-      {/* Layout */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/datetest" element={<DateTest />} />
-      </Routes>
-      {/* Layout */}
+      <MainLayout themeToggle={themeToggle} theme={theme}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/datetest" element={<DateTest />} />
+        </Routes>
+      </MainLayout>
     </ThemeProvider>
   );
 }
