@@ -10,3 +10,5 @@ export const OverallPageContainer = styled.div`
 export const MainPageContainer = styled.main`
   width: 100%;
 `;
+
+export const NavBarHeader = styled.header``;

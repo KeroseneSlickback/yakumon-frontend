@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true
   },
-  "include": ["src"]
+  "include": ["src", "src/Utilities/custom.d.ts"]
 }

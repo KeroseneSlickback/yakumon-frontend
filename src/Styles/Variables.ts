@@ -3,23 +3,23 @@ import { createGlobalStyle } from "styled-components";
 // Add further types to this to spread them across for size as well?
 declare module "styled-components" {
   interface DefaultTheme {
-    hero: string;
-    primary: string;
-    primaryAlt: string;
-    secondary: string;
-    secondaryAlt: string;
-    background: string;
-    backgroundAlt: string;
-    subdued: string;
-    subduedAlt: string;
-    alternative: string;
-    alternativeAlt: string;
-    fontColor: string;
-    fontColorAlt: string;
-    highlightWhite: string;
-    highlightMuted: string;
-    highlightDark: string;
-    warning: string;
+    hero?: string;
+    primary?: string;
+    primaryAlt?: string;
+    secondary?: string;
+    secondaryAlt?: string;
+    background?: string;
+    backgroundAlt?: string;
+    subdued?: string;
+    subduedAlt?: string;
+    alternative?: string;
+    alternativeAlt?: string;
+    fontColor?: string;
+    fontColorAlt?: string;
+    highlightWhite?: string;
+    highlightMuted?: string;
+    highlightDark?: string;
+    warning?: string;
   }
 }
 

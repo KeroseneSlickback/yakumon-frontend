@@ -1,0 +1,5 @@
+- Design navbar 
+- Design footer 
+  - Make sure they're properly split and fill the width of the screen 
+
+  
