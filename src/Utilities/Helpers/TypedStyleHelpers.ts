@@ -1,27 +1,43 @@
+import React from "react";
 import styled from "styled-components";
 
-export interface SvgProps {
+export interface SvgPropsDefault {
+  width?: number;
+  height?: number;
+}
+
+export interface SvgProps extends SvgPropsDefault {
   Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-  width?: number;
-  height?: number;
-  color?: string;
 }
 
-export interface SvgContainerProps {
-  height?: number;
-  width?: number;
-  color?: string;
-}
+// export interface SvgPropsDefault {
+//   height?: number;
+//   width?: number;
+// }
 
-export const SvgDefaultContainer = styled.div<SvgContainerProps>`
+export const SvgDefaultContainer = styled.div<SvgPropsDefault>`
   height: ${({ height }) => (height ? `${height}px` : "100%")};
   width: ${({ width }) => (width ? `${width}px` : "100%")};
   & svg {
     height: ${({ height }) => (height ? `${height}px` : "100%")};
     width: ${({ width }) => (width ? `${width}px` : "100%")};
+  }
+`;
+
+export const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
+  & svg {
+    fill: ${({ theme }) => theme.hero};
     & rect {
-      height: ${({ height }) => (height ? `${height}px` : 150)};
-      width: ${({ width }) => (width ? `${width}px` : 150)};
+      fill: "#a08ec2";
     }
   }
 `;
+
+// export const SvgIcon: React.FC<SvgProps> = (props) => {
+//   const { Icon } = props;
+//   return (
+//     <SvgContainer {...props}>
+//       <Icon />
+//     </SvgContainer>
+//   );
+// };
