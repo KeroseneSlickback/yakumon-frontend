@@ -7,6 +7,7 @@ export interface StyledSvgProps extends FC<DefaultTheme> {
   strokeWidth2?: string;
   strokeWidth3?: string;
   strokeFill?: string;
+  fill?: string;
   fillColor?: string;
   fillColor2?: string;
   fillColor3?: string;
@@ -24,6 +25,7 @@ export interface StyledSvgProps extends FC<DefaultTheme> {
   className3?: string;
   className4?: string;
   className5?: string;
+  viewbox?: string;
 }
 
 // export interface SvgIconValues {

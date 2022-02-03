@@ -1,10 +1,11 @@
 import { NavBarHeader } from "../../Components/Containers";
-import { SiteLogo } from "../../Utilities/Images/SVGComponents/SiteLogo";
+import { SvgIcon } from "../../Utilities/Images/SVGComponents/SvgContainer";
+import LogoSVG from "../../Utilities/Images/SVGs/LogoSVG";
 
 function NavBar() {
   return (
     <NavBarHeader>
-      <SiteLogo />
+      <SvgIcon Icon={LogoSVG} />
     </NavBarHeader>
   );
 }
