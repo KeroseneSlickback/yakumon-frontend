@@ -1,25 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import {
+  SvgProps,
+  SvgContainerProps,
+  SvgDefaultContainer,
+} from "../Helpers/TypedStyleHelpers";
 
-export const SvgContainer = styled.div<{
-  height?: number;
-  width?: number;
-  fill?: string;
-}>`
-  height: 50px;
-  width: 50px;
+export const SvgContainer = styled(SvgDefaultContainer)<SvgContainerProps>`
   & svg {
-    fill: ${(props) => props.theme.hero};
-    height: ${(props) => (props.height ? `${props.height}px` : "100%")};
-    width: ${(props) => (props.height ? `${props.height}px` : "100%")};
+    fill: ${({ theme }) => theme.primary};
   }
 `;
-
-interface SvgProps {
-  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-  width?: number;
-  height?: number;
-}
 
 export const SvgIcon: React.FC<SvgProps> = (props) => {
   const { Icon } = props;
