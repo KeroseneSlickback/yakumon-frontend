@@ -1,13 +1,13 @@
-import * as React from "react";
+// import * as React from "react";
 // import { SVGProps } from "react";
 import styled from "styled-components";
-import { StyledSvgProps } from "../../SVG-TSHelper";
+// import { StyledSvgProps } from "../../SVG-TSHelper";
 
 import Starter from "./Starter";
 
 const Svg = styled(Starter)``;
 
-export function SiteLogo(props: StyledSvgProps) {
+export function SiteLogo() {
   return (
     <Svg width="150" height="150" viewBox="0 0 150 150" fill="none">
       <rect width="150" height="150" rx="30" fill="#A08EC2" />

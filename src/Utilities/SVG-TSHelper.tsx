@@ -15,10 +15,10 @@ export interface StyledSvgProps extends FC<DefaultTheme> {
   fillColor5?: string;
   fillColor6?: string;
   fillColor7?: string;
-  imageWidth?: string;
-  imageHeight?: string;
-  width?: string;
-  height?: string;
+  imageWidth?: string | number;
+  imageHeight?: string | number;
+  width?: string | number;
+  height?: string | number;
   rotateCenter?: number;
   className?: string;
   className2?: string;

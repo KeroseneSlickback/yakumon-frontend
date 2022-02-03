@@ -1,11 +1,14 @@
 import { NavBarHeader } from "../../Components/Containers";
-import { SvgIcon } from "../../Utilities/Images/SVGComponents/SvgContainer";
-import LogoSVG from "../../Utilities/Images/SVGs/LogoSVG";
+import {
+  SvgIcon,
+  TestIcon,
+} from "../../Utilities/Images/SVGComponents/SvgContainer";
+// import LogoSVG from "../../Utilities/Images/SVGs/LogoSVG";
 
 function NavBar() {
   return (
     <NavBarHeader>
-      <SvgIcon Icon={LogoSVG} />
+      <SvgIcon Icon={TestIcon} />
     </NavBarHeader>
   );
 }
