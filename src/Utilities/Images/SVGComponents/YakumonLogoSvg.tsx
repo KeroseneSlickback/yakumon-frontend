@@ -5,14 +5,10 @@ import {
   SvgDefaultContainer,
 } from "../../Helpers/TypedStyleHelpers";
 
-export const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
-  & svg {
-    fill: ${({ theme }) => theme.hero};
-    & rect {
-      fill: "#a08ec2";
-    }
-  }
-`;
+// For future reference:
+// Copy the section here and paste
+
+export const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>``;
 
 export const YakumonLogoSvg: React.FC<SvgPropsDefault> = (props) => (
   <SvgContainer>

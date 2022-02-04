@@ -6,6 +6,7 @@ function NavBar() {
   return (
     <NavBarHeader>
       <YakumonLogoSvg />
+      <h1>Yakumon</h1>
     </NavBarHeader>
   );
 }

@@ -99,6 +99,8 @@ header,
 hgroup,
 menu,
 nav,
+svg,
+img,
 section {
   display: block;
 }

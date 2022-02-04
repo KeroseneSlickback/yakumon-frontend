@@ -1,13 +1,19 @@
+import { SmallButton } from "../../Components/Buttons";
+import { FooterContainer } from "../../Components/Containers";
+
 interface ThemeProps {
   themeToggle: () => void;
-  theme: string;
 }
 
-function Footer({ themeToggle, theme }: ThemeProps) {
+function Footer({ themeToggle }: ThemeProps) {
   return (
-    <div>
-      <button onClick={themeToggle}>Toggle Theme from {theme}</button>
-    </div>
+    <FooterContainer>
+      <SmallButton onClick={themeToggle}>Theme</SmallButton>
+      <p>
+        Yakumon is a demonstration reservation app created by Mitchell William
+        Spaur
+      </p>
+    </FooterContainer>
   );
 }
 

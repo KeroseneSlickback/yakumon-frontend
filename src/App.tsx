@@ -27,7 +27,7 @@ function App() {
   return (
     <ThemeProvider theme={theme === "dark" ? DarkTheme : LightTheme}>
       <GlobalStyles />
-      <MainLayout themeToggle={themeToggle} theme={theme}>
+      <MainLayout themeToggle={themeToggle}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/datetest" element={<DateTest />} />
