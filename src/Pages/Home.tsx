@@ -2,7 +2,9 @@ import {
   PageSection,
   SelectContainers,
   SinglePageContainer,
+  ShowcaseGrid,
 } from "../Components/Containers";
+import { ShowcaseImg } from "../Components/Page-accessories";
 import hairsalon from "../Utilities/Images/hairsalon.jpeg";
 
 const Home = () => {
@@ -14,9 +16,25 @@ const Home = () => {
       </PageSection>
       <PageSection styled>
         <h3>Store Showcase</h3>
-        <SelectContainers>
-          <img src={hairsalon} alt="hairsalon" />
-        </SelectContainers>
+        <ShowcaseGrid>
+          {/* map these from fetched */}
+          <SelectContainers>
+            <ShowcaseImg src={hairsalon} alt="hairsalon" />
+            <h4>Store Name</h4>
+          </SelectContainers>
+          <SelectContainers>
+            <ShowcaseImg src={hairsalon} alt="hairsalon" />
+            <h4>Very Long Store Name</h4>
+          </SelectContainers>
+          <SelectContainers>
+            <ShowcaseImg src={hairsalon} alt="hairsalon" />
+            <h4>Shtn</h4>
+          </SelectContainers>
+          <SelectContainers>
+            <ShowcaseImg src={hairsalon} alt="hairsalon" />
+            <h4>Store Name</h4>
+          </SelectContainers>
+        </ShowcaseGrid>
         {/*  */}
       </PageSection>
     </SinglePageContainer>

@@ -55,7 +55,7 @@ export const PageSection = styled.div<{ styled?: boolean }>`
     padding: 18px 0px;
   }
   h3 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
   ${(props) =>
     props.styled &&
@@ -66,6 +66,31 @@ export const PageSection = styled.div<{ styled?: boolean }>`
     `}
 `;
 
+export const ShowcaseGrid = styled.div`
+  margin-top: 18px;
+  width: 100%;
+  display: grid;
+  grid-gap: 6px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+`;
+
 export const SelectContainers = styled.div`
-  background-color: inherit;
+  background-color: ${({ theme }) => theme.background};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  text-align: center;
+  padding: 8px 2px;
+  transition: 0.3;
+
+  h4 {
+    margin: auto;
+    padding: 4px;
+  }
+
+  &:hover {
+    background-color: ${({ theme }) => theme.backgroundAlt};
+  }
 `;
