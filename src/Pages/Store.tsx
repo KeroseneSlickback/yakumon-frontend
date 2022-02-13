@@ -1,7 +1,6 @@
 import {
   PageSection,
   SinglePageContainer,
-  StoreImgInfoContainer,
   StoreInfoContainer,
   StorePageSection,
   SelectContainer,
@@ -9,40 +8,45 @@ import {
   StoreDescContainer,
 } from "../Components/Containers";
 import { SmallButton } from "../Components/Buttons";
-import { ShowcaseImg } from "../Components/Page-accessories";
+import {
+  ShowcaseImg,
+  StoreHeader,
+  StoreImg,
+} from "../Components/Page-accessories";
 
 import hairsalon from "../Utilities/Images/hairsalon.jpeg";
 
 const Store = () => {
   return (
     <SinglePageContainer>
+      <PageSection noPadding center>
+        <StoreHeader>Store Name</StoreHeader>
+        <StoreImg src={hairsalon} />
+      </PageSection>
       <StorePageSection styled>
-        <h2>Store Name</h2>
-        <StoreImgInfoContainer>
-          <img src={hairsalon} />
-          <StoreInfoContainer>
-            <span>
-              <h4>Location:</h4>
-              <a
-                href="https://goo.gl/maps/VQGjtSMdKht3vARB7"
-                target="_blank"
-                rel="noreferrer"
-              >
-                7745 Allano Way, Las Vegas NV 89128
-              </a>
-            </span>
-            <span>
-              <h4>Hours:</h4>
-              <p>Sun: 9am - 7pm</p>
-              <p>Mon: 9am - 7pm</p>
-              <p>Tues: 9am - 7pm</p>
-              <p>Wed: 9am - 7pm</p>
-              <p>Thurs: 9am - 7pm</p>
-              <p>Fri: 9am - 7pm</p>
-              <p>Sat: 9am - 7pm</p>
-            </span>
-          </StoreInfoContainer>
-        </StoreImgInfoContainer>
+        <StoreInfoContainer>
+          <span>
+            <h4>Location:</h4>
+            <a
+              href="https://goo.gl/maps/VQGjtSMdKht3vARB7"
+              target="_blank"
+              rel="noreferrer"
+            >
+              7745 Allano Way, Las Vegas NV 89128
+            </a>
+            <a href="google.com">Website</a>
+          </span>
+          <span>
+            <h4>Hours:</h4>
+            <p>Sun: 9am - 7pm</p>
+            <p>Mon: 9am - 7pm</p>
+            <p>Tues: 9am - 7pm</p>
+            <p>Wed: 9am - 7pm</p>
+            <p>Thurs: 9am - 7pm</p>
+            <p>Fri: 9am - 7pm</p>
+            <p>Sat: 9am - 7pm</p>
+          </span>
+        </StoreInfoContainer>
       </StorePageSection>
       <PageSection>
         <StoreDescContainer>

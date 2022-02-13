@@ -49,12 +49,19 @@ export const FooterContainer = styled.footer`
 `;
 
 // Page containers
-export const SinglePageContainer = styled.div``;
+export const SinglePageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export const PageSection = styled.div<{
   styled?: boolean;
+  noPadding?: boolean;
+  center?: boolean;
 }>`
   padding: 18px;
+  width: 100%;
   h1 {
     font-size: 1.65rem;
     padding: 0px 0px 18px 0px;
@@ -70,16 +77,29 @@ export const PageSection = styled.div<{
     props.styled &&
     css`
       background-color: ${({ theme }) => theme.primaryAlt};
-      box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+      box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.4);
       border-radius: 12px;
       h2 {
         color: ${({ theme }) => theme.fontColorAlt};
       }
     `}
+
+  ${(props) =>
+    props.noPadding &&
+    css`
+      padding: 18px 0;
+    `}
+    
+    ${(props) =>
+    props.center &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    `}
 `;
 
 export const ShowcaseGrid = styled.div`
-  width: 100%;
   display: grid;
   grid-gap: 6px;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -92,7 +112,7 @@ export const SelectContainer = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
   border-radius: 12px;
   text-align: center;
   padding: 8px 2px;
@@ -113,28 +133,27 @@ export const StorePageSection = styled(PageSection)`
   flex-direction: column;
 `;
 
-export const StoreImgInfoContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  img {
-    height: 50vw;
-    width: 50vw;
-    object-fit: cover;
-    border-radius: 12px;
-  }
-`;
-
 export const StoreInfoContainer = styled.div`
-  padding-left: 18px;
-  a,
-  p {
-    padding-top: 2px;
-    font-size: 0.7rem;
-  }
+  width: 100%;
+  display: grid;
+  grid-gap: 6px;
+  grid-template-columns: 1fr 1fr;
+
   span {
+    color: ${({ theme }) => theme.fontColor};
+    padding: 4px;
+    border-radius: 12px;
+    text-align: center;
+    background-color: ${({ theme }) => theme.background};
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
+    width: 100%;
     display: flex;
     flex-direction: column;
+    a,
+    p {
+      padding-top: 2px;
+      font-size: 0.7rem;
+    }
   }
 `;
 
