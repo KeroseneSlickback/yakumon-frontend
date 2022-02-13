@@ -16,52 +16,26 @@ declare module "styled-components" {
     alternativeAlt?: string;
     fontColor?: string;
     fontColorAlt?: string;
-    highlightWhite?: string;
-    highlightMuted?: string;
-    highlightDark?: string;
+    highlight?: string;
     warning?: string;
   }
 }
 
 // Global variables, themes, Global styles, and media breaks
 
-export const DarkTheme = {
+export const theme = {
   hero: "#40B590",
-  primary: "#c52772",
-  primaryAlt: "#cf2e7d",
+  primary: "#A08EC2",
+  primaryAlt: "#B1A2CD",
   secondary: "#a51d62",
   secondaryAlt: "#b42269",
-  background: "#08070C",
-  backgroundAlt: "#120F1A",
-  subdued: "#151221",
-  subduedAlt: "#1B182A",
-  alternative: "#1E265A",
-  alternativeAlt: "#242D6B",
-  fontColor: "#f7f7f7",
-  fontColorAlt: "#f7f7f7",
-  highlightWhite: "#ebeaee",
-  highlightMuted: "#CECBD4",
-  highlightDark: "#BBB9C1",
-  warning: "#9b0832",
-};
-
-export const LightTheme = {
-  hero: "#40B590",
-  primary: "#c52772",
-  primaryAlt: "#cf2e7d",
-  secondary: "#a51d62",
-  secondaryAlt: "#b42269",
-  background: "#E0E1EB",
-  backgroundAlt: "#E6E7EF",
-  subdued: "#F2F3F7",
-  subduedAlt: "#F9F9FB",
-  alternative: "#1E265A",
+  background: "#FFFFFF",
+  backgroundAlt: "#F7F7F7",
+  alternative: "#B1A2CD",
   alternativeAlt: "#242D6B",
   fontColor: "#08070C",
   fontColorAlt: "#f7f7f7",
-  highlightWhite: "#ebeaee",
-  highlightMuted: "#808AAD",
-  highlightDark: "#1F326E",
+  highlight: "#FFFACD",
   warning: "#9b0832",
 };
 

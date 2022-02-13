@@ -7,15 +7,14 @@ import NavBar from "./NavBar";
 
 interface ThemeProps {
   children: JSX.Element;
-  themeToggle: () => void;
 }
 
-function MainLayout({ children, themeToggle }: ThemeProps) {
+function MainLayout({ children }: ThemeProps) {
   return (
     <OverallPageContainer>
       <NavBar />
       <MainPageContainer>{children}</MainPageContainer>
-      <Footer themeToggle={themeToggle} />
+      <Footer />
     </OverallPageContainer>
   );
 }

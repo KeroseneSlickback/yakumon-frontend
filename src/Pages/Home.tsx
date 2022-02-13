@@ -1,6 +1,7 @@
+import { SmallButton } from "../Components/Buttons";
 import {
   PageSection,
-  SelectContainers,
+  SelectContainer,
   SinglePageContainer,
   ShowcaseGrid,
 } from "../Components/Containers";
@@ -11,29 +12,33 @@ const Home = () => {
   return (
     <SinglePageContainer>
       <PageSection>
-        <h2>Welcome to Yakumon</h2>
+        <h1>Welcome to Yakumon</h1>
         <h3>Please select a store to start your reservation today</h3>
       </PageSection>
       <PageSection styled>
-        <h3>Store Showcase</h3>
+        <h2>Store Showcase</h2>
         <ShowcaseGrid>
-          {/* map these from fetched */}
-          <SelectContainers>
+          {/* map these from fetched, whole containers to be clickable */}
+          <SelectContainer to={"/store/1"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
             <h4>Store Name</h4>
-          </SelectContainers>
-          <SelectContainers>
+            <SmallButton>Reserve</SmallButton>
+          </SelectContainer>
+          <SelectContainer to={"/store/2"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
             <h4>Very Long Store Name</h4>
-          </SelectContainers>
-          <SelectContainers>
+            <SmallButton>Reserve</SmallButton>
+          </SelectContainer>
+          <SelectContainer to={"/store/3"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
             <h4>Shtn</h4>
-          </SelectContainers>
-          <SelectContainers>
+            <SmallButton>Reserve</SmallButton>
+          </SelectContainer>
+          <SelectContainer to={"/store/4"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
             <h4>Store Name</h4>
-          </SelectContainers>
+            <SmallButton>Reserve</SmallButton>
+          </SelectContainer>
         </ShowcaseGrid>
         {/*  */}
       </PageSection>
