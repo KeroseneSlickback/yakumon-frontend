@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
-export const TinyButton = styled.button<{ highlight?: boolean }>`
-  color: ${({ theme }) => theme.fontColorAlt};
+export const TinyButton = styled.button`
+  color: ${({ theme }) => theme.fontColor};
   border: none;
   cursor: pointer;
   background-color: ${({ theme }) => theme.primary};
@@ -13,12 +13,6 @@ export const TinyButton = styled.button<{ highlight?: boolean }>`
     background-color: ${({ theme }) => theme.primaryAlt};
     color: ${({ theme }) => theme.fontColorAlt};
   }
-  ${(props) =>
-    props.highlight &&
-    css`
-      background-color: ${({ theme }) => theme.highlight};
-      color: ${({ theme }) => theme.fontColor};
-    `}
 `;
 
 export const SmallButton = styled(TinyButton)`

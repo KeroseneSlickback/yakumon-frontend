@@ -11,33 +11,28 @@ import hairsalon from "../Utilities/Images/hairsalon.jpeg";
 const Home = () => {
   return (
     <SinglePageContainer>
-      <PageSection>
+      <PageSection noPadding>
         <h1>Welcome to Yakumon</h1>
-        <h3>Please select a store to start your reservation today</h3>
       </PageSection>
       <PageSection styled>
-        <h2>Store Showcase</h2>
+        <h2>Select a Store to Start a Reservation</h2>
         <ShowcaseGrid>
           {/* map these from fetched, whole containers to be clickable */}
           <SelectContainer to={"/store/1"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h4>Store Name</h4>
-            <SmallButton>Reserve</SmallButton>
+            <h3>Store Name</h3>
           </SelectContainer>
           <SelectContainer to={"/store/2"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h4>Very Long Store Name</h4>
-            <SmallButton>Reserve</SmallButton>
+            <h3>Very Long Store Name</h3>
           </SelectContainer>
           <SelectContainer to={"/store/3"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h4>Shtn</h4>
-            <SmallButton>Reserve</SmallButton>
+            <h3>Shtn</h3>
           </SelectContainer>
           <SelectContainer to={"/store/4"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h4>Store Name</h4>
-            <SmallButton>Reserve</SmallButton>
+            <h3>Store Name</h3>
           </SelectContainer>
         </ShowcaseGrid>
         {/*  */}

@@ -7,26 +7,26 @@ import {
   ShowcaseGrid,
   StoreDescContainer,
 } from "../Components/Containers";
-import { SmallButton } from "../Components/Buttons";
-import {
-  ShowcaseImg,
-  StoreHeader,
-  StoreImg,
-} from "../Components/Page-accessories";
+import { ShowcaseImg, StoreImg } from "../Components/Page-accessories";
 
 import hairsalon from "../Utilities/Images/hairsalon.jpeg";
+import location from "../Utilities/Images/SVGs/location.svg";
+import clock from "../Utilities/Images/SVGs/clock.svg";
+import phone from "../Utilities/Images/SVGs/phone.svg";
+import site from "../Utilities/Images/SVGs/site.svg";
 
 const Store = () => {
   return (
     <SinglePageContainer>
       <PageSection noPadding center>
-        <StoreHeader>Store Name</StoreHeader>
+        <h1>Store Name</h1>
         <StoreImg src={hairsalon} />
       </PageSection>
-      <StorePageSection styled>
+      <StorePageSection styled overlap>
         <StoreInfoContainer>
           <span>
-            <h4>Location:</h4>
+            <img src={location} alt="location" />
+            {/* <h4>Location:</h4> */}
             <a
               href="https://goo.gl/maps/VQGjtSMdKht3vARB7"
               target="_blank"
@@ -34,23 +34,36 @@ const Store = () => {
             >
               7745 Allano Way, Las Vegas NV 89128
             </a>
-            <a href="google.com">Website</a>
           </span>
           <span>
-            <h4>Hours:</h4>
-            <p>Sun: 9am - 7pm</p>
-            <p>Mon: 9am - 7pm</p>
-            <p>Tues: 9am - 7pm</p>
-            <p>Wed: 9am - 7pm</p>
-            <p>Thurs: 9am - 7pm</p>
-            <p>Fri: 9am - 7pm</p>
-            <p>Sat: 9am - 7pm</p>
+            <img src={site} alt="site" />
+            {/* <h4>Website:</h4> */}
+            <a href="https://verylongstorename.com">verylongstorename.com</a>
+          </span>
+          <span>
+            <img src={phone} alt="phone" />
+            {/* <h4>Phone:</h4> */}
+            <p>1 (702) 979-8978</p>
+          </span>
+          <span>
+            <img src={clock} alt="clock" />
+            {/* <h4>Hours:</h4> */}
+            <span>
+              <p>Sun: 9am - 7pm</p>
+              <p>Mon: 9am - 7pm</p>
+              <p>Tues: 9am - 7pm</p>
+              <p>Wed: 9am - 7pm</p>
+              <p>Thurs: 9am - 7pm</p>
+              <p>Fri: 9am - 7pm</p>
+              <p>Sat: 9am - 7pm</p>
+            </span>
           </span>
         </StoreInfoContainer>
       </StorePageSection>
       <PageSection>
+        {/* Why is it going under?? */}
         <StoreDescContainer>
-          <h3>Store description:</h3>
+          <h3>Description:</h3>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -62,27 +75,23 @@ const Store = () => {
         </StoreDescContainer>
       </PageSection>
       <PageSection styled>
-        <h2>Stylists</h2>
+        <h2>Select a Stylist</h2>
         <ShowcaseGrid>
           <SelectContainer to={"/store/1"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h4>Store Name</h4>
-            <SmallButton>Reserve</SmallButton>
+            <h3>Stylist's Name</h3>
           </SelectContainer>
           <SelectContainer to={"/store/2"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h4>Very Long Store Name</h4>
-            <SmallButton>Reserve</SmallButton>
+            <h3>Very Long Stylist's Name</h3>
           </SelectContainer>
           <SelectContainer to={"/store/3"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h4>Shtn</h4>
-            <SmallButton>Reserve</SmallButton>
+            <h3>Styn</h3>
           </SelectContainer>
           <SelectContainer to={"/store/4"}>
             <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h4>Store Name</h4>
-            <SmallButton>Reserve</SmallButton>
+            <h3>Stylist's Name</h3>
           </SelectContainer>
         </ShowcaseGrid>
       </PageSection>

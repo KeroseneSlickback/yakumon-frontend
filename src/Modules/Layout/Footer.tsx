@@ -8,7 +8,7 @@ function Footer() {
         Yakumon is a demonstration reservation app created by Mitchell William
         Spaur
       </p>
-      <TinyButton highlight>Employee Entrance</TinyButton>
+      <TinyButton>Employee Entrance</TinyButton>
     </FooterContainer>
   );
 }
