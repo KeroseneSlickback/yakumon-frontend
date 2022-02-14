@@ -1,6 +1,6 @@
 import { SmallButton } from "../Components/Buttons";
 import {
-  PageSection,
+  PageSectionCard,
   SelectContainer,
   SinglePageContainer,
   ShowcaseGrid,
@@ -11,10 +11,10 @@ import hairsalon from "../Utilities/Images/hairsalon.jpeg";
 const Home = () => {
   return (
     <SinglePageContainer>
-      <PageSection noPadding>
+      <PageSectionCard noPadding homeH1>
         <h1>Welcome to Yakumon</h1>
-      </PageSection>
-      <PageSection styled>
+      </PageSectionCard>
+      <PageSectionCard styled>
         <h2>Select a Store to Start a Reservation</h2>
         <ShowcaseGrid>
           {/* map these from fetched, whole containers to be clickable */}
@@ -36,7 +36,7 @@ const Home = () => {
           </SelectContainer>
         </ShowcaseGrid>
         {/*  */}
-      </PageSection>
+      </PageSectionCard>
     </SinglePageContainer>
   );
 };

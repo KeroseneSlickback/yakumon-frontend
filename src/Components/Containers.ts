@@ -29,8 +29,8 @@ export const NavBarHeader = styled.header`
   }
   div,
   svg {
-    height: 40px;
-    width: 40px;
+    height: 32px;
+    width: 32px;
   }
 `;
 
@@ -56,15 +56,19 @@ export const SinglePageContainer = styled.div`
   align-items: center;
 `;
 
-export const PageSection = styled.div<{
+export const PageSectionCard = styled.div<{
+  homeH1?: boolean;
   styled?: boolean;
   noPadding?: boolean;
   center?: boolean;
-  overlap?: boolean;
+  secondary?: boolean;
 }>`
-  padding: 18px;
+  position: relative;
+  padding: 18px 18px 36px 18px;
   width: 100%;
   color: ${({ theme }) => theme.fontColor};
+  background-color: ${({ theme }) => theme.background};
+  border-radius: 12px 12px 0 0;
   h1 {
     font-size: 1.65rem;
     padding: 0px 0px 18px 0px;
@@ -77,12 +81,29 @@ export const PageSection = styled.div<{
   h3 {
     font-size: 1rem;
   }
+
+  &:not(:first-child) {
+    margin-top: -24px;
+    box-shadow: 4px 4px 12px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  &:last-child {
+    border-radius: 12px;
+    padding: 18px;
+  }
+
+  ${(props) =>
+    props.homeH1 &&
+    css`
+      h1 {
+        padding-bottom: 24px;
+      }
+    `}
+
   ${(props) =>
     props.styled &&
     css`
       background-color: ${({ theme }) => theme.alternative};
-      box-shadow: 0px 0px 2px 0px rgba(255, 255, 255, 0.5);
-      border-radius: 12px;
       color: ${({ theme }) => theme.fontColorAlt};
     `}
 
@@ -101,9 +122,9 @@ export const PageSection = styled.div<{
     `}
 
   ${(props) =>
-    props.overlap &&
+    props.secondary &&
     css`
-      margin-top: -24px;
+      background-color: ${({ theme }) => theme.primary};
     `}
 `;
 
@@ -120,10 +141,9 @@ export const SelectContainer = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4);
   border-radius: 12px;
   text-align: center;
-  transition: 0.3;
 
   h3 {
     margin: auto;
@@ -135,31 +155,29 @@ export const SelectContainer = styled(Link)`
   }
 `;
 
-export const StorePageSection = styled(PageSection)`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const StoreInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   span {
-    color: ${({ theme }) => theme.fontColorAlt};
-    padding: 4px;
-    border-radius: 12px;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
+
+    &:not(:first-child) {
+      padding-top: 8px;
+    }
     span {
       flex-direction: column;
+      padding-top: none;
     }
     a,
     p {
-      padding-left: 6px;
+      padding-left: 8px;
       font-size: 0.8rem;
+      margin: auto 0;
     }
     img {
-      height: 25px;
+      height: 20px;
     }
   }
 `;

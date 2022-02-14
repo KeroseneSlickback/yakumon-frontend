@@ -1,8 +1,7 @@
 import {
-  PageSection,
+  PageSectionCard,
   SinglePageContainer,
   StoreInfoContainer,
-  StorePageSection,
   SelectContainer,
   ShowcaseGrid,
   StoreDescContainer,
@@ -18,15 +17,14 @@ import site from "../Utilities/Images/SVGs/site.svg";
 const Store = () => {
   return (
     <SinglePageContainer>
-      <PageSection noPadding center>
+      <PageSectionCard noPadding center>
         <h1>Store Name</h1>
         <StoreImg src={hairsalon} />
-      </PageSection>
-      <StorePageSection styled overlap>
+      </PageSectionCard>
+      <PageSectionCard styled>
         <StoreInfoContainer>
           <span>
             <img src={location} alt="location" />
-            {/* <h4>Location:</h4> */}
             <a
               href="https://goo.gl/maps/VQGjtSMdKht3vARB7"
               target="_blank"
@@ -37,18 +35,15 @@ const Store = () => {
           </span>
           <span>
             <img src={site} alt="site" />
-            {/* <h4>Website:</h4> */}
             <a href="https://verylongstorename.com">verylongstorename.com</a>
           </span>
           <span>
             <img src={phone} alt="phone" />
-            {/* <h4>Phone:</h4> */}
             <p>1 (702) 979-8978</p>
           </span>
           <span>
             <img src={clock} alt="clock" />
-            {/* <h4>Hours:</h4> */}
-            <span>
+            <div>
               <p>Sun: 9am - 7pm</p>
               <p>Mon: 9am - 7pm</p>
               <p>Tues: 9am - 7pm</p>
@@ -56,14 +51,13 @@ const Store = () => {
               <p>Thurs: 9am - 7pm</p>
               <p>Fri: 9am - 7pm</p>
               <p>Sat: 9am - 7pm</p>
-            </span>
+            </div>
           </span>
         </StoreInfoContainer>
-      </StorePageSection>
-      <PageSection>
-        {/* Why is it going under?? */}
+      </PageSectionCard>
+      <PageSectionCard secondary>
         <StoreDescContainer>
-          <h3>Description:</h3>
+          <h2>Description:</h2>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -73,8 +67,8 @@ const Store = () => {
             pariatur.
           </p>
         </StoreDescContainer>
-      </PageSection>
-      <PageSection styled>
+      </PageSectionCard>
+      <PageSectionCard styled>
         <h2>Select a Stylist</h2>
         <ShowcaseGrid>
           <SelectContainer to={"/store/1"}>
@@ -94,7 +88,7 @@ const Store = () => {
             <h3>Stylist's Name</h3>
           </SelectContainer>
         </ShowcaseGrid>
-      </PageSection>
+      </PageSectionCard>
     </SinglePageContainer>
   );
 };
