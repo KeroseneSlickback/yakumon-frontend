@@ -1,5 +1,60 @@
-- Design navbar 
-- Design footer 
-  - Make sure they're properly split and fill the width of the screen 
+I need to focus on first stage operations.
+They would be:
 
-  
+  - Direct portal to the shop's Yakumon page (react-router-dom)
+  - On that page, display store infomation (entered from owner)
+    - Store image
+    - Store description
+    - Business hours
+    - Business location
+    - Available stylists to select from--if one only, default to "Make a reservation"
+  - Selected stylist's available operations and pricing.
+    - User enters their name and phone number as contacts
+    - Upon selecting stylist, the grayed out schedule selection is focused on and cleared
+      - Schedule output:
+        - The selected opertation takes in account time nessacary to perform
+        - Schedule by default shows reserved time, stylist's selected "off" times, and available times
+        - Schedule highlights times when the chosen operations can be selected 
+        - Mobile view: Shows three days of schedule
+        - >XXXpx shows 5 days
+        - Has next arrow to show next week, up until one month in advance
+      - Once chosen, a comment section opens up
+      - Submit button is cleared as well, good to submit 
+      - Upon submit, loading and then redirect to confirmation page with reservation summary or error warning
+
+  - Owner side:
+    - Specific Owner/Operator area at bottom of page
+    - Upon click, brought into either application for own page or Login area 
+    - Owner form: 
+      - Business name
+      - Business photo upload
+      - Business description
+      - Business days and hours of operation 
+      - Owner's name (if JP, kana input too)
+      - Phone number
+      - Email address
+      - Password and password confirmation
+    - Upon login: 
+      - Brought to Owner frontpage where they oversee the schedule for the week
+      - Owner to alter their schedule two months in advance from here
+      - Schedule automatically sets unavaiable blocks from the store business hours
+        - Upon clicking "New" button, owner can create Reservation and Block 
+      - Upon clicking a reservation, a module pops up with details 
+        - Reservation name
+        - Phone number 
+        - Stylist
+        - Operation
+        - Time slot 
+        - Comments 
+        - Edit and Delete buttons 
+          - Delete has a confirmation module pop up 
+          - Edit brings up a module using the customer-facing schedule system
+            - Owner to move reservation to a different available time (dummy mode, only available time allowed)
+      - Owner can logout (dummy infinity mode for now)
+
+
+- Bilingual JP/EN (make in English, have context created for switch, and later change to Japanese)
+
+
+Testing: 
+

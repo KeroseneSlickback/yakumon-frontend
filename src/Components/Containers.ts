@@ -62,8 +62,8 @@ export const PageSectionCard = styled.div<{
   noPadding?: boolean;
   center?: boolean;
   secondary?: boolean;
+  row?: boolean;
 }>`
-  position: relative;
   padding: 18px 18px 36px 18px;
   width: 100%;
   color: ${({ theme }) => theme.fontColor};
@@ -126,6 +126,25 @@ export const PageSectionCard = styled.div<{
     css`
       background-color: ${({ theme }) => theme.primary};
     `}
+
+    ${(props) =>
+    props.row &&
+    css`
+      display: flex;
+      flex-direction: row;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-left: 12px;
+        h1 {
+          margin: 0;
+          line-height: 1.2;
+          text-align: center;
+        }
+      }
+    `}
 `;
 
 export const ShowcaseGrid = styled.div`
@@ -166,10 +185,6 @@ export const StoreInfoContainer = styled.div`
     &:not(:first-child) {
       padding-top: 8px;
     }
-    span {
-      flex-direction: column;
-      padding-top: none;
-    }
     a,
     p {
       padding-left: 8px;
@@ -178,6 +193,12 @@ export const StoreInfoContainer = styled.div`
     }
     img {
       height: 20px;
+    }
+    table {
+      td {
+        font-size: 0.8rem;
+        padding: 0 6px 4px 6px;
+      }
     }
   }
 `;

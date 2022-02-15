@@ -1,0 +1,32 @@
+Overall Form situation:
+
+- App checks if the Customer has a JWT upon visiting site
+  - If they do, sets them as logged in
+    ~ Upon visiting the Stylist Reservation page, the app runs loading in the customer info area while checking and fetching info
+    - Uses their name as a welcome in the Form
+    \ If they have JWT but no User data, fetch user data on reservation page
+  - If they don't, it show Login and Register Buttons
+    - Pop up Modals for this
+      - Once good response is recieved, redirect to Stylist Reservation page to run checks again
+
+- Create Login and Register buttons in Form
+- Create Showing modals based from them
+- Create individual modals for Login and Register
+- Create forms for Register and check for proper data being entered
+- Copy over the same for Login 
+
+- Test Backend for all routes
+  - Use tenative Date data for appointment
+
+- Create User context and save JWT and User data to cookies
+  ~ Figure out cookies... stil haven't 
+
+- Invoke context into Stylist Reservation page to check if user is logged in
+  - If logged in, show Welcome message
+  - If not logged in, show buttons 
+
+- Create a grid, graph, table for the schedule? Needs to be able to take in set date and keep track of that... look into a calender guide? Just need to alter it for use on a day/30min-hour schedule system 
+
+- Create comment section and Reservation Button 
+
+- Create Confirmation Page that times out to return User to HomePage

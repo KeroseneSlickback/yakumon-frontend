@@ -19,3 +19,8 @@ export const SmallButton = styled(TinyButton)`
   padding: 4px 8px;
   font-size: 0.75rem;
 `;
+
+export const MediumButton = styled(TinyButton)`
+  padding: 8px 16px;
+  font-size: 1rem;
+`;

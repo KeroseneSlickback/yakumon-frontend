@@ -44,13 +44,38 @@ const Store = () => {
           <span>
             <img src={clock} alt="clock" />
             <div>
-              <p>Sun: 9am - 7pm</p>
-              <p>Mon: 9am - 7pm</p>
-              <p>Tues: 9am - 7pm</p>
-              <p>Wed: 9am - 7pm</p>
-              <p>Thurs: 9am - 7pm</p>
-              <p>Fri: 9am - 7pm</p>
-              <p>Sat: 9am - 7pm</p>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Sun:</td>
+                    <td>9am - 7pm</td>
+                  </tr>
+                  <tr>
+                    <td>Mon:</td>
+                    <td>9am - 7pm</td>
+                  </tr>
+                  <tr>
+                    <td>Tues:</td>
+                    <td>9am - 7pm</td>
+                  </tr>
+                  <tr>
+                    <td>Wed:</td>
+                    <td>9am - 7pm</td>
+                  </tr>
+                  <tr>
+                    <td>Thurs:</td>
+                    <td>9am - 7pm</td>
+                  </tr>
+                  <tr>
+                    <td>Fri:</td>
+                    <td>9am - 7pm</td>
+                  </tr>
+                  <tr>
+                    <td>Sat:</td>
+                    <td>9am - 7pm</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </span>
         </StoreInfoContainer>
