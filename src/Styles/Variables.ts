@@ -17,6 +17,7 @@ declare module "styled-components" {
     fontColor?: string;
     fontColorAlt?: string;
     highlight?: string;
+    highlightAlt?: string;
     warning?: string;
   }
 }
@@ -26,9 +27,9 @@ declare module "styled-components" {
 export const theme = {
   hero: "#40B590",
   primary: "#A08EC2",
-  primaryAlt: "#B1A2CD",
-  secondary: "#a51d62",
-  secondaryAlt: "#b42269",
+  primaryAlt: "#B7A9D1",
+  secondary: "#60A988",
+  secondaryAlt: "#88BFA6",
   background: "#907AB8",
   backgroundAlt: "#947FBB",
   alternative: "#F7F7F7",
@@ -36,6 +37,7 @@ export const theme = {
   fontColor: "#f7f7f7",
   fontColorAlt: "#001c00",
   highlight: "#FFFACD",
+  highlightAlt: "#FBF9E2",
   warning: "#9b0832",
 };
 

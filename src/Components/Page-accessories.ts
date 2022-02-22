@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const ShowcaseImg = styled.img`
   height: 150px;
@@ -22,4 +22,12 @@ export const StylistImg = styled.img`
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.5);
+`;
+
+export const RegisterLoginDiv = styled.div`
+  div {
+    margin: 12px 12px 0 12px;
+    display: flex;
+    justify-content: space-around;
+  }
 `;

@@ -4,7 +4,7 @@ import MainLayout from "./Modules/Layout/MainLayout";
 import DateTest from "./Pages/DateTest";
 import Home from "./Pages/Home";
 import Store from "./Pages/Store";
-import Stylist from "./Pages/Stylist";
+import Reservation from "./Pages/Reservation";
 
 import { theme, GlobalStyles } from "./Styles/Variables";
 
@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/store" element={<Store />} />
-          <Route path="/stylist" element={<Stylist />} />
+          <Route path="/reservation" element={<Reservation />} />
           <Route path="/datetest" element={<DateTest />} />
         </Routes>
       </MainLayout>

@@ -24,7 +24,7 @@ export const NavBarHeader = styled.header`
   color: ${({ theme }) => theme.fontColor};
 
   h1 {
-    font-size: 1.3rem;
+    /* font-size: 1.3rem; */
     padding-left: 6px;
   }
   div,
@@ -36,7 +36,7 @@ export const NavBarHeader = styled.header`
 
 // Footer containers
 export const FooterContainer = styled.footer`
-  border-radius: 8px 8px 0 0px;
+  border-radius: 0.7rem 0.7rem 0 0px;
   background-color: ${({ theme }) => theme.alternative};
   padding: 4px;
   width: 100%;
@@ -68,7 +68,7 @@ export const PageSectionCard = styled.div<{
   width: 100%;
   color: ${({ theme }) => theme.fontColor};
   background-color: ${({ theme }) => theme.background};
-  border-radius: 12px 12px 0 0;
+  border-radius: 1rem 1rem 0 0;
   h1 {
     font-size: 1.65rem;
     padding: 0px 0px 18px 0px;
@@ -88,7 +88,7 @@ export const PageSectionCard = styled.div<{
   }
 
   &:last-child {
-    border-radius: 12px;
+    border-radius: 1rem;
     padding: 18px;
   }
 
@@ -161,7 +161,7 @@ export const SelectContainer = styled(Link)`
   flex-direction: column;
   align-items: center;
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4);
-  border-radius: 12px;
+  border-radius: 1rem;
   text-align: center;
 
   h3 {
