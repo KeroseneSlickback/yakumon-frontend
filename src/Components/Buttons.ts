@@ -44,3 +44,42 @@ export const MediumButton = styled(TinyButton)`
   padding: 8px 16px;
   font-size: 1rem;
 `;
+
+export const ClosedButtonDiv = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+`;
+
+export const CloseButton = styled.button`
+  background-color: inherit;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+
+  &:hover:after,
+  &:hover:before {
+    background-color: ${(props) => props.theme.fontColor};
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+    content: " ";
+    height: 20px;
+    width: 2px;
+    background-color: ${(props) => props.theme.fontColor};
+  }
+
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
+`;

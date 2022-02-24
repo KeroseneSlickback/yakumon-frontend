@@ -5,22 +5,35 @@ export const StyledForm = styled.form`
   width: 100%;
 `;
 
-export const StyledFormBlock = styled.div<{ password?: boolean }>`
+export const StyledFormBlock = styled.div<{
+  sideBySide?: boolean;
+}>`
   display: flex;
   flex-direction: column;
 
+  div {
+    margin: 4px 4px;
+  }
+
   ${(props) =>
-    props.password &&
+    props.sideBySide &&
     css`
-      padding: 14px 0;
+      flex-direction: row;
+      div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        input {
+          width: 100%;
+        }
+      }
     `}
 `;
 
-export const StyledLabel = styled.label`
-  padding: 8px 0 0 0;
-`;
+export const StyledLabel = styled.label``;
 
 export const StyledTextInput = styled.input`
+  width: 100%;
   height: 28px;
   margin: 4px 0;
   font-size: 0.9rem;

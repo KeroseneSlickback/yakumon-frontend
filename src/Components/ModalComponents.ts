@@ -14,7 +14,11 @@ export const ModalContainer = styled.div`
   box-shadow: 0px 0px 3px 1px rgba(255, 255, 255, 0.4);
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     padding-bottom: 18px;
   }
+`;
+
+export const ButtonBox = styled.div`
+  margin-top: 8px;
 `;

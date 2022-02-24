@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BackDrop } from "../Components/Backdrop";
 import { MediumButton } from "../Components/Buttons";
 import { PageSectionCard, SinglePageContainer } from "../Components/Containers";
@@ -9,11 +9,23 @@ import RegisterModal from "../Modules/Modals/RegisterModal";
 import hairstylist from "../Utilities/Images/hairstylist.jpeg";
 
 const Reservation = () => {
-  const loggedin = false;
+  // Auth context, 'loggedIn'
+  const loggedIn = false;
+  const [viewRegister, setViewRegister] = useState(false);
+  const [viewLogin, setViewLogin] = useState(false);
 
-  const register = true;
+  const closeModal = () => {
+    setViewRegister(false);
+    setViewLogin(false);
+  };
 
-  const login = false;
+  const toggleRegisterModal = () => {
+    setViewRegister(true);
+  };
+
+  const toggleLoginModal = () => {
+    setViewLogin(true);
+  };
 
   const handleFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -28,31 +40,33 @@ const Reservation = () => {
           <h3>Head Hair Stylist</h3>
         </div>
       </PageSectionCard>
-      <StyledForm onSubmit={handleFormSubmit}>
-        <PageSectionCard styled>
-          <h2>Start Your Reservation</h2>
-          {loggedin ? (
-            <p>Welcome, Username.</p>
-          ) : (
-            <RegisterLoginDiv>
-              <p>Please Register or Login</p>
-              <div>
-                <MediumButton register>Register</MediumButton>
-                <MediumButton log>Login</MediumButton>
-              </div>
-            </RegisterLoginDiv>
-          )}
-        </PageSectionCard>
-        <PageSectionCard>
-          <p>Schedule section</p>
-        </PageSectionCard>
-        <PageSectionCard styled>
-          <p>Add a comments</p>
-          <p>Reserve Now button</p>
-        </PageSectionCard>
-      </StyledForm>
-      {register || login ? <BackDrop /> : null}
-      {register ? <RegisterModal /> : null}
+      <PageSectionCard styled>
+        <h2>Start Your Reservation</h2>
+        {loggedIn ? (
+          <p>Welcome, Username.</p>
+        ) : (
+          <RegisterLoginDiv>
+            <p>Please Register or Login</p>
+            <div>
+              <MediumButton onClick={toggleRegisterModal} register>
+                Register
+              </MediumButton>
+              <MediumButton onClick={toggleLoginModal} log>
+                Login
+              </MediumButton>
+            </div>
+          </RegisterLoginDiv>
+        )}
+      </PageSectionCard>
+      <PageSectionCard>
+        <p>Schedule section</p>
+      </PageSectionCard>
+      <PageSectionCard styled>
+        <p>Add a comments</p>
+        <p>Reserve Now button</p>
+      </PageSectionCard>
+      {viewRegister || viewLogin ? <BackDrop /> : null}
+      {viewRegister ? <RegisterModal closeModal={closeModal} /> : null}
     </SinglePageContainer>
   );
 };

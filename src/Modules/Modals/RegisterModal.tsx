@@ -1,12 +1,17 @@
 import React, { ChangeEvent, useState } from "react";
-import { MediumButton } from "../../Components/Buttons";
+import {
+  CloseButton,
+  ClosedButtonDiv,
+  MediumButton,
+} from "../../Components/Buttons";
 import {
   StyledForm,
   StyledFormBlock,
   StyledLabel,
   StyledTextInput,
 } from "../../Components/FormComponents";
-import { ModalContainer } from "../../Components/ModalComponents";
+import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
+import RegularMessage from "../Messages/RegularMessage";
 
 interface UserRegisterType {
   firstName: string;
@@ -15,10 +20,19 @@ interface UserRegisterType {
   phoneNumber: string;
   email: string;
   password: string;
-  passwordConfirm: string;
+  passwordConfirmation: string;
 }
 
-const RegisterModal = () => {
+interface ErrorMessage {
+  message: string;
+  warning: boolean;
+}
+
+interface FuncProps {
+  closeModal(): void;
+}
+
+const RegisterModal = ({ closeModal }: FuncProps) => {
   const [formData, setFormData] = useState<UserRegisterType>({
     firstName: "",
     lastName: "",
@@ -26,15 +40,15 @@ const RegisterModal = () => {
     phoneNumber: "",
     email: "",
     password: "",
-    passwordConfirm: "",
+    passwordConfirmation: "",
   });
-  const [registerData, setRegisterData] = useState<UserRegisterType | null>(
-    null
-  );
+  const [errorMessage, setErrorMessage] = useState<ErrorMessage | null>(null);
 
   const verifyPassword = (pass1: string, pass2: string) => {
     if (pass1 !== pass2) {
-      // Check passwords here as callback
+      throw new Error("no match");
+    } else if (pass1.length && pass2.length < 6) {
+      throw new Error("too short");
     }
   };
 
@@ -49,10 +63,26 @@ const RegisterModal = () => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      await verifyPassword("pass", "pass");
-    } catch (e) {}
-    // setRegisterData();
-    console.log(registerData);
+      await verifyPassword(formData.password, formData.passwordConfirmation);
+      await console.log("Good?");
+    } catch (e) {
+      if (e instanceof Error) {
+        if (e.message === "no match") {
+          setErrorMessage((prev) => ({
+            ...prev,
+            message: "Passwords don't match.",
+            warning: true,
+          }));
+        } else {
+          setErrorMessage((prev) => ({
+            ...prev,
+            message: "Password too short",
+            warning: true,
+          }));
+        }
+      }
+      console.log(errorMessage);
+    }
   };
 
   return (
@@ -60,74 +90,93 @@ const RegisterModal = () => {
       <h3>Register</h3>
       <h4>Please enter the infomation below to register</h4>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledFormBlock>
-          <StyledLabel>First Name</StyledLabel>
-          <StyledTextInput
-            required
-            name="firstName"
-            type="text"
-            placeholder="Will"
-            value={formData.firstName}
-            onChange={handleFormChange}
-          />
+        <StyledFormBlock sideBySide>
+          <div>
+            <StyledLabel>First Name</StyledLabel>
+            <StyledTextInput
+              required
+              name="firstName"
+              type="text"
+              placeholder="Will"
+              value={formData.firstName}
+              onChange={handleFormChange}
+            />
+          </div>
+          <div>
+            <StyledLabel>Last Name</StyledLabel>
+            <StyledTextInput
+              required
+              name="lastName"
+              type="text"
+              placeholder="Spaur"
+              value={formData.lastName}
+              onChange={handleFormChange}
+            />
+          </div>
+        </StyledFormBlock>
+        <StyledFormBlock sideBySide>
+          <div>
+            <StyledLabel>Phone Number</StyledLabel>
+            <StyledTextInput
+              required
+              name="phoneNumber"
+              type="tel"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              placeholder="111 333 4444"
+              maxLength={12}
+              value={formData.phoneNumber}
+              onChange={handleFormChange}
+            />
+          </div>
+          <div>
+            <StyledLabel>Username</StyledLabel>
+            <StyledTextInput
+              required
+              name="username"
+              type="text"
+              placeholder="FantasticSam"
+              value={formData.username}
+              onChange={handleFormChange}
+            />
+          </div>
         </StyledFormBlock>
         <StyledFormBlock>
-          <StyledLabel>Last Name</StyledLabel>
-          <StyledTextInput
-            required
-            name="lastName"
-            type="text"
-            placeholder="Spaur"
-            value={formData.lastName}
-            onChange={handleFormChange}
-          />
+          <div>
+            <StyledLabel>Password (min 7 characters)</StyledLabel>
+            <StyledTextInput
+              required
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleFormChange}
+            />
+          </div>
+          <div>
+            <StyledLabel>Verify Password</StyledLabel>
+            <StyledTextInput
+              required
+              name="passwordConfirmation"
+              type="password"
+              placeholder="Verify"
+              value={formData.passwordConfirmation}
+              onChange={handleFormChange}
+            />
+          </div>
         </StyledFormBlock>
-        <StyledFormBlock>
-          <StyledLabel>Phone Number</StyledLabel>
-          <StyledTextInput
-            required
-            name="phoneNumber"
-            type="tel"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-            placeholder="111 333 4444"
-            maxLength={12}
-            value={formData.phoneNumber}
-            onChange={handleFormChange}
+        {errorMessage ? (
+          <RegularMessage
+            message={errorMessage.message}
+            warning={errorMessage.warning}
           />
-        </StyledFormBlock>
-        <StyledFormBlock>
-          <StyledLabel>Username</StyledLabel>
-          <StyledTextInput
-            required
-            name="username"
-            type="text"
-            placeholder="FantasticSam"
-            value={formData.username}
-            onChange={handleFormChange}
-          />
-        </StyledFormBlock>
-        <StyledFormBlock password>
-          <StyledLabel>Password</StyledLabel>
-          <StyledTextInput
-            required
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleFormChange}
-          />
-          <StyledLabel>Verify Password</StyledLabel>
-          <StyledTextInput
-            required
-            name="passwordConfirm"
-            type="password"
-            placeholder="Verify"
-            value={formData.passwordConfirm}
-            onChange={handleFormChange}
-          />
-        </StyledFormBlock>
-        <MediumButton register>Register</MediumButton>
+        ) : null}
+        <ButtonBox>
+          <MediumButton register>Register</MediumButton>
+        </ButtonBox>
       </StyledForm>
+      <ClosedButtonDiv>
+        <CloseButton onClick={closeModal} />
+      </ClosedButtonDiv>
     </ModalContainer>
   );
 };
