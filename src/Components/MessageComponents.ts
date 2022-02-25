@@ -6,7 +6,7 @@ export const MessageContainer = styled.div<{
 }>`
   border-radius: 0.6rem;
   text-align: center;
-  background-color: ${({ theme }) => theme.background};
+  background-color: ${({ theme }) => theme.secondaryAlt};
   animation: fadeIn 50ms ease-in both;
 
   ${(props) => props.regular && css``};

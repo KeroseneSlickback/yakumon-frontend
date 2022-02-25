@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { ChangeEvent, useState } from "react";
 import {
   CloseButton,
@@ -64,7 +65,14 @@ const RegisterModal = ({ closeModal }: FuncProps) => {
     e.preventDefault();
     try {
       await verifyPassword(formData.password, formData.passwordConfirmation);
-      await console.log("Good?");
+      await axios.post().then((res) => 
+      
+      setErrorMessage((prev) => ({
+        ...prev,
+        message: "Successfully Registered!",
+        warning: false,
+      }));
+      )
     } catch (e) {
       if (e instanceof Error) {
         if (e.message === "no match") {
@@ -81,7 +89,6 @@ const RegisterModal = ({ closeModal }: FuncProps) => {
           }));
         }
       }
-      console.log(errorMessage);
     }
   };
 
@@ -163,13 +170,13 @@ const RegisterModal = ({ closeModal }: FuncProps) => {
               onChange={handleFormChange}
             />
           </div>
+          {errorMessage ? (
+            <RegularMessage
+              message={errorMessage.message}
+              warning={errorMessage.warning}
+            />
+          ) : null}
         </StyledFormBlock>
-        {errorMessage ? (
-          <RegularMessage
-            message={errorMessage.message}
-            warning={errorMessage.warning}
-          />
-        ) : null}
         <ButtonBox>
           <MediumButton register>Register</MediumButton>
         </ButtonBox>
