@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { add } from "date-fns";
+// import { add } from "date-fns";
 
 interface ScheduleType {
   date: string;
@@ -11,13 +11,7 @@ function DateTest() {
     date: "",
     time: "",
   });
-  const [dateTimeNow, setDateTimeNow] = useState<Date | number>(0);
-
-  const getDateNow = () => {
-    const newDateTime = new Date(Date.now());
-    setDateTimeNow(newDateTime);
-    console.log(newDateTime);
-  };
+  // const [dateTimeNow, setDateTimeNow] = useState<Date | number>(0);
 
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -35,29 +29,20 @@ function DateTest() {
 
   const handleFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(formData);
+    const currentDate = new Date(Date.now());
     const newDate = new Date(`${formData.date}T${formData.time}:00`);
-    console.log(newDate);
-    console.log(typeof newDate);
-  };
-
-  const addThirty = () => {
-    const newTime = add(dateTimeNow, { minutes: 30 });
-    console.log(newTime);
+    console.log("Current date and time:", currentDate);
+    console.log("Scheduled date and time:", newDate);
   };
 
   return (
     <div>
-      <button onClick={getDateNow}>Date Now</button>
       <form onSubmit={handleFormSubmit}>
         <label htmlFor="date"></label>
         <input type="date" value={formData.date} onChange={handleDateChange} />
         <input type="time" value={formData.time} onChange={handleTimeChange} />
         <button>Submit</button>
       </form>
-      <button onClick={addThirty}>Add 30mins</button>
-      <button>Add 1 hour</button>
-      <button>Add 2 hour and 15mins</button>
     </div>
   );
 }

@@ -33,6 +33,22 @@ interface FuncProps {
   closeModal(): void;
 }
 
+interface ReturnUserType {
+  firstName: string;
+  lastName: string;
+  title?: string;
+  username: string;
+  phoneNumber: string;
+  email: string;
+  store?: Object[];
+  appointments?: Object[];
+  services?: Object[];
+  picture?: Buffer;
+  owner?: boolean;
+  admin?: boolean;
+  employee?: boolean;
+}
+
 const RegisterModal = ({ closeModal }: FuncProps) => {
   const [formData, setFormData] = useState<UserRegisterType>({
     firstName: "",
@@ -65,14 +81,13 @@ const RegisterModal = ({ closeModal }: FuncProps) => {
     e.preventDefault();
     try {
       await verifyPassword(formData.password, formData.passwordConfirmation);
-      await axios.post().then((res) => 
-      
-      setErrorMessage((prev) => ({
-        ...prev,
-        message: "Successfully Registered!",
-        warning: false,
-      }));
-      )
+      await axios.post("http://localhost:8888/user/").then(() =>
+        setErrorMessage((prev) => ({
+          ...prev,
+          message: "Successfully Registered!",
+          warning: false,
+        }))
+      );
     } catch (e) {
       if (e instanceof Error) {
         if (e.message === "no match") {
