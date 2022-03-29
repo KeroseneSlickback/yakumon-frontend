@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-// import { add } from "date-fns";
+import { add } from "date-fns";
 
 interface ScheduleType {
   date: string;
@@ -12,6 +12,12 @@ function DateTest() {
     time: "",
   });
   // const [dateTimeNow, setDateTimeNow] = useState<Date | number>(0);
+
+  // const getDateNow = () => {
+  //   const newDateTime = new Date(Date.now());
+  //   setDateTimeNow(newDateTime);
+  //   console.log(newDateTime);
+  // };
 
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -29,10 +35,10 @@ function DateTest() {
 
   const handleFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const currentDate = new Date(Date.now());
+    const currentDateTime = new Date(Date.now());
     const newDate = new Date(`${formData.date}T${formData.time}:00`);
-    console.log("Current date and time:", currentDate);
-    console.log("Scheduled date and time:", newDate);
+    console.log(currentDateTime);
+    console.log(newDate);
   };
 
   return (

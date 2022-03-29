@@ -1,18 +1,24 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
-const AuthContext = createContext({});
+interface AuthContextInterface {
+  login?: () => void;
+  logout?: () => void;
+  loggedIn?: boolean;
+}
+
+const AuthContext = createContext({} as AuthContextInterface);
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   if (
-  //     // Find user in localStorage or cookies
-  //     1 === 1
-  //   ) {
-  //     setLoggedIn(true);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (
+      localStorage.hasOwnProperty("jwt") &&
+      localStorage.hasOwnProperty("user")
+    ) {
+      setLoggedIn(true);
+    }
+  }, []);
 
   const login = () => {
     setLoggedIn(true);
@@ -22,7 +28,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     setLoggedIn(false);
   };
 
-  const authContextValue = {
+  const authContextValue: AuthContextInterface = {
     login,
     logout,
     loggedIn,
