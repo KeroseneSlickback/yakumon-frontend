@@ -1,9 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
 
 interface AuthContextInterface {
-  login?: () => void;
-  logout?: () => void;
-  loggedIn?: boolean;
+  login: () => void;
+  logout: () => void;
+  loggedIn: boolean;
 }
 
 const AuthContext = createContext({} as AuthContextInterface);

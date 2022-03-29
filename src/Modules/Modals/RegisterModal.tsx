@@ -12,44 +12,15 @@ import {
   StyledTextInput,
 } from "../../Components/FormComponents";
 import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
+import {
+  ErrorMessage,
+  ModalCloseProp,
+  ReturnUserType,
+  UserRegisterType,
+} from "../../Utilities/types";
 import RegularMessage from "../Messages/RegularMessage";
 
-interface UserRegisterType {
-  firstName: string;
-  lastName: string;
-  username: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-}
-
-interface ErrorMessage {
-  message: string;
-  warning: boolean;
-}
-
-interface FuncProps {
-  closeModal(): void;
-}
-
-interface ReturnUserType {
-  firstName: string;
-  lastName: string;
-  title?: string;
-  username: string;
-  phoneNumber: string;
-  email: string;
-  store?: Object[];
-  appointments?: Object[];
-  services?: Object[];
-  picture?: Buffer;
-  owner?: boolean;
-  admin?: boolean;
-  employee?: boolean;
-}
-
-const RegisterModal = ({ closeModal }: FuncProps) => {
+const RegisterModal = ({ closeModal }: ModalCloseProp) => {
   const [formData, setFormData] = useState<UserRegisterType>({
     firstName: "",
     lastName: "",
@@ -81,13 +52,16 @@ const RegisterModal = ({ closeModal }: FuncProps) => {
     e.preventDefault();
     try {
       await verifyPassword(formData.password, formData.passwordConfirmation);
-      await axios.post("http://localhost:8888/user/").then(() =>
-        setErrorMessage((prev) => ({
-          ...prev,
-          message: "Successfully Registered!",
-          warning: false,
-        }))
-      );
+      await axios
+        .post<ReturnUserType>("http://localhost:8888/user/", formData)
+        .then((response) => {
+          console.log(response);
+          setErrorMessage((prev) => ({
+            ...prev,
+            message: "Successfully Registered!",
+            warning: false,
+          }));
+        });
     } catch (e) {
       if (e instanceof Error) {
         if (e.message === "no match") {
@@ -158,6 +132,19 @@ const RegisterModal = ({ closeModal }: FuncProps) => {
               type="text"
               placeholder="FantasticSam"
               value={formData.username}
+              onChange={handleFormChange}
+            />
+          </div>
+        </StyledFormBlock>
+        <StyledFormBlock>
+          <div>
+            <StyledLabel>Email</StyledLabel>
+            <StyledTextInput
+              required
+              name="email"
+              type="email"
+              placeholder="123abc@gmail.com"
+              value={formData.email}
               onChange={handleFormChange}
             />
           </div>
