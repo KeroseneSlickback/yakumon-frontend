@@ -1,15 +1,18 @@
 import React, { createContext, useState, useEffect } from "react";
+import { UserType } from "./types";
 
 interface AuthContextInterface {
   login: () => void;
   logout: () => void;
   loggedIn: boolean;
+  user: UserType | null;
 }
 
 const AuthContext = createContext({} as AuthContextInterface);
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [user, setUser] = useState<UserType | null>(null);
 
   useEffect(() => {
     if (
@@ -17,6 +20,11 @@ export const AuthProvider: React.FC = ({ children }) => {
       localStorage.hasOwnProperty("user")
     ) {
       setLoggedIn(true);
+      const pulledUser = localStorage.getItem("user");
+      console.log(pulledUser);
+      const parsedUser: UserType =
+        pulledUser !== null ? JSON.parse(pulledUser) : null;
+      setUser(parsedUser);
     }
   }, []);
 
@@ -32,6 +40,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     login,
     logout,
     loggedIn,
+    user,
   };
 
   return (

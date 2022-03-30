@@ -11,7 +11,7 @@ import hairstylist from "../Utilities/Images/hairstylist.jpeg";
 
 const Reservation = () => {
   // Auth context, 'loggedIn'
-  const { loggedIn } = useContext(AuthContext);
+  const { loggedIn, user } = useContext(AuthContext);
   const [viewRegister, setViewRegister] = useState(false);
   const [viewLogin, setViewLogin] = useState(false);
 
@@ -43,7 +43,7 @@ const Reservation = () => {
       <PageSectionCard styled>
         <h2>Start Your Reservation</h2>
         {loggedIn ? (
-          <p>Welcome, Username.</p>
+          <p>Welcome, {user?.username}.</p>
         ) : (
           <RegisterLoginDiv>
             <p>Please Register or Login</p>

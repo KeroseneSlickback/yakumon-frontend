@@ -38,3 +38,16 @@ export interface ErrorMessage {
 export interface ModalCloseProp {
   closeModal(): void;
 }
+
+export interface UserType {
+  admin: boolean;
+  appointments?: Object[];
+  employee: boolean;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  services: Object[];
+  store?: Object;
+  storeOwner: boolean;
+  username: string;
+}
