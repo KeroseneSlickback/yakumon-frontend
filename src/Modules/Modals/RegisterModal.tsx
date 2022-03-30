@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import {
   CloseButton,
   ClosedButtonDiv,
@@ -12,15 +12,17 @@ import {
   StyledTextInput,
 } from "../../Components/FormComponents";
 import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
+import AuthContext from "../../Utilities/AuthContext";
 import {
+  BackendResponseDataType,
   ErrorMessage,
   ModalCloseProp,
-  ReturnUserType,
   UserRegisterType,
 } from "../../Utilities/types";
 import RegularMessage from "../Messages/RegularMessage";
 
 const RegisterModal = ({ closeModal }: ModalCloseProp) => {
+  const authContext = useContext(AuthContext);
   const [formData, setFormData] = useState<UserRegisterType>({
     firstName: "",
     lastName: "",
@@ -53,9 +55,14 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
     try {
       await verifyPassword(formData.password, formData.passwordConfirmation);
       await axios
-        .post<ReturnUserType>("http://localhost:8888/user/", formData)
+        .post<BackendResponseDataType>("http://localhost:8888/user/", formData)
         .then((response) => {
-          console.log(response);
+          localStorage.setItem("user", JSON.stringify(response.data.user));
+          localStorage.setItem("jwt", response.data.token.split(" ")[1]);
+          authContext.login();
+          setTimeout(() => {
+            closeModal();
+          }, 1000);
           setErrorMessage((prev) => ({
             ...prev,
             message: "Successfully Registered!",

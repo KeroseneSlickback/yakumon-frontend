@@ -30,7 +30,6 @@ const Reservation = () => {
 
   const handleFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(e);
   };
   return (
     <SinglePageContainer>

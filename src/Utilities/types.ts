@@ -7,6 +7,7 @@ export interface UserRegisterType {
   password: string;
   passwordConfirmation: string;
 }
+
 export interface ReturnUserType {
   firstName: string;
   lastName: string;
@@ -21,6 +22,12 @@ export interface ReturnUserType {
   owner?: boolean;
   admin?: boolean;
   employee?: boolean;
+}
+
+export interface BackendResponseDataType {
+  success: boolean;
+  token: string;
+  user: ReturnUserType;
 }
 
 export interface ErrorMessage {
