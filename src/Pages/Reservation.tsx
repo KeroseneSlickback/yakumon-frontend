@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { BackDrop } from "../Components/Backdrop";
-import { MediumButton } from "../Components/Buttons";
+import { MediumButton, ReserveButton } from "../Components/Buttons";
 import { PageSectionCard, SinglePageContainer } from "../Components/Containers";
-import { StyledForm } from "../Components/FormComponents";
+import { StyledForm, StyledTextArea } from "../Components/FormComponents";
+import { ButtonBox } from "../Components/ModalComponents";
 import { RegisterLoginDiv, StylistImg } from "../Components/Page-accessories";
+import LoginModal from "../Modules/Modals/LoginModal";
 import RegisterModal from "../Modules/Modals/RegisterModal";
 import AuthContext from "../Utilities/AuthContext";
 
@@ -31,6 +33,7 @@ const Reservation = () => {
   const handleFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
   };
+
   return (
     <SinglePageContainer>
       <PageSectionCard row>
@@ -59,14 +62,18 @@ const Reservation = () => {
         )}
       </PageSectionCard>
       <PageSectionCard>
-        <p>Schedule section</p>
+        <h3>Schedule section</h3>
       </PageSectionCard>
       <PageSectionCard styled>
-        <p>Add a comments</p>
-        <p>Reserve Now button</p>
+        <h3>Comments</h3>
+        <StyledTextArea>Add comments here...</StyledTextArea>
+        <ButtonBox centered>
+          <ReserveButton register>Reserve Now</ReserveButton>
+        </ButtonBox>
       </PageSectionCard>
-      {viewRegister || viewLogin ? <BackDrop /> : null}
+      {viewRegister || viewLogin ? <BackDrop onClick={closeModal} /> : null}
       {viewRegister ? <RegisterModal closeModal={closeModal} /> : null}
+      {viewLogin ? <LoginModal closeModal={closeModal} /> : null}
     </SinglePageContainer>
   );
 };

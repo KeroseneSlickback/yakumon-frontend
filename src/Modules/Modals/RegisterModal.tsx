@@ -60,24 +60,32 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
           localStorage.setItem("user", JSON.stringify(response.data.user));
           localStorage.setItem("jwt", response.data.token.split(" ")[1]);
           authContext.login();
-          setTimeout(() => {
-            closeModal();
-          }, 1000);
           setErrorMessage((prev) => ({
             ...prev,
             message: "Successfully Registered!",
             warning: false,
           }));
+          setTimeout(() => {
+            closeModal();
+          }, 1000);
         });
-    } catch (e) {
-      if (e instanceof Error) {
+    } catch (e: any) {
+      if (e.response) {
+        if (e.response.data.keyPattern.hasOwnProperty("username")) {
+          setErrorMessage((prev) => ({
+            ...prev,
+            message: "Username taken.",
+            warning: true,
+          }));
+        }
+      } else if (e instanceof Error) {
         if (e.message === "no match") {
           setErrorMessage((prev) => ({
             ...prev,
             message: "Passwords don't match.",
             warning: true,
           }));
-        } else {
+        } else if (e.message === "too short") {
           setErrorMessage((prev) => ({
             ...prev,
             message: "Password too short",
@@ -123,10 +131,8 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
             <StyledTextInput
               required
               name="phoneNumber"
-              type="tel"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              placeholder="111 333 4444"
-              maxLength={12}
+              type="number"
+              placeholder="111-333-4444"
               value={formData.phoneNumber}
               onChange={handleFormChange}
             />

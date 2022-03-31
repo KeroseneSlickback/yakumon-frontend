@@ -38,3 +38,11 @@ export const StyledTextInput = styled.input`
   margin: 4px 0;
   font-size: 0.9rem;
 `;
+
+export const StyledTextArea = styled.textarea`
+  height: 100px;
+  width: 100%;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  margin: 6px 0;
+`;

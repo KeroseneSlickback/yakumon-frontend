@@ -21,15 +21,25 @@ export const AuthProvider: React.FC = ({ children }) => {
     ) {
       setLoggedIn(true);
       const pulledUser = localStorage.getItem("user");
-      console.log(pulledUser);
       const parsedUser: UserType =
         pulledUser !== null ? JSON.parse(pulledUser) : null;
       setUser(parsedUser);
+    }
+    if (
+      !localStorage.hasOwnProperty("jwt") ||
+      !localStorage.hasOwnProperty("user")
+    ) {
+      setLoggedIn(false);
+      setUser(null);
     }
   }, []);
 
   const login = () => {
     setLoggedIn(true);
+    const pulledUser = localStorage.getItem("user");
+    const parsedUser: UserType =
+      pulledUser !== null ? JSON.parse(pulledUser) : null;
+    setUser(parsedUser);
   };
 
   const logout = () => {

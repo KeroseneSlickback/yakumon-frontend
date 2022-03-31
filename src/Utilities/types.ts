@@ -8,6 +8,11 @@ export interface UserRegisterType {
   passwordConfirmation: string;
 }
 
+export interface UserLoginType {
+  username: string;
+  password: string;
+}
+
 export interface ReturnUserType {
   firstName: string;
   lastName: string;

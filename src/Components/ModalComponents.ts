@@ -19,6 +19,13 @@ export const ModalContainer = styled.div`
   }
 `;
 
-export const ButtonBox = styled.div`
+export const ButtonBox = styled.div<{ centered?: boolean }>`
   margin-top: 8px;
+  ${(props) =>
+    props.centered &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `}
 `;

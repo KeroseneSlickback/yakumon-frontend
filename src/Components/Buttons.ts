@@ -45,6 +45,11 @@ export const MediumButton = styled(TinyButton)`
   font-size: 1rem;
 `;
 
+export const ReserveButton = styled(TinyButton)`
+  padding: 8px 50px;
+  font-size: 1.3rem;
+`;
+
 export const ClosedButtonDiv = styled.div`
   position: absolute;
   top: 20px;
