@@ -56,3 +56,24 @@ export interface UserType {
   storeOwner: boolean;
   username: string;
 }
+
+export interface StoreDayHour {
+  day: string;
+  open: string;
+  close: string;
+  _id: string;
+}
+
+export interface ReturnStoreType {
+  _id: string;
+  storeName: string;
+  storeType: string;
+  storeDescription: string;
+  location: string;
+  locationLink: string;
+  hours: StoreDayHour[];
+  employees: UserType[] | String[];
+  owners: UserType[] | String[];
+  __V: number;
+  picture: string;
+}

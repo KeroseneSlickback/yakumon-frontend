@@ -41,7 +41,6 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
           localStorage.setItem("user", JSON.stringify(response.data.user));
           localStorage.setItem("jwt", response.data.token.split(" ")[1]);
           authContext.login();
-          console.log(response);
           setErrorMessage((prev) => ({
             ...prev,
             message: "Successfully Registered!",

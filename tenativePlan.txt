@@ -3,3 +3,11 @@ Overall Form situation:
 - Create a grid, graph, table for the schedule? Needs to be able to take in set date and keep track of that... look into a calender guide? Just need to alter it for use on a day/30min-hour schedule system 
 
 - Create Confirmation Page that times out to return User to HomePage
+
+Need to create a grid with times, dates, buttons to shift to previous week and next week, and then each time slot is selectable. 
+
+First, sort out React-router-dom new system.
+- Work out fetching store data on Home
+  - Fetch and display this data on Home section 
+  - Make it selectable and navigatable to the store page 
+  
