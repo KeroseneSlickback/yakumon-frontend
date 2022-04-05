@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { BackDrop } from "../Components/Backdrop";
 import { MediumButton, ReserveButton } from "../Components/Buttons";
 import { PageSectionCard, SinglePageContainer } from "../Components/Containers";
@@ -8,10 +8,17 @@ import { RegisterLoginDiv, StylistImg } from "../Components/Page-accessories";
 import LoginModal from "../Modules/Modals/LoginModal";
 import RegisterModal from "../Modules/Modals/RegisterModal";
 import AuthContext from "../Utilities/AuthContext";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import hairstylist from "../Utilities/Images/hairstylist.jpeg";
+import { ReturnUserType } from "../Utilities/types";
 
 const Reservation = () => {
+  const { id } = useParams();
+  const [stylists, setStylists] = useState<ReturnUserType | null>(null);
+  const [load, setLoad] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const { loggedIn, user } = useContext(AuthContext);
   const [viewRegister, setViewRegister] = useState(false);
   const [viewLogin, setViewLogin] = useState(false);
@@ -33,6 +40,27 @@ const Reservation = () => {
     e.preventDefault();
     console.log(e);
   };
+
+  useEffect(() => {
+    setLoad(true);
+    const debounce = setTimeout(() => {
+      const getData = async () => {
+        await axios
+          .get<ReturnUserType>(`http://localhost:8888/user/${id}`)
+          .then((response) => {
+            setLoad(false);
+            setError(false);
+            setStylists(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+            setError(true);
+          });
+      };
+      getData();
+    }, 500);
+    return () => clearTimeout(debounce);
+  });
 
   return (
     <SinglePageContainer>
@@ -67,7 +95,10 @@ const Reservation = () => {
         </PageSectionCard>
         <PageSectionCard styled>
           <h3>Comments</h3>
-          <StyledTextArea>Add comments here...</StyledTextArea>
+          <StyledTextArea
+            name="comments"
+            placeholder="Add commnets here..."
+          ></StyledTextArea>
           <ButtonBox centered>
             <ReserveButton register>Reserve Now</ReserveButton>
           </ButtonBox>

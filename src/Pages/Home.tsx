@@ -6,8 +6,12 @@ import {
   SinglePageContainer,
   ShowcaseGrid,
 } from "../Components/Containers";
-import { ShowcaseImg } from "../Components/Page-accessories";
-import hairsalon from "../Utilities/Images/hairsalon.jpeg";
+import {
+  ErrorContainer,
+  LoadingIcon,
+  LoadingIconContainer,
+  ShowcaseImg,
+} from "../Components/Page-accessories";
 import { ErrorMessage, ReturnStoreType } from "../Utilities/types";
 
 const Home = () => {
@@ -38,7 +42,7 @@ const Home = () => {
           });
       };
       getData();
-    }, 300);
+    }, 500);
     return () => clearTimeout(debounce);
   }, []);
   return (
@@ -50,22 +54,24 @@ const Home = () => {
         <h2>Select a Store to Start a Reservation</h2>
         <ShowcaseGrid>
           {/* map these from fetched, whole containers to be clickable */}
-          <SelectContainer to={"/store/1"}>
-            <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h3>Store Name</h3>
-          </SelectContainer>
-          <SelectContainer to={"/store/2"}>
-            <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h3>Very Long Store Name</h3>
-          </SelectContainer>
-          <SelectContainer to={"/store/3"}>
-            <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h3>Shtn</h3>
-          </SelectContainer>
-          <SelectContainer to={"/store/4"}>
-            <ShowcaseImg src={hairsalon} alt="hairsalon" />
-            <h3>Store Name</h3>
-          </SelectContainer>
+          {error ? (
+            <ErrorContainer>
+              <h3>There was an error.</h3>
+            </ErrorContainer>
+          ) : load ? (
+            <LoadingIconContainer>
+              <LoadingIcon />
+            </LoadingIconContainer>
+          ) : (
+            fetchedStores?.map((store) => {
+              return (
+                <SelectContainer to={`store/${store._id}`} key={store._id}>
+                  <ShowcaseImg src={`data:image/png;base64,${store.picture}`} />
+                  <h3>{store.storeName}</h3>
+                </SelectContainer>
+              );
+            })
+          )}
         </ShowcaseGrid>
         {/*  */}
       </PageSectionCard>

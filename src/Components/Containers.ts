@@ -9,8 +9,9 @@ export const OverallPageContainer = styled.div`
 `;
 
 export const MainPageContainer = styled.main`
-  width: 100%;
   padding-bottom: 18px;
+  flex-grow: 1;
+  align-self: stretch;
 `;
 
 // Navbar containers

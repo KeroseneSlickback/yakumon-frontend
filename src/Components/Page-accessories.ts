@@ -9,7 +9,6 @@ export const ShowcaseImg = styled.img`
 
 export const StoreImg = styled.img`
   height: auto;
-  /* from 90%? */
   width: 100%;
   object-fit: cover;
   border-radius: 12px 12px 0 0;
@@ -29,5 +28,39 @@ export const RegisterLoginDiv = styled.div`
     margin: 12px 12px 0 12px;
     display: flex;
     justify-content: space-around;
+  }
+`;
+
+export const LoadingIconContainer = styled.div<{ absolute?: boolean }>`
+  ${(props) =>
+    props.absolute &&
+    css`
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    `}
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ErrorContainer = styled(LoadingIconContainer)``;
+
+export const LoadingIcon = styled.div`
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid ${({ theme }) => theme.secondary};
+  width: 60px;
+  height: 60px;
+  animation: spin 0.6s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 `;

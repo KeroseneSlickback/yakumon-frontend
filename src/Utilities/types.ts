@@ -45,16 +45,20 @@ export interface ModalCloseProp {
 }
 
 export interface UserType {
-  admin: boolean;
-  appointments?: Object[];
-  employee: boolean;
+  _id: string;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
-  services: Object[];
-  store?: Object;
-  storeOwner: boolean;
+  title: string;
   username: string;
+  phoneNumber: string;
+  email?: string;
+  store?: Object;
+  appointments?: Object[];
+  services: Object[];
+  picture: string;
+  storeOwner: boolean;
+  admin: boolean;
+  employee: boolean;
 }
 
 export interface StoreDayHour {
@@ -69,11 +73,13 @@ export interface ReturnStoreType {
   storeName: string;
   storeType: string;
   storeDescription: string;
+  storeWebsite?: string;
+  phoneNumber?: string;
   location: string;
   locationLink: string;
   hours: StoreDayHour[];
-  employees: UserType[] | String[];
-  owners: UserType[] | String[];
+  employees: UserType[];
+  owners: UserType[];
   __V: number;
   picture: string;
 }

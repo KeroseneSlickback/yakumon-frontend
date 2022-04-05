@@ -11,3 +11,5 @@ First, sort out React-router-dom new system.
   - Fetch and display this data on Home section 
   - Make it selectable and navigatable to the store page 
   
+
+- Add comments onto appointment (from textarea)
