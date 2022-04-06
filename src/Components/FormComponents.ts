@@ -46,3 +46,49 @@ export const StyledTextArea = styled.textarea`
   white-space: pre-wrap;
   margin: 6px 0;
 `;
+
+export const ServiceContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  background-color: ${({ theme }) => theme.alternativeAlt};
+  margin: 12px 8px;
+`;
+
+export const ServiceSelect = styled.div<{ select?: boolean }>`
+  display: grid;
+  grid-template-columns: 1fr 50px;
+  align-items: center;
+  margin: 0;
+  border-radius: 6px;
+  padding: 4px;
+  cursor: pointer;
+
+  ${(props) =>
+    props.select &&
+    css`
+      border-bottom: 2px solid ${(props) => props.theme.subduedAlt};
+    `}
+
+  p {
+    padding: 6px 0;
+    margin: 0 8px;
+    font-size: 0.8rem;
+  }
+
+  div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &:hover {
+    background-color: ${({ theme }) => theme.highlight};
+  }
+
+  &:nth-child(even) {
+    background-color: ${({ theme }) => theme.fontColor};
+  }
+`;

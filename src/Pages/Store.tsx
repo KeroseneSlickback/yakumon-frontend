@@ -64,7 +64,10 @@ const Store = () => {
         <div>
           <PageSectionCard noPadding center>
             <h1>{store?.storeName}</h1>
-            <StoreImg src={`data:image/png;base64,${store?.picture}`} />
+            <StoreImg
+              src={`data:image/png;base64,${store?.picture}`}
+              alt={store?.storeName}
+            />
           </PageSectionCard>
           <PageSectionCard styled>
             <StoreInfoContainer>

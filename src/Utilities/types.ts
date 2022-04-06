@@ -13,6 +13,16 @@ export interface UserLoginType {
   password: string;
 }
 
+export interface ServiceType {
+  _id: string;
+  serviceName: string;
+  timeSpan: number;
+  price: number;
+  owner: string;
+}
+
+// Make appointment type
+
 export interface ReturnUserType {
   firstName: string;
   lastName: string;
@@ -22,7 +32,7 @@ export interface ReturnUserType {
   email: string;
   store?: Object[];
   appointments?: Object[];
-  services?: Object[];
+  services?: ServiceType[];
   picture?: Buffer;
   owner?: boolean;
   admin?: boolean;
@@ -82,4 +92,13 @@ export interface ReturnStoreType {
   owners: UserType[];
   __V: number;
   picture: string;
+}
+
+export interface ReservationType {
+  employee: string;
+  customer: string;
+  slotDateTime: Date | null;
+  createdAt: Date | null;
+  comments: string;
+  service: string;
 }

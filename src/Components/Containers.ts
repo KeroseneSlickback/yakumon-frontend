@@ -64,6 +64,7 @@ export const PageSectionCard = styled.div<{
   center?: boolean;
   secondary?: boolean;
   row?: boolean;
+  stylist?: boolean;
 }>`
   padding: 18px 18px 36px 18px;
   width: 100%;
@@ -128,7 +129,7 @@ export const PageSectionCard = styled.div<{
       background-color: ${({ theme }) => theme.primary};
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.row &&
     css`
       display: flex;
@@ -144,6 +145,21 @@ export const PageSectionCard = styled.div<{
           line-height: 1.2;
           text-align: center;
         }
+      }
+    `}
+
+    ${(props) =>
+    props.stylist &&
+    css`
+      padding: 0 18px 36px 18px;
+      display: flex;
+      flex-direction: row;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
       }
     `}
 `;

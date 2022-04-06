@@ -16,8 +16,8 @@ export const StoreImg = styled.img`
 `;
 
 export const StylistImg = styled.img`
-  height: 100px;
-  width: 100px;
+  height: 120px;
+  width: 120px;
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.5);
