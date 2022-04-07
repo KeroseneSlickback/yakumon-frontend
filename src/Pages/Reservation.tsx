@@ -4,7 +4,6 @@ import { MediumButton, ReserveButton } from "../Components/Buttons";
 import { PageSectionCard, SinglePageContainer } from "../Components/Containers";
 import {
   ServiceContainer,
-  ServiceSelect,
   StyledForm,
   StyledTextArea,
 } from "../Components/FormComponents";
@@ -23,10 +22,12 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 import { ReservationType, ReturnUserType } from "../Utilities/types";
+import { ListItem } from "../Components/CheckboxComponents";
 
 const Reservation = () => {
   const { id } = useParams();
   const [stylist, setStylist] = useState<ReturnUserType | null>(null);
+  const [stylistImg, setStylistImg] = useState<string>("");
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const { loggedIn, user } = useContext(AuthContext);
@@ -40,6 +41,11 @@ const Reservation = () => {
     comments: "",
     service: "",
   });
+  // const [selectedService, setSelectedService] = useState<{selections: string[]}>({selections: []});
+
+  const [serviceSelection, setServiceSelection] = React.useState<{
+    selections: string[];
+  }>({ selections: [] });
 
   const closeModal = () => {
     setViewRegister(false);
@@ -66,6 +72,7 @@ const Reservation = () => {
       [name]: value,
     }));
   };
+
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setReservation((prev) => ({
@@ -75,10 +82,21 @@ const Reservation = () => {
   };
 
   const selectService = (id: string) => {
-    setReservation((prev) => ({
-      ...prev,
-      service: id,
-    }));
+    let sel = serviceSelection.selections;
+    let find = sel.indexOf(id);
+    if (find > -1) {
+      sel.splice(find, 1);
+    } else {
+      sel.push(id);
+    }
+    setServiceSelection({
+      selections: sel,
+    });
+
+    // setReservation((prev) => ({
+    //   ...prev,
+    //   service: id,
+    // }));
   };
 
   useEffect(() => {
@@ -91,6 +109,9 @@ const Reservation = () => {
             setLoad(false);
             setError(false);
             setStylist(response.data);
+            if (response.data.picture) {
+              setStylistImg(response.data.picture.toString("base64"));
+            }
             console.log(response.data);
           })
           .catch((e) => {
@@ -117,7 +138,7 @@ const Reservation = () => {
         <StyledForm onSubmit={handleFormSubmit}>
           <PageSectionCard row stylist>
             <StylistImg
-              src={`data:image/png;base64,${stylist?.picture}`}
+              src={`data:image/png;base64,${stylistImg}`}
               alt={stylist?.firstName}
             />
             <div>
@@ -136,13 +157,38 @@ const Reservation = () => {
                   {stylist?.services
                     ? stylist?.services.map((service) => {
                         return (
-                          <ServiceSelect
-                            onClick={() => selectService(service._id)}
+                          <ListItem
                             key={service._id}
-                          >
-                            <p>{service.serviceName}</p>
-                            <p>${service.price}</p>
-                          </ServiceSelect>
+                            text={service.serviceName}
+                            handleOnChange={() => selectService(service._id)}
+                            selected={serviceSelection.selections.includes(
+                              service._id
+                            )}
+                          ></ListItem>
+
+                          // <div key={service._id}>
+                          //   <input
+                          //     type="checkbox"
+                          //     name={service._id}
+                          //     onChange={() => {
+                          //       setSelectedService(!selectedService);
+                          //     }}
+                          //     checked={selectedService}
+                          //   />
+                          //   <label htmlFor={service._id}>
+                          //     {service.serviceName}
+                          //   </label>
+                          // </div>
+                          // <ServiceSelect
+                          //   selected={
+                          //     selectedService === service._id ? true : false
+                          //   }
+                          //   onClick={() => selectService(service._id)}
+                          //   key={service._id}
+                          // >
+                          //   <p>{service.serviceName}</p>
+                          //   <p>${service.price}</p>
+                          // </ServiceSelect>
                         );
                       })
                     : null}

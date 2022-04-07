@@ -13,3 +13,5 @@ First, sort out React-router-dom new system.
   
 
 - Add comments onto appointment (from textarea)
+
+- Figure out how to enforce radio buttons to only intake one choice

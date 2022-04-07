@@ -56,7 +56,17 @@ export const ServiceContainer = styled.div`
   margin: 12px 8px;
 `;
 
-export const ServiceSelect = styled.div<{ select?: boolean }>`
+export const ServiceInput = styled.input`
+  display: none;
+`;
+
+export const ServiceLabel = styled.label`
+  &:checked + ${ServiceInput} {
+    background-color: red;
+  }
+`;
+
+export const ServiceSelect = styled.div<{ selected?: boolean }>`
   display: grid;
   grid-template-columns: 1fr 50px;
   align-items: center;
@@ -66,9 +76,9 @@ export const ServiceSelect = styled.div<{ select?: boolean }>`
   cursor: pointer;
 
   ${(props) =>
-    props.select &&
+    props.selected &&
     css`
-      border-bottom: 2px solid ${(props) => props.theme.subduedAlt};
+      background-color: red;
     `}
 
   p {

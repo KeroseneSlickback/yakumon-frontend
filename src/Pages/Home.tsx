@@ -53,7 +53,6 @@ const Home = () => {
       <PageSectionCard styled>
         <h2>Select a Store to Start a Reservation</h2>
         <ShowcaseGrid>
-          {/* map these from fetched, whole containers to be clickable */}
           {error ? (
             <ErrorContainer>
               <h3>There was an error.</h3>
