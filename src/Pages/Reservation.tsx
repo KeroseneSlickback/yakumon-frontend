@@ -82,21 +82,10 @@ const Reservation = () => {
   };
 
   const selectService = (id: string) => {
-    let sel = serviceSelection.selections;
-    let find = sel.indexOf(id);
-    if (find > -1) {
-      sel.splice(find, 1);
-    } else {
-      sel.push(id);
-    }
-    setServiceSelection({
-      selections: sel,
-    });
-
-    // setReservation((prev) => ({
-    //   ...prev,
-    //   service: id,
-    // }));
+    setReservation((prev) => ({
+      ...prev,
+      service: id,
+    }));
   };
 
   useEffect(() => {
@@ -112,7 +101,6 @@ const Reservation = () => {
             if (response.data.picture) {
               setStylistImg(response.data.picture.toString("base64"));
             }
-            console.log(response.data);
           })
           .catch((e) => {
             console.log(e);
@@ -159,36 +147,12 @@ const Reservation = () => {
                         return (
                           <ListItem
                             key={service._id}
-                            text={service.serviceName}
+                            text1={service.serviceName}
+                            text2={service.price}
                             handleOnChange={() => selectService(service._id)}
-                            selected={serviceSelection.selections.includes(
-                              service._id
-                            )}
+                            selected={reservation.service}
+                            id={service._id}
                           ></ListItem>
-
-                          // <div key={service._id}>
-                          //   <input
-                          //     type="checkbox"
-                          //     name={service._id}
-                          //     onChange={() => {
-                          //       setSelectedService(!selectedService);
-                          //     }}
-                          //     checked={selectedService}
-                          //   />
-                          //   <label htmlFor={service._id}>
-                          //     {service.serviceName}
-                          //   </label>
-                          // </div>
-                          // <ServiceSelect
-                          //   selected={
-                          //     selectedService === service._id ? true : false
-                          //   }
-                          //   onClick={() => selectService(service._id)}
-                          //   key={service._id}
-                          // >
-                          //   <p>{service.serviceName}</p>
-                          //   <p>${service.price}</p>
-                          // </ServiceSelect>
                         );
                       })
                     : null}

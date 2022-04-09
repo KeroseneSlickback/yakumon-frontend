@@ -1,46 +1,52 @@
 import React, { ChangeEventHandler } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const CheckboxDescription = styled.label<{ checked?: boolean }>`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 40px;
+  padding: 8px 12px;
+  cursor: pointer;
+  p {
+    font-size: 0.9rem;
+  }
+  &:nth-child(even) {
+    background-color: ${({ theme }) => theme.fontColor};
+    ${(props) =>
+      props.checked &&
+      css`
+        background-color: ${({ theme }) => theme.highlight};
+      `}
+  }
+  ${(props) =>
+    props.checked &&
+    css`
+      background-color: ${({ theme }) => theme.highlight};
+    `}
+`;
 
 const CheckboxInput = styled.input`
-  margin: 6px 10px 5.8px 3px;
-  border-radius: 2px;
-  border: solid 1px #c6c4d2;
-  width: 5%;
-  float: left;
-  background: ${(props) => (props.checked ? "#482474" : "#fbfcff")};
-`;
-const CheckboxContainer = styled.div`
-  margin-bottom: 0px !important;
-  margin-top: 2px;
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-`;
-const CheckboxDescription = styled.p`
-  padding-bottom: 1px;
-  margin-top: 4px;
-  font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  text-align: left;
+  opacity: 0;
+  position: fixed;
+  width: 0;
 `;
 
 export const ListItem: React.FC<{
-  text: string;
+  text1: string;
+  text2: number;
   handleOnChange: ChangeEventHandler;
-  selected: boolean;
-}> = ({ text, handleOnChange, selected }) => {
+  selected: string;
+  id: string;
+}> = ({ text1, text2, handleOnChange, selected, id }) => {
   return (
-    <CheckboxContainer>
+    <CheckboxDescription checked={id === selected ? true : false}>
       <CheckboxInput
         type="radio"
-        checked={selected}
+        checked={id === selected ? true : false}
         onChange={handleOnChange}
       ></CheckboxInput>
-      <CheckboxDescription>{text}</CheckboxDescription>
-    </CheckboxContainer>
+      <p>{text1}</p>
+      <p>${text2}</p>
+    </CheckboxDescription>
   );
 };

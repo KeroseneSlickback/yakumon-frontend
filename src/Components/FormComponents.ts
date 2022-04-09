@@ -53,7 +53,7 @@ export const ServiceContainer = styled.div`
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.4);
   border-radius: 6px;
   background-color: ${({ theme }) => theme.alternativeAlt};
-  margin: 12px 8px;
+  margin: 12px 0px;
 `;
 
 export const ServiceInput = styled.input`
@@ -81,12 +81,6 @@ export const ServiceSelect = styled.div<{ selected?: boolean }>`
       background-color: red;
     `}
 
-  p {
-    padding: 6px 0;
-    margin: 0 8px;
-    font-size: 0.8rem;
-  }
-
   div {
     width: 100%;
     display: flex;
@@ -96,9 +90,5 @@ export const ServiceSelect = styled.div<{ selected?: boolean }>`
 
   &:hover {
     background-color: ${({ theme }) => theme.highlight};
-  }
-
-  &:nth-child(even) {
-    background-color: ${({ theme }) => theme.fontColor};
   }
 `;
