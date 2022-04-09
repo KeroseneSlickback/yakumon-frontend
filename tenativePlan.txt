@@ -6,8 +6,6 @@ Overall Form situation:
 
 Need to create a grid with times, dates, buttons to shift to previous week and next week, and then each time slot is selectable. 
 
-First, sort out React-router-dom new system.
-- Work out fetching store data on Home
-  - Fetch and display this data on Home section 
-  - Make it selectable and navigatable to the store page 
-  
+- Figure out what data is needed to be mapped
+- Mapped? Or looped through twice to create an array?
+- Then how to output it all

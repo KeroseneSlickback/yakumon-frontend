@@ -30,7 +30,7 @@ export interface ReturnUserType {
   username: string;
   phoneNumber: string;
   email: string;
-  store?: Object[];
+  store?: ReturnStoreType;
   appointments?: Object[];
   services?: ServiceType[];
   picture?: Buffer;
@@ -54,6 +54,13 @@ export interface ModalCloseProp {
   closeModal(): void;
 }
 
+export interface StoreDayHour {
+  day: string;
+  open: string;
+  close: string;
+  _id: string;
+}
+
 export interface UserType {
   _id: string;
   firstName: string;
@@ -62,20 +69,13 @@ export interface UserType {
   username: string;
   phoneNumber: string;
   email?: string;
-  store?: Object;
+  store?: ReturnStoreType;
   appointments?: Object[];
-  services: Object[];
+  services: ServiceType[];
   picture: string;
   storeOwner: boolean;
   admin: boolean;
   employee: boolean;
-}
-
-export interface StoreDayHour {
-  day: string;
-  open: string;
-  close: string;
-  _id: string;
 }
 
 export interface ReturnStoreType {
@@ -102,3 +102,12 @@ export interface ReservationType {
   comments: string;
   service: string;
 }
+
+export interface SchedulePropTypes {
+  appointments?: Object[];
+  services?: ServiceType[];
+  selectedService?: string;
+  store?: ReturnStoreType;
+}
+
+// Build an Appointment type

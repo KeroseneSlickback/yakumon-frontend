@@ -23,6 +23,7 @@ import { useParams } from "react-router-dom";
 
 import { ReservationType, ReturnUserType } from "../Utilities/types";
 import { ListItem } from "../Components/CheckboxComponents";
+import ScheduleView from "../Modules/Schedule/ScheduleView";
 
 const Reservation = () => {
   const { id } = useParams();
@@ -41,11 +42,6 @@ const Reservation = () => {
     comments: "",
     service: "",
   });
-  // const [selectedService, setSelectedService] = useState<{selections: string[]}>({selections: []});
-
-  const [serviceSelection, setServiceSelection] = React.useState<{
-    selections: string[];
-  }>({ selections: [] });
 
   const closeModal = () => {
     setViewRegister(false);
@@ -101,6 +97,7 @@ const Reservation = () => {
             if (response.data.picture) {
               setStylistImg(response.data.picture.toString("base64"));
             }
+            console.log(response.data);
           })
           .catch((e) => {
             console.log(e);
@@ -174,6 +171,12 @@ const Reservation = () => {
           </PageSectionCard>
           <PageSectionCard>
             <h3>Schedule section</h3>
+            <ScheduleView
+              appointments={stylist?.appointments}
+              services={stylist?.services}
+              selectedService={reservation.service}
+              store={stylist?.store}
+            />
           </PageSectionCard>
           <PageSectionCard styled>
             <h3>Comments</h3>
