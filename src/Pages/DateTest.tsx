@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { add } from "date-fns";
+import { scheduleArrayBuild } from "../Modules/Schedule/ScheduleHelpers";
 
 interface ScheduleType {
   date: string;
@@ -39,6 +40,64 @@ function DateTest() {
     const newDate = new Date(`${formData.date}T${formData.time}:00`);
     console.log(currentDateTime);
     console.log(newDate);
+    console.log(formData);
+  };
+
+  const storeHours = [
+    {
+      open: "9:30",
+      close: "19:30",
+      closed: true,
+      _id: "6248182cc3320f65cc2f485a",
+    },
+    {
+      open: "9",
+      close: "19",
+      closed: false,
+      _id: "6248182cc3320f65cc2f585a",
+    },
+    {
+      open: "9",
+      close: "19",
+      closed: false,
+      _id: "6248182cc3320f65cc2f585b",
+    },
+    {
+      open: "9",
+      close: "19",
+      closed: false,
+      _id: "6248182cc3320f65cc2f585c",
+    },
+    {
+      open: "9",
+      close: "19",
+      closed: false,
+      _id: "6248182cc3320f65cc2f585d",
+    },
+    {
+      open: "9",
+      close: "19",
+      closed: false,
+      _id: "6248182cc3320f65cc2f585e",
+    },
+    {
+      open: "9",
+      close: "19",
+      closed: false,
+      _id: "6248182cc3320f65cc2f585f",
+    },
+  ];
+
+  const handleArrayTest = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    const currentDateTime = new Date();
+    const outputDays = 4;
+    const preppedArray = scheduleArrayBuild(
+      currentDateTime,
+      storeHours,
+      outputDays
+    );
+    console.log(preppedArray);
   };
 
   return (
@@ -48,6 +107,10 @@ function DateTest() {
         <input type="date" value={formData.date} onChange={handleDateChange} />
         <input type="time" value={formData.time} onChange={handleTimeChange} />
         <button>Submit</button>
+      </form>
+      <form onSubmit={handleArrayTest}>
+        <label htmlFor="arrayTest"></label>
+        <button>Create Array</button>
       </form>
     </div>
   );

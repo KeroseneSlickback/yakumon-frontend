@@ -61,6 +61,13 @@ export interface StoreDayHour {
   _id: string;
 }
 
+export interface StoreDayHourFix {
+  open: string;
+  close: string;
+  closed: boolean;
+  _id?: string;
+}
+
 export interface UserType {
   _id: string;
   firstName: string;
@@ -108,6 +115,17 @@ export interface SchedulePropTypes {
   services?: ServiceType[];
   selectedService?: string;
   store?: ReturnStoreType;
+}
+
+export interface ScheduleDateType {
+  time: string;
+  available: boolean;
+  applicable: boolean;
+}
+
+export interface ScheduleArrayType {
+  day: Date;
+  hours: ScheduleDateType[];
 }
 
 // Build an Appointment type
