@@ -118,7 +118,7 @@ export interface SchedulePropTypes {
 }
 
 export interface ScheduleDateType {
-  time: string;
+  time: Date;
   available: boolean;
   applicable: boolean;
 }
