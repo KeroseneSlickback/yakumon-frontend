@@ -19,6 +19,7 @@ export const scheduleArrayBuild = (
       // if it does, do something; if not, skip
       if (j === dayOfWeek) {
         let hours = [];
+
         let startTimeArray = storeHours[j].open
           .split(":")
           .map((x) => parseFloat(x));
@@ -40,17 +41,18 @@ export const scheduleArrayBuild = (
             time: scheduleTime,
             available: false,
             applicable: false,
+            closed: true,
           });
         } else {
           hours.push({
             time: scheduleTime,
-            available: true,
-            applicable: true,
+            available: false,
+            applicable: false,
+            closed: false,
           });
         }
 
         while (scheduleTime < endScheduleTime) {
-          // let workingScheduleObject = {};
           let workingTime = addMinutes(scheduleTime, 30);
           if (workingTime >= endScheduleTime) {
             break;
@@ -61,12 +63,14 @@ export const scheduleArrayBuild = (
               time: workingTime,
               available: false,
               applicable: false,
+              closed: false,
             });
           } else {
             hours.push({
               time: workingTime,
               available: true,
-              applicable: true,
+              applicable: false,
+              closed: false,
             });
           }
         }
@@ -77,6 +81,17 @@ export const scheduleArrayBuild = (
       }
     }
   }
-
   return scheduleArray;
+};
+
+export const scheduleArrayFiller = () => {
+  // accepts: previously built array, employee's appointments + timeslots
+  // outputs: previous array with timeslots changed if employee's timeslots are filled
+  // catch: if array slot's closed is true, do nothing
+};
+
+export const scheduleBlockFilter = () => {
+  // accepts: previously filled array and timeslot amount based on service
+  // outputs: an array with timeslots' available set true/false
+  // catch: if array slot's closed is true, do nothing
 };

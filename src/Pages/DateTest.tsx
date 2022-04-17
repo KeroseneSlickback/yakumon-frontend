@@ -53,7 +53,7 @@ function DateTest() {
     {
       open: "9",
       close: "19",
-      closed: false,
+      closed: true,
       _id: "6248182cc3320f65cc2f585a",
     },
     {
@@ -109,7 +109,6 @@ function DateTest() {
         <button>Submit</button>
       </form>
       <form onSubmit={handleArrayTest}>
-        <label htmlFor="arrayTest"></label>
         <button>Create Array</button>
       </form>
     </div>

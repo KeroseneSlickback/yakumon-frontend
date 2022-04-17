@@ -121,6 +121,7 @@ export interface ScheduleDateType {
   time: Date;
   available: boolean;
   applicable: boolean;
+  closed: boolean;
 }
 
 export interface ScheduleArrayType {
