@@ -1,6 +1,12 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 import { add } from "date-fns";
-import { scheduleArrayBuild } from "../Modules/Schedule/ScheduleHelpers";
+import {
+  scheduleArrayBuild,
+  scheduleArrayFiller,
+} from "../Modules/Schedule/ScheduleHelpers";
+import { storeHours } from "../Utilities/StylistTestData";
+import axios from "axios";
+import { ReturnUserType } from "../Utilities/types";
 
 interface ScheduleType {
   date: string;
@@ -8,6 +14,7 @@ interface ScheduleType {
 }
 
 function DateTest() {
+  const [stylist, setStylist] = useState<ReturnUserType | null>(null);
   const [formData, setFormData] = useState<ScheduleType>({
     date: "",
     time: "",
@@ -43,62 +50,42 @@ function DateTest() {
     console.log(formData);
   };
 
-  const storeHours = [
-    {
-      open: "9:30",
-      close: "19:30",
-      closed: true,
-      _id: "6248182cc3320f65cc2f485a",
-    },
-    {
-      open: "9",
-      close: "19",
-      closed: true,
-      _id: "6248182cc3320f65cc2f585a",
-    },
-    {
-      open: "9",
-      close: "19",
-      closed: false,
-      _id: "6248182cc3320f65cc2f585b",
-    },
-    {
-      open: "9",
-      close: "19",
-      closed: false,
-      _id: "6248182cc3320f65cc2f585c",
-    },
-    {
-      open: "9",
-      close: "19",
-      closed: false,
-      _id: "6248182cc3320f65cc2f585d",
-    },
-    {
-      open: "9",
-      close: "19",
-      closed: false,
-      _id: "6248182cc3320f65cc2f585e",
-    },
-    {
-      open: "9",
-      close: "19",
-      closed: false,
-      _id: "6248182cc3320f65cc2f585f",
-    },
-  ];
-
-  const handleArrayTest = (e: React.SyntheticEvent) => {
+  const handleArrayTest = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const currentDateTime = new Date();
     const outputDays = 4;
-    const preppedArray = scheduleArrayBuild(
+    const preppedArray = await scheduleArrayBuild(
       currentDateTime,
       storeHours,
       outputDays
     );
-    console.log(preppedArray);
+    if (stylist?.appointments) {
+      const filteredArray = await scheduleArrayFiller(
+        preppedArray,
+        stylist?.appointments
+      );
+      console.log(filteredArray);
+    }
   };
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      const getData = async () => {
+        await axios
+          .get<ReturnUserType>(
+            `http://localhost:8888/user/624817f3c3320f65cc2f5856`
+          )
+          .then((response) => {
+            setStylist(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      };
+      getData();
+    }, 500);
+    return () => clearTimeout(debounce);
+  }, []);
 
   return (
     <div>

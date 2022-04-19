@@ -39,3 +39,11 @@ Schedule Array Maker:
 
 - When a user selects either applicable time slots, a User Selected Slot function runs to find the earliest timeslot
 - When the user submits the form, the info is sent to the backend, loading, and return of either an error message or a confimation modal pop-up before being redirected 
+
+- Create new admin, stores, store owners, users
+- Create one user's services
+- Assign new appointments to them with proper date format 
+
+- Compare the newly formatted dates with ones given for appointments, ensure the seconds and milliseconds are properly correct
+- Figure out a way to compare those directly
+- Once properly prepared, how to go about altering the object and then returning the new string?

@@ -29,9 +29,9 @@ export interface ReturnUserType {
   title?: string;
   username: string;
   phoneNumber: string;
-  email: string;
+  email?: string;
   store?: ReturnStoreType;
-  appointments?: Object[];
+  appointments?: StylistAppointmentType[];
   services?: ServiceType[];
   picture?: Buffer;
   owner?: boolean;
@@ -77,9 +77,9 @@ export interface UserType {
   phoneNumber: string;
   email?: string;
   store?: ReturnStoreType;
-  appointments?: Object[];
+  appointments?: StylistAppointmentType[];
   services: ServiceType[];
-  picture: string;
+  picture?: string;
   storeOwner: boolean;
   admin: boolean;
   employee: boolean;
@@ -130,3 +130,18 @@ export interface ScheduleArrayType {
 }
 
 // Build an Appointment type
+
+export interface timeSlotType {
+  appointment: string;
+  createdAt: Date;
+  employee: string;
+  owner: string;
+  slotDateTime: Date;
+}
+
+export interface StylistAppointmentType {
+  employee: string;
+  owner: string;
+  service: string;
+  timeSlots: timeSlotType[];
+}
