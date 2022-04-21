@@ -28,6 +28,7 @@ const Store = () => {
   const [store, setStore] = useState<ReturnStoreType | null>(null);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [storeImg, setStoreImg] = useState<string>("");
 
   useEffect(() => {
     setLoad(true);
@@ -39,6 +40,9 @@ const Store = () => {
             setLoad(false);
             setError(false);
             setStore(response.data);
+            if (response.data.picture) {
+              setStoreImg(response.data.picture.toString("base64"));
+            }
           })
           .catch((e) => {
             console.log(e);
@@ -49,7 +53,7 @@ const Store = () => {
     }, 500);
     return () => clearTimeout(debounce);
   }, []);
-  console.log(store?.employees[0]);
+
   return (
     <SinglePageContainer>
       {error ? (
@@ -65,7 +69,7 @@ const Store = () => {
           <PageSectionCard noPadding center>
             <h1>{store?.storeName}</h1>
             <StoreImg
-              src={`data:image/png;base64,${store?.picture}`}
+              src={`data:image/png;base64,${storeImg}`}
               alt={store?.storeName}
             />
           </PageSectionCard>

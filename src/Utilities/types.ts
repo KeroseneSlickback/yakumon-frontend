@@ -98,7 +98,7 @@ export interface ReturnStoreType {
   employees: UserType[];
   owners: UserType[];
   __V: number;
-  picture: string;
+  picture?: Buffer;
 }
 
 export interface ReservationType {

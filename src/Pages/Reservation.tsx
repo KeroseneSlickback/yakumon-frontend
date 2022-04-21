@@ -97,7 +97,6 @@ const Reservation = () => {
             if (response.data.picture) {
               setStylistImg(response.data.picture.toString("base64"));
             }
-            console.log(response.data);
           })
           .catch((e) => {
             console.log(e);

@@ -27,7 +27,6 @@ const Home = () => {
         await axios
           .get<ReturnStoreType[]>("http://localhost:8888/store")
           .then((response) => {
-            console.log(response.data);
             setFetchedStores(response.data);
             setLoad(false);
             setError(null);
