@@ -1,7 +1,9 @@
 import {
   addDays,
   addMinutes,
+  compareAsc,
   getDay,
+  isEqual,
   parseISO,
   parseJSON,
   set,
@@ -13,12 +15,29 @@ import {
   StylistAppointmentType,
 } from "../../Utilities/types";
 
-export const scheduleArrayBuild = (
+const flattenArrayDates = async (stylistArray: StylistAppointmentType[]) => {
+  return stylistArray.flatMap((appointment) => {
+    return appointment.timeSlots.flatMap((timeslot) => {
+      return parseJSON(timeslot.slotDateTime);
+    });
+  });
+};
+
+const compareDatesInArray = async (array: Date[], givenDate: Date) => {
+  let findMatching = (date: Date) => {
+    return isEqual(date, givenDate);
+  };
+  return array.findIndex(findMatching);
+};
+
+export const scheduleArrayBuild = async (
   startDate: Date,
   storeHours: StoreDayHourFix[],
-  outputDays: number
+  outputDays: number,
+  stylistAppointments: StylistAppointmentType[]
 ) => {
   let scheduleArray: ScheduleArrayType[] = [];
+  let timesTakenArray = await flattenArrayDates(stylistAppointments);
 
   // This loop is creating dates based from outputDays # and the startDate
   for (let i = outputDays; i > 0; i--) {
@@ -30,7 +49,7 @@ export const scheduleArrayBuild = (
       // this checks for if the storehour day matches with the assignedDate day of the week
       // if it does, do something; if not, skip
       if (j === dayOfWeek) {
-        let hours = [];
+        let hoursArray = [];
 
         let startTimeArray = storeHours[j].open
           .split(":")
@@ -48,21 +67,45 @@ export const scheduleArrayBuild = (
           minutes: closeTimeArray[1],
         });
 
-        if (storeHours[j].closed) {
-          hours.push({
-            time: parseJSON(scheduleTime),
+        let workingTimeDateObj = {};
+
+        const comparedDateToArray = await compareDatesInArray(
+          timesTakenArray,
+          scheduleTime
+        );
+
+        if (comparedDateToArray >= 0) {
+          workingTimeDateObj = {
+            ...workingTimeDateObj,
             available: false,
             applicable: false,
-            closed: true,
-          });
+          };
         } else {
-          hours.push({
-            time: parseJSON(scheduleTime),
-            available: false,
-            applicable: false,
-            closed: false,
-          });
+          workingTimeDateObj = {
+            ...workingTimeDateObj,
+            available: true,
+            applicable: true,
+          };
         }
+
+        if (storeHours[j].closed) {
+          workingTimeDateObj = {
+            ...workingTimeDateObj,
+            closed: true,
+          };
+        } else {
+          workingTimeDateObj = {
+            ...workingTimeDateObj,
+            closed: false,
+          };
+        }
+
+        workingTimeDateObj = {
+          ...workingTimeDateObj,
+          time: parseJSON(scheduleTime),
+        };
+
+        hoursArray.push(workingTimeDateObj);
 
         while (scheduleTime < endScheduleTime) {
           let workingTime = addMinutes(scheduleTime, 30);
@@ -70,25 +113,48 @@ export const scheduleArrayBuild = (
             break;
           }
           scheduleTime = workingTime;
-          if (storeHours[j].closed) {
-            hours.push({
-              time: parseJSON(workingTime),
+
+          const comparedDateToArray = await compareDatesInArray(
+            timesTakenArray,
+            scheduleTime
+          );
+
+          if (comparedDateToArray >= 0) {
+            workingTimeDateObj = {
+              ...workingTimeDateObj,
               available: false,
               applicable: false,
-              closed: false,
-            });
+            };
           } else {
-            hours.push({
-              time: parseJSON(workingTime),
+            workingTimeDateObj = {
+              ...workingTimeDateObj,
               available: true,
-              applicable: false,
-              closed: false,
-            });
+              applicable: true,
+            };
           }
+
+          if (storeHours[j].closed) {
+            workingTimeDateObj = {
+              ...workingTimeDateObj,
+              closed: true,
+            };
+          } else {
+            workingTimeDateObj = {
+              ...workingTimeDateObj,
+              closed: false,
+            };
+          }
+
+          workingTimeDateObj = {
+            ...workingTimeDateObj,
+            time: parseJSON(workingTime),
+          };
+
+          hoursArray.push(workingTimeDateObj);
         }
         scheduleArray.unshift({
           day: assignedDate,
-          hours,
+          hours: hoursArray,
         });
       }
     }
@@ -96,55 +162,47 @@ export const scheduleArrayBuild = (
   return scheduleArray;
 };
 
-const flattenArrayDates = async (stylistArray: StylistAppointmentType[]) => {
-  return stylistArray.flatMap((appointment) => {
-    return appointment.timeSlots.flatMap((timeslot) => {
-      return parseJSON(timeslot.slotDateTime);
-    });
-  });
-};
+// const checkAppointments = async (
+//   preppedArray: ScheduleArrayType[],
+//   timeArray: Date[]
+// ) => {
+//   return preppedArray.map((obj) => {
+//     return obj.hours.map((hour) => {
+//       for (let i = 0; i < timeArray.length; i++) {
+//         console.log(typeof hour, typeof timeArray[i]);
+//         // if (timeArray[i] > hour.time || timeArray[i] < hour.time) {
+//         //   console.log("same!");
+//         // }
+//       }
+//       // if () {
+//       //   console.log("contains!");
+//       // }
+//     });
+//   });
+// };
 
-const checkAppointments = async (
-  preppedArray: ScheduleArrayType[],
-  timeArray: Date[]
-) => {
-  return preppedArray.map((obj) => {
-    return obj.hours.map((hour) => {
-      for (let i = 0; i < timeArray.length; i++) {
-        console.log(hour);
-        // console.log(timeArray[i], typeof parseISO(hour.time));
-        // if (timeArray[i] > hour.time || timeArray[i] > hour.time) {
-        //   console.log("same!");
-        // }
-      }
-      // if () {
-      //   console.log("contains!");
-      // }
-    });
-  });
-};
+// export const scheduleArrayFiller = async (
+//   preppedArray: ScheduleArrayType[],
+//   stylistTestData: StylistAppointmentType[]
+// ) => {
+//   // accepts: previously built array, employee's appointments + timeslots
+//   // outputs: previous array with timeslots changed if employee's timeslots are filled
+//   // catch: if array slot's closed is true, do nothing
 
-export const scheduleArrayFiller = async (
-  preppedArray: ScheduleArrayType[],
-  stylistTestData: StylistAppointmentType[]
-) => {
-  // console.log(preppedArray, stylistTestData);
-  // accepts: previously built array, employee's appointments + timeslots
-  // outputs: previous array with timeslots changed if employee's timeslots are filled
-  // catch: if array slot's closed is true, do nothing
+//   let timesTakenArray = await flattenArrayDates(stylistTestData);
+//   // let parsed = parseJSON(timesTakenArray[0]);
+//   // console.log(typeof parsed);
+//   console.log(timesTakenArray[0], preppedArray[0].hours[1].time);
+//   let compared = compareAsc(timesTakenArray[0], preppedArray[0].hours[1].time);
+//   console.log(compared);
 
-  let timesTakenArray = await flattenArrayDates(stylistTestData);
-  // let parsed = parseJSON(timesTakenArray[0]);
-  // console.log(typeof parsed);
-  console.log(timesTakenArray[0], preppedArray[0].hours[0].time);
+//   // console.log();
 
-  // console.log();
-
-  // let filledArray = await checkAppointments(preppedArray, timesTakenArray);
-  // console.log(filledArray);
-  let hello = "hello";
-  return hello;
-};
+//   // let filledArray = await checkAppointments(preppedArray, timesTakenArray);
+//   // console.log(filledArray);
+//   let hello = "hello";
+//   return hello;
+// };
 
 export const scheduleBlockFilter = () => {
   // accepts: previously filled array and timeslot amount based on service

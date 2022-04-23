@@ -94,7 +94,7 @@ export interface ReturnStoreType {
   phoneNumber?: string;
   location: string;
   locationLink: string;
-  hours: StoreDayHour[];
+  hours: StoreDayHourFix[];
   employees: UserType[];
   owners: UserType[];
   __V: number;
@@ -118,10 +118,10 @@ export interface SchedulePropTypes {
 }
 
 export interface ScheduleDateType {
-  time: Date;
-  available: boolean;
-  applicable: boolean;
-  closed: boolean;
+  time?: Date;
+  available?: boolean;
+  applicable?: boolean;
+  closed?: boolean;
 }
 
 export interface ScheduleArrayType {

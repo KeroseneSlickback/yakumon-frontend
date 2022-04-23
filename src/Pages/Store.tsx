@@ -98,7 +98,7 @@ const Store = () => {
                 <div>
                   <table>
                     <tbody>
-                      {store?.hours.map((hour) => {
+                      {/* {store?.hours.map((hour) => {
                         return (
                           <tr key={hour._id}>
                             <td>{hour.day}</td>
@@ -107,7 +107,7 @@ const Store = () => {
                             </td>
                           </tr>
                         );
-                      })}
+                      })} */}
                     </tbody>
                   </table>
                 </div>

@@ -1,9 +1,5 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
-import { add } from "date-fns";
-import {
-  scheduleArrayBuild,
-  scheduleArrayFiller,
-} from "../Modules/Schedule/ScheduleHelpers";
+import { scheduleArrayBuild } from "../Modules/Schedule/ScheduleHelpers";
 import { storeHours } from "../Utilities/StylistTestData";
 import axios from "axios";
 import { ReturnUserType } from "../Utilities/types";
@@ -54,18 +50,28 @@ function DateTest() {
     e.preventDefault();
     const currentDateTime = new Date();
     const outputDays = 4;
-    const preppedArray = await scheduleArrayBuild(
-      currentDateTime,
-      storeHours,
-      outputDays
-    );
     if (stylist?.appointments) {
-      const filteredArray = await scheduleArrayFiller(
-        preppedArray,
-        stylist?.appointments
-      );
-      console.log(filteredArray);
+      if (stylist.store?.hours) {
+        const storeHours = stylist.store.hours;
+        const preppedArray = await scheduleArrayBuild(
+          currentDateTime,
+          storeHours,
+          outputDays,
+          stylist?.appointments
+        );
+        console.log(preppedArray);
+      }
     }
+  };
+
+  const handleOneHour = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    console.log("One hour");
+  };
+
+  const handleTwoHour = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    console.log("One hour");
   };
 
   useEffect(() => {
@@ -73,7 +79,7 @@ function DateTest() {
       const getData = async () => {
         await axios
           .get<ReturnUserType>(
-            `http://localhost:8888/user/624817f3c3320f65cc2f5856`
+            `http://localhost:8888/user/6260eb669a5d941c3ef2af39`
           )
           .then((response) => {
             setStylist(response.data);
@@ -95,8 +101,17 @@ function DateTest() {
         <input type="time" value={formData.time} onChange={handleTimeChange} />
         <button>Submit</button>
       </form>
+      <br />
       <form onSubmit={handleArrayTest}>
         <button>Create Array</button>
+      </form>
+      <br />
+      <form onSubmit={handleOneHour}>
+        <button>Select 1 Hour Service</button>
+      </form>
+      <br />
+      <form onSubmit={handleTwoHour}>
+        <button>Create 2 Hour Service</button>
       </form>
     </div>
   );
