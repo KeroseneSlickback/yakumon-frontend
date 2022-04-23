@@ -1,8 +1,10 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
-import { scheduleArrayBuild } from "../Modules/Schedule/ScheduleHelpers";
-import { storeHours } from "../Utilities/StylistTestData";
+import {
+  scheduleArrayBuild,
+  scheduleBlockFilter,
+} from "../Modules/Schedule/ScheduleHelpers";
 import axios from "axios";
-import { ReturnUserType } from "../Utilities/types";
+import { ReturnUserType, ScheduleArrayType } from "../Utilities/types";
 
 interface ScheduleType {
   date: string;
@@ -11,6 +13,7 @@ interface ScheduleType {
 
 function DateTest() {
   const [stylist, setStylist] = useState<ReturnUserType | null>(null);
+  const [array, setArray] = useState<ScheduleArrayType[] | null>(null);
   const [formData, setFormData] = useState<ScheduleType>({
     date: "",
     time: "",
@@ -59,6 +62,7 @@ function DateTest() {
           outputDays,
           stylist?.appointments
         );
+        setArray(preppedArray);
         console.log(preppedArray);
       }
     }
@@ -66,12 +70,14 @@ function DateTest() {
 
   const handleOneHour = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log("One hour");
+    const newArray = await scheduleBlockFilter(array, 2);
+    console.log("One hour", newArray);
   };
 
   const handleTwoHour = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log("One hour");
+    const newArray = await scheduleBlockFilter(array, 5);
+    console.log("Two hours", newArray);
   };
 
   useEffect(() => {

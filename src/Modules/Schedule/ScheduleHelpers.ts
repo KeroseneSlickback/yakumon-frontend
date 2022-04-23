@@ -1,10 +1,8 @@
 import {
   addDays,
   addMinutes,
-  compareAsc,
   getDay,
   isEqual,
-  parseISO,
   parseJSON,
   set,
   startOfDay,
@@ -204,8 +202,52 @@ export const scheduleArrayBuild = async (
 //   return hello;
 // };
 
-export const scheduleBlockFilter = () => {
+export const scheduleBlockFilter = async (
+  scheduleArray: ScheduleArrayType[] | null,
+  steps: number
+) => {
+  return scheduleArray?.map((day) => {
+    let aggrivateArray: any[] = [];
+    let countingArray = [];
+    let countingIndexs = [];
+    for (let i = 0; i < day.hours.length; i++) {
+      let workingTimeSlot = day.hours[i];
+      if (workingTimeSlot.applicable && !workingTimeSlot.closed) {
+        countingArray.push(workingTimeSlot);
+        countingIndexs.push(day.hours.indexOf(workingTimeSlot));
+
+        if (countingArray.length === steps) {
+          aggrivateArray.push(countingArray);
+          countingArray = [];
+        }
+
+        // if (countingArray.length < steps) {
+        // } else if (countingArray.length === steps) {
+        //   countingArray.push(workingTimeSlot);
+        //   countingIndexs.push(day.hours.indexOf(workingTimeSlot));
+        //   aggrivateArray.push(...countingArray);
+        //   countingArray = [];
+        // }
+      }
+      // find the indexes and alter the objects then return
+      // day.hours[i] = {
+      //   ...day.hours[i],
+      //   applicable: true,
+      // };
+    }
+    console.log(aggrivateArray, countingArray, countingIndexs);
+    // take countingArray
+  });
   // accepts: previously filled array and timeslot amount based on service
   // outputs: an array with timeslots' available set true/false
   // catch: if array slot's closed is true, do nothing
+  console.log(scheduleArray, steps);
 };
+
+/*
+
+  maps through array to enter each day
+  within each day, breaks into each 30min block
+  if 
+
+*/
