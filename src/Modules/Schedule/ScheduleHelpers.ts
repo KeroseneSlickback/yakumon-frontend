@@ -82,7 +82,7 @@ export const scheduleArrayBuild = async (
           workingTimeDateObj = {
             ...workingTimeDateObj,
             available: true,
-            applicable: true,
+            applicable: false,
           };
         }
 
@@ -127,7 +127,7 @@ export const scheduleArrayBuild = async (
             workingTimeDateObj = {
               ...workingTimeDateObj,
               available: true,
-              applicable: true,
+              applicable: false,
             };
           }
 
@@ -210,32 +210,41 @@ export const scheduleBlockFilter = async (
     let aggrivateArray: any[] = [];
     let countingArray = [];
     let countingIndexs = [];
+    let randomId = Math.floor(Math.random() * 100000);
     for (let i = 0; i < day.hours.length; i++) {
       let workingTimeSlot = day.hours[i];
-      if (workingTimeSlot.applicable && !workingTimeSlot.closed) {
+      if (workingTimeSlot.available && !workingTimeSlot.closed) {
         countingArray.push(workingTimeSlot);
         countingIndexs.push(day.hours.indexOf(workingTimeSlot));
-
         if (countingArray.length === steps) {
-          aggrivateArray.push(countingArray);
+          let newCountingArray = countingArray.map((obj, index) => {
+            if (index === 0) {
+              return (obj = {
+                ...obj,
+                applicable: true,
+                id: randomId,
+                head: true,
+              });
+            } else {
+              return (obj = {
+                ...obj,
+                applicable: true,
+                id: randomId,
+                head: false,
+              });
+            }
+          });
+          randomId = Math.floor(Math.random() * 100000);
+          aggrivateArray.push(...newCountingArray);
           countingArray = [];
         }
-
-        // if (countingArray.length < steps) {
-        // } else if (countingArray.length === steps) {
-        //   countingArray.push(workingTimeSlot);
-        //   countingIndexs.push(day.hours.indexOf(workingTimeSlot));
-        //   aggrivateArray.push(...countingArray);
-        //   countingArray = [];
-        // }
+      } else {
+        console.log("Not good!", workingTimeSlot);
+        aggrivateArray.push(workingTimeSlot);
       }
-      // find the indexes and alter the objects then return
-      // day.hours[i] = {
-      //   ...day.hours[i],
-      //   applicable: true,
-      // };
     }
-    console.log(aggrivateArray, countingArray, countingIndexs);
+    return aggrivateArray;
+    // console.log(aggrivateArray, countingArray, countingIndexs);
     // take countingArray
   });
   // accepts: previously filled array and timeslot amount based on service

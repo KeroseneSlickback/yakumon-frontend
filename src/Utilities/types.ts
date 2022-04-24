@@ -122,14 +122,15 @@ export interface ScheduleDateType {
   available?: boolean;
   applicable?: boolean;
   closed?: boolean;
+  appointmentId?: string;
+  id?: number;
+  head?: boolean;
 }
 
 export interface ScheduleArrayType {
   day: Date;
   hours: ScheduleDateType[];
 }
-
-// Build an Appointment type
 
 export interface timeSlotType {
   appointment: string;
