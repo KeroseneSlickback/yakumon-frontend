@@ -76,7 +76,7 @@ function DateTest() {
 
   const handleTwoHour = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const newArray = await scheduleBlockFilter(array, 5);
+    const newArray = await scheduleBlockFilter(array, 1);
     console.log("Two hours", newArray);
   };
 

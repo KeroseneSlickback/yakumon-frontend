@@ -124,7 +124,7 @@ export interface ScheduleDateType {
   closed?: boolean;
   appointmentId?: string;
   id?: number;
-  head?: boolean;
+  possibleHead?: boolean;
 }
 
 export interface ScheduleArrayType {
