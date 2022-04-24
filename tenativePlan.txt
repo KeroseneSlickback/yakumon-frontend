@@ -25,3 +25,13 @@ Test backend store delete route with different user who isn't owner
 
 
 
+4.24:
+- Fix store output of hours 
+- Implement array functionality into reservation page 
+- Output basic table and infomation 
+- Functionality to find earliest and latest store time schedule to help display?
+- Of course, 30min blocks
+- Start basic styling before user implementation starts
+- Brainstorm how to handle user input after service select 
+- Once user selects service, how to update table properly?
+- If user selects a time block for their service, how to choose earliest time within that block?

@@ -52,7 +52,7 @@ const Store = () => {
       getData();
     }, 500);
     return () => clearTimeout(debounce);
-  }, []);
+  }, [id]);
 
   return (
     <SinglePageContainer>

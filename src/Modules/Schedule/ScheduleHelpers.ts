@@ -153,7 +153,6 @@ export const scheduleBlockFilter = async (
   return scheduleArray?.map((day) => {
     let aggrivateArray: any[] = [];
     let countingArray = [];
-    let randomId = Math.floor(Math.random() * 100000);
     for (let i = 0; i < day.hours.length; i++) {
       let workingTimeSlot = day.hours[i];
       // when an appointment section is found
@@ -161,9 +160,10 @@ export const scheduleBlockFilter = async (
         // when the countingArray meets or exceeds set steps
         if (countingArray.length >= steps) {
           // itterate and alter current array as they are applicable
+          let tailCalc = countingArray.length - steps;
+          let randomId = Math.floor(Math.random() * 100000);
           let newCountingArray = countingArray.map((obj, index) => {
             // index/counting error
-            let tailCalc = countingArray.length - steps;
             if (index <= tailCalc) {
               return (obj = {
                 ...obj,
@@ -197,8 +197,9 @@ export const scheduleBlockFilter = async (
         // clean up
         if (i === day.hours.length - 1) {
           if (countingArray.length >= steps) {
+            let tailCalc = countingArray.length - steps;
+            let randomId = Math.floor(Math.random() * 100000);
             let newCountingArray = countingArray.map((obj, index) => {
-              let tailCalc = countingArray.length - steps;
               if (index <= tailCalc) {
                 return (obj = {
                   ...obj,
