@@ -47,7 +47,7 @@ export const LoadingIconContainer = styled.div<{ absolute?: boolean }>`
 
 export const ErrorContainer = styled(LoadingIconContainer)``;
 
-export const LoadingIcon = styled.div`
+export const LoadingIcon = styled.div<{ padding?: boolean }>`
   border: 10px solid #f3f3f3;
   border-radius: 50%;
   border-top: 10px solid ${({ theme }) => theme.secondary};
@@ -62,5 +62,19 @@ export const LoadingIcon = styled.div`
     100% {
       transform: rotate(360deg);
     }
+  }
+
+  ${(props) =>
+    props.padding &&
+    css`
+      margin: 20px;
+    `}
+`;
+
+export const StoreHourTable = styled.table`
+  tr {
+    display: grid;
+    grid-template-columns: 40px 70px 10px 70px;
+    justify-items: center;
   }
 `;

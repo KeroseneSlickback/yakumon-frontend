@@ -9,7 +9,7 @@ import {
 } from "date-fns";
 import {
   ScheduleArrayType,
-  StoreDayHourFix,
+  StoreDayHour,
   StylistAppointmentType,
 } from "../../Utilities/types";
 
@@ -30,7 +30,7 @@ const compareDatesInArray = async (array: Date[], givenDate: Date) => {
 
 export const scheduleArrayBuild = async (
   startDate: Date,
-  storeHours: StoreDayHourFix[],
+  storeHours: StoreDayHour[],
   outputDays: number,
   stylistAppointments: StylistAppointmentType[]
 ) => {

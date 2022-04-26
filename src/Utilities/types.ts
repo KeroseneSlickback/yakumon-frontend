@@ -55,13 +55,6 @@ export interface ModalCloseProp {
 }
 
 export interface StoreDayHour {
-  day: string;
-  open: string;
-  close: string;
-  _id: string;
-}
-
-export interface StoreDayHourFix {
   open: string;
   close: string;
   closed: boolean;
@@ -94,7 +87,7 @@ export interface ReturnStoreType {
   phoneNumber?: string;
   location: string;
   locationLink: string;
-  hours: StoreDayHourFix[];
+  hours: StoreDayHour[];
   employees: UserType[];
   owners: UserType[];
   __V: number;
@@ -108,13 +101,6 @@ export interface ReservationType {
   createdAt: Date | null;
   comments: string;
   service: string;
-}
-
-export interface SchedulePropTypes {
-  appointments?: Object[];
-  services?: ServiceType[];
-  selectedService?: string;
-  store?: ReturnStoreType;
 }
 
 export interface ScheduleDateType {

@@ -26,7 +26,6 @@ Test backend store delete route with different user who isn't owner
 
 
 4.24:
-- Fix store output of hours 
 - Implement array functionality into reservation page 
 - Output basic table and infomation 
 - Functionality to find earliest and latest store time schedule to help display?

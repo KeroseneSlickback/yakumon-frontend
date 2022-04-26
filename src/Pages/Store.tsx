@@ -11,6 +11,7 @@ import {
   LoadingIcon,
   LoadingIconContainer,
   ShowcaseImg,
+  StoreHourTable,
   StoreImg,
 } from "../Components/Page-accessories";
 
@@ -22,6 +23,9 @@ import { useState, useEffect } from "react";
 import { ReturnStoreType } from "../Utilities/types";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import StoreHour from "../Components/StoreHour";
+
+const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
 const Store = () => {
   const { id } = useParams();
@@ -29,6 +33,9 @@ const Store = () => {
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [storeImg, setStoreImg] = useState<string>("");
+  // const [storeDays, setStoreDays] = useState<string[]>([]);
+
+  // const processDays = ()
 
   useEffect(() => {
     setLoad(true);
@@ -40,6 +47,7 @@ const Store = () => {
             setLoad(false);
             setError(false);
             setStore(response.data);
+            console.log(response.data);
             if (response.data.picture) {
               setStoreImg(response.data.picture.toString("base64"));
             }
@@ -96,20 +104,19 @@ const Store = () => {
               <span>
                 <img src={clock} alt="clock" />
                 <div>
-                  <table>
+                  <StoreHourTable>
                     <tbody>
-                      {/* {store?.hours.map((hour) => {
+                      {store?.hours.map((day, dayIndex) => {
                         return (
-                          <tr key={hour._id}>
-                            <td>{hour.day}</td>
-                            <td>
-                              {hour.open} - {hour.close}
-                            </td>
-                          </tr>
+                          <StoreHour
+                            key={day._id}
+                            day={day}
+                            weekday={weekdaysArray[dayIndex]}
+                          />
                         );
-                      })} */}
+                      })}
                     </tbody>
-                  </table>
+                  </StoreHourTable>
                 </div>
               </span>
             </StoreInfoContainer>

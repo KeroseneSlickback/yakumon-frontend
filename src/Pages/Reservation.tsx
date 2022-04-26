@@ -27,11 +27,11 @@ import ScheduleView from "../Modules/Schedule/ScheduleView";
 
 const Reservation = () => {
   const { id } = useParams();
+  const { loggedIn, user } = useContext(AuthContext);
   const [stylist, setStylist] = useState<ReturnUserType | null>(null);
   const [stylistImg, setStylistImg] = useState<string>("");
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const { loggedIn, user } = useContext(AuthContext);
   const [viewRegister, setViewRegister] = useState(false);
   const [viewLogin, setViewLogin] = useState(false);
   const [reservation, setReservation] = useState<ReservationType>({
@@ -175,6 +175,7 @@ const Reservation = () => {
               services={stylist?.services}
               selectedService={reservation.service}
               store={stylist?.store}
+              reservation={reservation.service}
             />
           </PageSectionCard>
           <PageSectionCard styled>
