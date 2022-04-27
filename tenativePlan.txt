@@ -26,7 +26,6 @@ Test backend store delete route with different user who isn't owner
 
 
 4.24:
-- Implement array functionality into reservation page 
 - Output basic table and infomation 
 - Functionality to find earliest and latest store time schedule to help display?
 - Of course, 30min blocks
@@ -34,3 +33,7 @@ Test backend store delete route with different user who isn't owner
 - Brainstorm how to handle user input after service select 
 - Once user selects service, how to update table properly?
 - If user selects a time block for their service, how to choose earliest time within that block?
+
+- Create function to find earliest and latest store hour from store hour array 
+- Function finds the earliest and latest hours 
+- Creates a blank array for each day with every 30min block created regardless of store hour, but based on earliest and latest 

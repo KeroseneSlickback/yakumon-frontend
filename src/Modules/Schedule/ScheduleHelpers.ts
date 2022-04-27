@@ -13,6 +13,7 @@ import {
   StylistAppointmentType,
 } from "../../Utilities/types";
 
+// helper function, flattens stylist's appointment timeSlots to a single array of day/times
 const flattenArrayDates = async (stylistArray: StylistAppointmentType[]) => {
   return stylistArray.flatMap((appointment) => {
     return appointment.timeSlots.flatMap((timeslot) => {
@@ -21,12 +22,79 @@ const flattenArrayDates = async (stylistArray: StylistAppointmentType[]) => {
   });
 };
 
+// helper function that compares an array of dates to given date
+// work around due to date-fns having issues with async/await functionality
 const compareDatesInArray = async (array: Date[], givenDate: Date) => {
   let findMatching = (date: Date) => {
     return isEqual(date, givenDate);
   };
   return array.findIndex(findMatching);
 };
+
+/*
+
+First function to be called to prepare an array
+Accepts a Date to start building the array following that day so same-day appointments cannot be made
+First Date is always current day, then incremented before calling function
+Accepts store's open hours in the following:
+[
+    {
+        "open": "8",
+        "close": "20",
+        "closed": false,
+        "_id": "6260eb959a5d941c3ef2af41"
+    },
+    {
+        "open": "9",
+        "close": "19",
+        "closed": false,
+        "_id": "6260eb959a5d941c3ef2af42"
+    },
+    .........
+    {
+        "open": "11",
+        "close": "14:30",
+        "closed": false,
+        "_id": "6260eb959a5d941c3ef2af43"
+    },
+    ...........
+]
+Function changes the string of numbers into an array to help compile time if time is not a whole number
+Accepts output days to know how many days ahead to create
+Accepts stylist appointments in the following:
+[
+    {
+        "_id": "626368fcd62e7a3784491f13",
+        "timeSlots": [
+            {
+                "_id": "626368fcd62e7a3784491f0f",
+                "slotDateTime": "2022-04-24T01:00:00.000Z",
+                "createdAt": "2022-04-21T07:23:00.000Z",
+                "owner": "6260eb669a5d941c3ef2af39",
+                "employee": "6260eb669a5d941c3ef2af39",
+                "__v": 0,
+                "appointment": "626368fcd62e7a3784491f13"
+            },
+            {
+                "_id": "626368fcd62e7a3784491f11",
+                "slotDateTime": "2022-04-24T01:30:00.000Z",
+                "createdAt": "2022-04-21T07:23:00.000Z",
+                "owner": "6260eb669a5d941c3ef2af39",
+                "employee": "6260eb669a5d941c3ef2af39",
+                "__v": 0,
+                "appointment": "626368fcd62e7a3784491f13"
+            }
+        ],
+        "service": "6260ebbb9a5d941c3ef2af5c",
+        "owner": "6260eb669a5d941c3ef2af39",
+        "employee": "6260eb669a5d941c3ef2af39",
+        "__v": 0
+    },
+]
+Function calls helper function to flatten the timeSlot dates
+Function creates a blank array, then compares date/times to appointment flattened array to set availability
+
+*/
 
 export const scheduleArrayBuild = async (
   startDate: Date,
@@ -38,19 +106,27 @@ export const scheduleArrayBuild = async (
   let timesTakenArray = await flattenArrayDates(stylistAppointments);
 
   // This loop is creating dates based from outputDays # and the startDate
+  // Loop creates arrray backwards to make use of unshift() ordering
   for (let i = outputDays; i > 0; i--) {
+    // date-fns finds the start of the assigned date
+    // starts with initial start date, then decrements with array
     let assignedDate = startOfDay(addDays(startDate, i));
+    // date-fns recalls 0-6 for day of the week
     let dayOfWeek = getDay(assignedDate);
 
     // This loop is looping through store hours
     for (let j = storeHours.length - 1; j >= 0; j--) {
       // this checks for if the storehour day matches with the assignedDate day of the week
       // if it does, do something; if not, skip
+      // Store's open/close array is set from Sun-Sat as date-fns uses 0 as Sun, 6 as Sat, so array.length is used as weekday #
       if (j === dayOfWeek) {
+        // array to keep the finished day/time objects
         let hoursArray = [];
+        // these functions break the "9:30" strings into an array
         let startTimeArray = storeHours[j].open
           .split(":")
           .map((x) => parseFloat(x));
+        // Then date-fns creates a
         let scheduleTime = set(assignedDate, {
           hours: startTimeArray[0],
           minutes: startTimeArray[1],
@@ -62,11 +138,15 @@ export const scheduleArrayBuild = async (
           hours: closeTimeArray[0],
           minutes: closeTimeArray[1],
         });
+        // day/time object initialization to build on
         let workingTimeDateObj = {};
+        // compares if created date/time is contained in stylist flattened array
         const comparedDateToArray = await compareDatesInArray(
           timesTakenArray,
           scheduleTime
         );
+        // if date is in array, set false to available
+        // else, set true
         if (comparedDateToArray >= 0) {
           workingTimeDateObj = {
             ...workingTimeDateObj,
@@ -80,6 +160,7 @@ export const scheduleArrayBuild = async (
             applicable: false,
           };
         }
+        // if store is closed that day, set close to true
         if (storeHours[j].closed) {
           workingTimeDateObj = {
             ...workingTimeDateObj,
@@ -91,11 +172,13 @@ export const scheduleArrayBuild = async (
             closed: false,
           };
         }
+        // finish building object
         workingTimeDateObj = {
           ...workingTimeDateObj,
           time: parseJSON(scheduleTime),
         };
         hoursArray.push(workingTimeDateObj);
+        // Previous methods were for the initial date/time, following is for the 30min incremental date/time
         while (scheduleTime < endScheduleTime) {
           let workingTime = addMinutes(scheduleTime, 30);
           if (workingTime >= endScheduleTime) {
@@ -136,6 +219,7 @@ export const scheduleArrayBuild = async (
           };
           hoursArray.push(workingTimeDateObj);
         }
+        // Once day's hours are built, unshift into array and then decrement is started
         scheduleArray.unshift({
           day: assignedDate,
           hours: hoursArray,

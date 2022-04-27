@@ -6,6 +6,7 @@ import {
 } from "../../Components/Page-accessories";
 import {
   ReturnStoreType,
+  ScheduleArrayType,
   ServiceType,
   StylistAppointmentType,
 } from "../../Utilities/types";
@@ -26,17 +27,18 @@ const ScheduleView = ({
   store,
   reservation,
 }: SchedulePropTypes) => {
-  const [dateTime, setDateTime] = useState<Date>(new Date());
-  const [selectedSteps, setSelectiveSteps] = useState<number>(0);
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [outputDays, setOutputDays] = useState<number>(4);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [dateTimeArray, setDateTimeArray] = useState<ScheduleArrayType[]>([]);
+  const [displayDate, setDisplayDate] = useState({ start: "", end: "" });
   console.log(appointments, services, selectedService, store, reservation);
 
   useEffect(() => {
     setLoad(true);
     // create a new startDate based on previous times the number of steps
     // When next/previous are clicked, increment date from that, but don't allow under 0
-    const outputDays = 4;
     const debounce = setTimeout(() => {
       if (appointments) {
         if (store?.hours) {
@@ -48,6 +50,7 @@ const ScheduleView = ({
               outputDays,
               appointments
             );
+            setDateTimeArray(preppedData);
             console.log(preppedData);
           };
           preppedArray();
@@ -62,7 +65,7 @@ const ScheduleView = ({
       {" "}
       {error ? (
         <ErrorContainer>
-          <h3>There wasn an error.</h3>
+          <h3>There was an error.</h3>
         </ErrorContainer>
       ) : load ? (
         <LoadingIconContainer>
@@ -72,9 +75,9 @@ const ScheduleView = ({
         <table>
           <thead>
             <tr>
-              <th>Prev Week</th>
+              <th>Prev</th>
               <th colSpan={3}>April 9 - 12</th>
-              <th>Next Week</th>
+              <th>Next</th>
             </tr>
           </thead>
           <tbody>
