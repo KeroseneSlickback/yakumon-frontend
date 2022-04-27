@@ -9,6 +9,7 @@ import {
 } from "date-fns";
 import {
   ScheduleArrayType,
+  ScheduleDateType,
   StoreDayHour,
   StylistAppointmentType,
 } from "../../Utilities/types";
@@ -29,6 +30,60 @@ const compareDatesInArray = async (array: Date[], givenDate: Date) => {
     return isEqual(date, givenDate);
   };
   return array.findIndex(findMatching);
+};
+
+const outputBlankSchedule = async (
+  array: StoreDayHour[],
+  givenDate: Date,
+  steps: number
+) => {
+  let earliest = 25;
+  let latest = 0;
+  let builtArray: ScheduleArrayType[] = [];
+  for (let i = array.length - 1; i >= 0; i--) {
+    let openTime = parseFloat(array[i].open.split(":").join("."));
+    if (openTime < earliest) earliest = openTime;
+    let closeTime = parseFloat(array[i].close.split(":").join("."));
+    if (closeTime > latest) latest = closeTime;
+  }
+  for (let j = 1; j <= steps; j++) {
+    let hoursArray: ScheduleDateType[] = [];
+    let assignedDate = startOfDay(addDays(givenDate, j));
+    let startTimeArray = earliest
+      .toString()
+      .split(".")
+      .map((x) => parseFloat(x));
+    let scheduleTime = set(assignedDate, {
+      hours: startTimeArray[0],
+      minutes: startTimeArray[1],
+    });
+    let endTimeArray = latest
+      .toString()
+      .split(".")
+      .map((x) => parseFloat(x));
+    let endTime = set(assignedDate, {
+      hours: endTimeArray[0],
+      minutes: endTimeArray[1],
+    });
+    hoursArray.push({
+      time: scheduleTime,
+    });
+    while (scheduleTime < endTime) {
+      let workingObj = {};
+      let workingTime = addMinutes(scheduleTime, 30);
+      if (workingTime >= endTime) break;
+      scheduleTime = workingTime;
+      workingObj = {
+        time: workingTime,
+      };
+      hoursArray.push(workingObj);
+    }
+    builtArray.push({
+      day: assignedDate,
+      hours: hoursArray,
+    });
+  }
+  return builtArray;
 };
 
 /*
@@ -104,6 +159,12 @@ export const scheduleArrayBuild = async (
 ) => {
   let scheduleArray: ScheduleArrayType[] = [];
   let timesTakenArray = await flattenArrayDates(stylistAppointments);
+  let blankScheduleArray = await outputBlankSchedule(
+    storeHours,
+    startDate,
+    outputDays
+  );
+  console.log(blankScheduleArray);
 
   // This loop is creating dates based from outputDays # and the startDate
   // Loop creates arrray backwards to make use of unshift() ordering

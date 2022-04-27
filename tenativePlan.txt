@@ -37,3 +37,7 @@ Test backend store delete route with different user who isn't owner
 - Create function to find earliest and latest store hour from store hour array 
 - Function finds the earliest and latest hours 
 - Creates a blank array for each day with every 30min block created regardless of store hour, but based on earliest and latest 
+
+- within loop of output days:
+- find earliest and latest for store hours, create Date objects from those
+- 
