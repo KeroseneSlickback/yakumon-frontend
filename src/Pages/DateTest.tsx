@@ -62,7 +62,7 @@ function DateTest() {
           outputDays,
           stylist?.appointments
         );
-        setArray(preppedArray);
+        // setArray(preppedArray);
         console.log(preppedArray);
       }
     }

@@ -104,7 +104,7 @@ export interface ReservationType {
 }
 
 export interface ScheduleDateType {
-  time?: Date;
+  time: Date;
   available?: boolean;
   applicable?: boolean;
   closed?: boolean;

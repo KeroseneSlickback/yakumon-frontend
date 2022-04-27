@@ -28,7 +28,7 @@ const ScheduleView = ({
   reservation,
 }: SchedulePropTypes) => {
   const [startDate, setStartDate] = useState<Date>(new Date());
-  const [outputDays, setOutputDays] = useState<number>(4);
+  const [outputDays, setOutputDays] = useState<number>(7);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [dateTimeArray, setDateTimeArray] = useState<ScheduleArrayType[]>([]);
@@ -50,7 +50,7 @@ const ScheduleView = ({
               outputDays,
               appointments
             );
-            setDateTimeArray(preppedData);
+            // setDateTimeArray(preppedData);
           };
           preppedArray();
           setLoad(false);
