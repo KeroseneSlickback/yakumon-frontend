@@ -50,7 +50,8 @@ const ScheduleView = ({
               outputDays,
               appointments
             );
-            // setDateTimeArray(preppedData);
+            console.log(preppedData);
+            setDateTimeArray(preppedData);
           };
           preppedArray();
           setLoad(false);

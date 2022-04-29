@@ -36,10 +36,15 @@ const compareAndFillArray = async (
   blankArray: ScheduleArrayType[],
   takenArray: Date[]
 ) => {
-  return blankArray.map((day) => {
-    return day.hours.map(async (hour) => {
-      let filledDate = await compareDatesInArray(takenArray, hour.time);
-      if (filledDate >= 0) {
+  let returnArray = [];
+
+  for (let i = 0; i < blankArray.length; i++) {
+    let hours = blankArray[i].hours;
+    let hoursArray: any[] = [];
+    for (let j = 0; j < hours.length; j++) {
+      let hour = hours[j];
+      let filledTimeSlot = await compareDatesInArray(takenArray, hour.time);
+      if (filledTimeSlot >= 0) {
         hour = {
           ...hour,
           available: false,
@@ -52,8 +57,14 @@ const compareAndFillArray = async (
           applicable: false,
         };
       }
+      hoursArray.push(hour);
+    }
+    returnArray.push({
+      day: blankArray[i].day,
+      hours: hoursArray,
     });
-  });
+  }
+  return returnArray;
 };
 
 const outputBlankSchedule = async (
@@ -107,7 +118,7 @@ const outputBlankSchedule = async (
       minutes: storeCloseArray[1],
     });
 
-    if (array[assignedWeekday].closed || scheduleTime <= storeOpenTime) {
+    if (array[assignedWeekday].closed || scheduleTime < storeOpenTime) {
       hoursArray.push({
         time: scheduleTime,
         closed: true,
@@ -235,148 +246,17 @@ export const scheduleArrayBuild = async (
   outputDays: number,
   stylistAppointments: StylistAppointmentType[]
 ) => {
-  let scheduleArray;
   let timesTakenArray = await flattenArrayDates(stylistAppointments);
   let blankScheduleArray = await outputBlankSchedule(
     storeHours,
     startDate,
     outputDays
   );
-  console.log(blankScheduleArray);
   let newReturnArray = await compareAndFillArray(
     blankScheduleArray,
     timesTakenArray
   );
-
-  // let scheduleArray = blankScheduleArray.map((daySlot) => {
-  //   return daySlot.map((timeSlot) => {
-  //     console.log(timeSlot);
-  //   });
-  // });
-
-  // This loop is creating dates based from outputDays # and the startDate
-  // Loop creates arrray backwards to make use of unshift() ordering
-  for (let i = outputDays; i > 0; i--) {
-    // date-fns finds the start of the assigned date
-    // starts with initial start date, then decrements with array
-    let assignedDate = startOfDay(addDays(startDate, i));
-    // date-fns recalls 0-6 for day of the week
-    let dayOfWeek = getDay(assignedDate);
-
-    // This loop is looping through store hours
-    for (let j = storeHours.length - 1; j >= 0; j--) {
-      // this checks for if the storehour day matches with the assignedDate day of the week
-      // if it does, do something; if not, skip
-      // Store's open/close array is set from Sun-Sat as date-fns uses 0 as Sun, 6 as Sat, so array.length is used as weekday #
-      if (j === dayOfWeek) {
-        // array to keep the finished day/time objects
-        let hoursArray = [];
-        // these functions break the "9:30" strings into an array
-        let startTimeArray = storeHours[j].open
-          .split(":")
-          .map((x) => parseFloat(x));
-        // Then date-fns creates a
-        let scheduleTime = set(assignedDate, {
-          hours: startTimeArray[0],
-          minutes: startTimeArray[1],
-        });
-        let closeTimeArray = storeHours[j].close
-          .split(":")
-          .map((x) => parseFloat(x));
-        let endScheduleTime = set(assignedDate, {
-          hours: closeTimeArray[0],
-          minutes: closeTimeArray[1],
-        });
-        // day/time object initialization to build on
-        let workingTimeDateObj = {};
-        // compares if created date/time is contained in stylist flattened array
-        const comparedDateToArray = await compareDatesInArray(
-          timesTakenArray,
-          scheduleTime
-        );
-        // if date is in array, set false to available
-        // else, set true
-        if (comparedDateToArray >= 0) {
-          workingTimeDateObj = {
-            ...workingTimeDateObj,
-            available: false,
-            applicable: false,
-          };
-        } else {
-          workingTimeDateObj = {
-            ...workingTimeDateObj,
-            available: true,
-            applicable: false,
-          };
-        }
-        // if store is closed that day, set close to true
-        if (storeHours[j].closed) {
-          workingTimeDateObj = {
-            ...workingTimeDateObj,
-            closed: true,
-          };
-        } else {
-          workingTimeDateObj = {
-            ...workingTimeDateObj,
-            closed: false,
-          };
-        }
-        // finish building object
-        workingTimeDateObj = {
-          ...workingTimeDateObj,
-          time: parseJSON(scheduleTime),
-        };
-        hoursArray.push(workingTimeDateObj);
-        // Previous methods were for the initial date/time, following is for the 30min incremental date/time
-        while (scheduleTime < endScheduleTime) {
-          let workingTime = addMinutes(scheduleTime, 30);
-          if (workingTime >= endScheduleTime) {
-            break;
-          }
-          scheduleTime = workingTime;
-          const comparedDateToArray = await compareDatesInArray(
-            timesTakenArray,
-            scheduleTime
-          );
-          if (comparedDateToArray >= 0) {
-            workingTimeDateObj = {
-              ...workingTimeDateObj,
-              available: false,
-              applicable: false,
-            };
-          } else {
-            workingTimeDateObj = {
-              ...workingTimeDateObj,
-              available: true,
-              applicable: false,
-            };
-          }
-          if (storeHours[j].closed) {
-            workingTimeDateObj = {
-              ...workingTimeDateObj,
-              closed: true,
-            };
-          } else {
-            workingTimeDateObj = {
-              ...workingTimeDateObj,
-              closed: false,
-            };
-          }
-          workingTimeDateObj = {
-            ...workingTimeDateObj,
-            time: parseJSON(workingTime),
-          };
-          hoursArray.push(workingTimeDateObj);
-        }
-        // Once day's hours are built, unshift into array and then decrement is started
-        // scheduleArray.unshift({
-        //   day: assignedDate,
-        //   hours: hoursArray,
-        // });
-      }
-    }
-  }
-  return scheduleArray;
+  return newReturnArray;
 };
 
 export const scheduleBlockFilter = async (
