@@ -172,7 +172,7 @@ const outputBlankSchedule = async (
       hours: hoursArray,
     });
   }
-  return builtArray;
+  return { builtArray, earliest, latest };
 };
 
 /*
@@ -247,16 +247,13 @@ export const scheduleArrayBuild = async (
   stylistAppointments: StylistAppointmentType[]
 ) => {
   let timesTakenArray = await flattenArrayDates(stylistAppointments);
-  let blankScheduleArray = await outputBlankSchedule(
+  let { builtArray, earliest, latest } = await outputBlankSchedule(
     storeHours,
     startDate,
     outputDays
   );
-  let newReturnArray = await compareAndFillArray(
-    blankScheduleArray,
-    timesTakenArray
-  );
-  return newReturnArray;
+  let newReturnArray = await compareAndFillArray(builtArray, timesTakenArray);
+  return { newReturnArray, earliest, latest };
 };
 
 export const scheduleBlockFilter = async (
@@ -343,4 +340,39 @@ export const scheduleBlockFilter = async (
     }
     return aggrivateArray;
   });
+};
+
+export const buildTimeSelectionArray = async (start: number, end: number) => {
+  let returnArray: string[] = [];
+  let thirtySwitch = false;
+  let amPmSwitch = "am";
+  let amPmCounter = 0;
+  let counter = (start /= 2);
+  let endCounter = end;
+
+  while (counter < endCounter) {
+    if (amPmSwitch === "am") {
+      if (!thirtySwitch) {
+        returnArray.push(`${counter} am`);
+      } else {
+        returnArray.push(`${counter}:30 am`);
+      }
+      thirtySwitch = !thirtySwitch;
+    } else {
+      if (!thirtySwitch) {
+        returnArray.push(`${counter} pm`);
+      } else {
+        returnArray.push(`${counter}:30 pm`);
+      }
+      thirtySwitch = !thirtySwitch;
+    }
+    if (counter === 11 && amPmCounter !== 1) {
+      amPmCounter += 1;
+    } else {
+      amPmSwitch = "pm";
+      counter = 0;
+    }
+    counter += 1;
+  }
+  return returnArray;
 };
