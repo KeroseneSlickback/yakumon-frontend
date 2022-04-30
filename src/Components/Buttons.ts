@@ -88,3 +88,14 @@ export const CloseButton = styled.button`
     transform: rotate(-45deg);
   }
 `;
+
+export const ScheduleButton = styled(TinyButton)`
+  color: ${({ theme }) => theme.fontColor};
+  border: none;
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.primaryAlt};
+  padding: 6px 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+`;

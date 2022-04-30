@@ -168,8 +168,8 @@ const Reservation = () => {
               </RegisterLoginDiv>
             )}
           </PageSectionCard>
-          <PageSectionCard>
-            <h3>Schedule section</h3>
+          <PageSectionCard noPadding>
+            {/* <h3>Schedule section</h3> */}
             <ScheduleView
               appointments={stylist?.appointments}
               services={stylist?.services}

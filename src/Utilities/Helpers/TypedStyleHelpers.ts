@@ -21,6 +21,10 @@ export const SvgDefaultContainer = styled.div<SvgPropsDefault>`
   & svg {
     height: ${({ height }) => (height ? `${height}px` : "100%")};
     width: ${({ width }) => (width ? `${width}px` : "100%")};
+    & path {
+      height: ${({ height }) => (height ? `${height}px` : "100%")};
+      width: ${({ width }) => (width ? `${width}px` : "100%")};
+    }
   }
 `;
 

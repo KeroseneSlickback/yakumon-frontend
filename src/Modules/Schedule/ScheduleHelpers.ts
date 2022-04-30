@@ -9,7 +9,6 @@ import {
 } from "date-fns";
 import {
   ScheduleArrayType,
-  ScheduleByHourType,
   ScheduleDateType,
   StoreDayHour,
   StylistAppointmentType,
@@ -33,40 +32,40 @@ const compareDatesInArray = async (array: Date[], givenDate: Date) => {
   return array.findIndex(findMatching);
 };
 
-const compareAndFillArray = async (
-  blankArray: ScheduleArrayType[],
-  takenArray: Date[]
-) => {
-  let returnArray = [];
+// const compareAndFillArray = async (
+//   blankArray: ScheduleArrayType[],
+//   takenArray: Date[]
+// ) => {
+//   let returnArray = [];
 
-  for (let i = 0; i < blankArray.length; i++) {
-    let hours = blankArray[i].hours;
-    let hoursArray: any[] = [];
-    for (let j = 0; j < hours.length; j++) {
-      let hour = hours[j];
-      let filledTimeSlot = await compareDatesInArray(takenArray, hour.time);
-      if (filledTimeSlot >= 0) {
-        hour = {
-          ...hour,
-          available: false,
-          applicable: false,
-        };
-      } else {
-        hour = {
-          ...hour,
-          available: true,
-          applicable: false,
-        };
-      }
-      hoursArray.push(hour);
-    }
-    returnArray.push({
-      day: blankArray[i].day,
-      hours: hoursArray,
-    });
-  }
-  return returnArray;
-};
+//   for (let i = 0; i < blankArray.length; i++) {
+//     let hours = blankArray[i].hours;
+//     let hoursArray: any[] = [];
+//     for (let j = 0; j < hours.length; j++) {
+//       let hour = hours[j];
+//       let filledTimeSlot = await compareDatesInArray(takenArray, hour.time);
+//       if (filledTimeSlot >= 0) {
+//         hour = {
+//           ...hour,
+//           available: false,
+//           applicable: false,
+//         };
+//       } else {
+//         hour = {
+//           ...hour,
+//           available: true,
+//           applicable: false,
+//         };
+//       }
+//       hoursArray.push(hour);
+//     }
+//     returnArray.push({
+//       day: blankArray[i].day,
+//       hours: hoursArray,
+//     });
+//   }
+//   return returnArray;
+// };
 
 const outputByHour = async (
   array: StoreDayHour[],
@@ -76,7 +75,7 @@ const outputByHour = async (
   let open = 25;
   let close = 0;
   let amPmString = "am";
-  let builtArray: ScheduleByHourType[] = [];
+  let builtArray: ScheduleArrayType[] = [];
   for (let i = array.length - 1; i >= 0; i--) {
     let openTime = parseFloat(array[i].open.split(":").join("."));
     if (openTime < open) open = openTime;
@@ -117,7 +116,12 @@ const outputByHour = async (
       ) {
         daysArray.push({ time: workingTime, closed: true });
       } else {
-        daysArray.push({ time: workingTime, closed: false });
+        daysArray.push({
+          time: workingTime,
+          closed: false,
+          available: true,
+          applicable: true,
+        });
       }
       if (open === 12) {
         amPmString = "pm";
@@ -172,113 +176,113 @@ const outputByHour = async (
   return builtArray;
 };
 
-const outputBlankSchedule = async (
-  array: StoreDayHour[],
-  givenDate: Date,
-  steps: number
-) => {
-  let earliest = 25;
-  let latest = 0;
-  let builtArray: ScheduleArrayType[] = [];
-  for (let i = array.length - 1; i >= 0; i--) {
-    let openTime = parseFloat(array[i].open.split(":").join("."));
-    if (openTime < earliest) earliest = openTime;
-    let closeTime = parseFloat(array[i].close.split(":").join("."));
-    if (closeTime > latest) latest = closeTime;
-  }
-  for (let j = 1; j <= steps; j++) {
-    let hoursArray: ScheduleDateType[] = [];
-    let assignedDate = startOfDay(addDays(givenDate, j));
-    let assignedWeekday = getDay(assignedDate);
-    let startTimeArray = earliest
-      .toString()
-      .split(".")
-      .map((x) => parseFloat(x));
-    let scheduleTime = set(assignedDate, {
-      hours: startTimeArray[0],
-      minutes: startTimeArray[1],
-    });
-    let endTimeArray = latest
-      .toString()
-      .split(".")
-      .map((x) => parseFloat(x));
-    let endTime = set(assignedDate, {
-      hours: endTimeArray[0],
-      minutes: endTimeArray[1],
-    });
+// const outputBlankSchedule = async (
+//   array: StoreDayHour[],
+//   givenDate: Date,
+//   steps: number
+// ) => {
+//   let earliest = 25;
+//   let latest = 0;
+//   let builtArray: ScheduleArrayType[] = [];
+//   for (let i = array.length - 1; i >= 0; i--) {
+//     let openTime = parseFloat(array[i].open.split(":").join("."));
+//     if (openTime < earliest) earliest = openTime;
+//     let closeTime = parseFloat(array[i].close.split(":").join("."));
+//     if (closeTime > latest) latest = closeTime;
+//   }
+//   for (let j = 1; j <= steps; j++) {
+//     let hoursArray: ScheduleDateType[] = [];
+//     let assignedDate = startOfDay(addDays(givenDate, j));
+//     let assignedWeekday = getDay(assignedDate);
+//     let startTimeArray = earliest
+//       .toString()
+//       .split(".")
+//       .map((x) => parseFloat(x));
+//     let scheduleTime = set(assignedDate, {
+//       hours: startTimeArray[0],
+//       minutes: startTimeArray[1],
+//     });
+//     let endTimeArray = latest
+//       .toString()
+//       .split(".")
+//       .map((x) => parseFloat(x));
+//     let endTime = set(assignedDate, {
+//       hours: endTimeArray[0],
+//       minutes: endTimeArray[1],
+//     });
 
-    let storeOpenArray = array[assignedWeekday].open
-      .split(":")
-      .map((x) => parseFloat(x));
-    let storeOpenTime = set(assignedDate, {
-      hours: storeOpenArray[0],
-      minutes: storeOpenArray[1],
-    });
+//     let storeOpenArray = array[assignedWeekday].open
+//       .split(":")
+//       .map((x) => parseFloat(x));
+//     let storeOpenTime = set(assignedDate, {
+//       hours: storeOpenArray[0],
+//       minutes: storeOpenArray[1],
+//     });
 
-    let storeCloseArray = array[assignedWeekday].close
-      .split(":")
-      .map((x) => parseFloat(x));
-    let storeCloseTime = set(assignedDate, {
-      hours: storeCloseArray[0],
-      minutes: storeCloseArray[1],
-    });
+//     let storeCloseArray = array[assignedWeekday].close
+//       .split(":")
+//       .map((x) => parseFloat(x));
+//     let storeCloseTime = set(assignedDate, {
+//       hours: storeCloseArray[0],
+//       minutes: storeCloseArray[1],
+//     });
 
-    if (array[assignedWeekday].closed || scheduleTime < storeOpenTime) {
-      hoursArray.push({
-        time: scheduleTime,
-        closed: true,
-      });
-    } else {
-      hoursArray.push({
-        time: scheduleTime,
-        closed: false,
-      });
-    }
-    while (scheduleTime < endTime) {
-      let workingTime = addMinutes(scheduleTime, 30);
-      let workingWeekday = getDay(workingTime);
-      if (workingTime >= endTime) break;
-      scheduleTime = workingTime;
+//     if (array[assignedWeekday].closed || scheduleTime < storeOpenTime) {
+//       hoursArray.push({
+//         time: scheduleTime,
+//         closed: true,
+//       });
+//     } else {
+//       hoursArray.push({
+//         time: scheduleTime,
+//         closed: false,
+//       });
+//     }
+//     while (scheduleTime < endTime) {
+//       let workingTime = addMinutes(scheduleTime, 30);
+//       let workingWeekday = getDay(workingTime);
+//       if (workingTime >= endTime) break;
+//       scheduleTime = workingTime;
 
-      let workingStoreOpenArray = array[workingWeekday].open
-        .split(":")
-        .map((x) => parseFloat(x));
-      let workingStoreOpenTime = set(assignedDate, {
-        hours: workingStoreOpenArray[0],
-        minutes: workingStoreOpenArray[1],
-      });
+//       let workingStoreOpenArray = array[workingWeekday].open
+//         .split(":")
+//         .map((x) => parseFloat(x));
+//       let workingStoreOpenTime = set(assignedDate, {
+//         hours: workingStoreOpenArray[0],
+//         minutes: workingStoreOpenArray[1],
+//       });
 
-      let workingStoreCloseArray = array[workingWeekday].close
-        .split(":")
-        .map((x) => parseFloat(x));
-      let workingStoreCloseTime = set(assignedDate, {
-        hours: workingStoreCloseArray[0],
-        minutes: workingStoreCloseArray[1],
-      });
+//       let workingStoreCloseArray = array[workingWeekday].close
+//         .split(":")
+//         .map((x) => parseFloat(x));
+//       let workingStoreCloseTime = set(assignedDate, {
+//         hours: workingStoreCloseArray[0],
+//         minutes: workingStoreCloseArray[1],
+//       });
 
-      if (
-        array[workingWeekday].closed ||
-        workingTime < workingStoreOpenTime ||
-        workingTime >= workingStoreCloseTime
-      ) {
-        hoursArray.push({
-          time: workingTime,
-          closed: true,
-        });
-      } else {
-        hoursArray.push({
-          time: workingTime,
-          closed: false,
-        });
-      }
-    }
-    builtArray.push({
-      day: assignedDate,
-      hours: hoursArray,
-    });
-  }
-  return { builtArray, earliest, latest };
-};
+//       if (
+//         array[workingWeekday].closed ||
+//         workingTime < workingStoreOpenTime ||
+//         workingTime >= workingStoreCloseTime
+//       ) {
+//         hoursArray.push({
+//           time: workingTime,
+//           closed: true,
+//         });
+//       } else {
+//         hoursArray.push({
+//           time: workingTime,
+//           closed: false,
+//         });
+//       }
+//     }
+//     builtArray.push({
+//       day: assignedDate,
+//       hours: hoursArray,
+//     });
+//   }
+//   return { builtArray, earliest, latest };
+// };
 
 /*
 
@@ -363,91 +367,91 @@ export const scheduleArrayBuild = async (
   return newOutput;
 };
 
-export const scheduleBlockFilter = async (
-  scheduleArray: ScheduleArrayType[] | null,
-  steps: number
-) => {
-  return scheduleArray?.map((day) => {
-    let aggrivateArray: any[] = [];
-    let countingArray = [];
-    for (let i = 0; i < day.hours.length; i++) {
-      let workingTimeSlot = day.hours[i];
-      // when an appointment section is found
-      if (!workingTimeSlot.available || workingTimeSlot.closed) {
-        // when the countingArray meets or exceeds set steps
-        if (countingArray.length >= steps) {
-          // itterate and alter current array as they are applicable
-          let tailCalc = countingArray.length - steps;
-          let randomId = Math.floor(Math.random() * 100000);
-          let newCountingArray = countingArray.map((obj, index) => {
-            // index/counting error
-            if (index <= tailCalc) {
-              return (obj = {
-                ...obj,
-                applicable: true,
-                id: randomId,
-                possibleHead: true,
-              });
-            } else {
-              return (obj = {
-                ...obj,
-                applicable: true,
-                id: randomId,
-                possibleHead: false,
-              });
-            }
-          });
-          // Then add applicable timeslots to aggrivate array,
-          aggrivateArray.push(...newCountingArray);
-          // clear current array
-          countingArray = [];
-          // push non applicable to aggrivate array
-          aggrivateArray.push(workingTimeSlot);
-          randomId = Math.floor(Math.random() * 100000);
-        } else {
-          countingArray.push(workingTimeSlot);
-          aggrivateArray.push(...countingArray);
-          countingArray = [];
-        }
-      } else if (workingTimeSlot.available && !workingTimeSlot.closed) {
-        countingArray.push(workingTimeSlot);
-        // clean up
-        if (i === day.hours.length - 1) {
-          if (countingArray.length >= steps) {
-            let tailCalc = countingArray.length - steps;
-            let randomId = Math.floor(Math.random() * 100000);
-            let newCountingArray = countingArray.map((obj, index) => {
-              if (index <= tailCalc) {
-                return (obj = {
-                  ...obj,
-                  applicable: true,
-                  id: randomId,
-                  possibleHead: true,
-                });
-              } else {
-                return (obj = {
-                  ...obj,
-                  applicable: true,
-                  id: randomId,
-                  possibleHead: false,
-                });
-              }
-            });
+// export const scheduleBlockFilter = async (
+//   scheduleArray: ScheduleArrayType[] | null,
+//   steps: number
+// ) => {
+//   return scheduleArray?.map((day) => {
+//     let aggrivateArray: any[] = [];
+//     let countingArray = [];
+//     for (let i = 0; i < day.hours.length; i++) {
+//       let workingTimeSlot = day.hours[i];
+//       // when an appointment section is found
+//       if (!workingTimeSlot.available || workingTimeSlot.closed) {
+//         // when the countingArray meets or exceeds set steps
+//         if (countingArray.length >= steps) {
+//           // itterate and alter current array as they are applicable
+//           let tailCalc = countingArray.length - steps;
+//           let randomId = Math.floor(Math.random() * 100000);
+//           let newCountingArray = countingArray.map((obj, index) => {
+//             // index/counting error
+//             if (index <= tailCalc) {
+//               return (obj = {
+//                 ...obj,
+//                 applicable: true,
+//                 id: randomId,
+//                 possibleHead: true,
+//               });
+//             } else {
+//               return (obj = {
+//                 ...obj,
+//                 applicable: true,
+//                 id: randomId,
+//                 possibleHead: false,
+//               });
+//             }
+//           });
+//           // Then add applicable timeslots to aggrivate array,
+//           aggrivateArray.push(...newCountingArray);
+//           // clear current array
+//           countingArray = [];
+//           // push non applicable to aggrivate array
+//           aggrivateArray.push(workingTimeSlot);
+//           randomId = Math.floor(Math.random() * 100000);
+//         } else {
+//           countingArray.push(workingTimeSlot);
+//           aggrivateArray.push(...countingArray);
+//           countingArray = [];
+//         }
+//       } else if (workingTimeSlot.available && !workingTimeSlot.closed) {
+//         countingArray.push(workingTimeSlot);
+//         // clean up
+//         if (i === day.hours.length - 1) {
+//           if (countingArray.length >= steps) {
+//             let tailCalc = countingArray.length - steps;
+//             let randomId = Math.floor(Math.random() * 100000);
+//             let newCountingArray = countingArray.map((obj, index) => {
+//               if (index <= tailCalc) {
+//                 return (obj = {
+//                   ...obj,
+//                   applicable: true,
+//                   id: randomId,
+//                   possibleHead: true,
+//                 });
+//               } else {
+//                 return (obj = {
+//                   ...obj,
+//                   applicable: true,
+//                   id: randomId,
+//                   possibleHead: false,
+//                 });
+//               }
+//             });
 
-            randomId = Math.floor(Math.random() * 100000);
-            aggrivateArray.push(...newCountingArray);
-            countingArray = [];
-          } else {
-            countingArray.push(workingTimeSlot);
-            aggrivateArray.push(...countingArray);
-            countingArray = [];
-          }
-        }
-      }
-    }
-    return aggrivateArray;
-  });
-};
+//             randomId = Math.floor(Math.random() * 100000);
+//             aggrivateArray.push(...newCountingArray);
+//             countingArray = [];
+//           } else {
+//             countingArray.push(workingTimeSlot);
+//             aggrivateArray.push(...countingArray);
+//             countingArray = [];
+//           }
+//         }
+//       }
+//     }
+//     return aggrivateArray;
+//   });
+// };
 
 export const buildTimeSelectionArray = async (start: number, end: number) => {
   let returnArray: string[] = [];

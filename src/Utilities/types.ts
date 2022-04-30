@@ -113,13 +113,13 @@ export interface ScheduleDateType {
   possibleHead?: boolean;
 }
 
-export interface ScheduleArrayType {
-  day: Date;
-  hours: ScheduleDateType[];
-}
+// export interface ScheduleArrayType {
+//   day: Date;
+//   hours: ScheduleDateType[];
+// }
 
 // new type
-export interface ScheduleByHourType {
+export interface ScheduleArrayType {
   hour: string;
   slots: ScheduleDateType[];
 }

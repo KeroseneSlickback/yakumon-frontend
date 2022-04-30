@@ -12,6 +12,20 @@ import {
   StylistAppointmentType,
 } from "../../Utilities/types";
 import { buildTimeSelectionArray, scheduleArrayBuild } from "./ScheduleHelpers";
+import circle from "../../Utilities/Images/SVGs/circle.svg";
+import cross from "../../Utilities/Images/SVGs/cross.svg";
+import {
+  CircleSvg,
+  CrossSvg,
+} from "../../Utilities/Images/SVGComponents/CircleCross";
+import {
+  StyledTable,
+  StyledTbody,
+  StyledTh,
+  StyledThead,
+  StyledTr,
+} from "../../Components/ScheduleComponents";
+import { ScheduleButton } from "../../Components/Buttons";
 
 interface SchedulePropTypes {
   appointments?: StylistAppointmentType[];
@@ -34,8 +48,6 @@ const ScheduleView = ({
   const [error, setError] = useState<boolean>(false);
   const [dateTimeArray, setDateTimeArray] = useState<ScheduleArrayType[]>([]);
   const [displayData, setDisplayData] = useState({
-    startTime: 0,
-    endTime: 48,
     dateList: ["1/1", "1/2", "1/3", "1/4"],
     earliestDay: {
       month: "April",
@@ -59,39 +71,40 @@ const ScheduleView = ({
         if (store?.hours) {
           const storeHours = store.hours;
           const preppedArray = async () => {
-            const newOutput = await scheduleArrayBuild(
+            const blankScheduleArray = await scheduleArrayBuild(
               startDate,
               storeHours,
               outputDays,
               appointments
             );
-            console.log(newOutput);
-            // setDateTimeArray(newReturnArray);
-            // let dateList = newReturnArray.map((day) => {
-            //   return format(day.day, "MM/dd").replace(/^0+/, "");
-            // });
-            // let startTime = earliest * 2;
-            // let endTime = latest * 2;
-            // let earlyMonth = format(newReturnArray[0].day, "MMM");
-            // let earlyDay = parseInt(format(newReturnArray[0].day, "d"));
-            // let laterMonth = format(newReturnArray[outputDays - 1].day, "MMM");
-            // let laterDay = parseInt(
-            //   format(newReturnArray[outputDays - 1].day, "d")
-            // );
-            // setDisplayData((prev) => ({
-            //   ...prev,
-            //   startTime,
-            //   endTime,
-            //   dateList,
-            //   earliestDay: {
-            //     month: earlyMonth,
-            //     day: earlyDay,
-            //   },
-            //   latestDay: {
-            //     month: laterMonth,
-            //     day: laterDay,
-            //   },
-            // }));
+            setDateTimeArray(blankScheduleArray);
+            let dateList = blankScheduleArray[0].slots.map((day) => {
+              return format(day.time, "MM/dd").replace(/^0+/, "");
+            });
+            console.log(dateList);
+            let earlyMonth = format(blankScheduleArray[0].slots[0].time, "MMM");
+            let earlyDay = parseInt(
+              format(blankScheduleArray[0].slots[0].time, "d")
+            );
+            let laterMonth = format(
+              blankScheduleArray[0].slots[outputDays - 1].time,
+              "MMM"
+            );
+            let laterDay = parseInt(
+              format(blankScheduleArray[0].slots[outputDays - 1].time, "d")
+            );
+            setDisplayData((prev) => ({
+              ...prev,
+              dateList,
+              earliestDay: {
+                month: earlyMonth,
+                day: earlyDay,
+              },
+              latestDay: {
+                month: laterMonth,
+                day: laterDay,
+              },
+            }));
             // let timeLayoutArray = await buildTimeSelectionArray(
             //   startTime,
             //   endTime
@@ -116,114 +129,55 @@ const ScheduleView = ({
           <LoadingIcon padding />
         </LoadingIconContainer>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Prev</th>
-              <th colSpan={3}>
+        <StyledTable>
+          <StyledThead>
+            <StyledTr head>
+              <StyledTh>
+                <ScheduleButton>Prev</ScheduleButton>
+              </StyledTh>
+              <StyledTh colSpan={3}>
                 {displayData.earliestDay.month} {displayData.earliestDay.day} -{" "}
                 {displayData.earliestDay.month === displayData.latestDay.month
                   ? null
                   : displayData.latestDay.month}{" "}
                 {displayData.latestDay.day}
-              </th>
-              <th>Next</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>9 am</td>
-              <td>Aval</td>
-              <td>Aval</td>
-              <td>Aval</td>
-              <td>Aval</td>
-            </tr>
-            <tr>
-              <td>10 am</td>
-              <td>Aval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-            </tr>
-            <tr>
-              <td>11 am</td>
-              <td>Aval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-            </tr>
-            <tr>
-              <td>12 pm</td>
-              <td>Aval</td>
-              <td>Aval</td>
-              <td>Aval</td>
-              <td>Aval</td>
-            </tr>
-            <tr>
-              <td>1 pm</td>
-              <td>Aval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-            </tr>
-            <tr>
-              <td>2 pm</td>
-              <td>Aval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-            </tr>
-            <tr>
-              <td>3 pm</td>
-              <td>Aval</td>
-              <td>Aval</td>
-              <td>Aval</td>
-              <td>Aval</td>
-            </tr>
-            <tr>
-              <td>4 pm</td>
-              <td>Aval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-            </tr>
-            <tr>
-              <td>5 pm</td>
-              <td>Aval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-            </tr>
-            <tr>
-              <td>6 pm</td>
-              <td>Aval</td>
-              <td>Aval</td>
-              <td>Aval</td>
-              <td>Aval</td>
-            </tr>
-            <tr>
-              <td>7 pm</td>
-              <td>Aval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-            </tr>
-            <tr>
-              <td>8 pm</td>
-              <td>Aval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-            </tr>
-            <tr>
-              <td>9 pm</td>
-              <td>Aval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-              <td>UnAval</td>
-            </tr>
-          </tbody>
-        </table>
+              </StyledTh>
+              <StyledTh>
+                <ScheduleButton>Next</ScheduleButton>
+              </StyledTh>
+            </StyledTr>
+          </StyledThead>
+          <StyledTbody>
+            <StyledTr>
+              <StyledTh></StyledTh>
+              {displayData.dateList.map((date) => {
+                return <StyledTh>{date}</StyledTh>;
+              })}
+            </StyledTr>
+            {dateTimeArray.map((time) => {
+              return (
+                <StyledTr>
+                  <StyledTh>{time.hour}</StyledTh>
+                  {time.slots.map((slot) => {
+                    return (
+                      <StyledTh>
+                        {slot?.closed ? (
+                          <CrossSvg />
+                        ) : !slot.applicable ? (
+                          <CrossSvg />
+                        ) : !slot.available ? (
+                          <CrossSvg />
+                        ) : (
+                          <CircleSvg />
+                        )}
+                      </StyledTh>
+                    );
+                  })}
+                </StyledTr>
+              );
+            })}
+          </StyledTbody>
+        </StyledTable>
       )}
     </>
   );
