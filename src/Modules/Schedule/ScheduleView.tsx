@@ -118,6 +118,10 @@ const ScheduleView = ({
     }, 700);
   }, [appointments]);
 
+  // const handleTimeSlotSelection = (e: React.MouseEvent<MouseEvent>) => {
+  //   console.log("clicked!");
+  // };
+
   return (
     <>
       {error ? (
@@ -133,9 +137,12 @@ const ScheduleView = ({
           <StyledThead>
             <StyledTr head>
               <StyledTh>
-                <ScheduleButton>Prev</ScheduleButton>
+                <ScheduleButton>
+                  <span>Prev</span>
+                  <span>Week</span>
+                </ScheduleButton>
               </StyledTh>
-              <StyledTh colSpan={3}>
+              <StyledTh heading>
                 {displayData.earliestDay.month} {displayData.earliestDay.day} -{" "}
                 {displayData.earliestDay.month === displayData.latestDay.month
                   ? null
@@ -143,7 +150,10 @@ const ScheduleView = ({
                 {displayData.latestDay.day}
               </StyledTh>
               <StyledTh>
-                <ScheduleButton>Next</ScheduleButton>
+                <ScheduleButton>
+                  <span>Next</span>
+                  <span>Week</span>
+                </ScheduleButton>
               </StyledTh>
             </StyledTr>
           </StyledThead>
@@ -157,7 +167,9 @@ const ScheduleView = ({
             {dateTimeArray.map((time) => {
               return (
                 <StyledTr>
-                  <StyledTh>{time.hour}</StyledTh>
+                  <StyledTh thirty={time.hour.includes("30") ? true : false}>
+                    {time.hour}
+                  </StyledTh>
                   {time.slots.map((slot) => {
                     return (
                       <StyledTh>

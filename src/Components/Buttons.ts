@@ -95,7 +95,10 @@ export const ScheduleButton = styled(TinyButton)`
   cursor: pointer;
   background-color: ${({ theme }) => theme.primaryAlt};
   padding: 6px 10px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border-radius: 6px;
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

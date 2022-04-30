@@ -26,7 +26,11 @@ export const StyledTr = styled.tr<{ head?: boolean }>`
     `}
 `;
 
-export const StyledTh = styled.th<{ alternate?: boolean }>`
+export const StyledTh = styled.th<{
+  alternate?: boolean;
+  thirty?: boolean;
+  heading?: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,4 +39,15 @@ export const StyledTh = styled.th<{ alternate?: boolean }>`
     height: 24px;
     width: 24px;
   }
+
+  ${(props) =>
+    props.thirty &&
+    css`
+      font-size: 0.7rem;
+    `}
+  ${(props) =>
+    props.heading &&
+    css`
+      font-size: 1.4rem;
+    `}
 `;
