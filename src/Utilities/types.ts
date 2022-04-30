@@ -118,6 +118,12 @@ export interface ScheduleArrayType {
   hours: ScheduleDateType[];
 }
 
+// new type
+export interface ScheduleByHourType {
+  hour: string;
+  slots: ScheduleDateType[];
+}
+
 export interface timeSlotType {
   appointment: string;
   createdAt: Date;

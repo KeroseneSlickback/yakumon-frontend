@@ -9,6 +9,7 @@ import {
 } from "date-fns";
 import {
   ScheduleArrayType,
+  ScheduleByHourType,
   ScheduleDateType,
   StoreDayHour,
   StylistAppointmentType,
@@ -65,6 +66,110 @@ const compareAndFillArray = async (
     });
   }
   return returnArray;
+};
+
+const outputByHour = async (
+  array: StoreDayHour[],
+  givenDate: Date,
+  steps: number
+) => {
+  let open = 25;
+  let close = 0;
+  let amPmString = "am";
+  let builtArray: ScheduleByHourType[] = [];
+  for (let i = array.length - 1; i >= 0; i--) {
+    let openTime = parseFloat(array[i].open.split(":").join("."));
+    if (openTime < open) open = openTime;
+    let closeTime = parseFloat(array[i].close.split(":").join("."));
+    if (closeTime > close) close = closeTime;
+  }
+  while (open < close) {
+    let daysArray = [];
+    let timeArray = open
+      .toString()
+      .split(".")
+      .map((x, i) => parseFloat(i === 1 ? x + "0" : x));
+    for (let j = 1; j <= steps; j++) {
+      let assignedDate = startOfDay(addDays(givenDate, j));
+      let assignedWeekday = getDay(assignedDate);
+      let workingTime = set(assignedDate, {
+        hours: timeArray[0],
+        minutes: timeArray[1],
+      });
+      let storeOpenArray = array[assignedWeekday].open
+        .split(":")
+        .map((x) => parseFloat(x));
+      let storeOpenTime = set(assignedDate, {
+        hours: storeOpenArray[0],
+        minutes: storeOpenArray[1],
+      });
+      let storeCloseArray = array[assignedWeekday].close
+        .split(":")
+        .map((x) => parseFloat(x));
+      let storeCloseTime = set(assignedDate, {
+        hours: storeCloseArray[0],
+        minutes: storeCloseArray[1],
+      });
+      if (
+        array[assignedWeekday].closed ||
+        workingTime < storeOpenTime ||
+        workingTime >= storeCloseTime
+      ) {
+        daysArray.push({ time: workingTime, closed: true });
+      } else {
+        daysArray.push({ time: workingTime, closed: false });
+      }
+      if (open === 12) {
+        amPmString = "pm";
+      }
+    }
+    if (open % 1 !== 0) {
+      if (amPmString === "pm") {
+        if (timeArray[0] === 12) {
+          builtArray.push({
+            hour: `${timeArray[0]}:30 ${amPmString}`,
+            slots: daysArray,
+          });
+        } else {
+          builtArray.push({
+            hour: `${timeArray[0] - 12}:30 ${amPmString}`,
+            slots: daysArray,
+          });
+        }
+      } else {
+        builtArray.push({
+          hour: `${timeArray[0]}:30 ${amPmString}`,
+          slots: daysArray,
+        });
+      }
+    } else {
+      if (amPmString === "pm") {
+        if (timeArray[0] === 12) {
+          builtArray.push({
+            hour: `${timeArray[0]}:00 ${amPmString}`,
+            slots: daysArray,
+          });
+        } else {
+          builtArray.push({
+            hour: `${timeArray[0] - 12}:00 ${amPmString}`,
+            slots: daysArray,
+          });
+        }
+      } else {
+        builtArray.push({
+          hour: `${timeArray[0]}:00 ${amPmString}`,
+          slots: daysArray,
+        });
+      }
+    }
+    // add .5 to open
+    if (open % 1 !== 0) {
+      open += 0.7;
+    } else {
+      open += 0.3;
+    }
+  }
+  return builtArray;
 };
 
 const outputBlankSchedule = async (
@@ -247,13 +352,15 @@ export const scheduleArrayBuild = async (
   stylistAppointments: StylistAppointmentType[]
 ) => {
   let timesTakenArray = await flattenArrayDates(stylistAppointments);
-  let { builtArray, earliest, latest } = await outputBlankSchedule(
-    storeHours,
-    startDate,
-    outputDays
-  );
-  let newReturnArray = await compareAndFillArray(builtArray, timesTakenArray);
-  return { newReturnArray, earliest, latest };
+  // let { builtArray, earliest, latest } = await outputBlankSchedule(
+  //   storeHours,
+  //   startDate,
+  //   outputDays
+  // );
+  let newOutput = await outputByHour(storeHours, startDate, outputDays);
+  // let newReturnArray = await compareAndFillArray(builtArray, timesTakenArray);
+  // return { newReturnArray, earliest, latest };
+  return newOutput;
 };
 
 export const scheduleBlockFilter = async (

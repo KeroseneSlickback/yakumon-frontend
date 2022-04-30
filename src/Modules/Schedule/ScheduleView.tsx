@@ -47,7 +47,7 @@ const ScheduleView = ({
     },
   });
   const [timeSelection, setTimeSelection] = useState<string[]>([]);
-  console.log(services, selectedService, reservation);
+  console.log(store, services, selectedService, reservation);
   console.log(dateTimeArray);
 
   useEffect(() => {
@@ -59,39 +59,39 @@ const ScheduleView = ({
         if (store?.hours) {
           const storeHours = store.hours;
           const preppedArray = async () => {
-            const { newReturnArray, earliest, latest } =
-              await scheduleArrayBuild(
-                startDate,
-                storeHours,
-                outputDays,
-                appointments
-              );
-            setDateTimeArray(newReturnArray);
-            let dateList = newReturnArray.map((day) => {
-              return format(day.day, "MM/dd").replace(/^0+/, "");
-            });
-            let startTime = earliest * 2;
-            let endTime = latest * 2;
-            let earlyMonth = format(newReturnArray[0].day, "MMM");
-            let earlyDay = parseInt(format(newReturnArray[0].day, "d"));
-            let laterMonth = format(newReturnArray[outputDays - 1].day, "MMM");
-            let laterDay = parseInt(
-              format(newReturnArray[outputDays - 1].day, "d")
+            const newOutput = await scheduleArrayBuild(
+              startDate,
+              storeHours,
+              outputDays,
+              appointments
             );
-            setDisplayData((prev) => ({
-              ...prev,
-              startTime,
-              endTime,
-              dateList,
-              earliestDay: {
-                month: earlyMonth,
-                day: earlyDay,
-              },
-              latestDay: {
-                month: laterMonth,
-                day: laterDay,
-              },
-            }));
+            console.log(newOutput);
+            // setDateTimeArray(newReturnArray);
+            // let dateList = newReturnArray.map((day) => {
+            //   return format(day.day, "MM/dd").replace(/^0+/, "");
+            // });
+            // let startTime = earliest * 2;
+            // let endTime = latest * 2;
+            // let earlyMonth = format(newReturnArray[0].day, "MMM");
+            // let earlyDay = parseInt(format(newReturnArray[0].day, "d"));
+            // let laterMonth = format(newReturnArray[outputDays - 1].day, "MMM");
+            // let laterDay = parseInt(
+            //   format(newReturnArray[outputDays - 1].day, "d")
+            // );
+            // setDisplayData((prev) => ({
+            //   ...prev,
+            //   startTime,
+            //   endTime,
+            //   dateList,
+            //   earliestDay: {
+            //     month: earlyMonth,
+            //     day: earlyDay,
+            //   },
+            //   latestDay: {
+            //     month: laterMonth,
+            //     day: laterDay,
+            //   },
+            // }));
             // let timeLayoutArray = await buildTimeSelectionArray(
             //   startTime,
             //   endTime
