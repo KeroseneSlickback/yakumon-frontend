@@ -8,6 +8,7 @@ declare module "styled-components" {
     primaryAlt?: string;
     secondary?: string;
     secondaryAlt?: string;
+    secondaryHighlight?: string;
     background?: string;
     backgroundAlt?: string;
     subdued?: string;
@@ -30,6 +31,7 @@ export const theme = {
   primaryAlt: "#B7A9D1",
   secondary: "#60A988",
   secondaryAlt: "#88BFA6",
+  secondaryHighlight: "#A8F0D0",
   background: "#907AB8",
   backgroundAlt: "#947FBB",
   alternative: "#F7F7F7",

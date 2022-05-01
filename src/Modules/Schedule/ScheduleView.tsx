@@ -25,7 +25,7 @@ import {
   StyledThead,
   StyledTr,
 } from "../../Components/ScheduleComponents";
-import { ScheduleButton } from "../../Components/Buttons";
+import { ScheduleBlankButton, ScheduleButton } from "../../Components/Buttons";
 
 interface SchedulePropTypes {
   appointments?: StylistAppointmentType[];
@@ -139,7 +139,6 @@ const ScheduleView = ({
               <StyledTh>
                 <ScheduleButton>
                   <span>Prev</span>
-                  <span>Week</span>
                 </ScheduleButton>
               </StyledTh>
               <StyledTh heading>
@@ -152,35 +151,42 @@ const ScheduleView = ({
               <StyledTh>
                 <ScheduleButton>
                   <span>Next</span>
-                  <span>Week</span>
                 </ScheduleButton>
               </StyledTh>
             </StyledTr>
           </StyledThead>
           <StyledTbody>
-            <StyledTr>
+            <StyledTr dateList>
               <StyledTh></StyledTh>
-              {displayData.dateList.map((date) => {
-                return <StyledTh>{date}</StyledTh>;
+              {displayData.dateList.map((date, index) => {
+                return <StyledTh key={index}>{date}</StyledTh>;
               })}
             </StyledTr>
-            {dateTimeArray.map((time) => {
+            {dateTimeArray.map((time, index1) => {
               return (
-                <StyledTr>
-                  <StyledTh thirty={time.hour.includes("30") ? true : false}>
+                <StyledTr key={index1}>
+                  <StyledTh
+                    thirty={time.hour.includes("30") ? true : false}
+                    key={index1}
+                  >
                     {time.hour}
                   </StyledTh>
-                  {time.slots.map((slot) => {
+                  {time.slots.map((slot, index2) => {
                     return (
-                      <StyledTh>
+                      <StyledTh block key={index2}>
                         {slot?.closed ? (
-                          <CrossSvg />
-                        ) : !slot.applicable ? (
-                          <CrossSvg />
+                          <CrossSvg key={index2} />
                         ) : !slot.available ? (
-                          <CrossSvg />
+                          <CrossSvg key={index2} />
                         ) : (
-                          <CircleSvg />
+                          <ScheduleBlankButton
+                            applicable={slot.applicable ? true : false}
+                          >
+                            <CircleSvg
+                              applicable={slot.applicable ? true : false}
+                              key={index2}
+                            />
+                          </ScheduleBlankButton>
                         )}
                       </StyledTh>
                     );

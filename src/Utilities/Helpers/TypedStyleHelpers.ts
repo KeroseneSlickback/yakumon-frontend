@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { theme } from "../../Styles/Variables";
 
 export interface SvgPropsDefault {
   width?: number;
   height?: number;
+  applicable?: boolean;
 }
 
 export interface SvgProps extends SvgPropsDefault {

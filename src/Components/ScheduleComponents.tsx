@@ -9,20 +9,25 @@ export const StyledThead = styled.thead``;
 
 export const StyledTbody = styled.tbody``;
 
-export const StyledTr = styled.tr<{ head?: boolean }>`
+export const StyledTr = styled.tr<{ head?: boolean; dateList?: boolean }>`
   display: grid;
   grid-template-columns: 1.5fr repeat(4, 1fr);
   justify-items: center;
   &:nth-child(even) {
     background-color: ${({ theme }) => theme.primary};
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   }
   ${(props) =>
     props.head &&
     css`
       grid-template-columns: repeat(3, 1fr);
-      padding-bottom: 16px;
+      padding-bottom: 12px;
+    `}
+  ${(props) =>
+    props.dateList &&
+    css`
+      padding-bottom: 4px;
     `}
 `;
 
@@ -30,14 +35,16 @@ export const StyledTh = styled.th<{
   alternate?: boolean;
   thirty?: boolean;
   heading?: boolean;
+  block?: boolean;
 }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 3px 0;
+  width: 100%;
+  padding: 2px;
   svg {
-    height: 24px;
-    width: 24px;
+    height: 25px;
+    width: 25px;
   }
 
   ${(props) =>
@@ -49,5 +56,12 @@ export const StyledTh = styled.th<{
     props.heading &&
     css`
       font-size: 1.4rem;
+    `}
+    ${(props) =>
+    props.block &&
+    css`
+      &:nth-child(n + 2):nth-last-child(n + 1) {
+        border-left: 1px solid rgba(255, 255, 255, 0.5);
+      }
     `}
 `;

@@ -114,7 +114,12 @@ const outputByHour = async (
         workingTime < storeOpenTime ||
         workingTime >= storeCloseTime
       ) {
-        daysArray.push({ time: workingTime, closed: true });
+        daysArray.push({
+          time: workingTime,
+          closed: true,
+          available: false,
+          applicable: false,
+        });
       } else {
         daysArray.push({
           time: workingTime,

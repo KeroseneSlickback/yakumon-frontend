@@ -90,15 +90,49 @@ export const CloseButton = styled.button`
 `;
 
 export const ScheduleButton = styled(TinyButton)`
-  color: ${({ theme }) => theme.fontColor};
-  border: none;
-  cursor: pointer;
   background-color: ${({ theme }) => theme.primaryAlt};
   padding: 6px 10px;
-  font-size: 0.8rem;
-  border-radius: 6px;
-  text-decoration: none;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const ScheduleBlankButton = styled.button<{
+  applicable?: boolean;
+  selected?: boolean;
+}>`
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  margin: none;
+  padding: none;
+
+  @keyframes pulseGreen {
+    0% {
+      background-color: inherit;
+      box-shadow: 0 0 2px 2px rgba(168, 240, 208, 0.2);
+    }
+    50% {
+      /* background-color: rgba(96, 169, 136, 0); */
+      box-shadow: 0 0 2px 2px rgba(168, 240, 208, 0.4);
+    }
+    100% {
+      background-color: inherit;
+      box-shadow: 0 0 2px 2px rgba(168, 240, 208, 0.2);
+    }
+  }
+
+  ${(props) =>
+    props.applicable &&
+    css`
+      animation: pulseGreen 3s ease-in-out infinite;
+    `}
+  ${(props) =>
+    props.selected &&
+    css`
+      background-color: blue;
+    `}
 `;

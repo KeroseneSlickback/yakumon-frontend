@@ -30,8 +30,3 @@ Test backend store delete route with different user who isn't owner
 - Brainstorm how to handle user input after service select 
 - Once user selects service, how to update table properly?
 - If user selects a time block for their service, how to choose earliest time within that block?
-
-- Remake array builder?
-- That would require reworking the secondary checking array
-
-- Or, create the timing array to work from that... feels abit cheaty
