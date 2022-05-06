@@ -21,7 +21,8 @@ export const StyledTr = styled.tr<{ head?: boolean; dateList?: boolean }>`
   ${(props) =>
     props.head &&
     css`
-      grid-template-columns: repeat(3, 1fr);
+      margin: 0 18px;
+      grid-template-columns: 1fr 3fr 1fr;
       padding-bottom: 12px;
     `}
   ${(props) =>
@@ -55,7 +56,7 @@ export const StyledTh = styled.th<{
   ${(props) =>
     props.heading &&
     css`
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     `}
     ${(props) =>
     props.block &&

@@ -113,6 +113,9 @@ export const PageSectionCard = styled.div<{
     props.noPadding &&
     css`
       padding: 18px 0;
+      h3 {
+        margin: 0 0 18px 18px;
+      }
     `}
     
     ${(props) =>

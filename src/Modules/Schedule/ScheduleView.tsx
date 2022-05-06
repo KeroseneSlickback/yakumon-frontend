@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, addDays, subDays, isBefore } from "date-fns";
 import React, { useEffect, useState } from "react";
 import {
   ErrorContainer,
@@ -11,7 +11,7 @@ import {
   ServiceType,
   StylistAppointmentType,
 } from "../../Utilities/types";
-import { buildTimeSelectionArray, scheduleArrayBuild } from "./ScheduleHelpers";
+import { scheduleArrayBuild, scheduleBlockFilter } from "./ScheduleHelpers";
 import circle from "../../Utilities/Images/SVGs/circle.svg";
 import cross from "../../Utilities/Images/SVGs/cross.svg";
 import {
@@ -59,8 +59,8 @@ const ScheduleView = ({
     },
   });
   const [timeSelection, setTimeSelection] = useState<string[]>([]);
-  console.log(store, services, selectedService, reservation);
-  console.log(dateTimeArray);
+  console.log(services, reservation);
+  // console.log(dateTimeArray);
 
   useEffect(() => {
     setLoad(true);
@@ -70,7 +70,7 @@ const ScheduleView = ({
       if (appointments) {
         if (store?.hours) {
           const storeHours = store.hours;
-          const preppedArray = async () => {
+          const prepArray = async () => {
             const blankScheduleArray = await scheduleArrayBuild(
               startDate,
               storeHours,
@@ -105,22 +105,54 @@ const ScheduleView = ({
                 day: laterDay,
               },
             }));
-            // let timeLayoutArray = await buildTimeSelectionArray(
-            //   startTime,
-            //   endTime
-            // );
-            // console.log(timeLayoutArray);
           };
-          preppedArray();
+          prepArray();
           setLoad(false);
         }
       }
     }, 700);
-  }, [appointments]);
+  }, [appointments, startDate]);
 
-  // const handleTimeSlotSelection = (e: React.MouseEvent<MouseEvent>) => {
-  //   console.log("clicked!");
-  // };
+  useEffect(() => {
+    // Find timeSpan of given array of objects of services
+    if (services) {
+      setLoad(true);
+      let foundService = services.find(
+        (service) => service._id === selectedService
+      );
+      if (foundService?.timeSpan) {
+        let timeSpan = foundService.timeSpan;
+        const debounce = setTimeout(() => {
+          const rePrepArray = async () => {
+            const selectedScheduleArray = await scheduleBlockFilter(
+              dateTimeArray,
+              timeSpan
+            );
+            console.log(selectedScheduleArray);
+          };
+          rePrepArray();
+          setLoad(false);
+        }, 700);
+      }
+    }
+  }, [selectedService]);
+
+  const incrementDate = () => {
+    const newDate = addDays(startDate, outputDays);
+    setStartDate(newDate);
+  };
+
+  const decrementDate = () => {
+    const today = new Date();
+    const newDate = subDays(startDate, outputDays);
+    console.log(newDate, today);
+    if (isBefore(addDays(newDate, 1), today)) {
+      // Pop up a warning?
+      return;
+    } else {
+      setStartDate(newDate);
+    }
+  };
 
   return (
     <>
@@ -137,7 +169,7 @@ const ScheduleView = ({
           <StyledThead>
             <StyledTr head>
               <StyledTh>
-                <ScheduleButton>
+                <ScheduleButton onClick={decrementDate} type="button">
                   <span>Prev</span>
                 </ScheduleButton>
               </StyledTh>
@@ -149,7 +181,7 @@ const ScheduleView = ({
                 {displayData.latestDay.day}
               </StyledTh>
               <StyledTh>
-                <ScheduleButton>
+                <ScheduleButton onClick={incrementDate} type="button">
                   <span>Next</span>
                 </ScheduleButton>
               </StyledTh>
