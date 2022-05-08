@@ -23,42 +23,41 @@ const compareDatesInArray = async (array: Date[], givenDate: Date) => {
   return array.findIndex(findMatching);
 };
 
-// const compareAndFillArray = async (
-//   blankArray: ScheduleArrayType[],
-//   takenArray: Date[]
-// ) => {
-//   let returnArray = [];
+const compareAndFillArray = async (
+  blankArray: ScheduleArrayType[],
+  takenArray: Date[]
+) => {
+  let returnArray = [];
 
-//   for (let i = 0; i < blankArray.length; i++) {
-//     let slots = blankArray[i].slots;
-//     let hour = blankArray[i].hour;
-//     let slotsArray: any[] = [];
-//     for (let j = 0; j < slots.length; j++) {
-//       let slot = slots[j];
-//       let filledTimeSlot = await compareDatesInArray(takenArray, slot.time);
-//       console.log("CHECK", filledTimeSlot);
-//       if (filledTimeSlot >= 0) {
-//         slot = {
-//           ...slot,
-//           available: false,
-//           applicable: false,
-//         };
-//       } else {
-//         slot = {
-//           ...slot,
-//           available: true,
-//           applicable: false,
-//         };
-//       }
-//       slotsArray.push(slot);
-//     }
-//     returnArray.push({
-//       hour,
-//       slots: slotsArray,
-//     });
-//   }
-//   return returnArray;
-// };
+  for (let i = 0; i < blankArray.length; i++) {
+    let slots = blankArray[i].slots;
+    let hour = blankArray[i].hour;
+    let slotsArray: any[] = [];
+    for (let j = 0; j < slots.length; j++) {
+      let slot = slots[j];
+      let filledTimeSlot = await compareDatesInArray(takenArray, slot.time);
+      if (filledTimeSlot >= 0) {
+        slot = {
+          ...slot,
+          available: false,
+          applicable: false,
+        };
+      } else {
+        slot = {
+          ...slot,
+          available: true,
+          applicable: false,
+        };
+      }
+      slotsArray.push(slot);
+    }
+    returnArray.push({
+      hour,
+      slots: slotsArray,
+    });
+  }
+  return returnArray;
+};
 
 const outputByHour = async (
   array: StoreDayHour[],
@@ -247,9 +246,10 @@ export const scheduleArrayBuild = async (
 ) => {
   let timesTakenArray = await flattenArrayDates(stylistAppointments);
   let builtArray = await outputByHour(storeHours, startDate, outputDays);
-  console.log(builtArray);
-  // return { newReturnArray, earliest, latest };
-  return builtArray;
+  let checkedArray = await compareAndFillArray(builtArray, timesTakenArray);
+  // need to compare builtArray to timesTaken and adjust each object compared to that flattened array
+  // console.log(builtArray);
+  return checkedArray;
 };
 
 export const scheduleBlockFilter = async (
