@@ -1,5 +1,8 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
-import { scheduleArrayBuild } from "../Modules/Schedule/ScheduleHelpers";
+import {
+  scheduleArrayBuild,
+  scheduleBlockFilter,
+} from "../Modules/Schedule/ScheduleHelpers";
 import axios from "axios";
 import { ReturnUserType, ScheduleArrayType } from "../Utilities/types";
 
@@ -67,8 +70,8 @@ function DateTest() {
 
   const handleOneHour = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    // const newArray = await scheduleBlockFilter(array, 2);
-    // console.log("One hour", newArray);
+    const newArray = await scheduleBlockFilter(array, 2);
+    console.log("One hour", newArray);
   };
 
   const handleTwoHour = async (e: React.SyntheticEvent) => {

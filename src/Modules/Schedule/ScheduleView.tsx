@@ -11,7 +11,11 @@ import {
   ServiceType,
   StylistAppointmentType,
 } from "../../Utilities/types";
-import { scheduleArrayBuild, scheduleBlockFilter } from "./ScheduleHelpers";
+import {
+  scheduleArrayBuild,
+  scheduleBlockFilter,
+  scheduleSectionFilter,
+} from "./ScheduleHelpers";
 import circle from "../../Utilities/Images/SVGs/circle.svg";
 import cross from "../../Utilities/Images/SVGs/cross.svg";
 import {
@@ -124,7 +128,11 @@ const ScheduleView = ({
         let timeSpan = foundService.timeSpan;
         const debounce = setTimeout(() => {
           const rePrepArray = async () => {
-            const selectedScheduleArray = await scheduleBlockFilter(
+            // const selectedScheduleArray = await scheduleBlockFilter(
+            //   dateTimeArray,
+            //   timeSpan
+            // );
+            const selectedScheduleArray = await scheduleSectionFilter(
               dateTimeArray,
               timeSpan
             );

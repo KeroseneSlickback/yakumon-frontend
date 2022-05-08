@@ -1,16 +1,6 @@
-import { time } from "console";
-import {
-  addDays,
-  addMinutes,
-  getDay,
-  isEqual,
-  parseJSON,
-  set,
-  startOfDay,
-} from "date-fns";
+import { addDays, getDay, isEqual, parseJSON, set, startOfDay } from "date-fns";
 import {
   ScheduleArrayType,
-  ScheduleDateType,
   StoreDayHour,
   StylistAppointmentType,
 } from "../../Utilities/types";
@@ -346,4 +336,113 @@ export const scheduleBlockFilter = async (
     }
     return aggrivateArray;
   });
+};
+
+export const scheduleSectionFilter = async (
+  scheduleArray: ScheduleArrayType[],
+  steps: number
+) => {
+  let reorderedArray: any[] = [];
+  let workingHourArray: string[] = [];
+  for (let i = 0; i < scheduleArray.length; i++) {
+    let workingTimeSection = scheduleArray[i].slots;
+    workingHourArray.push(scheduleArray[i].hour);
+    for (let j = 0; j < workingTimeSection.length; j++) {
+      let workingSlot = workingTimeSection[j];
+      if (!reorderedArray[j]) {
+        reorderedArray.push([workingSlot]);
+      } else {
+        reorderedArray[j].push(workingSlot);
+      }
+    }
+  }
+  let setArray = [];
+  for (let i = 0; i < reorderedArray.length; i++) {
+    let aggrivateArray: any[] = [];
+    let workingDay = reorderedArray[i];
+    let countingArray: any[] = [];
+    for (let j = 0; j < workingDay.length; j++) {
+      let workingTime = workingDay[j];
+      if (!workingTime.available || workingTime.closed) {
+        if (countingArray.length >= steps) {
+          let tailCalc = countingArray.length - steps;
+          let randomId = Math.floor(Math.random() * 100000);
+          let newCountingArray = countingArray.map((obj, index) => {
+            if (index <= tailCalc) {
+              return (obj = {
+                ...obj,
+                applicable: true,
+                id: randomId,
+                possibleHead: true,
+              });
+            } else {
+              return (obj = {
+                ...obj,
+                applicable: true,
+                id: randomId,
+                possibleHead: false,
+              });
+            }
+          });
+          aggrivateArray.push(...newCountingArray);
+          countingArray = [];
+          aggrivateArray.push(workingTime);
+          randomId = Math.floor(Math.random() * 100000);
+        } else {
+          countingArray.push(workingTime);
+          aggrivateArray.push(...countingArray);
+          countingArray = [];
+        }
+      } else if (workingTime.available && !workingTime.closed) {
+        countingArray.push(workingTime);
+        if (i === workingDay.length - 1) {
+          if (countingArray.length >= steps) {
+            let tailCalc = countingArray.length - steps;
+            let randomId = Math.floor(Math.random() * 100000);
+            let newCountingArray = countingArray.map((obj, index) => {
+              if (index <= tailCalc) {
+                return (obj = {
+                  ...obj,
+                  applicable: true,
+                  id: randomId,
+                  possibleHead: true,
+                });
+              } else {
+                return (obj = {
+                  ...obj,
+                  applicable: true,
+                  id: randomId,
+                  possibleHead: false,
+                });
+              }
+            });
+            randomId = Math.floor(Math.random() * 100000);
+            aggrivateArray.push(...newCountingArray);
+            countingArray = [];
+          } else {
+            countingArray.push(workingTime);
+            aggrivateArray.push(...countingArray);
+            countingArray = [];
+          }
+        }
+      }
+    }
+    setArray.push(aggrivateArray);
+  }
+  let finalArray = [];
+  for (let i = 0; i < setArray.length; i++) {
+    let workingTimeSection = setArray[i];
+    for (let j = 0; j < workingTimeSection.length; j++) {
+      let workingSlot = workingTimeSection[j];
+      if (!finalArray[j]) {
+        finalArray.push({
+          hour: workingHourArray[j],
+          slots: [workingSlot],
+        });
+      } else {
+        finalArray[j].slots.push(workingSlot);
+      }
+    }
+  }
+  return finalArray;
 };
