@@ -95,10 +95,7 @@ export interface ReturnStoreType {
 }
 
 export interface ReservationType {
-  employee: string;
-  customer: string;
   slotDateTime: Date | null;
-  createdAt: Date | null;
   comments: string;
   service: string;
 }
@@ -111,6 +108,7 @@ export interface ScheduleDateType {
   appointmentId?: string;
   id?: number;
   possibleHead?: boolean;
+  chosen?: boolean;
 }
 
 // export interface ScheduleArrayType {

@@ -13,13 +13,15 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
     ${(props) =>
       props.applicable &&
       css`
-        stroke: #a8f0d0;
+        stroke; #ffffff;
+      `}
+
+    ${(props) =>
+      props.possibleHead &&
+      css`
+        stroke: #ffffff;
       `}
   }
-`;
-
-const StyledSVG = styled.svg<{ applicable?: boolean }>`
-  /* stroke: red; */
 `;
 
 export const CircleSvg: React.FC<SvgPropsDefault> = (props) => (

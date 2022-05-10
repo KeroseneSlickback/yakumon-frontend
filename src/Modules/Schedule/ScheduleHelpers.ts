@@ -252,91 +252,91 @@ export const scheduleArrayBuild = async (
   return checkedArray;
 };
 
-export const scheduleBlockFilter = async (
-  scheduleArray: ScheduleArrayType[] | null,
-  steps: number
-) => {
-  return scheduleArray?.map((day) => {
-    let aggrivateArray: any[] = [];
-    let countingArray = [];
-    for (let i = 0; i < day.slots.length; i++) {
-      let workingTimeSlot = day.slots[i];
-      // when an appointment section is found
-      if (!workingTimeSlot.available || workingTimeSlot.closed) {
-        // when the countingArray meets or exceeds set steps
-        if (countingArray.length >= steps) {
-          // itterate and alter current array as they are applicable
-          let tailCalc = countingArray.length - steps;
-          let randomId = Math.floor(Math.random() * 100000);
-          let newCountingArray = countingArray.map((obj, index) => {
-            // index/counting error
-            if (index <= tailCalc) {
-              return (obj = {
-                ...obj,
-                applicable: true,
-                id: randomId,
-                possibleHead: true,
-              });
-            } else {
-              return (obj = {
-                ...obj,
-                applicable: true,
-                id: randomId,
-                possibleHead: false,
-              });
-            }
-          });
-          // Then add applicable timeslots to aggrivate array,
-          aggrivateArray.push(...newCountingArray);
-          // clear current array
-          countingArray = [];
-          // push non applicable to aggrivate array
-          aggrivateArray.push(workingTimeSlot);
-          randomId = Math.floor(Math.random() * 100000);
-        } else {
-          countingArray.push(workingTimeSlot);
-          aggrivateArray.push(...countingArray);
-          countingArray = [];
-        }
-      } else if (workingTimeSlot.available && !workingTimeSlot.closed) {
-        countingArray.push(workingTimeSlot);
-        // clean up
-        if (i === day.slots.length - 1) {
-          if (countingArray.length >= steps) {
-            let tailCalc = countingArray.length - steps;
-            let randomId = Math.floor(Math.random() * 100000);
-            let newCountingArray = countingArray.map((obj, index) => {
-              if (index <= tailCalc) {
-                return (obj = {
-                  ...obj,
-                  applicable: true,
-                  id: randomId,
-                  possibleHead: true,
-                });
-              } else {
-                return (obj = {
-                  ...obj,
-                  applicable: true,
-                  id: randomId,
-                  possibleHead: false,
-                });
-              }
-            });
+// export const scheduleBlockFilter = async (
+//   scheduleArray: ScheduleArrayType[] | null,
+//   steps: number
+// ) => {
+//   return scheduleArray?.map((day) => {
+//     let aggrivateArray: any[] = [];
+//     let countingArray = [];
+//     for (let i = 0; i < day.slots.length; i++) {
+//       let workingTimeSlot = day.slots[i];
+//       // when an appointment section is found
+//       if (!workingTimeSlot.available || workingTimeSlot.closed) {
+//         // when the countingArray meets or exceeds set steps
+//         if (countingArray.length >= steps) {
+//           // itterate and alter current array as they are applicable
+//           let tailCalc = countingArray.length - steps;
+//           let randomId = Math.floor(Math.random() * 100000);
+//           let newCountingArray = countingArray.map((obj, index) => {
+//             // index/counting error
+//             if (index <= tailCalc) {
+//               return (obj = {
+//                 ...obj,
+//                 applicable: true,
+//                 id: randomId,
+//                 possibleHead: true,
+//               });
+//             } else {
+//               return (obj = {
+//                 ...obj,
+//                 applicable: true,
+//                 id: randomId,
+//                 possibleHead: false,
+//               });
+//             }
+//           });
+//           // Then add applicable timeslots to aggrivate array,
+//           aggrivateArray.push(...newCountingArray);
+//           // clear current array
+//           countingArray = [];
+//           // push non applicable to aggrivate array
+//           aggrivateArray.push(workingTimeSlot);
+//           randomId = Math.floor(Math.random() * 100000);
+//         } else {
+//           countingArray.push(workingTimeSlot);
+//           aggrivateArray.push(...countingArray);
+//           countingArray = [];
+//         }
+//       } else if (workingTimeSlot.available && !workingTimeSlot.closed) {
+//         countingArray.push(workingTimeSlot);
+//         // clean up
+//         if (i === day.slots.length - 1) {
+//           if (countingArray.length >= steps) {
+//             let tailCalc = countingArray.length - steps;
+//             let randomId = Math.floor(Math.random() * 100000);
+//             let newCountingArray = countingArray.map((obj, index) => {
+//               if (index <= tailCalc) {
+//                 return (obj = {
+//                   ...obj,
+//                   applicable: true,
+//                   id: randomId,
+//                   possibleHead: true,
+//                 });
+//               } else {
+//                 return (obj = {
+//                   ...obj,
+//                   applicable: true,
+//                   id: randomId,
+//                   possibleHead: false,
+//                 });
+//               }
+//             });
 
-            randomId = Math.floor(Math.random() * 100000);
-            aggrivateArray.push(...newCountingArray);
-            countingArray = [];
-          } else {
-            countingArray.push(workingTimeSlot);
-            aggrivateArray.push(...countingArray);
-            countingArray = [];
-          }
-        }
-      }
-    }
-    return aggrivateArray;
-  });
-};
+//             randomId = Math.floor(Math.random() * 100000);
+//             aggrivateArray.push(...newCountingArray);
+//             countingArray = [];
+//           } else {
+//             countingArray.push(workingTimeSlot);
+//             aggrivateArray.push(...countingArray);
+//             countingArray = [];
+//           }
+//         }
+//       }
+//     }
+//     return aggrivateArray;
+//   });
+// };
 
 export const scheduleSectionFilter = async (
   scheduleArray: ScheduleArrayType[],
@@ -374,6 +374,7 @@ export const scheduleSectionFilter = async (
                 applicable: true,
                 id: randomId,
                 possibleHead: true,
+                chosen: false,
               });
             } else {
               return (obj = {
@@ -381,6 +382,7 @@ export const scheduleSectionFilter = async (
                 applicable: true,
                 id: randomId,
                 possibleHead: false,
+                chosen: false,
               });
             }
           });
@@ -403,16 +405,18 @@ export const scheduleSectionFilter = async (
               if (index <= tailCalc) {
                 return (obj = {
                   ...obj,
-                  applicable: true,
+                  applicable: false,
                   id: randomId,
                   possibleHead: true,
+                  chosen: false,
                 });
               } else {
                 return (obj = {
                   ...obj,
-                  applicable: true,
+                  applicable: false,
                   id: randomId,
                   possibleHead: false,
+                  chosen: false,
                 });
               }
             });

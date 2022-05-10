@@ -1,5 +1,5 @@
 import { format, addDays, subDays, isBefore } from "date-fns";
-import React, { useEffect, useState } from "react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 import {
   ErrorContainer,
   LoadingIcon,
@@ -8,16 +8,11 @@ import {
 import {
   ReturnStoreType,
   ScheduleArrayType,
+  ScheduleDateType,
   ServiceType,
   StylistAppointmentType,
 } from "../../Utilities/types";
-import {
-  scheduleArrayBuild,
-  scheduleBlockFilter,
-  scheduleSectionFilter,
-} from "./ScheduleHelpers";
-import circle from "../../Utilities/Images/SVGs/circle.svg";
-import cross from "../../Utilities/Images/SVGs/cross.svg";
+import { scheduleArrayBuild, scheduleSectionFilter } from "./ScheduleHelpers";
 import {
   CircleSvg,
   CrossSvg,
@@ -30,13 +25,14 @@ import {
   StyledTr,
 } from "../../Components/ScheduleComponents";
 import { ScheduleBlankButton, ScheduleButton } from "../../Components/Buttons";
+import { compareAsc } from "date-fns/esm";
 
 interface SchedulePropTypes {
   appointments?: StylistAppointmentType[];
   services?: ServiceType[];
   selectedService?: string;
   store?: ReturnStoreType;
-  reservation?: string;
+  handleOnSelect: (params: any) => any;
 }
 
 const ScheduleView = ({
@@ -44,7 +40,7 @@ const ScheduleView = ({
   services,
   selectedService,
   store,
-  reservation,
+  handleOnSelect,
 }: SchedulePropTypes) => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [outputDays, setOutputDays] = useState<number>(4);
@@ -63,8 +59,6 @@ const ScheduleView = ({
     },
   });
   const [timeSelection, setTimeSelection] = useState<string[]>([]);
-  console.log(services, reservation);
-  // console.log(dateTimeArray);
 
   useEffect(() => {
     setLoad(true);
@@ -85,7 +79,6 @@ const ScheduleView = ({
             let dateList = blankScheduleArray[0].slots.map((day) => {
               return format(day.time, "MM/dd").replace(/^0+/, "");
             });
-            console.log(dateList);
             let earlyMonth = format(blankScheduleArray[0].slots[0].time, "MMM");
             let earlyDay = parseInt(
               format(blankScheduleArray[0].slots[0].time, "d")
@@ -128,15 +121,11 @@ const ScheduleView = ({
         let timeSpan = foundService.timeSpan;
         const debounce = setTimeout(() => {
           const rePrepArray = async () => {
-            // const selectedScheduleArray = await scheduleBlockFilter(
-            //   dateTimeArray,
-            //   timeSpan
-            // );
             const selectedScheduleArray = await scheduleSectionFilter(
               dateTimeArray,
               timeSpan
             );
-            console.log(selectedScheduleArray);
+            setDateTimeArray(selectedScheduleArray);
           };
           rePrepArray();
           setLoad(false);
@@ -153,13 +142,39 @@ const ScheduleView = ({
   const decrementDate = () => {
     const today = new Date();
     const newDate = subDays(startDate, outputDays);
-    console.log(newDate, today);
     if (isBefore(addDays(newDate, 1), today)) {
       // Pop up a warning?
       return;
     } else {
       setStartDate(newDate);
     }
+  };
+
+  const chosenStartDate = (chosenSlot: ScheduleDateType) => {
+    let chosenService = services?.find(
+      (service) => service._id === selectedService
+    );
+    let counter = 0;
+    let chosenArray = dateTimeArray.map((hour) => {
+      return {
+        hour: hour.hour,
+        slots: hour.slots.map((slot) => {
+          slot.chosen = false;
+          slot.applicable = false;
+          if (counter !== chosenService?.timeSpan) {
+            if (compareAsc(chosenSlot.time, slot.time) <= 0) {
+              if (chosenSlot.id === slot.id) {
+                counter += 1;
+                return { ...slot, chosen: true };
+              }
+            }
+          }
+          return slot;
+        }),
+      };
+    });
+    setDateTimeArray(chosenArray);
+    handleOnSelect(chosenSlot);
   };
 
   return (
@@ -218,12 +233,30 @@ const ScheduleView = ({
                           <CrossSvg key={index2} />
                         ) : !slot.available ? (
                           <CrossSvg key={index2} />
-                        ) : (
+                        ) : slot.possibleHead ? (
                           <ScheduleBlankButton
                             applicable={slot.applicable ? true : false}
+                            possibleHead={slot.possibleHead ? true : false}
+                            chosen={slot.chosen ? true : false}
+                            onClick={() => chosenStartDate(slot)}
+                            type="button"
                           >
                             <CircleSvg
                               applicable={slot.applicable ? true : false}
+                              possibleHead={slot.possibleHead ? true : false}
+                              chosen={slot.chosen ? true : false}
+                              key={index2}
+                            />
+                          </ScheduleBlankButton>
+                        ) : (
+                          <ScheduleBlankButton
+                            applicable={slot.applicable ? true : false}
+                            chosen={slot.chosen ? true : false}
+                            type="button"
+                          >
+                            <CircleSvg
+                              applicable={slot.applicable ? true : false}
+                              chosen={slot.chosen ? true : false}
                               key={index2}
                             />
                           </ScheduleBlankButton>

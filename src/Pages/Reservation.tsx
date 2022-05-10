@@ -21,7 +21,12 @@ import AuthContext from "../Utilities/AuthContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-import { ReservationType, ReturnUserType } from "../Utilities/types";
+import {
+  BackendResponseDataType,
+  ReservationType,
+  ReturnUserType,
+  ScheduleDateType,
+} from "../Utilities/types";
 import { ListItem } from "../Components/CheckboxComponents";
 import ScheduleView from "../Modules/Schedule/ScheduleView";
 
@@ -35,10 +40,7 @@ const Reservation = () => {
   const [viewRegister, setViewRegister] = useState(false);
   const [viewLogin, setViewLogin] = useState(false);
   const [reservation, setReservation] = useState<ReservationType>({
-    employee: "",
-    customer: "",
     slotDateTime: null,
-    createdAt: null,
     comments: "",
     service: "",
   });
@@ -56,16 +58,50 @@ const Reservation = () => {
     setViewLogin(true);
   };
 
-  const handleFormSubmit = (e: React.SyntheticEvent) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e);
+    const jwt = localStorage.getItem("jwt");
+    const currentTime = new Date();
+    const reservationData = {
+      ...reservation,
+      employee: id,
+      customer: user?._id,
+      createAt: currentTime,
+    };
+    console.log(reservationData, jwt);
+    // try {
+    //   axios
+    //     .post<BackendResponseDataType>(
+    //       "http://localhost:8888/appointment",
+    //       reservationData,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${jwt}`,
+    //         },
+    //       }
+    //     )
+    //     .then((response) => {
+    //       // setConfirm
+    //       // setSubmitError(false)
+    //       // setTimeout(() => {history.push('/')}, 1000)
+    //       console.log(response);
+    //     });
+    // } catch (e: any) {
+    //   console.log(e);
+    // }
   };
 
-  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const selectService = (id: string) => {
     setReservation((prev) => ({
       ...prev,
-      [name]: value,
+      service: id,
+    }));
+  };
+
+  const selectTime = (headSlot: ScheduleDateType) => {
+    setReservation((prev) => ({
+      ...prev,
+      slotDateTime: headSlot.time,
     }));
   };
 
@@ -74,13 +110,6 @@ const Reservation = () => {
     setReservation((prev) => ({
       ...prev,
       [name]: value,
-    }));
-  };
-
-  const selectService = (id: string) => {
-    setReservation((prev) => ({
-      ...prev,
-      service: id,
     }));
   };
 
@@ -169,13 +198,13 @@ const Reservation = () => {
             )}
           </PageSectionCard>
           <PageSectionCard noPadding>
-            <h3>Select an available spot below.</h3>
+            <h3>Select any white section as the start of your reservation.</h3>
             <ScheduleView
               appointments={stylist?.appointments}
               services={stylist?.services}
               selectedService={reservation.service}
               store={stylist?.store}
-              reservation={reservation.service}
+              handleOnSelect={selectTime}
             />
           </PageSectionCard>
           <PageSectionCard styled>
@@ -188,6 +217,9 @@ const Reservation = () => {
             ></StyledTextArea>
             <ButtonBox centered>
               <ReserveButton register>Reserve Now</ReserveButton>
+              <ReserveButton register type="button">
+                Delete Reservation
+              </ReserveButton>
             </ButtonBox>
           </PageSectionCard>
         </StyledForm>

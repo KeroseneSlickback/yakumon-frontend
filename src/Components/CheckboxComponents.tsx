@@ -6,6 +6,7 @@ const CheckboxDescription = styled.label<{ checked?: boolean }>`
   width: 100%;
   grid-template-columns: 1fr 40px;
   padding: 8px 12px;
+  /* border-radius: 6px; */
   cursor: pointer;
   p {
     font-size: 0.9rem;
@@ -17,6 +18,12 @@ const CheckboxDescription = styled.label<{ checked?: boolean }>`
       css`
         background-color: ${({ theme }) => theme.highlight};
       `}
+  }
+  &:first-child {
+    border-radius: 6px 6px 0 0;
+  }
+  &:last-child {
+    border-radius: 0 0 6px 6px;
   }
   ${(props) =>
     props.checked &&

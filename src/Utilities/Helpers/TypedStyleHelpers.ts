@@ -6,6 +6,8 @@ export interface SvgPropsDefault {
   width?: number;
   height?: number;
   applicable?: boolean;
+  possibleHead?: boolean;
+  chosen?: boolean;
 }
 
 export interface SvgProps extends SvgPropsDefault {

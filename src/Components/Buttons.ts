@@ -100,7 +100,8 @@ export const ScheduleButton = styled(TinyButton)`
 
 export const ScheduleBlankButton = styled.button<{
   applicable?: boolean;
-  selected?: boolean;
+  possibleHead?: boolean;
+  chosen?: boolean;
 }>`
   background-color: inherit;
   border: none;
@@ -112,27 +113,31 @@ export const ScheduleBlankButton = styled.button<{
 
   @keyframes pulseGreen {
     0% {
-      background-color: inherit;
-      box-shadow: 0 0 2px 2px rgba(168, 240, 208, 0.2);
+      box-shadow: 0 0 1px 2px rgba(168, 240, 208, 0.8);
     }
     50% {
-      /* background-color: rgba(96, 169, 136, 0); */
-      box-shadow: 0 0 2px 2px rgba(168, 240, 208, 0.4);
+      box-shadow: 0 0 1px 2px rgba(168, 240, 208, 1);
     }
     100% {
-      background-color: inherit;
-      box-shadow: 0 0 2px 2px rgba(168, 240, 208, 0.2);
+      box-shadow: 0 0 1px 2px rgba(168, 240, 208, 0.8);
     }
   }
 
-  ${(props) =>
+  /* ${(props) =>
     props.applicable &&
     css`
-      animation: pulseGreen 3s ease-in-out infinite;
+      box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.3);
     `}
+
   ${(props) =>
-    props.selected &&
+    props.possibleHead &&
     css`
-      background-color: blue;
+      box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.2);
+    `} */
+
+  ${(props) =>
+    props.chosen &&
+    css`
+      animation: pulseGreen 1.5s ease-in-out infinite;
     `}
 `;
