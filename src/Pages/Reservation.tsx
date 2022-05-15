@@ -19,7 +19,7 @@ import LoginModal from "../Modules/Modals/LoginModal";
 import RegisterModal from "../Modules/Modals/RegisterModal";
 import AuthContext from "../Utilities/AuthContext";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import {
   BackendResponseDataType,
@@ -29,14 +29,18 @@ import {
 } from "../Utilities/types";
 import { ListItem } from "../Components/CheckboxComponents";
 import ScheduleView from "../Modules/Schedule/ScheduleView";
+import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 
 const Reservation = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { loggedIn, user } = useContext(AuthContext);
   const [stylist, setStylist] = useState<ReturnUserType | null>(null);
   const [stylistImg, setStylistImg] = useState<string>("");
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [confirm, setConfirm] = useState<string | null>(null);
   const [viewRegister, setViewRegister] = useState(false);
   const [viewLogin, setViewLogin] = useState(false);
   const [reservation, setReservation] = useState<ReservationType>({
@@ -60,7 +64,14 @@ const Reservation = () => {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!reservation.slotDateTime || !reservation.service) {
+      setFormError("Please Select a Service and Time");
+      return;
+    }
     const jwt = localStorage.getItem("jwt");
+    if (!jwt || user?._id) {
+      setError(true);
+    }
     const currentTime = new Date();
     const reservationData = {
       ...reservation,
@@ -68,27 +79,29 @@ const Reservation = () => {
       customer: user?._id,
       createAt: currentTime,
     };
-    console.log(reservationData, jwt);
-    // try {
-    //   axios
-    //     .post<BackendResponseDataType>(
-    //       "http://localhost:8888/appointment",
-    //       reservationData,
-    //       {
-    //         headers: {
-    //           Authorization: `Bearer ${jwt}`,
-    //         },
-    //       }
-    //     )
-    //     .then((response) => {
-    //       // setConfirm
-    //       // setSubmitError(false)
-    //       // setTimeout(() => {history.push('/')}, 1000)
-    //       console.log(response);
-    //     });
-    // } catch (e: any) {
-    //   console.log(e);
-    // }
+    try {
+      axios
+        .post<BackendResponseDataType>(
+          "http://localhost:8888/appointment",
+          reservationData,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        )
+        .then((response) => {
+          setError(false);
+          setFormError(null);
+          setConfirm("Appointment Created");
+          console.log(response);
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        });
+    } catch (e: any) {
+      console.log(e);
+    }
   };
 
   const selectService = (id: string) => {
@@ -216,10 +229,19 @@ const Reservation = () => {
               onChange={handleTextAreaChange}
             ></StyledTextArea>
             <ButtonBox centered>
+              {confirm ? (
+                <MessageBox>
+                  <RegularMessage message={confirm} warning={false} />
+                </MessageBox>
+              ) : formError ? (
+                <MessageBox>
+                  <RegularMessage message={formError} warning={true} />
+                </MessageBox>
+              ) : null}
               <ReserveButton register>Reserve Now</ReserveButton>
-              <ReserveButton register type="button">
+              {/* <ReserveButton register type="button">
                 Delete Reservation
-              </ReserveButton>
+              </ReserveButton> */}
             </ButtonBox>
           </PageSectionCard>
         </StyledForm>

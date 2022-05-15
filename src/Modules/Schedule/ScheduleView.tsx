@@ -58,13 +58,12 @@ const ScheduleView = ({
       day: 3,
     },
   });
-  const [timeSelection, setTimeSelection] = useState<string[]>([]);
 
   useEffect(() => {
     setLoad(true);
     // create a new startDate based on previous times the number of steps
     // When next/previous are clicked, increment date from that, but don't allow under 0
-    const debounce = setTimeout(() => {
+    setTimeout(() => {
       if (appointments) {
         if (store?.hours) {
           const storeHours = store.hours;
@@ -119,7 +118,7 @@ const ScheduleView = ({
       );
       if (foundService?.timeSpan) {
         let timeSpan = foundService.timeSpan;
-        const debounce = setTimeout(() => {
+        setTimeout(() => {
           const rePrepArray = async () => {
             const selectedScheduleArray = await scheduleSectionFilter(
               dateTimeArray,

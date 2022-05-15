@@ -7,13 +7,14 @@ export const MessageContainer = styled.div<{
   border-radius: 0.6rem;
   text-align: center;
   background-color: ${({ theme }) => theme.secondaryAlt};
-  animation: fadeIn 50ms ease-in both;
+  animation: fadeIn 75ms ease-in both;
 
   ${(props) => props.regular && css``};
   ${(props) =>
     props.warning &&
     css`
       background-color: ${({ theme }) => theme.warning};
+      color: ${({ theme }) => theme.fontColor};
     `};
 
   @keyframes fadeIn {
@@ -25,7 +26,7 @@ export const MessageContainer = styled.div<{
     }
     to {
       opacity: 1;
-      padding: 6px;
+      padding: 10px;
       transform: translate3d(0, 0, 0);
     }
   }
