@@ -356,14 +356,14 @@ export const scheduleSectionFilter = async (
       }
     }
   }
-  let setArray = [];
+  let setArray: any[] = [];
   for (let i = 0; i < reorderedArray.length; i++) {
     let aggrivateArray: any[] = [];
     let workingDay = reorderedArray[i];
     let countingArray: any[] = [];
-    for (let j = 0; j < workingDay.length; j++) {
+    for (let j = 0; j <= workingDay.length; j++) {
       let workingTime = workingDay[j];
-      if (!workingTime.available || workingTime.closed) {
+      if (!workingTime) {
         if (countingArray.length >= steps) {
           let tailCalc = countingArray.length - steps;
           let randomId = Math.floor(Math.random() * 100000);
@@ -371,7 +371,7 @@ export const scheduleSectionFilter = async (
             if (index <= tailCalc) {
               return (obj = {
                 ...obj,
-                applicable: true,
+                applicable: false,
                 id: randomId,
                 possibleHead: true,
                 chosen: false,
@@ -379,25 +379,24 @@ export const scheduleSectionFilter = async (
             } else {
               return (obj = {
                 ...obj,
-                applicable: true,
+                applicable: false,
                 id: randomId,
                 possibleHead: false,
                 chosen: false,
               });
             }
           });
+          randomId = Math.floor(Math.random() * 100000);
           aggrivateArray.push(...newCountingArray);
           countingArray = [];
-          aggrivateArray.push(workingTime);
-          randomId = Math.floor(Math.random() * 100000);
         } else {
-          countingArray.push(workingTime);
           aggrivateArray.push(...countingArray);
           countingArray = [];
         }
-      } else if (workingTime.available && !workingTime.closed) {
-        countingArray.push(workingTime);
-        if (i === workingDay.length - 1) {
+      } else {
+        if (workingTime.available && !workingTime.closed) {
+          countingArray.push(workingTime);
+        } else {
           if (countingArray.length >= steps) {
             let tailCalc = countingArray.length - steps;
             let randomId = Math.floor(Math.random() * 100000);
@@ -405,7 +404,7 @@ export const scheduleSectionFilter = async (
               if (index <= tailCalc) {
                 return (obj = {
                   ...obj,
-                  applicable: false,
+                  applicable: true,
                   id: randomId,
                   possibleHead: true,
                   chosen: false,
@@ -413,16 +412,17 @@ export const scheduleSectionFilter = async (
               } else {
                 return (obj = {
                   ...obj,
-                  applicable: false,
+                  applicable: true,
                   id: randomId,
                   possibleHead: false,
                   chosen: false,
                 });
               }
             });
-            randomId = Math.floor(Math.random() * 100000);
             aggrivateArray.push(...newCountingArray);
             countingArray = [];
+            aggrivateArray.push(workingTime);
+            randomId = Math.floor(Math.random() * 100000);
           } else {
             countingArray.push(workingTime);
             aggrivateArray.push(...countingArray);

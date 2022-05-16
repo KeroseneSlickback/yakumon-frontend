@@ -1,5 +1,5 @@
 import { format, addDays, subDays, isBefore } from "date-fns";
-import { ChangeEventHandler, useEffect, useState } from "react";
+import { ChangeEventHandler, useCallback, useEffect, useState } from "react";
 import {
   ErrorContainer,
   LoadingIcon,
@@ -64,16 +64,62 @@ const ScheduleView = ({
     // create a new startDate based on previous times the number of steps
     // When next/previous are clicked, increment date from that, but don't allow under 0
     setTimeout(() => {
-      if (appointments) {
-        if (store?.hours) {
-          const storeHours = store.hours;
-          const prepArray = async () => {
-            const blankScheduleArray = await scheduleArrayBuild(
-              startDate,
-              storeHours,
-              outputDays,
-              appointments
-            );
+      if (appointments && store?.hours) {
+        const storeHours = store.hours;
+        const prepArray = async () => {
+          const blankScheduleArray = await scheduleArrayBuild(
+            startDate,
+            storeHours,
+            outputDays,
+            appointments
+          );
+          if (selectedService) {
+            if (services) {
+              let foundService = services.find(
+                (service) => service._id === selectedService
+              );
+              if (foundService?.timeSpan) {
+                let timeSpan = foundService.timeSpan;
+                const selectedScheduleArray = await scheduleSectionFilter(
+                  blankScheduleArray,
+                  timeSpan
+                );
+                setDateTimeArray(selectedScheduleArray);
+                let dateList = selectedScheduleArray[0].slots.map((day) => {
+                  return format(day.time, "MM/dd").replace(/^0+/, "");
+                });
+                let earlyMonth = format(
+                  selectedScheduleArray[0].slots[0].time,
+                  "MMM"
+                );
+                let earlyDay = parseInt(
+                  format(selectedScheduleArray[0].slots[0].time, "d")
+                );
+                let laterMonth = format(
+                  selectedScheduleArray[0].slots[outputDays - 1].time,
+                  "MMM"
+                );
+                let laterDay = parseInt(
+                  format(
+                    selectedScheduleArray[0].slots[outputDays - 1].time,
+                    "d"
+                  )
+                );
+                setDisplayData((prev) => ({
+                  ...prev,
+                  dateList,
+                  earliestDay: {
+                    month: earlyMonth,
+                    day: earlyDay,
+                  },
+                  latestDay: {
+                    month: laterMonth,
+                    day: laterDay,
+                  },
+                }));
+              }
+            }
+          } else {
             setDateTimeArray(blankScheduleArray);
             let dateList = blankScheduleArray[0].slots.map((day) => {
               return format(day.time, "MM/dd").replace(/^0+/, "");
@@ -101,37 +147,37 @@ const ScheduleView = ({
                 day: laterDay,
               },
             }));
-          };
-          prepArray();
-          setLoad(false);
-        }
+          }
+        };
+        prepArray();
+        setLoad(false);
       }
     }, 700);
-  }, [appointments, startDate]);
+  }, [appointments, startDate, selectedService]);
 
-  useEffect(() => {
-    // Find timeSpan of given array of objects of services
-    if (services) {
-      setLoad(true);
-      let foundService = services.find(
-        (service) => service._id === selectedService
-      );
-      if (foundService?.timeSpan) {
-        let timeSpan = foundService.timeSpan;
-        setTimeout(() => {
-          const rePrepArray = async () => {
-            const selectedScheduleArray = await scheduleSectionFilter(
-              dateTimeArray,
-              timeSpan
-            );
-            setDateTimeArray(selectedScheduleArray);
-          };
-          rePrepArray();
-          setLoad(false);
-        }, 700);
-      }
-    }
-  }, [selectedService]);
+  // useEffect(() => {
+  //   // Find timeSpan of given array of objects of services
+  //   if (services) {
+  //     setLoad(true);
+  //     let foundService = services.find(
+  //       (service) => service._id === selectedService
+  //     );
+  //     if (foundService?.timeSpan) {
+  //       let timeSpan = foundService.timeSpan;
+  //       setTimeout(() => {
+  //         const rePrepArray = async () => {
+  //           const selectedScheduleArray = await scheduleSectionFilter(
+  //             dateTimeArray,
+  //             timeSpan
+  //           );
+  //           setDateTimeArray(selectedScheduleArray);
+  //         };
+  //         rePrepArray();
+  //         setLoad(false);
+  //       }, 700);
+  //     }
+  //   }
+  // }, [selectedService]);
 
   const incrementDate = () => {
     const newDate = addDays(startDate, outputDays);
