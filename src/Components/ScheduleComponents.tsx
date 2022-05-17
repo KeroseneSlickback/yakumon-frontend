@@ -37,6 +37,7 @@ export const StyledTh = styled.th<{
   thirty?: boolean;
   heading?: boolean;
   block?: boolean;
+  column?: boolean;
 }>`
   display: flex;
   align-items: center;
@@ -58,11 +59,20 @@ export const StyledTh = styled.th<{
     css`
       font-size: 1.3rem;
     `}
+
     ${(props) =>
     props.block &&
     css`
       &:nth-child(n + 2):nth-last-child(n + 1) {
         border-left: 1px solid rgba(255, 255, 255, 0.5);
+      }
+    `}
+    ${(props) =>
+    props.column &&
+    css`
+      flex-direction: column;
+      p {
+        font-size: 0.75rem;
       }
     `}
 `;

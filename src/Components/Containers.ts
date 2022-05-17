@@ -65,6 +65,7 @@ export const PageSectionCard = styled.div<{
   secondary?: boolean;
   row?: boolean;
   stylist?: boolean;
+  absolute?: boolean;
 }>`
   padding: 18px 18px 36px 18px;
   width: 100%;
@@ -163,6 +164,19 @@ export const PageSectionCard = styled.div<{
         align-items: center;
         justify-content: center;
         margin: 0 auto;
+      }
+    `}
+
+    ${(props) =>
+    props.absolute &&
+    css`
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      h1 {
+        padding-bottom: 18px;
       }
     `}
 `;

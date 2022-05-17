@@ -5,6 +5,7 @@ import DateTest from "./Pages/DateTest";
 import Home from "./Pages/Home";
 import Store from "./Pages/Store";
 import Reservation from "./Pages/Reservation";
+import Confirmation from "./Pages/Confirmation";
 
 import { theme, GlobalStyles } from "./Styles/Variables";
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/store/:id" element={<Store />} />
           <Route path="/reservation/:id" element={<Reservation />} />
           <Route path="/datetest" element={<DateTest />} />
+          <Route path="/confirmation" element={<Confirmation />} />
         </Routes>
       </MainLayout>
     </ThemeProvider>

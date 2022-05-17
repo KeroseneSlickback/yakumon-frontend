@@ -48,7 +48,12 @@ const ScheduleView = ({
   const [error, setError] = useState<boolean>(false);
   const [dateTimeArray, setDateTimeArray] = useState<ScheduleArrayType[]>([]);
   const [displayData, setDisplayData] = useState({
-    dateList: ["1/1", "1/2", "1/3", "1/4"],
+    dateList: [
+      { date: "1/1", weekday: "Mon" },
+      { date: "1/2", weekday: "Tues" },
+      { date: "1/3", weekday: "Wed" },
+      { date: "1/4", weekday: "Thurs" },
+    ],
     earliestDay: {
       month: "April",
       day: 30,
@@ -85,8 +90,11 @@ const ScheduleView = ({
                   timeSpan
                 );
                 setDateTimeArray(selectedScheduleArray);
+                console.log(selectedScheduleArray);
                 let dateList = selectedScheduleArray[0].slots.map((day) => {
-                  return format(day.time, "MM/dd").replace(/^0+/, "");
+                  let date = format(day.time, "MM/dd").replace(/^0+/, "");
+                  let weekday = format(day.time, "EEE");
+                  return { date, weekday };
                 });
                 let earlyMonth = format(
                   selectedScheduleArray[0].slots[0].time,
@@ -122,7 +130,9 @@ const ScheduleView = ({
           } else {
             setDateTimeArray(blankScheduleArray);
             let dateList = blankScheduleArray[0].slots.map((day) => {
-              return format(day.time, "MM/dd").replace(/^0+/, "");
+              let date = format(day.time, "MM/dd").replace(/^0+/, "");
+              let weekday = format(day.time, "EEE");
+              return { date, weekday };
             });
             let earlyMonth = format(blankScheduleArray[0].slots[0].time, "MMM");
             let earlyDay = parseInt(
@@ -135,9 +145,13 @@ const ScheduleView = ({
             let laterDay = parseInt(
               format(blankScheduleArray[0].slots[outputDays - 1].time, "d")
             );
+            let weekDayList = blankScheduleArray[0].slots.map((day) => {
+              return format(day.time, "EEE");
+            });
             setDisplayData((prev) => ({
               ...prev,
               dateList,
+              weekDayList,
               earliestDay: {
                 month: earlyMonth,
                 day: earlyDay,
@@ -152,32 +166,8 @@ const ScheduleView = ({
         prepArray();
         setLoad(false);
       }
-    }, 700);
+    }, 500);
   }, [appointments, startDate, selectedService]);
-
-  // useEffect(() => {
-  //   // Find timeSpan of given array of objects of services
-  //   if (services) {
-  //     setLoad(true);
-  //     let foundService = services.find(
-  //       (service) => service._id === selectedService
-  //     );
-  //     if (foundService?.timeSpan) {
-  //       let timeSpan = foundService.timeSpan;
-  //       setTimeout(() => {
-  //         const rePrepArray = async () => {
-  //           const selectedScheduleArray = await scheduleSectionFilter(
-  //             dateTimeArray,
-  //             timeSpan
-  //           );
-  //           setDateTimeArray(selectedScheduleArray);
-  //         };
-  //         rePrepArray();
-  //         setLoad(false);
-  //       }, 700);
-  //     }
-  //   }
-  // }, [selectedService]);
 
   const incrementDate = () => {
     const newDate = addDays(startDate, outputDays);
@@ -259,7 +249,11 @@ const ScheduleView = ({
             <StyledTr dateList>
               <StyledTh></StyledTh>
               {displayData.dateList.map((date, index) => {
-                return <StyledTh key={index}>{date}</StyledTh>;
+                return (
+                  <StyledTh column key={index}>
+                    <p>{date.weekday}</p> <h6>{date.date}</h6>
+                  </StyledTh>
+                );
               })}
             </StyledTr>
             {dateTimeArray.map((time, index1) => {

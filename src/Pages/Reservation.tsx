@@ -40,7 +40,6 @@ const Reservation = () => {
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [formError, setFormError] = useState<string | null>(null);
-  const [confirm, setConfirm] = useState<string | null>(null);
   const [viewRegister, setViewRegister] = useState(false);
   const [viewLogin, setViewLogin] = useState(false);
   const [reservation, setReservation] = useState<ReservationType>({
@@ -93,11 +92,10 @@ const Reservation = () => {
         .then((response) => {
           setError(false);
           setFormError(null);
-          setConfirm("Appointment Created");
           console.log(response);
           setTimeout(() => {
-            navigate("/");
-          }, 2000);
+            navigate("/confirmation");
+          }, 500);
         });
     } catch (e: any) {
       console.log(e);
@@ -229,19 +227,12 @@ const Reservation = () => {
               onChange={handleTextAreaChange}
             ></StyledTextArea>
             <ButtonBox centered>
-              {confirm ? (
-                <MessageBox>
-                  <RegularMessage message={confirm} warning={false} />
-                </MessageBox>
-              ) : formError ? (
+              {formError ? (
                 <MessageBox>
                   <RegularMessage message={formError} warning={true} />
                 </MessageBox>
               ) : null}
               <ReserveButton register>Reserve Now</ReserveButton>
-              {/* <ReserveButton register type="button">
-                Delete Reservation
-              </ReserveButton> */}
             </ButtonBox>
           </PageSectionCard>
         </StyledForm>
