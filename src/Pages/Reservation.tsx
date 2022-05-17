@@ -94,7 +94,7 @@ const Reservation = () => {
           setFormError(null);
           console.log(response);
           setTimeout(() => {
-            navigate("/confirmation");
+            navigate("/confirmation/0");
           }, 500);
         });
     } catch (e: any) {

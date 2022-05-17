@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { TinyButton } from "../../Components/Buttons";
 import { FooterContainer } from "../../Components/Containers";
 
@@ -8,7 +9,9 @@ function Footer() {
         Yakumon is a demonstration reservation app created by Mitchell William
         Spaur
       </p>
-      <TinyButton>Employee Entrance</TinyButton>
+      <Link to={"/portal"}>
+        <TinyButton>Employee Entrance</TinyButton>
+      </Link>
     </FooterContainer>
   );
 }

@@ -8,6 +8,11 @@ import Reservation from "./Pages/Reservation";
 import Confirmation from "./Pages/Confirmation";
 
 import { theme, GlobalStyles } from "./Styles/Variables";
+import RearPortal from "./Pages/RearPortal";
+import { RequireEmployeeAuth } from "./Modules/Auth/RequireEmployeeAuth";
+import EmployeeSection from "./Pages/EmployeeSection";
+import { RequireOwnerAuth } from "./Modules/Auth/RequireOwnerAuth";
+import OwnerSection from "./Pages/OwnerSection";
 
 function App() {
   return (
@@ -19,7 +24,25 @@ function App() {
           <Route path="/store/:id" element={<Store />} />
           <Route path="/reservation/:id" element={<Reservation />} />
           <Route path="/datetest" element={<DateTest />} />
-          <Route path="/confirmation" element={<Confirmation />} />
+          <Route path="/confirmation/:id" element={<Confirmation />} />
+          <Route path="/portal" element={<RearPortal />}>
+            <Route
+              path="owner"
+              element={
+                <RequireOwnerAuth>
+                  <OwnerSection />
+                </RequireOwnerAuth>
+              }
+            />
+            <Route
+              path="employee"
+              element={
+                <RequireEmployeeAuth>
+                  <EmployeeSection />
+                </RequireEmployeeAuth>
+              }
+            />
+          </Route>
         </Routes>
       </MainLayout>
     </ThemeProvider>

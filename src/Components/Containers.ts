@@ -17,17 +17,22 @@ export const MainPageContainer = styled.main`
 // Navbar containers
 export const NavBarHeader = styled.header`
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: start;
-  padding: 6px 6px 6px 6px;
-  color: ${({ theme }) => theme.fontColor};
+  a {
+    padding: 6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    color: ${({ theme }) => theme.fontColor};
+    text-decoration: none;
+    font-size: 1.2rem;
+    max-width: max-content;
+  }
 
   h1 {
-    /* font-size: 1.3rem; */
     padding-left: 6px;
   }
+
   div,
   svg {
     height: 32px;
@@ -177,6 +182,7 @@ export const PageSectionCard = styled.div<{
       justify-content: center;
       h1 {
         padding-bottom: 18px;
+        line-height: 1.2rem;
       }
     `}
 `;

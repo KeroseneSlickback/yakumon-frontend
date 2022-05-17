@@ -43,7 +43,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
           authContext.login();
           setErrorMessage((prev) => ({
             ...prev,
-            message: "Successfully Registered!",
+            message: "Successfully Logged In!",
             warning: false,
           }));
           setTimeout(() => {

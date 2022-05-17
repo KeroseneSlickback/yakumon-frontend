@@ -6,6 +6,8 @@ interface AuthContextInterface {
   logout: () => void;
   loggedIn: boolean;
   user: UserType | null;
+  owner: boolean;
+  employee: boolean;
 }
 
 const AuthContext = createContext({} as AuthContextInterface);
@@ -13,6 +15,8 @@ const AuthContext = createContext({} as AuthContextInterface);
 export const AuthProvider: React.FC = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [user, setUser] = useState<UserType | null>(null);
+  const [owner, setOwner] = useState(false);
+  const [employee, setEmployee] = useState(false);
 
   useEffect(() => {
     if (
@@ -24,6 +28,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       const parsedUser: UserType =
         pulledUser !== null ? JSON.parse(pulledUser) : null;
       setUser(parsedUser);
+      setOwner(parsedUser.storeOwner);
+      setEmployee(parsedUser.employee);
     }
     if (
       !localStorage.hasOwnProperty("jwt") ||
@@ -51,6 +57,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     logout,
     loggedIn,
     user,
+    owner,
+    employee,
   };
 
   return (

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { NavBarHeader } from "../../Components/Containers";
 // import { SvgIcon, TestIcon } from "../../Utilities/Images/TestIcon";
 import { YakumonLogoSvg } from "../../Utilities/Images/SVGComponents/YakumonLogoSvg";
@@ -5,8 +6,10 @@ import { YakumonLogoSvg } from "../../Utilities/Images/SVGComponents/YakumonLogo
 function NavBar() {
   return (
     <NavBarHeader>
-      <YakumonLogoSvg />
-      <h1>Yakumon</h1>
+      <Link to="/">
+        <YakumonLogoSvg />
+        <h1>Yakumon</h1>
+      </Link>
     </NavBarHeader>
   );
 }
