@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { theme } from "../Styles/Variables";
 
 export const TinyButton = styled.button<{ register?: boolean; log?: boolean }>`
   color: ${({ theme }) => theme.fontColor};
@@ -40,9 +41,19 @@ export const SmallButton = styled(TinyButton)`
   font-size: 0.75rem;
 `;
 
-export const MediumButton = styled(TinyButton)`
+export const MediumButton = styled(TinyButton)<{ portal?: boolean }>`
   padding: 8px 16px;
   font-size: 1rem;
+  ${(props) =>
+    props.portal &&
+    css`
+      padding: 6px 8px;
+      background-color: ${({ theme }) => theme.secondary};
+      &:hover {
+        background-color: ${({ theme }) => theme.secondaryAlt};
+        color: ${({ theme }) => theme.fontColorAlt};
+      }
+    `}
 `;
 
 export const ReserveButton = styled(TinyButton)`

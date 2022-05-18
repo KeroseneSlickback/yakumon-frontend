@@ -198,10 +198,14 @@ const Reservation = () => {
               <RegisterLoginDiv>
                 <p>Please Register or Login</p>
                 <div>
-                  <MediumButton onClick={toggleRegisterModal} register>
+                  <MediumButton
+                    type="button"
+                    onClick={toggleRegisterModal}
+                    register
+                  >
                     Register
                   </MediumButton>
-                  <MediumButton onClick={toggleLoginModal} log>
+                  <MediumButton type="button" onClick={toggleLoginModal} log>
                     Login
                   </MediumButton>
                 </div>

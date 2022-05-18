@@ -46,6 +46,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     const parsedUser: UserType =
       pulledUser !== null ? JSON.parse(pulledUser) : null;
     setUser(parsedUser);
+    setOwner(parsedUser.storeOwner);
+    setEmployee(parsedUser.employee);
   };
 
   const logout = () => {

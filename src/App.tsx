@@ -8,11 +8,14 @@ import Reservation from "./Pages/Reservation";
 import Confirmation from "./Pages/Confirmation";
 
 import { theme, GlobalStyles } from "./Styles/Variables";
-import RearPortal from "./Pages/RearPortal";
+import RearPortal from "./Pages/SubPages/RearPortal";
 import { RequireEmployeeAuth } from "./Modules/Auth/RequireEmployeeAuth";
-import EmployeeSection from "./Pages/EmployeeSection";
+import EmployeeSection from "./Pages/SubPages/EmployeeSection";
 import { RequireOwnerAuth } from "./Modules/Auth/RequireOwnerAuth";
-import OwnerSection from "./Pages/OwnerSection";
+import OwnerSection from "./Pages/SubPages/OwnerSection";
+import NotFound from "./Pages/SubPages/NotFound";
+import NotAuthorized from "./Pages/SubPages/NotAuthorized";
+import OwnerEmployeeLogin from "./Pages/SubPages/OwnerEmployeeLogin";
 
 function App() {
   return (
@@ -20,20 +23,13 @@ function App() {
       <GlobalStyles />
       <MainLayout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/store/:id" element={<Store />} />
-          <Route path="/reservation/:id" element={<Reservation />} />
-          <Route path="/datetest" element={<DateTest />} />
-          <Route path="/confirmation/:id" element={<Confirmation />} />
-          <Route path="/portal" element={<RearPortal />}>
-            <Route
-              path="owner"
-              element={
-                <RequireOwnerAuth>
-                  <OwnerSection />
-                </RequireOwnerAuth>
-              }
-            />
+          <Route index element={<Home />} />
+          <Route path="store/:id" element={<Store />} />
+          <Route path="reservation/:id" element={<Reservation />} />
+          <Route path="datetest" element={<DateTest />} />
+          <Route path="confirmation/:id" element={<Confirmation />} />
+          <Route path="portal" element={<RearPortal />}>
+            <Route index element={<OwnerEmployeeLogin />} />
             <Route
               path="employee"
               element={
@@ -42,7 +38,18 @@ function App() {
                 </RequireEmployeeAuth>
               }
             />
+            <Route
+              path="owner"
+              element={
+                <RequireOwnerAuth>
+                  <OwnerSection />
+                </RequireOwnerAuth>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
           </Route>
+          <Route path="noauth" element={<NotAuthorized />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </MainLayout>
     </ThemeProvider>

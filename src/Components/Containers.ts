@@ -71,6 +71,7 @@ export const PageSectionCard = styled.div<{
   row?: boolean;
   stylist?: boolean;
   absolute?: boolean;
+  smallp?: boolean;
 }>`
   padding: 18px 18px 36px 18px;
   width: 100%;
@@ -182,7 +183,20 @@ export const PageSectionCard = styled.div<{
       justify-content: center;
       h1 {
         padding-bottom: 18px;
-        line-height: 1.2rem;
+        line-height: 1.75rem;
+      }
+      div {
+        p {
+          padding: 10px;
+        }
+      }
+    `}
+    ${(props) =>
+    props.smallp &&
+    css`
+      p {
+        margin-top: 10px;
+        font-size: 0.8rem;
       }
     `}
 `;

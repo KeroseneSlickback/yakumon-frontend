@@ -9,7 +9,7 @@ interface Props {
 export const RequireEmployeeAuth = ({ children }: Props) => {
   const authContext = useContext(AuthContext);
   if (!authContext.employee) {
-    return <Navigate to="/" />;
+    return <Navigate to="/noauth" />;
   }
   return children;
 };

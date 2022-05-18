@@ -9,7 +9,7 @@ interface Props {
 export const RequireOwnerAuth = ({ children }: Props) => {
   const authContext = useContext(AuthContext);
   if (!authContext.owner) {
-    return <Navigate to="/" />;
+    return <Navigate to="/noauth" />;
   }
   return children;
 };

@@ -27,7 +27,8 @@ export const RegisterLoginDiv = styled.div`
   div {
     margin: 12px 12px 0 12px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 10px;
   }
 `;
 
