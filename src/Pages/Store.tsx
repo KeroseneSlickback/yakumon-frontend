@@ -24,6 +24,7 @@ import { ReturnStoreType } from "../Utilities/types";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import StoreHour from "../Components/StoreHour";
+import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -47,7 +48,6 @@ const Store = () => {
             setLoad(false);
             setError(false);
             setStore(response.data);
-            console.log(response.data);
             if (response.data.picture) {
               setStoreImg(response.data.picture.toString("base64"));
             }
@@ -74,12 +74,16 @@ const Store = () => {
         </LoadingIconContainer>
       ) : (
         <div>
-          <PageSectionCard noPadding center>
+          <PageSectionCard topCard center>
             <h1>{store?.storeName}</h1>
-            <StoreImg
-              src={`data:image/png;base64,${storeImg}`}
-              alt={store?.storeName}
-            />
+            {storeImg ? (
+              <StoreImg
+                src={`data:image/png;base64,${storeImg}`}
+                alt={store?.storeName}
+              />
+            ) : (
+              <FillerImgSvg storeImg />
+            )}
           </PageSectionCard>
           <PageSectionCard styled>
             <StoreInfoContainer>

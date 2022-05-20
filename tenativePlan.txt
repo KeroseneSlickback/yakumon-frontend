@@ -2,3 +2,11 @@
 
 Store and employee filler images
 Test backend store delete route with different user who isn't owner
+
+Store owner dashboard: 
+
+Heading
+List of stores
+- Edit store, edit employees modals 
+
+Create store slide => Modal 

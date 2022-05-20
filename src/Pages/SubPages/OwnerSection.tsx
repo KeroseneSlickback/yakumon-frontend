@@ -1,6 +1,9 @@
-import React from "react";
+import { useEffect } from "react";
 
 const OwnerSection = () => {
+  useEffect(() => {
+    //
+  }, []);
   return <div>OwnerSection</div>;
 };
 

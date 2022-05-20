@@ -8,6 +8,7 @@ export interface SvgPropsDefault {
   applicable?: boolean;
   possibleHead?: boolean;
   chosen?: boolean;
+  storeImg?: boolean;
 }
 
 export interface SvgProps extends SvgPropsDefault {

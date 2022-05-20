@@ -10,8 +10,9 @@ export const ShowcaseImg = styled.img`
 export const StoreImg = styled.img`
   height: auto;
   width: 100%;
+  z-index: 0;
   object-fit: cover;
-  border-radius: 12px 12px 0 0;
+  border-radius: 1rem 1rem 0 0;
   box-shadow: 0px 0px 8px 1px rgba(255, 255, 255, 0.5);
 `;
 

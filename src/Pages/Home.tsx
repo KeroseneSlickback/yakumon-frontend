@@ -12,6 +12,7 @@ import {
   LoadingIconContainer,
   ShowcaseImg,
 } from "../Components/Page-accessories";
+import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
 import { ErrorMessage, ReturnStoreType } from "../Utilities/types";
 
 const Home = () => {
@@ -27,6 +28,11 @@ const Home = () => {
         await axios
           .get<ReturnStoreType[]>("http://localhost:8888/store")
           .then((response) => {
+            response.data.forEach((store) => {
+              if (store.picture) {
+                store.picture = store.picture.toString("base64");
+              }
+            });
             setFetchedStores(response.data);
             setLoad(false);
             setError(null);
@@ -46,7 +52,7 @@ const Home = () => {
   }, []);
   return (
     <SinglePageContainer>
-      <PageSectionCard noPadding homeH1>
+      <PageSectionCard topCard homeH1>
         <h1>Welcome to Yakumon</h1>
       </PageSectionCard>
       <PageSectionCard styled>
@@ -64,7 +70,13 @@ const Home = () => {
             fetchedStores?.map((store) => {
               return (
                 <SelectContainer to={`store/${store._id}`} key={store._id}>
-                  <ShowcaseImg src={`data:image/png;base64,${store.picture}`} />
+                  {store.picture ? (
+                    <ShowcaseImg
+                      src={`data:image/png;base64,${store.picture}`}
+                    />
+                  ) : (
+                    <FillerImgSvg />
+                  )}
                   <h3>{store.storeName}</h3>
                 </SelectContainer>
               );

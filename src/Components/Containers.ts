@@ -65,6 +65,7 @@ export const SinglePageContainer = styled.div`
 export const PageSectionCard = styled.div<{
   homeH1?: boolean;
   styled?: boolean;
+  topCard?: boolean;
   noPadding?: boolean;
   center?: boolean;
   secondary?: boolean;
@@ -105,7 +106,9 @@ export const PageSectionCard = styled.div<{
     props.homeH1 &&
     css`
       h1 {
-        padding-bottom: 24px;
+        padding-bottom: 48px;
+        text-align: center;
+        margin: 10px;
       }
     `}
 
@@ -117,11 +120,22 @@ export const PageSectionCard = styled.div<{
     `}
 
   ${(props) =>
-    props.noPadding &&
+    props.topCard &&
     css`
-      padding: 18px 0;
+      padding: 18px 0px 0px 0px;
+      position: relative;
+      z-index: -1;
       h3 {
         margin: 0 0 18px 18px;
+      }
+    `}
+    ${(props) =>
+    props.noPadding &&
+    css`
+      padding: 18px 0px 2px 0px;
+      h3 {
+        margin: 0 18px 10px 18px;
+        text-align: center;
       }
     `}
     

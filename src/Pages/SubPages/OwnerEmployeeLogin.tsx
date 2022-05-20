@@ -28,7 +28,6 @@ const OwnerEmployeeLogin = () => {
   const toggleLoginModal = () => {
     setViewLogin(true);
   };
-  console.log(authContext);
 
   if (authContext.loggedIn) {
     if (authContext.owner && authContext.employee) {
