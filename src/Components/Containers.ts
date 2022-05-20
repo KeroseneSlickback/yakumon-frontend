@@ -73,6 +73,7 @@ export const PageSectionCard = styled.div<{
   stylist?: boolean;
   absolute?: boolean;
   smallp?: boolean;
+  bottomPadding?: boolean;
 }>`
   padding: 18px 18px 36px 18px;
   width: 100%;
@@ -129,10 +130,20 @@ export const PageSectionCard = styled.div<{
         margin: 0 0 18px 18px;
       }
     `}
+
     ${(props) =>
     props.noPadding &&
     css`
       padding: 18px 0px 2px 0px;
+      h3 {
+        margin: 0 18px 10px 18px;
+        text-align: center;
+      }
+    `}
+    ${(props) =>
+    props.bottomPadding &&
+    css`
+      padding: 18px 0px 36px 0px;
       h3 {
         margin: 0 18px 10px 18px;
         text-align: center;
