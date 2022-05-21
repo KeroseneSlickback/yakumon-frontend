@@ -137,3 +137,14 @@ export interface StylistAppointmentType {
   service: string;
   timeSlots: timeSlotType[];
 }
+
+export interface CreateStoreType {
+  storeName: string;
+  storeType: string;
+  storeDescription: string;
+  storeWebsite: string;
+  location: string;
+  locationLink: string;
+  phoneNumber: string;
+  hours: StoreDayHour[];
+}

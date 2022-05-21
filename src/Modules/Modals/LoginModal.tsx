@@ -66,6 +66,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
       [name]: value,
     }));
   };
+
   return (
     <ModalContainer>
       <h3>Login</h3>

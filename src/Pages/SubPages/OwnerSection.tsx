@@ -1,6 +1,13 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import { BackDrop } from "../../Components/Backdrop";
 import {
+  CenterButtonDiv,
+  LargeButton,
+  MediumButton,
+} from "../../Components/Buttons";
+import {
+  FullWidthContainer,
   PageSectionCard,
   SinglePageContainer,
 } from "../../Components/Containers";
@@ -10,14 +17,25 @@ import {
   LoadingIcon,
   LoadingIconContainer,
 } from "../../Components/Page-accessories";
+import NewStoreModal from "../../Modules/Modals/NewStoreModal";
 import AuthContext from "../../Utilities/AuthContext";
 import { ReturnStoreType, ReturnUserType } from "../../Utilities/types";
 
 const OwnerSection = () => {
   const authContext = useContext(AuthContext);
   const [user, setUser] = useState<ReturnUserType | null>(null);
-  const [load, setLoad] = useState<boolean>(false);
+  const [load, setLoad] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const [viewCreateStore, setViewCreateStore] = useState<boolean>(false);
+
+  const toggleCreateStoreModal = () => {
+    setViewCreateStore(true);
+  };
+
+  const closeModal = () => {
+    setViewCreateStore(false);
+  };
+
   useEffect(() => {
     setLoad(true);
     const debounce = setTimeout(() => {
@@ -52,7 +70,7 @@ const OwnerSection = () => {
           <LoadingIcon />
         </LoadingIconContainer>
       ) : (
-        <div>
+        <>
           <PageSectionCard topCard center bottomPadding>
             <h1>Welcome, {authContext.user?.firstName}</h1>
           </PageSectionCard>
@@ -68,11 +86,16 @@ const OwnerSection = () => {
                 );
               })}
           <PageSectionCard>
-            <h1>Create a store</h1>
-            <StyledForm></StyledForm>
+            <CenterButtonDiv>
+              <LargeButton faintHighlight onClick={toggleCreateStoreModal}>
+                Create a Store
+              </LargeButton>
+            </CenterButtonDiv>
           </PageSectionCard>
-        </div>
+        </>
       )}
+      {viewCreateStore ? <NewStoreModal closeModal={closeModal} /> : null}
+      {viewCreateStore ? <BackDrop onClick={closeModal} /> : null}
     </SinglePageContainer>
   );
 };

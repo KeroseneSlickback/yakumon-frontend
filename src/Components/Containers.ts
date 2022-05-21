@@ -62,6 +62,10 @@ export const SinglePageContainer = styled.div`
   align-items: center;
 `;
 
+export const FullWidthContainer = styled.div`
+  width: 100%;
+`;
+
 export const PageSectionCard = styled.div<{
   homeH1?: boolean;
   styled?: boolean;

@@ -9,4 +9,8 @@ Heading
 List of stores
 - Edit store, edit employees modals 
 
-Create store slide => Modal 
+
+Should I do a sliding form?
+
+What to do about store hours?
+What to do about store images?

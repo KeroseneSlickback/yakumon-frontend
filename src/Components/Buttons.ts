@@ -1,7 +1,11 @@
 import styled, { css } from "styled-components";
 import { theme } from "../Styles/Variables";
 
-export const TinyButton = styled.button<{ register?: boolean; log?: boolean }>`
+export const TinyButton = styled.button<{
+  register?: boolean;
+  log?: boolean;
+  faintHighlight?: boolean;
+}>`
   color: ${({ theme }) => theme.fontColor};
   border: none;
   cursor: pointer;
@@ -34,6 +38,15 @@ export const TinyButton = styled.button<{ register?: boolean; log?: boolean }>`
         color: ${({ theme }) => theme.fontColorAlt};
       }
     `}
+    ${(props) =>
+    props.faintHighlight &&
+    css`
+      background-color: ${({ theme }) => theme.secondaryAlt};
+      &:hover {
+        background-color: ${({ theme }) => theme.secondaryHighlight};
+        color: ${({ theme }) => theme.fontColorAlt};
+      }
+    `}
 `;
 
 export const SmallButton = styled(TinyButton)`
@@ -54,6 +67,17 @@ export const MediumButton = styled(TinyButton)<{ portal?: boolean }>`
         color: ${({ theme }) => theme.fontColorAlt};
       }
     `}
+`;
+
+export const LargeButton = styled(TinyButton)`
+  padding: 12px 24px;
+  font-size: 1.4rem;
+`;
+
+export const CenterButtonDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ReserveButton = styled(TinyButton)`

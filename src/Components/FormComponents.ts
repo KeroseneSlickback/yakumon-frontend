@@ -12,7 +12,11 @@ export const StyledFormBlock = styled.div<{
   flex-direction: column;
 
   div {
-    margin: 4px 4px;
+    margin: 4px;
+    p {
+      margin: 2px 0;
+      font-size: 0.7rem;
+    }
   }
 
   ${(props) =>
@@ -54,4 +58,13 @@ export const ServiceContainer = styled.div`
   border-radius: 6px;
   background-color: ${({ theme }) => theme.alternativeAlt};
   margin: 12px 0px;
+`;
+
+export const StyledFormSelect = styled.select`
+  background-color: ${({ theme }) => theme.alternative};
+  margin: 4px 0;
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
 `;
