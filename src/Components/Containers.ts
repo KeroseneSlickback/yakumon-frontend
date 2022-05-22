@@ -78,7 +78,9 @@ export const PageSectionCard = styled.div<{
   absolute?: boolean;
   smallp?: boolean;
   bottomPadding?: boolean;
+  formFormatting?: boolean;
 }>`
+  position: relative;
   padding: 18px 18px 36px 18px;
   width: 100%;
   color: ${({ theme }) => theme.fontColor};
@@ -90,7 +92,7 @@ export const PageSectionCard = styled.div<{
     margin: 0 12px;
   }
   h2 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 12px;
   }
   h3 {
@@ -228,6 +230,39 @@ export const PageSectionCard = styled.div<{
         font-size: 0.8rem;
       }
     `}
+    ${(props) =>
+    props.formFormatting &&
+    css`
+      div {
+        margin-bottom: 4px;
+        div {
+          margin-top: 12px;
+          div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+            margin: 0 10px;
+            span {
+            }
+          }
+        }
+        p {
+          margin: 2px 0;
+          font-size: 0.7rem;
+        }
+        h4 {
+          font-size: 0.8rem;
+          margin: 6px 0 2px 0;
+        }
+      }
+    `}
+`;
+
+export const CheckboxSpan = styled.span`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const ShowcaseGrid = styled.div`

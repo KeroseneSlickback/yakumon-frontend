@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { BackDrop } from "../../Components/Backdrop";
 import {
   CenterButtonDiv,
   LargeButton,
   MediumButton,
+  StyledLinkButton,
 } from "../../Components/Buttons";
 import {
   FullWidthContainer,
@@ -17,7 +19,7 @@ import {
   LoadingIcon,
   LoadingIconContainer,
 } from "../../Components/Page-accessories";
-import NewStoreModal from "../../Modules/Modals/NewStoreModal";
+import NewStoreModal from "./NewStoreModal";
 import AuthContext from "../../Utilities/AuthContext";
 import { ReturnStoreType, ReturnUserType } from "../../Utilities/types";
 
@@ -85,17 +87,11 @@ const OwnerSection = () => {
                   </PageSectionCard>
                 );
               })}
-          <PageSectionCard>
-            <CenterButtonDiv>
-              <LargeButton faintHighlight onClick={toggleCreateStoreModal}>
-                Create a Store
-              </LargeButton>
-            </CenterButtonDiv>
-          </PageSectionCard>
+          <CenterButtonDiv>
+            <StyledLinkButton to="/portal/newstore">New Store</StyledLinkButton>
+          </CenterButtonDiv>
         </>
       )}
-      {viewCreateStore ? <NewStoreModal closeModal={closeModal} /> : null}
-      {viewCreateStore ? <BackDrop onClick={closeModal} /> : null}
     </SinglePageContainer>
   );
 };

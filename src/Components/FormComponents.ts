@@ -43,12 +43,17 @@ export const StyledTextInput = styled.input`
   font-size: 0.9rem;
 `;
 
-export const StyledTextArea = styled.textarea`
+export const StyledTextArea = styled.textarea<{ large?: boolean }>`
   height: 100px;
   width: 100%;
   font-size: 0.9rem;
   white-space: pre-wrap;
   margin: 6px 0;
+  ${(props) =>
+    props.large &&
+    css`
+      height: 160px;
+    `}
 `;
 
 export const ServiceContainer = styled.div`
@@ -60,11 +65,16 @@ export const ServiceContainer = styled.div`
   margin: 12px 0px;
 `;
 
-export const StyledFormSelect = styled.select`
+export const StyledFormSelect = styled.select<{ compact?: boolean }>`
   background-color: ${({ theme }) => theme.alternative};
-  margin: 4px 0;
+  margin: 4px 0 14px 0;
   cursor: pointer;
   border-radius: 3px;
   display: flex;
   flex-direction: column;
+  ${(props) =>
+    props.compact &&
+    css`
+      margin: 4px 0;
+    `}
 `;

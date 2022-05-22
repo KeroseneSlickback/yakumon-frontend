@@ -16,6 +16,7 @@ import OwnerSection from "./Pages/SubPages/OwnerSection";
 import NotFound from "./Pages/SubPages/NotFound";
 import NotAuthorized from "./Pages/SubPages/NotAuthorized";
 import OwnerEmployeeLogin from "./Pages/SubPages/OwnerEmployeeLogin";
+import NewStorePortal from "./Pages/SubPages/NewStorePortal";
 
 function App() {
   return (
@@ -43,6 +44,14 @@ function App() {
               element={
                 <RequireOwnerAuth>
                   <OwnerSection />
+                </RequireOwnerAuth>
+              }
+            />
+            <Route
+              path="newstore"
+              element={
+                <RequireOwnerAuth>
+                  <NewStorePortal />
                 </RequireOwnerAuth>
               }
             />

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { theme } from "../Styles/Variables";
 
@@ -35,15 +36,6 @@ export const TinyButton = styled.button<{
       color: ${({ theme }) => theme.fontColor};
       &:hover {
         background-color: ${({ theme }) => theme.primaryAlt};
-        color: ${({ theme }) => theme.fontColorAlt};
-      }
-    `}
-    ${(props) =>
-    props.faintHighlight &&
-    css`
-      background-color: ${({ theme }) => theme.secondaryAlt};
-      &:hover {
-        background-color: ${({ theme }) => theme.secondaryHighlight};
         color: ${({ theme }) => theme.fontColorAlt};
       }
     `}
@@ -158,21 +150,24 @@ export const ScheduleBlankButton = styled.button<{
     }
   }
 
-  /* ${(props) =>
-    props.applicable &&
-    css`
-      box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.3);
-    `}
-
-  ${(props) =>
-    props.possibleHead &&
-    css`
-      box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.2);
-    `} */
-
   ${(props) =>
     props.chosen &&
     css`
       animation: pulseGreen 1.5s ease-in-out infinite;
     `}
+`;
+
+export const StyledLinkButton = styled(Link)`
+  color: ${({ theme }) => theme.fontColor};
+  border: none;
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.secondaryAlt};
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  &:hover {
+    background-color: ${({ theme }) => theme.secondaryHighlight};
+    color: ${({ theme }) => theme.fontColorAlt};
+  }
 `;

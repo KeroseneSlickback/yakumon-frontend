@@ -10,7 +10,9 @@ import {
 } from "../../Components/FormComponents";
 import { ModalContainer } from "../../Components/ModalComponents";
 import { CreateStoreType, ModalCloseProp } from "../../Utilities/types";
-import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
+import RegularMessage, {
+  MessageBox,
+} from "../../Modules/Messages/RegularMessage";
 
 const NewStoreModal = ({ closeModal }: ModalCloseProp) => {
   const [formError, setFormError] = useState<string | null>("");
