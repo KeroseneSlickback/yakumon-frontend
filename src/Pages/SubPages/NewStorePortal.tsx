@@ -1,14 +1,19 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { CloseButton, ClosedButtonDiv } from "../../Components/Buttons";
+import {
+  CloseButton,
+  ClosedButtonDiv,
+  ReserveButton,
+} from "../../Components/Buttons";
 import {
   StyledForm,
   StyledFormBlock,
   StyledFormSelect,
+  StyledImgInput,
   StyledLabel,
   StyledTextArea,
   StyledTextInput,
 } from "../../Components/FormComponents";
-import { ModalContainer } from "../../Components/ModalComponents";
+import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
 import { CreateStoreType, ModalCloseProp } from "../../Utilities/types";
 import RegularMessage, {
   MessageBox,
@@ -146,14 +151,17 @@ const NewStorePortal = () => {
     location: "",
     locationLink: "",
     phoneNumber: "",
-    sunday: { closed: false, open: "", close: "" },
-    monday: { closed: false, open: "", close: "" },
-    tuesday: { closed: false, open: "", close: "" },
-    wedmesday: { closed: false, open: "", close: "" },
-    thursday: { closed: false, open: "", close: "" },
-    friday: { closed: false, open: "", close: "" },
-    saturday: { closed: false, open: "", close: "" },
+    hours: [
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+    ],
   });
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     setTimeout(() => {
@@ -171,10 +179,42 @@ const NewStorePortal = () => {
     }));
   };
 
-  const handleHoursChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.name, e.target.value);
+  const handleHoursChange = (
+    e: ChangeEvent<HTMLSelectElement>,
+    dayIndex: number
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      hours: prev.hours.map((hour, index) => {
+        if (index === dayIndex) {
+          return { ...hour, [name]: value };
+        }
+        return hour;
+      }),
+    }));
   };
-  console.log(formData);
+
+  const handleCheckboxChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    dayIndex: number
+  ) => {
+    const { name, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      hours: prev.hours.map((hour, index) => {
+        if (index === dayIndex) {
+          return { ...hour, [name]: checked };
+        }
+        return hour;
+      }),
+    }));
+  };
+
+  const handleImageUpload = (e: any) => {
+    console.log(e.target.files[0]);
+    setImage(e.target.files[0]);
+  };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -228,6 +268,7 @@ const NewStorePortal = () => {
             <div>
               <StyledLabel>Store Description:</StyledLabel>
               <StyledTextArea
+                required
                 large
                 name="storeDescription"
                 placeholder="A simple store created from our wish to provide the best experience..."
@@ -286,25 +327,14 @@ const NewStorePortal = () => {
                 onChange={handleFormChange}
               />
             </div>
-            <div>
-              <StyledLabel>Store Name:</StyledLabel>
-              <StyledTextInput
-                required
-                name="storeName"
-                type="text"
-                placeholder="FantasticSam"
-                value={formData.storeName}
-                onChange={handleFormChange}
-              />
-            </div>
           </PageSectionCard>
           <PageSectionCard styled formFormatting>
             <div>
               <StyledLabel>Hours:</StyledLabel>
-              {daysArray.map((day, dayIndex) => {
+              {formData.hours?.map((day, dayIndex) => {
                 return (
                   <div key={dayIndex}>
-                    <h4>{day}</h4>
+                    <h4>{daysArray[dayIndex]}</h4>
                     <div>
                       <span>
                         <p>Open</p>
@@ -312,19 +342,16 @@ const NewStorePortal = () => {
                           compact
                           required
                           name="open"
-                          value={formData.hours[dayIndex].open}
-                          onChange={handleHoursChange}
+                          value={day.open}
+                          onChange={(e) => handleHoursChange(e, dayIndex)}
                         >
-                          <option value="" disabled selected>
+                          <option value="" disabled>
                             Select
                           </option>
                           {hoursArray.map((hour, hourIndex) => {
                             return (
-                              <option
-                                key={hourIndex}
-                                value={hoursArray[hourIndex]}
-                              >
-                                {hour}
+                              <option key={hourIndex} value={hour}>
+                                {listHoursArray[hourIndex]}
                               </option>
                             );
                           })}
@@ -336,19 +363,16 @@ const NewStorePortal = () => {
                           compact
                           required
                           name="close"
-                          value={formData.hours[dayIndex].close}
-                          onChange={handleHoursChange}
+                          value={day.close}
+                          onChange={(e) => handleHoursChange(e, dayIndex)}
                         >
-                          <option value="" disabled selected>
+                          <option value="" disabled>
                             Select
                           </option>
                           {hoursArray.map((hour, hourIndex) => {
                             return (
-                              <option
-                                key={hourIndex}
-                                value={hoursArray[hourIndex]}
-                              >
-                                {hour}
+                              <option key={hourIndex} value={hour}>
+                                {listHoursArray[hourIndex]}
                               </option>
                             );
                           })}
@@ -356,13 +380,40 @@ const NewStorePortal = () => {
                       </span>
                       <CheckboxSpan>
                         <p>Closed?</p>
-                        <input type="checkbox" />
+                        <input
+                          required
+                          name="closed"
+                          type="checkbox"
+                          checked={day.closed}
+                          onChange={(e) => handleCheckboxChange(e, dayIndex)}
+                        />
                       </CheckboxSpan>
                     </div>
                   </div>
                 );
               })}
             </div>
+          </PageSectionCard>
+          <PageSectionCard formFormatting>
+            <div>
+              <StyledLabel>Store Image</StyledLabel>
+              <p>
+                Please upload a jpg, jpeg, or png image under 200kb only. Photos
+                with a 1/1 aspect ratio works best.
+              </p>
+              <StyledImgInput
+                type="file"
+                name="picture"
+                accept="image/png, image/jpeg, image/jpg"
+                onChange={handleImageUpload}
+                required
+              />
+            </div>
+          </PageSectionCard>
+          <PageSectionCard secondary>
+            <ButtonBox centered>
+              <ReserveButton register>Create Store</ReserveButton>
+            </ButtonBox>
           </PageSectionCard>
 
           {formError ? (

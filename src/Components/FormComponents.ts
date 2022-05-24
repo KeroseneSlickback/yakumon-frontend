@@ -43,7 +43,10 @@ export const StyledTextInput = styled.input`
   font-size: 0.9rem;
 `;
 
-export const StyledTextArea = styled.textarea<{ large?: boolean }>`
+export const StyledTextArea = styled.textarea<{
+  large?: boolean;
+  marginBottom?: boolean;
+}>`
   height: 100px;
   width: 100%;
   font-size: 0.9rem;
@@ -53,6 +56,11 @@ export const StyledTextArea = styled.textarea<{ large?: boolean }>`
     props.large &&
     css`
       height: 160px;
+    `}
+  ${(props) =>
+    props.marginBottom &&
+    css`
+      margin-bottom: 16px;
     `}
 `;
 
@@ -77,4 +85,8 @@ export const StyledFormSelect = styled.select<{ compact?: boolean }>`
     css`
       margin: 4px 0;
     `}
+`;
+
+export const StyledImgInput = styled.input`
+  margin-top: 8px;
 `;

@@ -225,6 +225,7 @@ const Reservation = () => {
           <PageSectionCard styled>
             <h3>Comments</h3>
             <StyledTextArea
+              marginBottom
               name="comments"
               placeholder="Add commnets here..."
               value={reservation.comments}
