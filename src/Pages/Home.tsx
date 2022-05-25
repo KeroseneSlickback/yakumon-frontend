@@ -5,6 +5,7 @@ import {
   SelectContainer,
   SinglePageContainer,
   ShowcaseGrid,
+  SelectContainerDiv,
 } from "../Components/Containers";
 import {
   ErrorContainer,
@@ -77,7 +78,9 @@ const Home = () => {
                   ) : (
                     <FillerImgSvg />
                   )}
-                  <h3>{store.storeName}</h3>
+                  <SelectContainerDiv>
+                    <h3>{store.storeName}</h3>
+                  </SelectContainerDiv>
                 </SelectContainer>
               );
             })

@@ -267,8 +267,10 @@ export const CheckboxSpan = styled.span`
 
 export const ShowcaseGrid = styled.div`
   display: grid;
-  grid-gap: 6px;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr));
+  justify-content: center;
 `;
 
 export const SelectContainer = styled(Link)`
@@ -280,16 +282,23 @@ export const SelectContainer = styled(Link)`
   align-items: center;
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4);
   border-radius: 1rem;
-  text-align: center;
-
   h3 {
-    margin: auto;
-    padding: 4px;
+    padding: 8px;
+    align-self: center;
+    justify-self: center;
   }
 
   &:hover {
     background-color: ${({ theme }) => theme.backgroundAlt};
   }
+`;
+
+export const SelectContainerDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 `;
 
 export const StoreInfoContainer = styled.div`

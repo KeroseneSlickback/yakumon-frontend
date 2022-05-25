@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const ShowcaseImg = styled.img`
-  height: 150px;
+  height: 200px;
   width: 100%;
   object-fit: cover;
   border-radius: 12px 12px 0 0;

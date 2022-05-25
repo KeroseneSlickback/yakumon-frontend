@@ -10,17 +10,24 @@ interface StoreFillerImgProps {
 }
 
 const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 200px;
+  border-radius: 1rem 1rem 0 0;
+  height: 100%;
+  width: 100%;
+  background-color: ${({ theme }) => theme.alternative};
   svg {
-    height: 150px;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 1rem 1rem 0 0;
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
     background-color: ${({ theme }) => theme.alternative};
     ${(props) =>
       props.storeImg &&
       css`
-        height: auto;
-        width: 100%;
+        height: 150px;
+        width: 100px;
         object-fit: cover;
         border-radius: 1rem 1rem 0 0;
         box-shadow: 0px 0px 8px 1px rgba(255, 255, 255, 0.5);
