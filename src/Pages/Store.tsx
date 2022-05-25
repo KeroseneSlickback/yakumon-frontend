@@ -5,6 +5,7 @@ import {
   SelectContainer,
   ShowcaseGrid,
   StoreDescContainer,
+  StoreImgDiv,
 } from "../Components/Containers";
 import {
   ErrorContainer,
@@ -76,14 +77,16 @@ const Store = () => {
         <div>
           <PageSectionCard topCard center>
             <h1>{store?.storeName}</h1>
-            {storeImg ? (
-              <StoreImg
-                src={`data:image/png;base64,${storeImg}`}
-                alt={store?.storeName}
-              />
-            ) : (
-              <FillerImgSvg storeImg />
-            )}
+            <StoreImgDiv>
+              {storeImg ? (
+                <StoreImg
+                  src={`data:image/png;base64,${storeImg}`}
+                  alt={store?.storeName}
+                />
+              ) : (
+                <FillerImgSvg storeImg />
+              )}
+            </StoreImgDiv>
           </PageSectionCard>
           <PageSectionCard styled>
             <StoreInfoContainer>

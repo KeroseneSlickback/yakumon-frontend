@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { theme } from "../Styles/Variables";
 
 export const TinyButton = styled.button<{
   register?: boolean;
   log?: boolean;
   faintHighlight?: boolean;
+  portal?: boolean;
+  warning?: boolean;
+  nonConstraint?: boolean;
 }>`
   color: ${({ theme }) => theme.fontColor};
   border: none;
@@ -39,16 +41,7 @@ export const TinyButton = styled.button<{
         color: ${({ theme }) => theme.fontColorAlt};
       }
     `}
-`;
 
-export const SmallButton = styled(TinyButton)`
-  padding: 4px 8px;
-  font-size: 0.75rem;
-`;
-
-export const MediumButton = styled(TinyButton)<{ portal?: boolean }>`
-  padding: 8px 16px;
-  font-size: 1rem;
   ${(props) =>
     props.portal &&
     css`
@@ -59,6 +52,32 @@ export const MediumButton = styled(TinyButton)<{ portal?: boolean }>`
         color: ${({ theme }) => theme.fontColorAlt};
       }
     `}
+
+    ${(props) =>
+    props.warning &&
+    css`
+      background-color: ${({ theme }) => theme.warning};
+      &:hover {
+        background-color: ${({ theme }) => theme.warningAlt};
+        color: ${({ theme }) => theme.fontColorAlt};
+      }
+    `}
+
+    ${(props) =>
+    props.nonConstraint &&
+    css`
+      align-self: center;
+    `}
+`;
+
+export const SmallButton = styled(TinyButton)`
+  padding: 4px 8px;
+  font-size: 0.75rem;
+`;
+
+export const MediumButton = styled(TinyButton)`
+  padding: 8px 16px;
+  font-size: 1rem;
 `;
 
 export const LargeButton = styled(TinyButton)`

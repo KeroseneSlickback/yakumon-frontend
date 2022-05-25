@@ -20,6 +20,7 @@ declare module "styled-components" {
     highlight?: string;
     highlightAlt?: string;
     warning?: string;
+    warningAlt?: string;
   }
 }
 
@@ -41,6 +42,7 @@ export const theme = {
   highlight: "#FFFACD",
   highlightAlt: "#FBF9E2",
   warning: "#9b0832",
+  warningAlt: "#A50935",
 };
 
 export const GlobalStyles = createGlobalStyle` 

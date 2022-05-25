@@ -7,13 +7,21 @@ export const ShowcaseImg = styled.img`
   border-radius: 12px 12px 0 0;
 `;
 
-export const StoreImg = styled.img`
-  height: auto;
+export const StoreImg = styled.img<{ ownerSection?: boolean }>`
+  height: 100%;
   width: 100%;
+  max-height: 50vh;
   z-index: 0;
   object-fit: cover;
   border-radius: 1rem 1rem 0 0;
   box-shadow: 0px 0px 8px 1px rgba(255, 255, 255, 0.5);
+
+  ${(props) =>
+    props.ownerSection &&
+    css`
+      width: 160px;
+      border-radius: 1rem;
+    `}
 `;
 
 export const StylistImg = styled.img`
@@ -74,9 +82,12 @@ export const LoadingIcon = styled.div<{ padding?: boolean }>`
 `;
 
 export const StoreHourTable = styled.table`
+  width: 300px;
   tr {
     display: grid;
-    grid-template-columns: 40px 70px 10px 70px;
-    justify-items: center;
+    grid-template-columns: 50px 80px 20px 80px;
+    td {
+      justify-self: start;
+    }
   }
 `;

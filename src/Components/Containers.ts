@@ -79,6 +79,7 @@ export const PageSectionCard = styled.div<{
   smallp?: boolean;
   bottomPadding?: boolean;
   formFormatting?: boolean;
+  ownerSection?: boolean;
 }>`
   position: relative;
   padding: 18px 18px 36px 18px;
@@ -257,6 +258,37 @@ export const PageSectionCard = styled.div<{
         }
       }
     `}
+
+    ${(props) =>
+    props.ownerSection &&
+    css`
+      /* display: flex;
+      flex-direction: column; */
+    `}
+`;
+
+export const StoreImgDiv = styled.div<{ ownerSection?: boolean }>`
+  height: 100%;
+  width: 400px;
+  max-width: 100vw;
+  z-index: 0;
+  object-fit: cover;
+  ${(props) =>
+    props.ownerSection &&
+    css`
+      width: 100%;
+      max-width: 300px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      gap: 4px;
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+      }
+    `}
 `;
 
 export const CheckboxSpan = styled.span`
@@ -301,7 +333,7 @@ export const SelectContainerDiv = styled.div`
   width: 100%;
 `;
 
-export const StoreInfoContainer = styled.div`
+export const StoreInfoContainer = styled.div<{ ownerSection?: boolean }>`
   display: flex;
   flex-direction: column;
   span {
@@ -328,6 +360,12 @@ export const StoreInfoContainer = styled.div`
       }
     }
   }
+
+  ${(props) =>
+    props.ownerSection &&
+    css`
+      margin: 20px 0 10px 0;
+    `}
 `;
 
 export const StoreDescContainer = styled.div``;
