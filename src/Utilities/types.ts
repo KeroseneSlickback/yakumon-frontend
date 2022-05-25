@@ -43,7 +43,7 @@ export interface ReturnUserType {
 export interface BackendResponseDataType {
   success: boolean;
   token: string;
-  user: ReturnUserType;
+  user?: ReturnUserType;
 }
 
 export interface ErrorMessage {

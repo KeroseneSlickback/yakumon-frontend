@@ -1,12 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import {
-  CloseButton,
-  ClosedButtonDiv,
-  ReserveButton,
-} from "../../Components/Buttons";
+import { ReserveButton } from "../../Components/Buttons";
 import {
   StyledForm,
-  StyledFormBlock,
   StyledFormSelect,
   StyledImgInput,
   StyledLabel,
@@ -14,7 +9,11 @@ import {
   StyledTextInput,
 } from "../../Components/FormComponents";
 import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
-import { CreateStoreType, ModalCloseProp } from "../../Utilities/types";
+import {
+  BackendResponseDataType,
+  CreateStoreType,
+  ReturnStoreType,
+} from "../../Utilities/types";
 import RegularMessage, {
   MessageBox,
 } from "../../Modules/Messages/RegularMessage";
@@ -27,6 +26,7 @@ import {
   LoadingIcon,
   LoadingIconContainer,
 } from "../../Components/Page-accessories";
+import axios from "axios";
 
 const daysArray = [
   "Sunday",
@@ -218,6 +218,38 @@ const NewStorePortal = () => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    const jwt = localStorage.getItem("jwt");
+    const imageFormData = new FormData();
+    imageFormData.append("picture", image);
+    console.log(formData);
+    try {
+      axios
+        .post<ReturnStoreType>("http://localhost:8888/store", formData, {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 201) {
+            const storeId = res.data._id;
+            axios
+              .patch<BackendResponseDataType>(
+                `http://localhost:8888/store/${storeId}/picture`,
+                imageFormData,
+                {
+                  headers: {
+                    Authorization: `Bearer ${jwt}`,
+                  },
+                }
+              )
+              .then((res) => {
+                console.log(res);
+              });
+          }
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -381,7 +413,6 @@ const NewStorePortal = () => {
                       <CheckboxSpan>
                         <p>Closed?</p>
                         <input
-                          required
                           name="closed"
                           type="checkbox"
                           checked={day.closed}
@@ -399,14 +430,14 @@ const NewStorePortal = () => {
               <StyledLabel>Store Image</StyledLabel>
               <p>
                 Please upload a jpg, jpeg, or png image under 200kb only. Photos
-                with a 1/1 aspect ratio works best.
+                with a 1/1 aspect ratio work best.
               </p>
               <StyledImgInput
                 type="file"
                 name="picture"
                 accept="image/png, image/jpeg, image/jpg"
                 onChange={handleImageUpload}
-                required
+                // required
               />
             </div>
           </PageSectionCard>
