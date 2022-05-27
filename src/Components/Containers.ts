@@ -147,6 +147,7 @@ export const PageSectionCard = styled.div<{
         text-align: center;
       }
     `}
+    
     ${(props) =>
     props.bottomPadding &&
     css`
@@ -369,3 +370,42 @@ export const StoreInfoContainer = styled.div<{ ownerSection?: boolean }>`
 `;
 
 export const StoreDescContainer = styled.div``;
+
+// export const AccordionButton = styled.button`
+//   background-color: ${({ theme }) => theme.alternative};
+//   cursor: pointer;
+//   padding: 12px;
+//   width: 100%;
+//   border: none;
+//   outline: none;
+//   transition: 0.4s;
+
+//   &:hover {
+//     background-color: ${({ theme }) => theme.alternativeAlt};
+//   }
+// `;
+
+// export const AccordionDiv = styled.div<{ active?: boolean }>`
+//   padding: 0 18px;
+//   background-color: white;
+//   display: none;
+//   overflow: hidden;
+
+//   ${(props) =>
+//     props.active &&
+//     css`
+//       display: block;
+//       animation: fadeIn 200ms ease-in both;
+
+//       @keyframes fadeIn {
+//         from {
+//           opacity: 0;
+//           transform: translate3d(0, -3%, 0);
+//         }
+//         to {
+//           opacity: 1;
+//           transform: translate3d(0, 0, 0);
+//         }
+//       }
+//     `}
+// `;

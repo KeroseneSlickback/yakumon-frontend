@@ -27,6 +27,7 @@ import clock from "../../Utilities/Images/SVGs/clock.svg";
 import phone from "../../Utilities/Images/SVGs/phone.svg";
 import site from "../../Utilities/Images/SVGs/site.svg";
 import StoreHour from "../../Components/StoreHour";
+import AccordionModal from "../../Modules/Modals/AccordionModal";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -65,6 +66,10 @@ const OwnerSection = () => {
   }, []);
 
   console.log(user?.ownedStores);
+
+  const deleteStore = (storeId: string) => {
+    console.log(storeId);
+  };
 
   return (
     <SinglePageContainer>
@@ -152,6 +157,7 @@ const OwnerSection = () => {
                         </div>
                       </span>
                     </StoreInfoContainer>
+                    <AccordionModal />
                   </PageSectionCard>
                 );
               })}

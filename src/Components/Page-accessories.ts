@@ -82,12 +82,20 @@ export const LoadingIcon = styled.div<{ padding?: boolean }>`
 `;
 
 export const StoreHourTable = styled.table`
-  width: 300px;
   tr {
     display: grid;
-    grid-template-columns: 50px 80px 20px 80px;
+    grid-template-columns: 50px 70px 20px 70px;
     td {
-      justify-self: start;
+      justify-self: center;
+      &:first-child {
+        justify-self: end;
+      }
+      &:nth-child(2) {
+        justify-self: end;
+      }
+      &:nth-child(4) {
+        justify-self: start;
+      }
     }
   }
 `;

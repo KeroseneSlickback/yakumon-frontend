@@ -78,14 +78,16 @@ const Store = () => {
           <PageSectionCard topCard center>
             <h1>{store?.storeName}</h1>
             <StoreImgDiv>
-              {storeImg ? (
-                <StoreImg
-                  src={`data:image/png;base64,${storeImg}`}
-                  alt={store?.storeName}
-                />
-              ) : (
-                <FillerImgSvg storeImg />
-              )}
+              <div>
+                {storeImg ? (
+                  <StoreImg
+                    src={`data:image/png;base64,${storeImg}`}
+                    alt={store?.storeName}
+                  />
+                ) : (
+                  <FillerImgSvg storeImg />
+                )}
+              </div>
             </StoreImgDiv>
           </PageSectionCard>
           <PageSectionCard styled>
