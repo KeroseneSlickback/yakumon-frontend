@@ -65,8 +65,6 @@ const OwnerSection = () => {
     return () => clearTimeout(debounce);
   }, []);
 
-  // console.log(user?.ownedStores);
-
   const deleteStore = (storeId: string) => {
     console.log(storeId);
   };

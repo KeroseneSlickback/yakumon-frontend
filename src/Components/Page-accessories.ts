@@ -41,7 +41,13 @@ export const RegisterLoginDiv = styled.div`
   }
 `;
 
-export const LoadingIconContainer = styled.div<{ absolute?: boolean }>`
+export const LoadingIconContainer = styled.div<{
+  absolute?: boolean;
+  marginBottom?: boolean;
+}>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${(props) =>
     props.absolute &&
     css`
@@ -50,9 +56,11 @@ export const LoadingIconContainer = styled.div<{ absolute?: boolean }>`
       left: 50%;
       transform: translate(-50%, -50%);
     `}
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${(props) =>
+    props.marginBottom &&
+    css`
+      margin-bottom: 28px;
+    `}
 `;
 
 export const ErrorContainer = styled(LoadingIconContainer)``;

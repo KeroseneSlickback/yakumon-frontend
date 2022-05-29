@@ -90,7 +90,6 @@ const ScheduleView = ({
                   timeSpan
                 );
                 setDateTimeArray(selectedScheduleArray);
-                console.log(selectedScheduleArray);
                 let dateList = selectedScheduleArray[0].slots.map((day) => {
                   let date = format(day.time, "MM/dd").replace(/^0+/, "");
                   let weekday = format(day.time, "EEE");
@@ -219,7 +218,7 @@ const ScheduleView = ({
           <h3>There was an error.</h3>
         </ErrorContainer>
       ) : load ? (
-        <LoadingIconContainer>
+        <LoadingIconContainer marginBottom>
           <LoadingIcon padding />
         </LoadingIconContainer>
       ) : (

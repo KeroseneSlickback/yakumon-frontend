@@ -50,7 +50,6 @@ const AccordionModal = (props: AccordionProps) => {
       setHeight(contentEL.current.scrollHeight);
     }
   }, [props.employees]);
-  console.log(props);
 
   return (
     <>
