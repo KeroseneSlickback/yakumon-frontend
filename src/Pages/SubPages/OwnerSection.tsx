@@ -65,7 +65,7 @@ const OwnerSection = () => {
     return () => clearTimeout(debounce);
   }, []);
 
-  console.log(user?.ownedStores);
+  // console.log(user?.ownedStores);
 
   const deleteStore = (storeId: string) => {
     console.log(storeId);
@@ -157,14 +157,14 @@ const OwnerSection = () => {
                         </div>
                       </span>
                     </StoreInfoContainer>
-                    <AccordionModal />
+                    <AccordionModal employees={store.employees} />
                   </PageSectionCard>
                 );
               })}
           <PageSectionCard secondary>
             <CenterButtonDiv>
               <StyledLinkButton to="/portal/newstore">
-                New Store
+                Create New Store
               </StyledLinkButton>
             </CenterButtonDiv>
           </PageSectionCard>

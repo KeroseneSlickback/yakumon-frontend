@@ -1,54 +1,70 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { UserType } from "../../Utilities/types";
 
 export const AccordionButton = styled.button`
-  background-color: ${({ theme }) => theme.alternative};
+  background-color: ${({ theme }) => theme.secondaryAlt};
+  color: ${({ theme }) => theme.fontColor};
   cursor: pointer;
-  padding: 12px;
+  padding: 4px;
   width: 100%;
+  align-self: center;
   border: none;
   outline: none;
   transition: 0.2s;
 
   &:hover {
-    background-color: ${({ theme }) => theme.alternativeAlt};
+    background-color: ${({ theme }) => theme.secondaryHighlight};
+    color: ${({ theme }) => theme.fontColorAlt};
   }
 `;
 
-export const AccordionDiv = styled.div<{ active?: boolean }>`
+export const AccordionDiv = styled.div<{ height?: any }>`
   padding: 0 18px;
-  background-color: white;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  background-color: ${({ theme }) => theme.alternativeAlt};
   height: 0;
-  flex: 0;
-  transition: all 1s ease-out;
-  /* visibility: hidden; */
+  overflow: hidden;
+  transition: height ease 0.2s;
+  height: ${({ height }) => height}px;
 
-  ${(props) =>
-    props.active &&
-    css`
-      height: auto;
-      overflow: hidden;
-      flex: 1;
-      /* visibility: visible; */
-    `}
+  div {
+    margin: 16px 0;
+  }
 `;
 
-const AccordionModal = () => {
-  const [show, setShow] = useState(false);
+interface AccordionProps {
+  employees: UserType[];
+}
+
+const AccordionModal = (props: AccordionProps) => {
+  const contentEL = useRef<any>(null);
+  const [height, setHeight] = useState(0);
+
   const flipFlop = () => {
-    setShow((prev) => !prev);
+    setHeight(height === 0 ? contentEL.current.scrollHeight : 0);
   };
+
+  useEffect(() => {
+    if (height > 0) {
+      setHeight(contentEL.current.scrollHeight);
+    }
+  }, [props.employees]);
+  console.log(props);
+
   return (
     <>
-      <AccordionButton onClick={flipFlop}>See Stylists</AccordionButton>
-      <AccordionDiv active={show ? true : false}>
-        <h1>Stylists</h1>
-        <h2>Blah</h2>
-        <h4>BLAHAHA</h4>
+      <AccordionButton onClick={flipFlop}>View Stylists</AccordionButton>
+      <AccordionDiv ref={contentEL} height={height}>
+        {props.employees.map((employee, index) => {
+          return (
+            <div key={index}>
+              <Link to={`/reservation/${employee._id}`}>
+                {employee.firstName} {employee.lastName}
+              </Link>
+            </div>
+          );
+        })}
       </AccordionDiv>
     </>
   );
