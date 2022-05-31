@@ -7,6 +7,15 @@ export const ShowcaseImg = styled.img`
   border-radius: 12px 12px 0 0;
 `;
 
+export const TopH1 = styled.h1<{ storePage?: boolean }>`
+  font-size: 1.65rem;
+  ${(props) =>
+    props.storePage &&
+    css`
+      margin-bottom: 16px;
+    `}
+`;
+
 export const StoreImg = styled.img<{ ownerSection?: boolean }>`
   height: 100%;
   width: 100%;

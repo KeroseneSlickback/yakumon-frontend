@@ -87,11 +87,6 @@ export const PageSectionCard = styled.div<{
   color: ${({ theme }) => theme.fontColor};
   background-color: ${({ theme }) => theme.background};
   border-radius: 1rem 1rem 0 0;
-  h1 {
-    font-size: 1.65rem;
-    padding: 0px 0px 18px 0px;
-    margin: 0 12px;
-  }
   h2 {
     font-size: 1.3rem;
     margin-bottom: 12px;
@@ -183,11 +178,6 @@ export const PageSectionCard = styled.div<{
         align-items: center;
         justify-content: center;
         margin-left: 12px;
-        h1 {
-          margin: 0;
-          line-height: 1.2;
-          text-align: center;
-        }
       }
     `}
 

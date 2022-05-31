@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { ReserveButton } from "../../Components/Buttons";
 import {
+  FormH1,
   StyledForm,
   StyledFormSelect,
   StyledImgInput,
@@ -13,6 +14,7 @@ import {
   BackendResponseDataType,
   CreateStoreType,
   ReturnStoreType,
+  StoreDayHour,
 } from "../../Utilities/types";
 import RegularMessage, {
   MessageBox,
@@ -216,12 +218,11 @@ const NewStorePortal = () => {
     setImage(e.target.files[0]);
   };
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const jwt = localStorage.getItem("jwt");
     const imageFormData = new FormData();
     imageFormData.append("picture", image);
-    console.log(formData);
     try {
       axios
         .post<ReturnStoreType>("http://localhost:8888/store", formData, {
@@ -261,7 +262,7 @@ const NewStorePortal = () => {
       ) : (
         <StyledForm onSubmit={handleSubmit}>
           <PageSectionCard formFormatting>
-            <h2>Create a Store</h2>
+            <FormH1 pageSection>Create a Store</FormH1>
             <h4>Please enter the infomation below to create a store</h4>
           </PageSectionCard>
           <PageSectionCard styled formFormatting>

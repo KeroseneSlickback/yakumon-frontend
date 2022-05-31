@@ -9,6 +9,7 @@ import {
 } from "../Components/Containers";
 import {
   ErrorContainer,
+  TopH1,
   LoadingIcon,
   LoadingIconContainer,
   ShowcaseImg,
@@ -54,7 +55,7 @@ const Home = () => {
   return (
     <SinglePageContainer>
       <PageSectionCard topCard homeH1>
-        <h1>Welcome to Yakumon</h1>
+        <TopH1>Welcome to Yakumon</TopH1>
       </PageSectionCard>
       <PageSectionCard styled>
         <h2>Select a Store to Start a Reservation</h2>

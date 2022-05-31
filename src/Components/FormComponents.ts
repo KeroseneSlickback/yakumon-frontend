@@ -90,3 +90,21 @@ export const StyledFormSelect = styled.select<{ compact?: boolean }>`
 export const StyledImgInput = styled.input`
   margin-top: 8px;
 `;
+
+export const FormH1 = styled.h1<{ pageSection?: boolean; row?: boolean }>`
+  ${(props) =>
+    props.pageSection &&
+    css`
+      font-size: 1.65rem;
+      padding: 0px 0px 18px 0px;
+      margin: 0 12px;
+    `}
+
+  ${(props) =>
+    props.row &&
+    css`
+      margin: 0;
+      line-height: 1.2;
+      text-align: center;
+    `}
+`;

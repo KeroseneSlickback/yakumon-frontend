@@ -14,6 +14,7 @@ import {
   ShowcaseImg,
   StoreHourTable,
   StoreImg,
+  TopH1,
 } from "../Components/Page-accessories";
 
 import location from "../Utilities/Images/SVGs/location.svg";
@@ -76,7 +77,7 @@ const Store = () => {
       ) : (
         <div>
           <PageSectionCard topCard center>
-            <h1>{store?.storeName}</h1>
+            <TopH1 storePage>{store?.storeName}</TopH1>
             <StoreImgDiv>
               <div>
                 {storeImg ? (

@@ -14,6 +14,7 @@ import {
   LoadingIconContainer,
   RegisterLoginDiv,
   StylistImg,
+  TopH1,
 } from "../Components/Page-accessories";
 import LoginModal from "../Modules/Modals/LoginModal";
 import RegisterModal from "../Modules/Modals/RegisterModal";
@@ -165,9 +166,9 @@ const Reservation = () => {
               alt={stylist?.firstName}
             />
             <div>
-              <h1>
+              <TopH1>
                 {stylist?.firstName} {stylist?.lastName}
-              </h1>
+              </TopH1>
               <h3>{stylist?.title}</h3>
             </div>
           </PageSectionCard>

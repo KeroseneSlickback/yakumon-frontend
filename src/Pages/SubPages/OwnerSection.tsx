@@ -20,6 +20,7 @@ import {
   LoadingIconContainer,
   StoreHourTable,
   StoreImg,
+  TopH1,
 } from "../../Components/Page-accessories";
 import AuthContext from "../../Utilities/AuthContext";
 import { ReturnUserType } from "../../Utilities/types";
@@ -89,7 +90,7 @@ const OwnerSection = () => {
       ) : (
         <>
           <PageSectionCard topCard center bottomPadding>
-            <h1>Welcome, {authContext.user?.firstName}</h1>
+            <TopH1>Welcome, {authContext.user?.firstName}</TopH1>
           </PageSectionCard>
           {!user
             ? null

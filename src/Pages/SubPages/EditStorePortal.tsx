@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ReserveButton } from "../../Components/Buttons";
 import {
+  FormH1,
   StyledForm,
   StyledFormSelect,
   StyledImgInput,
@@ -11,9 +12,12 @@ import {
 } from "../../Components/FormComponents";
 import { ButtonBox } from "../../Components/ModalComponents";
 import {
+  BackendResponseDataType,
   CreateStoreType,
   EditStoreType,
+  ErrorMessage,
   ReturnStoreType,
+  StoreDayHour,
 } from "../../Utilities/types";
 import RegularMessage, {
   MessageBox,
@@ -161,6 +165,7 @@ const EditStorePortal = () => {
   const [storeImg, setStoreImg] = useState<string>("");
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<ErrorMessage | null>(null);
   const [formError, setFormError] = useState<string | null>("");
   const [formData, setFormData] = useState<EditStoreType>({
     storeName: "",
@@ -182,6 +187,7 @@ const EditStorePortal = () => {
       { closed: false, open: "", close: "" },
     ],
   });
+  const [alteredHours, setAlteredHours] = useState(false);
   const [image, setImage] = useState("");
 
   useEffect(() => {
@@ -223,6 +229,7 @@ const EditStorePortal = () => {
     dayIndex: number
   ) => {
     const { name, value } = e.target;
+    setAlteredHours(true);
     setStoreHours((prev) => ({
       ...prev,
       hours: prev.hours?.map((hour, index) => {
@@ -255,40 +262,123 @@ const EditStorePortal = () => {
     setImage(e.target.files[0]);
   };
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const trimFormData = (data: any) => {
+    let returnObject: any = {};
+    for (let key in data) {
+      if (data[key] !== "") {
+        returnObject[key] = data[key];
+      }
+    }
+    return returnObject;
+  };
+
+  const isObjectEmpty = (data: any) => {
+    return Object.keys(data).length === 0;
+  };
+
+  const checkHourArray = (data: any) => {
+    let evaluation = true;
+    data.hours.map((day: any) => {
+      for (let key in day) {
+        if (day[key] === "") {
+          evaluation = false;
+          return;
+        }
+      }
+    });
+    if (evaluation) {
+      setAlteredHours(false);
+    }
+    return evaluation;
+  };
+
+  const checkImg = (img: string) => {
+    if (img === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setErrorMessage(null);
     const jwt = localStorage.getItem("jwt");
     const imageFormData = new FormData();
     imageFormData.append("picture", image);
-    console.log(formData, storeHours, imageFormData);
-    // try {
-    //   axios
-    //     .post<ReturnStoreType>("http://localhost:8888/store", formData, {
-    //       headers: {
-    //         Authorization: `Bearer ${jwt}`,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       if (res.status === 201) {
-    //         const storeId = res.data._id;
-    //         axios
-    //           .patch<BackendResponseDataType>(
-    //             `http://localhost:8888/store/${storeId}/picture`,
-    //             imageFormData,
-    //             {
-    //               headers: {
-    //                 Authorization: `Bearer ${jwt}`,
-    //               },
-    //             }
-    //           )
-    //           .then((res) => {
-    //             console.log(res);
-    //           });
-    //       }
-    //     });
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    let builtFormData: EditStoreType = {};
+
+    const trimmedForm = await trimFormData(formData);
+    const emptyObject = await isObjectEmpty(trimmedForm);
+    const validHourArray = await checkHourArray(storeHours);
+    const imageInputted = await checkImg(image);
+
+    if (!validHourArray && alteredHours) {
+      setErrorMessage((prev) => ({
+        ...prev,
+        message: "Enter all hours for store",
+        warning: true,
+      }));
+    } else if (emptyObject && !validHourArray && !imageInputted) {
+      setErrorMessage((prev) => ({
+        ...prev,
+        message: "No updates to submit",
+        warning: true,
+      }));
+    }
+
+    if (validHourArray && !alteredHours) {
+      builtFormData = {
+        ...builtFormData,
+        ...storeHours,
+      };
+    }
+    if (!emptyObject) {
+      builtFormData = {
+        ...builtFormData,
+        ...trimmedForm,
+      };
+    }
+
+    console.log(storeHours, builtFormData);
+    try {
+      if (validHourArray || !emptyObject) {
+        console.log("good hour array, good object");
+        // axios
+        // .patch<ReturnStoreType>(
+        //   `http://localhost:8888/store/${id}`,
+        //   builtFormData,
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${jwt}`,
+        //     },
+        //   }
+        // )
+        // .then((res) => {
+        //   console.log(res);
+        //   //
+        // });
+      }
+      if (imageInputted) {
+        console.log("image uploaded");
+        // axios
+        //   .patch<BackendResponseDataType>(
+        //     `http://localhost:8888/store/${id}/picture`,
+        //     imageFormData,
+        //     {
+        //       headers: {
+        //         Authorization: `Bearer ${jwt}`,
+        //       },
+        //     }
+        //   )
+        //   .then((res) => {
+        //     console.log(res);
+        //     // confirmation message for image upload
+        //   });
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -300,7 +390,7 @@ const EditStorePortal = () => {
       ) : (
         <StyledForm onSubmit={handleSubmit}>
           <PageSectionCard formFormatting>
-            <h2>Edit Store</h2>
+            <FormH1 pageSection>Edit Store</FormH1>
             <h4>Please change the infomation below as you wish</h4>
           </PageSectionCard>
           <PageSectionCard styled formFormatting>
@@ -542,6 +632,14 @@ const EditStorePortal = () => {
             </div>
           </PageSectionCard>
           <PageSectionCard secondary>
+            {errorMessage ? (
+              <MessageBox>
+                <RegularMessage
+                  message={errorMessage.message}
+                  warning={errorMessage.warning}
+                />
+              </MessageBox>
+            ) : null}
             <ButtonBox centered>
               <ReserveButton register>Edit Store</ReserveButton>
             </ButtonBox>

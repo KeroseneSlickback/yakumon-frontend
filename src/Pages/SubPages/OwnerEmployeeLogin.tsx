@@ -6,7 +6,7 @@ import {
   PageSectionCard,
   SinglePageContainer,
 } from "../../Components/Containers";
-import { RegisterLoginDiv } from "../../Components/Page-accessories";
+import { RegisterLoginDiv, TopH1 } from "../../Components/Page-accessories";
 import LoginModal from "../../Modules/Modals/LoginModal";
 import RegisterModal from "../../Modules/Modals/RegisterModal";
 import AuthContext from "../../Utilities/AuthContext";
@@ -34,7 +34,7 @@ const OwnerEmployeeLogin = () => {
       return (
         <SinglePageContainer>
           <PageSectionCard absolute>
-            <h1>Please choose an Entrance</h1>
+            <TopH1>Please choose an Entrance</TopH1>
             <RegisterLoginDiv>
               <div>
                 <Link to={"/portal/owner"}>
