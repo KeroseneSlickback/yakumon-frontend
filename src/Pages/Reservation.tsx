@@ -89,10 +89,9 @@ const Reservation = () => {
             },
           }
         )
-        .then((response) => {
+        .then(() => {
           setError(false);
           setFormError(null);
-          console.log(response);
           setTimeout(() => {
             navigate("/confirmation/0");
           }, 500);

@@ -190,3 +190,10 @@ export const StyledLinkButton = styled(Link)`
     color: ${({ theme }) => theme.fontColorAlt};
   }
 `;
+
+export const EditDeleteButtonDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 12px 0 4px 0;
+`;

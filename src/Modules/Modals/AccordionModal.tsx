@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { UserType } from "../../Utilities/types";
 
@@ -7,7 +6,7 @@ export const AccordionButton = styled.button`
   background-color: ${({ theme }) => theme.secondaryAlt};
   color: ${({ theme }) => theme.fontColor};
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
   width: 100%;
   align-self: center;
   border: none;
@@ -34,7 +33,8 @@ export const AccordionDiv = styled.div<{ height?: any }>`
 `;
 
 interface AccordionProps {
-  employees: UserType[];
+  buttonMessage: string;
+  children: JSX.Element | JSX.Element[];
 }
 
 const AccordionModal = (props: AccordionProps) => {
@@ -45,25 +45,13 @@ const AccordionModal = (props: AccordionProps) => {
     setHeight(height === 0 ? contentEL.current.scrollHeight : 0);
   };
 
-  useEffect(() => {
-    if (height > 0) {
-      setHeight(contentEL.current.scrollHeight);
-    }
-  }, [props.employees]);
-
   return (
     <>
-      <AccordionButton onClick={flipFlop}>View Stylists</AccordionButton>
+      <AccordionButton onClick={flipFlop}>
+        {props.buttonMessage}
+      </AccordionButton>
       <AccordionDiv ref={contentEL} height={height}>
-        {props.employees.map((employee, index) => {
-          return (
-            <div key={index}>
-              <Link to={`/reservation/${employee._id}`}>
-                {employee.firstName} {employee.lastName}
-              </Link>
-            </div>
-          );
-        })}
+        {props.children}
       </AccordionDiv>
     </>
   );

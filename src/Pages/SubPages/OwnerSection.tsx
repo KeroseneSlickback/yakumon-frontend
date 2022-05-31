@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   CenterButtonDiv,
+  EditDeleteButtonDiv,
   MediumButton,
   SmallButton,
   StyledLinkButton,
@@ -33,6 +35,7 @@ const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
 const OwnerSection = () => {
   const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
   const [user, setUser] = useState<ReturnUserType | null>(null);
   const [load, setLoad] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -64,6 +67,10 @@ const OwnerSection = () => {
     }, 500);
     return () => clearTimeout(debounce);
   }, []);
+
+  const editStore = (storeId: string) => {
+    navigate(`/portal/editStore/${storeId}`);
+  };
 
   const deleteStore = (storeId: string) => {
     console.log(storeId);
@@ -102,12 +109,6 @@ const OwnerSection = () => {
                       ) : (
                         <FillerImgSvg ownerSection />
                       )}
-                      <div>
-                        <MediumButton nonConstraint>Edit</MediumButton>
-                        <SmallButton warning nonConstraint>
-                          Delete
-                        </SmallButton>
-                      </div>
                     </StoreImgDiv>
                     <StoreInfoContainer ownerSection>
                       <span>
@@ -155,7 +156,28 @@ const OwnerSection = () => {
                         </div>
                       </span>
                     </StoreInfoContainer>
-                    <AccordionModal employees={store.employees} />
+                    <AccordionModal buttonMessage="View Employees">
+                      {store.employees.map((employee, index) => {
+                        return (
+                          <div key={index}>
+                            <Link to={`/reservation/${employee._id}`}>
+                              {employee.firstName} {employee.lastName}
+                            </Link>
+                          </div>
+                        );
+                      })}
+                    </AccordionModal>
+                    <EditDeleteButtonDiv>
+                      <SmallButton
+                        nonConstraint
+                        onClick={() => editStore(store._id)}
+                      >
+                        Edit Store
+                      </SmallButton>
+                      <SmallButton warning nonConstraint>
+                        Delete
+                      </SmallButton>
+                    </EditDeleteButtonDiv>
                   </PageSectionCard>
                 );
               })}

@@ -148,3 +148,14 @@ export interface CreateStoreType {
   phoneNumber: string;
   hours: StoreDayHour[];
 }
+
+export interface EditStoreType {
+  storeName?: string;
+  storeType?: string;
+  storeDescription?: string;
+  storeWebsite?: string;
+  location?: string;
+  locationLink?: string;
+  phoneNumber?: string;
+  hours?: StoreDayHour[];
+}

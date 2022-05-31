@@ -23,7 +23,6 @@ const Confirmation = () => {
     if (id) {
       const newMessageNumber = parseInt(id);
       const newMessage = confirmationMessages[newMessageNumber];
-      console.log(newMessageNumber);
       setMessage(newMessage);
     }
     setTimeout(() => {

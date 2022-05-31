@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { ReserveButton } from "../../Components/Buttons";
 import {
   StyledForm,
@@ -8,10 +9,10 @@ import {
   StyledTextArea,
   StyledTextInput,
 } from "../../Components/FormComponents";
-import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
+import { ButtonBox } from "../../Components/ModalComponents";
 import {
-  BackendResponseDataType,
   CreateStoreType,
+  EditStoreType,
   ReturnStoreType,
 } from "../../Utilities/types";
 import RegularMessage, {
@@ -21,12 +22,24 @@ import {
   CheckboxSpan,
   PageSectionCard,
   SinglePageContainer,
+  StoreEditContainer,
+  StoreImgDiv,
+  StoreInfoContainer,
 } from "../../Components/Containers";
 import {
   LoadingIcon,
   LoadingIconContainer,
+  StoreHourTable,
+  StoreImg,
 } from "../../Components/Page-accessories";
 import axios from "axios";
+import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg";
+import location from "../../Utilities/Images/SVGs/location.svg";
+import clock from "../../Utilities/Images/SVGs/clock.svg";
+import phone from "../../Utilities/Images/SVGs/phone.svg";
+import site from "../../Utilities/Images/SVGs/site.svg";
+import StoreHour from "../../Components/StoreHour";
+import AccordionModal from "../../Modules/Modals/AccordionModal";
 
 const daysArray = [
   "Sunday",
@@ -140,10 +153,16 @@ const listHoursArray = [
   "12:30 pm",
 ];
 
-const NewStorePortal = () => {
-  const [load, setLoad] = useState(true);
+const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+
+const EditStorePortal = () => {
+  const { id } = useParams();
+  const [store, setStore] = useState<ReturnStoreType | null>(null);
+  const [storeImg, setStoreImg] = useState<string>("");
+  const [load, setLoad] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const [formError, setFormError] = useState<string | null>("");
-  const [formData, setFormData] = useState<CreateStoreType>({
+  const [formData, setFormData] = useState<EditStoreType>({
     storeName: "",
     storeType: "",
     storeDescription: "",
@@ -151,6 +170,8 @@ const NewStorePortal = () => {
     location: "",
     locationLink: "",
     phoneNumber: "",
+  });
+  const [storeHours, setStoreHours] = useState({
     hours: [
       { closed: false, open: "", close: "" },
       { closed: false, open: "", close: "" },
@@ -164,10 +185,28 @@ const NewStorePortal = () => {
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoad(false);
+    setLoad(true);
+    const debounce = setTimeout(() => {
+      const getData = async () => {
+        await axios
+          .get<ReturnStoreType>(`http://localhost:8888/store/${id}`)
+          .then((response) => {
+            setLoad(false);
+            setError(false);
+            setStore(response.data);
+            if (response.data.picture) {
+              setStoreImg(response.data.picture.toString("base64"));
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+            setError(true);
+          });
+      };
+      getData();
     }, 500);
-  }, []);
+    return () => clearTimeout(debounce);
+  }, [id]);
 
   const handleFormChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -184,9 +223,9 @@ const NewStorePortal = () => {
     dayIndex: number
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setStoreHours((prev) => ({
       ...prev,
-      hours: prev.hours.map((hour, index) => {
+      hours: prev.hours?.map((hour, index) => {
         if (index === dayIndex) {
           return { ...hour, [name]: value };
         }
@@ -202,7 +241,7 @@ const NewStorePortal = () => {
     const { name, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      hours: prev.hours.map((hour, index) => {
+      hours: prev.hours?.map((hour, index) => {
         if (index === dayIndex) {
           return { ...hour, [name]: checked };
         }
@@ -221,35 +260,35 @@ const NewStorePortal = () => {
     const jwt = localStorage.getItem("jwt");
     const imageFormData = new FormData();
     imageFormData.append("picture", image);
-    console.log(formData);
-    try {
-      axios
-        .post<ReturnStoreType>("http://localhost:8888/store", formData, {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        })
-        .then((res) => {
-          if (res.status === 201) {
-            const storeId = res.data._id;
-            axios
-              .patch<BackendResponseDataType>(
-                `http://localhost:8888/store/${storeId}/picture`,
-                imageFormData,
-                {
-                  headers: {
-                    Authorization: `Bearer ${jwt}`,
-                  },
-                }
-              )
-              .then((res) => {
-                console.log(res);
-              });
-          }
-        });
-    } catch (e) {
-      console.log(e);
-    }
+    console.log(formData, storeHours, imageFormData);
+    // try {
+    //   axios
+    //     .post<ReturnStoreType>("http://localhost:8888/store", formData, {
+    //       headers: {
+    //         Authorization: `Bearer ${jwt}`,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       if (res.status === 201) {
+    //         const storeId = res.data._id;
+    //         axios
+    //           .patch<BackendResponseDataType>(
+    //             `http://localhost:8888/store/${storeId}/picture`,
+    //             imageFormData,
+    //             {
+    //               headers: {
+    //                 Authorization: `Bearer ${jwt}`,
+    //               },
+    //             }
+    //           )
+    //           .then((res) => {
+    //             console.log(res);
+    //           });
+    //       }
+    //     });
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
 
   return (
@@ -261,14 +300,19 @@ const NewStorePortal = () => {
       ) : (
         <StyledForm onSubmit={handleSubmit}>
           <PageSectionCard formFormatting>
-            <h2>Create a Store</h2>
-            <h4>Please enter the infomation below to create a store</h4>
+            <h2>Edit Store</h2>
+            <h4>Please change the infomation below as you wish</h4>
           </PageSectionCard>
           <PageSectionCard styled formFormatting>
+            <StoreEditContainer topCard>
+              <h2>{store?.storeName}</h2>
+              <h3>Type: {store?.storeType}</h3>
+              <h5>Description:</h5>
+              <p>{store?.storeDescription}</p>
+            </StoreEditContainer>
             <div>
               <StyledLabel>Store Name:</StyledLabel>
               <StyledTextInput
-                required
                 name="storeName"
                 type="text"
                 placeholder="FantasticSam"
@@ -279,7 +323,6 @@ const NewStorePortal = () => {
             <div>
               <StyledLabel>Store Type:</StyledLabel>
               <StyledFormSelect
-                required
                 name="storeType"
                 value={formData.storeType}
                 onChange={handleFormChange}
@@ -300,7 +343,6 @@ const NewStorePortal = () => {
             <div>
               <StyledLabel>Store Description:</StyledLabel>
               <StyledTextArea
-                required
                 large
                 name="storeDescription"
                 placeholder="A simple store created from our wish to provide the best experience..."
@@ -310,11 +352,40 @@ const NewStorePortal = () => {
             </div>
           </PageSectionCard>
           <PageSectionCard formFormatting>
+            <StoreEditContainer>
+              <StoreInfoContainer ownerSection>
+                <span>
+                  <img src={location} alt="location" />
+                  <a
+                    href={store?.locationLink}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {store?.location}
+                  </a>
+                </span>
+                {store?.storeWebsite ? (
+                  <span>
+                    <img src={site} alt="site" />
+                    <a
+                      href={store.storeWebsite}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Visit Website
+                    </a>
+                  </span>
+                ) : null}
+                <span>
+                  <img src={phone} alt="phone" />
+                  <p>{store?.phoneNumber}</p>
+                </span>
+              </StoreInfoContainer>
+            </StoreEditContainer>
             <div>
               <StyledLabel>Store Website:</StyledLabel>
               <p>Please provide a clickable URL</p>
               <StyledTextInput
-                required
                 name="storeWebsite"
                 type="text"
                 placeholder="https://www.fantasticsams.com/"
@@ -326,7 +397,6 @@ const NewStorePortal = () => {
               <StyledLabel>Store Location:</StyledLabel>
               <p>Please provide a written address</p>
               <StyledTextInput
-                required
                 name="location"
                 type="text"
                 placeholder="7772 West Avantage Lane, Las Vegas NV 82813"
@@ -340,7 +410,6 @@ const NewStorePortal = () => {
                 Please provide a sharable link from Google Maps to your location
               </p>
               <StyledTextInput
-                required
                 name="locationLink"
                 type="text"
                 placeholder="https://goo.gl/maps/GL3wmq1RmqUR84ns9"
@@ -351,7 +420,6 @@ const NewStorePortal = () => {
             <div>
               <StyledLabel>Phone Number</StyledLabel>
               <StyledTextInput
-                required
                 name="phoneNumber"
                 type="text"
                 placeholder="1 (702) 992-8282"
@@ -361,9 +429,34 @@ const NewStorePortal = () => {
             </div>
           </PageSectionCard>
           <PageSectionCard styled formFormatting>
+            <StoreEditContainer>
+              <StoreInfoContainer ownerSection>
+                <span>
+                  <img src={clock} alt="clock" />
+                  <div>
+                    <StoreHourTable>
+                      <tbody>
+                        {store?.hours.map((day, dayIndex) => {
+                          return (
+                            <StoreHour
+                              key={day._id}
+                              day={day}
+                              weekday={weekdaysArray[dayIndex]}
+                            />
+                          );
+                        })}
+                      </tbody>
+                    </StoreHourTable>
+                  </div>
+                </span>
+              </StoreInfoContainer>
+            </StoreEditContainer>
             <div>
               <StyledLabel>Hours:</StyledLabel>
-              {formData.hours?.map((day, dayIndex) => {
+              <p>
+                If changing hours, please input all hours for each day again.
+              </p>
+              {storeHours.hours?.map((day, dayIndex) => {
                 return (
                   <div key={dayIndex}>
                     <h4>{daysArray[dayIndex]}</h4>
@@ -372,7 +465,6 @@ const NewStorePortal = () => {
                         <p>Open</p>
                         <StyledFormSelect
                           compact
-                          required
                           name="open"
                           value={day.open}
                           onChange={(e) => handleHoursChange(e, dayIndex)}
@@ -393,7 +485,6 @@ const NewStorePortal = () => {
                         <p>Close</p>
                         <StyledFormSelect
                           compact
-                          required
                           name="close"
                           value={day.close}
                           onChange={(e) => handleHoursChange(e, dayIndex)}
@@ -426,6 +517,16 @@ const NewStorePortal = () => {
             </div>
           </PageSectionCard>
           <PageSectionCard formFormatting>
+            <StoreImgDiv ownerSection>
+              {storeImg ? (
+                <StoreImg
+                  ownerSection
+                  src={`data:image/png;base64,${storeImg}`}
+                />
+              ) : (
+                <FillerImgSvg ownerSection />
+              )}
+            </StoreImgDiv>
             <div>
               <StyledLabel>Store Image</StyledLabel>
               <p>
@@ -437,13 +538,12 @@ const NewStorePortal = () => {
                 name="picture"
                 accept="image/png, image/jpeg, image/jpg"
                 onChange={handleImageUpload}
-                // required
               />
             </div>
           </PageSectionCard>
           <PageSectionCard secondary>
             <ButtonBox centered>
-              <ReserveButton register>Create Store</ReserveButton>
+              <ReserveButton register>Edit Store</ReserveButton>
             </ButtonBox>
           </PageSectionCard>
 
@@ -458,4 +558,4 @@ const NewStorePortal = () => {
   );
 };
 
-export default NewStorePortal;
+export default EditStorePortal;

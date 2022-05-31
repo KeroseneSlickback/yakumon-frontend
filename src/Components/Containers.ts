@@ -371,41 +371,28 @@ export const StoreInfoContainer = styled.div<{ ownerSection?: boolean }>`
 
 export const StoreDescContainer = styled.div``;
 
-// export const AccordionButton = styled.button`
-//   background-color: ${({ theme }) => theme.alternative};
-//   cursor: pointer;
-//   padding: 12px;
-//   width: 100%;
-//   border: none;
-//   outline: none;
-//   transition: 0.4s;
-
-//   &:hover {
-//     background-color: ${({ theme }) => theme.alternativeAlt};
-//   }
-// `;
-
-// export const AccordionDiv = styled.div<{ active?: boolean }>`
-//   padding: 0 18px;
-//   background-color: white;
-//   display: none;
-//   overflow: hidden;
-
-//   ${(props) =>
-//     props.active &&
-//     css`
-//       display: block;
-//       animation: fadeIn 200ms ease-in both;
-
-//       @keyframes fadeIn {
-//         from {
-//           opacity: 0;
-//           transform: translate3d(0, -3%, 0);
-//         }
-//         to {
-//           opacity: 1;
-//           transform: translate3d(0, 0, 0);
-//         }
-//       }
-//     `}
-// `;
+export const StoreEditContainer = styled.div<{ topCard?: boolean }>`
+  background-color: ${({ theme }) => theme.alternativeAlt};
+  border: 1px solid ${({ theme }) => theme.background};
+  border-radius: 0.5rem;
+  padding: 0px 6px;
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+  h5 {
+    font-size: 1.1rem;
+    margin: 8px 0;
+  }
+  p,
+  td {
+    color: black;
+  }
+  ${(props) =>
+    props.topCard &&
+    css`
+      padding: 6px;
+    `}
+`;
