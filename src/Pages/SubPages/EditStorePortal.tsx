@@ -175,6 +175,15 @@ const EditStorePortal = () => {
     location: "",
     locationLink: "",
     phoneNumber: "",
+    hours: [
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+      { closed: false, open: "", close: "" },
+    ],
   });
   const [storeHours, setStoreHours] = useState({
     hours: [
@@ -213,6 +222,14 @@ const EditStorePortal = () => {
     }, 500);
     return () => clearTimeout(debounce);
   }, [id]);
+
+  useEffect(() => {
+    // For each update of storeHours, add storeHours to final form data
+    setFormData((prev) => ({
+      ...prev,
+      hours: storeHours.hours,
+    }));
+  }, [storeHours]);
 
   const handleFormChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -258,22 +275,7 @@ const EditStorePortal = () => {
   };
 
   const handleImageUpload = (e: any) => {
-    console.log(e.target.files[0]);
     setImage(e.target.files[0]);
-  };
-
-  const trimFormData = (data: any) => {
-    let returnObject: any = {};
-    for (let key in data) {
-      if (data[key] !== "") {
-        returnObject[key] = data[key];
-      }
-    }
-    return returnObject;
-  };
-
-  const isObjectEmpty = (data: any) => {
-    return Object.keys(data).length === 0;
   };
 
   const checkHourArray = (data: any) => {
@@ -292,6 +294,58 @@ const EditStorePortal = () => {
     return evaluation;
   };
 
+  const isObjectEmpty = (data: any) => {
+    console.log(Object.keys(data).length);
+    return Object.keys(data).length === 0;
+  };
+
+  const splitObjects = (data: EditStoreType) => {
+    let simpleObj = {
+      storeName: data.storeName,
+      storeType: data.storeType,
+      storeDescription: data.storeDescription,
+      storeWebsite: data.storeWebsite,
+      location: data.location,
+      phoneNumber: data.phoneNumber,
+    };
+    let hourObj = {
+      hours: data.hours,
+    };
+    return {
+      simpleObj,
+      hourObj,
+    };
+  };
+
+  const verifyFormObject = async (data: EditStoreType) => {
+    const { simpleObj, hourObj }: { simpleObj: any; hourObj: any } =
+      await splitObjects(data);
+    console.log(simpleObj, hourObj);
+
+    let returnObject: any = {};
+    let objectEvaluation = true;
+    let hourEvaluation = true;
+
+    for (let key in simpleObj) {
+      if (simpleObj[key] !== "") {
+        returnObject[key] = simpleObj[key];
+      }
+    }
+    if (Object.keys(returnObject).length === 0) {
+      objectEvaluation = false;
+    }
+    if (!checkHourArray(data) || alteredHours) {
+      hourEvaluation = false;
+    } else {
+      setAlteredHours(true);
+      returnObject = {
+        ...returnObject,
+        ...hourObj,
+      };
+    }
+    return { returnObject, objectEvaluation, hourEvaluation };
+  };
+
   const checkImg = (img: string) => {
     if (img === "") {
       return false;
@@ -306,79 +360,69 @@ const EditStorePortal = () => {
     const jwt = localStorage.getItem("jwt");
     const imageFormData = new FormData();
     imageFormData.append("picture", image);
-    let builtFormData: EditStoreType = {};
 
-    const trimmedForm = await trimFormData(formData);
-    const emptyObject = await isObjectEmpty(trimmedForm);
-    const validHourArray = await checkHourArray(storeHours);
-    const imageInputted = await checkImg(image);
+    const { returnObject, objectEvaluation, hourEvaluation } =
+      await verifyFormObject(formData);
+    console.log(returnObject, objectEvaluation, hourEvaluation);
 
-    if (!validHourArray && alteredHours) {
-      setErrorMessage((prev) => ({
-        ...prev,
-        message: "Enter all hours for store",
-        warning: true,
-      }));
-    } else if (emptyObject && !validHourArray && !imageInputted) {
-      setErrorMessage((prev) => ({
-        ...prev,
-        message: "No updates to submit",
-        warning: true,
-      }));
-    }
+    // const emptyObject = await isObjectEmpty(trimmedForm);
 
-    if (validHourArray && !alteredHours) {
-      builtFormData = {
-        ...builtFormData,
-        ...storeHours,
-      };
-    }
-    if (!emptyObject) {
-      builtFormData = {
-        ...builtFormData,
-        ...trimmedForm,
-      };
-    }
+    // const validHourArray = await checkHourArray(storeHours);
 
-    console.log(storeHours, builtFormData);
-    try {
-      if (validHourArray || !emptyObject) {
-        console.log("good hour array, good object");
-        // axios
-        // .patch<ReturnStoreType>(
-        //   `http://localhost:8888/store/${id}`,
-        //   builtFormData,
-        //   {
-        //     headers: {
-        //       Authorization: `Bearer ${jwt}`,
-        //     },
-        //   }
-        // )
-        // .then((res) => {
-        //   console.log(res);
-        //   //
-        // });
-      }
-      if (imageInputted) {
-        console.log("image uploaded");
-        // axios
-        //   .patch<BackendResponseDataType>(
-        //     `http://localhost:8888/store/${id}/picture`,
-        //     imageFormData,
-        //     {
-        //       headers: {
-        //         Authorization: `Bearer ${jwt}`,
-        //       },
-        //     }
-        //   )
-        //   .then((res) => {
-        //     console.log(res);
-        //     // confirmation message for image upload
-        //   });
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    // const imageInputted = await checkImg(image);
+
+    // if (!validHourArray && alteredHours) {
+    //   setErrorMessage((prev) => ({
+    //     ...prev,
+    //     message: "Enter all hours for store",
+    //     warning: true,
+    //   }));
+    // } else if (emptyObject && !validHourArray && !imageInputted) {
+    //   setErrorMessage((prev) => ({
+    //     ...prev,
+    //     message: "No updates to submit",
+    //     warning: true,
+    //   }));
+    // }
+
+    // try {
+    //   if (validHourArray || !emptyObject) {
+    //     console.log("good hour array, good object");
+    //     axios
+    //     .patch<ReturnStoreType>(
+    //       `http://localhost:8888/store/${id}`,
+    //       builtFormData,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${jwt}`,
+    //         },
+    //       }
+    //     )
+    //     .then((res) => {
+    //       console.log(res);
+    //       //
+    //     });
+    //   }
+    //   if (imageInputted) {
+    //     console.log("image uploaded");
+    //     axios
+    //       .patch<BackendResponseDataType>(
+    //         `http://localhost:8888/store/${id}/picture`,
+    //         imageFormData,
+    //         {
+    //           headers: {
+    //             Authorization: `Bearer ${jwt}`,
+    //           },
+    //         }
+    //       )
+    //       .then((res) => {
+    //         console.log(res);
+    //         // confirmation message for image upload
+    //       });
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
 
   return (

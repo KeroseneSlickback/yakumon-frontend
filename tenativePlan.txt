@@ -12,6 +12,7 @@ Store edit confirmation modal redirect
 Create Delete modal for deleting store, offer warnings and a secondary question
 
 
+June 1st: See about why builtFormData is slow to update.
 
 
 
