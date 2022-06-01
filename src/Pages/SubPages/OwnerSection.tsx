@@ -99,7 +99,7 @@ const OwnerSection = () => {
             : user.ownedStores.map((store, storeIndex) => {
                 return (
                   <PageSectionCard styled ownerSection key={storeIndex}>
-                    <h1>{store.storeName}</h1>
+                    <TopH1 storePage>{store.storeName}</TopH1>
                     <StoreImgDiv ownerSection>
                       {store.picture ? (
                         <StoreImg

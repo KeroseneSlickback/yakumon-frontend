@@ -264,6 +264,11 @@ export const StoreImgDiv = styled.div<{ ownerSection?: boolean }>`
   max-width: 100vw;
   z-index: 0;
   object-fit: cover;
+  div {
+    background-color: ${({ theme }) => theme.alternative};
+    border-radius: 1rem 1rem 0 0;
+  }
+
   ${(props) =>
     props.ownerSection &&
     css`
@@ -278,8 +283,9 @@ export const StoreImgDiv = styled.div<{ ownerSection?: boolean }>`
         flex-direction: column;
         justify-content: center;
         gap: 8px;
+        border-radius: 1rem;
       }
-    `}
+    `};
 `;
 
 export const CheckboxSpan = styled.span`

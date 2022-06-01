@@ -185,17 +185,6 @@ const EditStorePortal = () => {
       { closed: false, open: "", close: "" },
     ],
   });
-  const [storeHours, setStoreHours] = useState({
-    hours: [
-      { closed: false, open: "", close: "" },
-      { closed: false, open: "", close: "" },
-      { closed: false, open: "", close: "" },
-      { closed: false, open: "", close: "" },
-      { closed: false, open: "", close: "" },
-      { closed: false, open: "", close: "" },
-      { closed: false, open: "", close: "" },
-    ],
-  });
   const [alteredHours, setAlteredHours] = useState(false);
   const [image, setImage] = useState("");
 
@@ -223,14 +212,6 @@ const EditStorePortal = () => {
     return () => clearTimeout(debounce);
   }, [id]);
 
-  useEffect(() => {
-    // For each update of storeHours, add storeHours to final form data
-    setFormData((prev) => ({
-      ...prev,
-      hours: storeHours.hours,
-    }));
-  }, [storeHours]);
-
   const handleFormChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
@@ -247,7 +228,7 @@ const EditStorePortal = () => {
   ) => {
     const { name, value } = e.target;
     setAlteredHours(true);
-    setStoreHours((prev) => ({
+    setFormData((prev) => ({
       ...prev,
       hours: prev.hours?.map((hour, index) => {
         if (index === dayIndex) {
@@ -294,11 +275,6 @@ const EditStorePortal = () => {
     return evaluation;
   };
 
-  const isObjectEmpty = (data: any) => {
-    console.log(Object.keys(data).length);
-    return Object.keys(data).length === 0;
-  };
-
   const splitObjects = (data: EditStoreType) => {
     let simpleObj = {
       storeName: data.storeName,
@@ -320,7 +296,6 @@ const EditStorePortal = () => {
   const verifyFormObject = async (data: EditStoreType) => {
     const { simpleObj, hourObj }: { simpleObj: any; hourObj: any } =
       await splitObjects(data);
-    console.log(simpleObj, hourObj);
 
     let returnObject: any = {};
     let objectEvaluation = true;
@@ -334,7 +309,7 @@ const EditStorePortal = () => {
     if (Object.keys(returnObject).length === 0) {
       objectEvaluation = false;
     }
-    if (!checkHourArray(data) || alteredHours) {
+    if (!checkHourArray(data)) {
       hourEvaluation = false;
     } else {
       setAlteredHours(true);
@@ -361,68 +336,66 @@ const EditStorePortal = () => {
     const imageFormData = new FormData();
     imageFormData.append("picture", image);
 
+    const shallowFormData = { ...formData };
+
     const { returnObject, objectEvaluation, hourEvaluation } =
-      await verifyFormObject(formData);
+      await verifyFormObject(shallowFormData);
     console.log(returnObject, objectEvaluation, hourEvaluation);
 
-    // const emptyObject = await isObjectEmpty(trimmedForm);
+    const imageInputted = await checkImg(image);
 
-    // const validHourArray = await checkHourArray(storeHours);
+    if (!hourEvaluation && alteredHours) {
+      setErrorMessage((prev) => ({
+        ...prev,
+        message: "Enter all hours for store",
+        warning: true,
+      }));
+    } else if (!objectEvaluation && !hourEvaluation && !imageInputted) {
+      setErrorMessage((prev) => ({
+        ...prev,
+        message: "No updates to submit",
+        warning: true,
+      }));
+    }
 
-    // const imageInputted = await checkImg(image);
-
-    // if (!validHourArray && alteredHours) {
-    //   setErrorMessage((prev) => ({
-    //     ...prev,
-    //     message: "Enter all hours for store",
-    //     warning: true,
-    //   }));
-    // } else if (emptyObject && !validHourArray && !imageInputted) {
-    //   setErrorMessage((prev) => ({
-    //     ...prev,
-    //     message: "No updates to submit",
-    //     warning: true,
-    //   }));
-    // }
-
-    // try {
-    //   if (validHourArray || !emptyObject) {
-    //     console.log("good hour array, good object");
-    //     axios
-    //     .patch<ReturnStoreType>(
-    //       `http://localhost:8888/store/${id}`,
-    //       builtFormData,
-    //       {
-    //         headers: {
-    //           Authorization: `Bearer ${jwt}`,
-    //         },
-    //       }
-    //     )
-    //     .then((res) => {
-    //       console.log(res);
-    //       //
-    //     });
-    //   }
-    //   if (imageInputted) {
-    //     console.log("image uploaded");
-    //     axios
-    //       .patch<BackendResponseDataType>(
-    //         `http://localhost:8888/store/${id}/picture`,
-    //         imageFormData,
-    //         {
-    //           headers: {
-    //             Authorization: `Bearer ${jwt}`,
-    //           },
-    //         }
-    //       )
-    //       .then((res) => {
-    //         console.log(res);
-    //         // confirmation message for image upload
-    //       });
-    //   }
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    try {
+      if (objectEvaluation || hourEvaluation) {
+        console.log("good object or good hours");
+        axios
+          .patch<ReturnStoreType>(
+            `http://localhost:8888/store/${id}`,
+            returnObject,
+            {
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res);
+            //
+          });
+      }
+      if (imageInputted) {
+        console.log("image uploaded");
+        axios
+          .patch<BackendResponseDataType>(
+            `http://localhost:8888/store/${id}/picture`,
+            imageFormData,
+            {
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res);
+            // confirmation message for image upload
+          });
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -590,7 +563,7 @@ const EditStorePortal = () => {
               <p>
                 If changing hours, please input all hours for each day again.
               </p>
-              {storeHours.hours?.map((day, dayIndex) => {
+              {formData.hours?.map((day, dayIndex) => {
                 return (
                   <div key={dayIndex}>
                     <h4>{daysArray[dayIndex]}</h4>

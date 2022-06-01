@@ -1,11 +1,3 @@
-Create Route and Page for Editing Store
-- Fetch, display, and offer correction for info 
-- Run checks: 
-Check if any value in formData is not an empty string => If so, push it to editObject. 
-Check if hours have no empty strings => If so, alert user and block edit. 
-Check if image is given => If so, prepare a secondary call to push image to store (no patch)
-Combine all altered infomation into an edit object, compare that to given store info => If not matching, then patch store 
-If patch applied correctly, check for new image, if so post image, if not do nothing
 
 Store edit confirmation modal redirect
 
