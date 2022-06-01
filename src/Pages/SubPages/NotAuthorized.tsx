@@ -7,6 +7,7 @@ import {
 import {
   LoadingIcon,
   LoadingIconContainer,
+  TopH1,
 } from "../../Components/Page-accessories";
 
 const NotAuthorized = () => {
@@ -19,7 +20,7 @@ const NotAuthorized = () => {
   return (
     <SinglePageContainer>
       <PageSectionCard absolute>
-        <h1>Not Authorized</h1>
+        <TopH1>Not Authorized</TopH1>
         <p>You will be redirected shortly</p>
       </PageSectionCard>
       <LoadingIconContainer>

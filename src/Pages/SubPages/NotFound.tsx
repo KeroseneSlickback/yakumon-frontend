@@ -3,12 +3,13 @@ import {
   PageSectionCard,
   SinglePageContainer,
 } from "../../Components/Containers";
+import { TopH1 } from "../../Components/Page-accessories";
 
 const NotFound = () => {
   return (
     <SinglePageContainer>
       <PageSectionCard absolute>
-        <h1>Page not Found</h1>
+        <TopH1>Page Not Found</TopH1>
       </PageSectionCard>
     </SinglePageContainer>
   );

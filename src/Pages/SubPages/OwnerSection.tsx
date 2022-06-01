@@ -31,6 +31,11 @@ import phone from "../../Utilities/Images/SVGs/phone.svg";
 import site from "../../Utilities/Images/SVGs/site.svg";
 import StoreHour from "../../Components/StoreHour";
 import AccordionModal from "../../Modules/Modals/AccordionModal";
+import { BackDrop } from "../../Components/Backdrop";
+import {
+  DeleteModal,
+  DoubleConfirmDeleteModal,
+} from "../../Modules/Modals/DeleteModals";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -40,6 +45,8 @@ const OwnerSection = () => {
   const [user, setUser] = useState<ReturnUserType | null>(null);
   const [load, setLoad] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const [storeToDelete, setStoreToDelete] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
 
   useEffect(() => {
     setLoad(true);
@@ -73,8 +80,17 @@ const OwnerSection = () => {
     navigate(`/portal/editStore/${storeId}`);
   };
 
+  const closeModal = () => {
+    setStoreToDelete(null);
+    setConfirmDelete(false);
+  };
+
+  const toggleConfirm = () => {
+    setConfirmDelete(true);
+  };
+
   const deleteStore = (storeId: string) => {
-    console.log(storeId);
+    setStoreToDelete(storeId);
   };
 
   return (
@@ -175,7 +191,11 @@ const OwnerSection = () => {
                       >
                         Edit Store
                       </SmallButton>
-                      <SmallButton warning nonConstraint>
+                      <SmallButton
+                        warning
+                        nonConstraint
+                        onClick={() => deleteStore(store._id)}
+                      >
                         Delete
                       </SmallButton>
                     </EditDeleteButtonDiv>
@@ -191,6 +211,29 @@ const OwnerSection = () => {
           </PageSectionCard>
         </>
       )}
+      {storeToDelete || confirmDelete ? (
+        <BackDrop onClick={closeModal} />
+      ) : null}
+      {storeToDelete && !confirmDelete ? (
+        <DeleteModal
+          type="store"
+          id={storeToDelete}
+          title="Delete Store"
+          subTitle="Do you want to delete this store?"
+          toggleConfirm={toggleConfirm}
+          closeModal={closeModal}
+        />
+      ) : null}
+      {confirmDelete && confirmDelete ? (
+        <DoubleConfirmDeleteModal
+          type="store"
+          id={storeToDelete}
+          title="Confirm Store Delete"
+          subTitle="Are you sure that you want to delete this store?"
+          toggleConfirm={toggleConfirm}
+          closeModal={closeModal}
+        />
+      ) : null}
     </SinglePageContainer>
   );
 };

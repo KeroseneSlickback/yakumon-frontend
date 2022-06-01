@@ -12,6 +12,7 @@ export const AccordionButton = styled.button`
   border: none;
   outline: none;
   transition: 0.2s;
+  border-radius: 0.4rem;
 
   &:hover {
     background-color: ${({ theme }) => theme.secondaryHighlight};
@@ -26,6 +27,7 @@ export const AccordionDiv = styled.div<{ height?: any }>`
   overflow: hidden;
   transition: height ease 0.2s;
   height: ${({ height }) => height}px;
+  border-radius: 0.4rem;
 
   div {
     margin: 16px 0;

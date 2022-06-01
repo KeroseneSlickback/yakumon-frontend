@@ -15,11 +15,15 @@ export const ModalContainer = styled.div`
 
   h3 {
     font-size: 1.6rem;
-    padding-bottom: 18px;
+    padding: 0px 16px 18px 0;
   }
 `;
 
-export const ButtonBox = styled.div<{ centered?: boolean }>`
+export const ButtonBox = styled.div<{
+  centered?: boolean;
+  sideBySide?: boolean;
+  topPadding?: boolean;
+}>`
   ${(props) =>
     props.centered &&
     css`
@@ -27,5 +31,18 @@ export const ButtonBox = styled.div<{ centered?: boolean }>`
       flex-direction: column;
       align-items: center;
       justify-content: center;
+    `}
+
+  ${(props) =>
+    props.sideBySide &&
+    css`
+      display: flex;
+      justify-content: space-between;
+    `}
+
+    ${(props) =>
+    props.topPadding &&
+    css`
+      margin-top: 16px;
     `}
 `;
