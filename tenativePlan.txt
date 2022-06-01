@@ -1,17 +1,10 @@
 
-Store edit confirmation modal redirect
+Redirects:
+- NewStore => New Store 
+- EditStore => Edited Store
+- Deleted store => refresh page 
 
-Create Delete modal for deleting store, offer warnings and a secondary question
-
-
-June 1st: See about why builtFormData is slow to update.
-
-
+Parallel axios requests if both edit store and image upload 
+- If/else? 
 
 Test backend store delete route with different user who isn't owner
-
-Store owner dashboard: 
-
-Heading
-List of stores
-- Edit store, edit employees modals 

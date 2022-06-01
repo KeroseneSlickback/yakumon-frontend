@@ -1,12 +1,13 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import {
   CloseButton,
   ClosedButtonDiv,
   MediumButton,
 } from "../../Components/Buttons";
 import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
-import { BackendResponseDataType } from "../../Utilities/types";
+import { BackendResponseDataType, MessageType } from "../../Utilities/types";
+import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
 type Props = {
   id: string | null;
@@ -38,8 +39,10 @@ export const DeleteModal = (props: Props) => {
 };
 
 export const DoubleConfirmDeleteModal = (props: Props) => {
+  const [message, setMessage] = useState<MessageType | null>(null);
   const handleDelete = () => {
     const jwt = localStorage.getItem("jwt");
+    setMessage(null);
     try {
       axios
         .delete<BackendResponseDataType>(
@@ -52,18 +55,28 @@ export const DoubleConfirmDeleteModal = (props: Props) => {
         )
         .then((res) => {
           if (res.status === 201) {
-            // confirm delete, return user to owner page?
+            setMessage({
+              message: "Store Deleted Successfully",
+              warning: false,
+            });
           }
         });
     } catch (e: any) {
-      console.log(e);
-      // general error over button
+      setMessage({
+        message: "An Error has Occured",
+        warning: true,
+      });
     }
   };
   return (
     <ModalContainer>
       <h3>{props.title}</h3>
       <h4>{props.subTitle}</h4>
+      {message ? (
+        <MessageBox marginTop>
+          <RegularMessage message={message.message} warning={message.warning} />
+        </MessageBox>
+      ) : null}
       <ButtonBox sideBySide topPadding>
         <MediumButton register onClick={handleDelete}>
           Confirm

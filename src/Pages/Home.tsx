@@ -15,14 +15,14 @@ import {
   ShowcaseImg,
 } from "../Components/Page-accessories";
 import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
-import { ErrorMessage, ReturnStoreType } from "../Utilities/types";
+import { MessageType, ReturnStoreType } from "../Utilities/types";
 
 const Home = () => {
   const [fetchedStores, setFetchedStores] = useState<ReturnStoreType[] | null>(
     null
   );
   const [load, setLoad] = useState<boolean>(false);
-  const [error, setError] = useState<ErrorMessage | null>(null);
+  const [error, setError] = useState<MessageType | null>(null);
   useEffect(() => {
     setLoad(true);
     const debounce = setTimeout(() => {

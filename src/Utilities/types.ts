@@ -46,7 +46,7 @@ export interface BackendResponseDataType {
   user?: ReturnUserType;
 }
 
-export interface ErrorMessage {
+export interface MessageType {
   message: string;
   warning: boolean;
 }

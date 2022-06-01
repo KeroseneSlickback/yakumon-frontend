@@ -15,7 +15,7 @@ import {
   BackendResponseDataType,
   CreateStoreType,
   EditStoreType,
-  ErrorMessage,
+  MessageType,
   ReturnStoreType,
   StoreDayHour,
 } from "../../Utilities/types";
@@ -165,7 +165,7 @@ const EditStorePortal = () => {
   const [storeImg, setStoreImg] = useState<string>("");
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<ErrorMessage | null>(null);
+  const [message, setMessage] = useState<MessageType | null>(null);
   const [formError, setFormError] = useState<string | null>("");
   const [formData, setFormData] = useState<EditStoreType>({
     storeName: "",
@@ -331,7 +331,7 @@ const EditStorePortal = () => {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    setErrorMessage(null);
+    setMessage(null);
     const jwt = localStorage.getItem("jwt");
     const imageFormData = new FormData();
     imageFormData.append("picture", image);
@@ -345,56 +345,51 @@ const EditStorePortal = () => {
     const imageInputted = await checkImg(image);
 
     if (!hourEvaluation && alteredHours) {
-      setErrorMessage((prev) => ({
-        ...prev,
+      setMessage({
         message: "Enter all hours for store",
         warning: true,
-      }));
+      });
     } else if (!objectEvaluation && !hourEvaluation && !imageInputted) {
-      setErrorMessage((prev) => ({
-        ...prev,
+      setMessage({
         message: "No updates to submit",
         warning: true,
-      }));
+      });
     }
 
     try {
       if (objectEvaluation || hourEvaluation) {
         console.log("good object or good hours");
-        axios
-          .patch<ReturnStoreType>(
-            `http://localhost:8888/store/${id}`,
-            returnObject,
-            {
-              headers: {
-                Authorization: `Bearer ${jwt}`,
-              },
-            }
-          )
-          .then((res) => {
-            console.log(res);
-            //
-          });
+        axios.patch<ReturnStoreType>(
+          `http://localhost:8888/store/${id}`,
+          returnObject,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
       }
       if (imageInputted) {
         console.log("image uploaded");
-        axios
-          .patch<BackendResponseDataType>(
-            `http://localhost:8888/store/${id}/picture`,
-            imageFormData,
-            {
-              headers: {
-                Authorization: `Bearer ${jwt}`,
-              },
-            }
-          )
-          .then((res) => {
-            console.log(res);
-            // confirmation message for image upload
-          });
+        axios.patch<BackendResponseDataType>(
+          `http://localhost:8888/store/${id}/picture`,
+          imageFormData,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
       }
+      setMessage({
+        message: "Store Updated Successfully",
+        warning: false,
+      });
     } catch (e) {
-      console.log(e);
+      setMessage({
+        message: "An Error has Occured",
+        warning: true,
+      });
     }
   };
 
@@ -649,11 +644,11 @@ const EditStorePortal = () => {
             </div>
           </PageSectionCard>
           <PageSectionCard secondary>
-            {errorMessage ? (
+            {message ? (
               <MessageBox>
                 <RegularMessage
-                  message={errorMessage.message}
-                  warning={errorMessage.warning}
+                  message={message.message}
+                  warning={message.warning}
                 />
               </MessageBox>
             ) : null}

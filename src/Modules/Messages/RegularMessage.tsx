@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { MessageContainer } from "../../Components/MessageComponents";
 
 interface Props {
@@ -7,8 +7,13 @@ interface Props {
   warning: boolean;
 }
 
-export const MessageBox = styled.div`
+export const MessageBox = styled.div<{ marginTop?: boolean }>`
   margin-bottom: 16px;
+  ${(props) =>
+    props.marginTop &&
+    css`
+      margin-top: 16px;
+    `}
 `;
 
 const RegularMessage = ({ message, warning }: Props) => {

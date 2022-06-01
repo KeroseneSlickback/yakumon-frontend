@@ -13,6 +13,7 @@ import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
 import {
   BackendResponseDataType,
   CreateStoreType,
+  MessageType,
   ReturnStoreType,
   StoreDayHour,
 } from "../../Utilities/types";
@@ -145,6 +146,7 @@ const listHoursArray = [
 const NewStorePortal = () => {
   const [load, setLoad] = useState(true);
   const [formError, setFormError] = useState<string | null>("");
+  const [message, setMessage] = useState<MessageType | null>(null);
   const [formData, setFormData] = useState<CreateStoreType>({
     storeName: "",
     storeType: "",
@@ -214,7 +216,6 @@ const NewStorePortal = () => {
   };
 
   const handleImageUpload = (e: any) => {
-    console.log(e.target.files[0]);
     setImage(e.target.files[0]);
   };
 
@@ -223,6 +224,7 @@ const NewStorePortal = () => {
     const jwt = localStorage.getItem("jwt");
     const imageFormData = new FormData();
     imageFormData.append("picture", image);
+    setMessage(null);
     try {
       axios
         .post<ReturnStoreType>("http://localhost:8888/store", formData, {
@@ -244,12 +246,20 @@ const NewStorePortal = () => {
                 }
               )
               .then((res) => {
-                console.log(res);
+                if (res.status === 200) {
+                  setMessage({
+                    message: "Store Created Successfully",
+                    warning: false,
+                  });
+                }
               });
           }
         });
     } catch (e) {
-      console.log(e);
+      setMessage({
+        message: "An Error has Occured",
+        warning: true,
+      });
     }
   };
 
@@ -443,6 +453,14 @@ const NewStorePortal = () => {
             </div>
           </PageSectionCard>
           <PageSectionCard secondary>
+            {message ? (
+              <MessageBox>
+                <RegularMessage
+                  message={message.message}
+                  warning={message.warning}
+                />
+              </MessageBox>
+            ) : null}
             <ButtonBox centered>
               <ReserveButton register>Create Store</ReserveButton>
             </ButtonBox>

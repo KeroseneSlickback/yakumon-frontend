@@ -15,7 +15,7 @@ import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
 import AuthContext from "../../Utilities/AuthContext";
 import {
   BackendResponseDataType,
-  ErrorMessage,
+  MessageType,
   ModalCloseProp,
   UserRegisterType,
 } from "../../Utilities/types";
@@ -32,7 +32,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
     password: "",
     passwordConfirmation: "",
   });
-  const [errorMessage, setErrorMessage] = useState<ErrorMessage | null>(null);
+  const [message, setMessage] = useState<MessageType | null>(null);
 
   const verifyPassword = (pass1: string, pass2: string) => {
     if (pass1 !== pass2) {
@@ -52,6 +52,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setMessage(null);
     try {
       await verifyPassword(formData.password, formData.passwordConfirmation);
       await axios
@@ -60,7 +61,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
           localStorage.setItem("user", JSON.stringify(response.data.user));
           localStorage.setItem("jwt", response.data.token.split(" ")[1]);
           authContext.login();
-          setErrorMessage((prev) => ({
+          setMessage((prev) => ({
             ...prev,
             message: "Successfully Registered!",
             warning: false,
@@ -72,7 +73,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
     } catch (e: any) {
       if (e.response) {
         if (e.response.data.keyPattern.hasOwnProperty("username")) {
-          setErrorMessage((prev) => ({
+          setMessage((prev) => ({
             ...prev,
             message: "Username taken.",
             warning: true,
@@ -80,13 +81,13 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
         }
       } else if (e instanceof Error) {
         if (e.message === "no match") {
-          setErrorMessage((prev) => ({
+          setMessage((prev) => ({
             ...prev,
             message: "Passwords don't match.",
             warning: true,
           }));
         } else if (e.message === "too short") {
-          setErrorMessage((prev) => ({
+          setMessage((prev) => ({
             ...prev,
             message: "Password too short",
             warning: true,
@@ -185,10 +186,10 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
               onChange={handleFormChange}
             />
           </div>
-          {errorMessage ? (
+          {message ? (
             <RegularMessage
-              message={errorMessage.message}
-              warning={errorMessage.warning}
+              message={message.message}
+              warning={message.warning}
             />
           ) : null}
         </StyledFormBlock>

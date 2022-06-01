@@ -15,7 +15,7 @@ import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
 import AuthContext from "../../Utilities/AuthContext";
 import {
   BackendResponseDataType,
-  ErrorMessage,
+  MessageType,
   ModalCloseProp,
   UserLoginType,
 } from "../../Utilities/types";
@@ -27,7 +27,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
     username: "",
     password: "",
   });
-  const [errorMessage, setErrorMessage] = useState<ErrorMessage | null>(null);
+  const [message, setMessage] = useState<MessageType | null>(null);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
           localStorage.setItem("user", JSON.stringify(response.data.user));
           localStorage.setItem("jwt", response.data.token.split(" ")[1]);
           authContext.login();
-          setErrorMessage((prev) => ({
+          setMessage((prev) => ({
             ...prev,
             message: "Successfully Logged In!",
             warning: false,
@@ -51,7 +51,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
           }, 1000);
         });
     } catch (e: any) {
-      setErrorMessage((prev) => ({
+      setMessage((prev) => ({
         ...prev,
         message: "Please check username or password",
         warning: true,
@@ -95,10 +95,10 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
               onChange={handleFormChange}
             />
           </div>
-          {errorMessage ? (
+          {message ? (
             <RegularMessage
-              message={errorMessage.message}
-              warning={errorMessage.warning}
+              message={message.message}
+              warning={message.warning}
             />
           ) : null}
           <ButtonBox>
