@@ -27,6 +27,7 @@ import {
   ReservationType,
   ReturnUserType,
   ScheduleDateType,
+  StylistAppointmentType,
 } from "../Utilities/types";
 import { ListItem } from "../Components/CheckboxComponents";
 import ScheduleView from "../Modules/Schedule/ScheduleView";
@@ -81,7 +82,7 @@ const Reservation = () => {
     };
     try {
       axios
-        .post<BackendResponseDataType>(
+        .post<StylistAppointmentType>(
           "http://localhost:8888/appointment",
           reservationData,
           {
@@ -90,17 +91,18 @@ const Reservation = () => {
             },
           }
         )
-        .then(() => {
+        .then((res) => {
           setError(false);
           setFormError(null);
           setTimeout(() => {
-            navigate("/confirmation/0");
+            navigate(`/appointmentConfirm/${res.data._id}`);
           }, 500);
         });
     } catch (e: any) {
       console.log(e);
     }
   };
+  console.log(stylist);
 
   const selectService = (id: string) => {
     setReservation((prev) => ({

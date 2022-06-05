@@ -18,6 +18,7 @@ import NotAuthorized from "./Pages/SubPages/NotAuthorized";
 import OwnerEmployeeLogin from "./Pages/SubPages/OwnerEmployeeLogin";
 import NewStorePortal from "./Pages/SubPages/NewStorePortal";
 import EditStorePortal from "./Pages/SubPages/EditStorePortal";
+import AppointmentConfirmation from "./Pages/SubPages/AppointmentConfirmation";
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
           <Route path="reservation/:id" element={<Reservation />} />
           <Route path="datetest" element={<DateTest />} />
           <Route path="confirmation/:id" element={<Confirmation />} />
+          <Route
+            path="appointmentConfirm/:id"
+            element={<AppointmentConfirmation />}
+          />
           <Route path="portal" element={<RearPortal />}>
             <Route index element={<OwnerEmployeeLogin />} />
             <Route

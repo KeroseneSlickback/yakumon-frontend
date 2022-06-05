@@ -63,6 +63,7 @@ const ScheduleView = ({
       day: 3,
     },
   });
+  console.log(store);
 
   useEffect(() => {
     setLoad(true);

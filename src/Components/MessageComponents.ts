@@ -13,7 +13,7 @@ export const MessageContainer = styled.div<{
   ${(props) =>
     props.warning &&
     css`
-      background-color: ${({ theme }) => theme.warning};
+      background-color: ${({ theme }) => theme.warning}
       color: ${({ theme }) => theme.fontColor};
     `};
 

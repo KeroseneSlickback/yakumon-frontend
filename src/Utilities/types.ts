@@ -112,12 +112,6 @@ export interface ScheduleDateType {
   chosen?: boolean;
 }
 
-// export interface ScheduleArrayType {
-//   day: Date;
-//   hours: ScheduleDateType[];
-// }
-
-// new type
 export interface ScheduleArrayType {
   hour: string;
   slots: ScheduleDateType[];
@@ -136,6 +130,8 @@ export interface StylistAppointmentType {
   owner: string;
   service: string;
   timeSlots: timeSlotType[];
+  _id: string;
+  comments: string;
 }
 
 export interface CreateStoreType {

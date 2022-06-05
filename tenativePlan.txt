@@ -4,7 +4,14 @@ Redirects:
 - EditStore => Edited Store
 - Deleted store => refresh page 
 
+Something with the confirmaction message before anything in the form was changed
+
+Add employee to store from Owner section
+
 Parallel axios requests if both edit store and image upload 
 - If/else? 
 
 Test backend store delete route with different user who isn't owner
+
+Confirmation page with appointment infomation
+June 5: Sort through appointment data for needed data, format date, sort names, JSX it, redirect to Home button

@@ -50,12 +50,12 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
     }));
   };
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     setMessage(null);
     try {
-      await verifyPassword(formData.password, formData.passwordConfirmation);
-      await axios
+      verifyPassword(formData.password, formData.passwordConfirmation);
+      axios
         .post<BackendResponseDataType>("http://localhost:8888/user/", formData)
         .then((response) => {
           localStorage.setItem("user", JSON.stringify(response.data.user));
