@@ -1,6 +1,19 @@
 import axios from "axios";
+import { parseJSON } from "date-fns";
+import { format } from "date-fns/esm";
+import { areIntervalsOverlappingWithOptions } from "date-fns/fp";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import {
+  PageSectionCard,
+  SinglePageContainer,
+} from "../../Components/Containers";
+import {
+  ErrorContainer,
+  LoadingIcon,
+  LoadingIconContainer,
+  TopH1,
+} from "../../Components/Page-accessories";
 import { StylistAppointmentType } from "../../Utilities/types";
 
 const AppointmentConfirmation = () => {
@@ -39,8 +52,55 @@ const AppointmentConfirmation = () => {
     }, 300);
     return () => clearTimeout(debounce);
   }, []);
+  console.log(appointment?.employee.firstName);
 
-  return <div>AppointmentConfirmation</div>;
+  return (
+    <SinglePageContainer>
+      {error ? (
+        <ErrorContainer absolute>
+          <h3>There was an error.</h3>
+        </ErrorContainer>
+      ) : load ? (
+        <LoadingIconContainer absolute>
+          <LoadingIcon />
+        </LoadingIconContainer>
+      ) : appointment !== null ? (
+        <PageSectionCard absolute>
+          <PageSectionCard>
+            <TopH1>Your Reservation Details:</TopH1>
+          </PageSectionCard>
+          <PageSectionCard styled>
+            <div>
+              <span>Appointment Date:</span>
+              <span>
+                {format(
+                  parseJSON(appointment?.timeSlots[0].slotDateTime),
+                  "MMMM dd yyyy"
+                )}
+              </span>
+            </div>
+            <div>
+              <span>Appointment Time:</span>
+              <span>
+                {format(
+                  parseJSON(appointment?.timeSlots[0].slotDateTime!),
+                  "k:m"
+                )}
+              </span>
+            </div>
+            <div>
+              <span>With:</span>
+              <span>{appointment.employee}</span>
+            </div>
+            <div>
+              <span>At: </span>
+              <span></span>
+            </div>
+          </PageSectionCard>
+        </PageSectionCard>
+      ) : null}
+    </SinglePageContainer>
+  );
 };
 
 export default AppointmentConfirmation;

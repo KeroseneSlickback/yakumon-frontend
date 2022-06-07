@@ -120,8 +120,8 @@ export interface ScheduleArrayType {
 export interface timeSlotType {
   appointment: string;
   createdAt: Date;
-  employee: string;
-  owner: string;
+  employee: UserType;
+  owner: UserType;
   slotDateTime: Date;
 }
 

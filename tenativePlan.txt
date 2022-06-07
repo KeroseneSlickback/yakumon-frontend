@@ -14,4 +14,4 @@ Parallel axios requests if both edit store and image upload
 Test backend store delete route with different user who isn't owner
 
 Confirmation page with appointment infomation
-June 5: Sort through appointment data for needed data, format date, sort names, JSX it, redirect to Home button
+June 5: Sort through appointment data for needed data, format date, sort names, JSX it, redirect to Home button, loading and error handling
