@@ -15,7 +15,6 @@ import {
   CreateStoreType,
   MessageType,
   ReturnStoreType,
-  StoreDayHour,
 } from "../../Utilities/types";
 import RegularMessage, {
   MessageBox,
@@ -30,6 +29,7 @@ import {
   LoadingIconContainer,
 } from "../../Components/Page-accessories";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const daysArray = [
   "Sunday",
@@ -144,6 +144,7 @@ const listHoursArray = [
 ];
 
 const NewStorePortal = () => {
+  const navigate = useNavigate();
   const [load, setLoad] = useState(true);
   const [formError, setFormError] = useState<string | null>("");
   const [message, setMessage] = useState<MessageType | null>(null);
@@ -236,7 +237,7 @@ const NewStorePortal = () => {
           if (res.status === 201) {
             const storeId = res.data._id;
             axios
-              .patch<BackendResponseDataType>(
+              .patch<ReturnStoreType>(
                 `http://localhost:8888/store/${storeId}/picture`,
                 imageFormData,
                 {
@@ -252,6 +253,9 @@ const NewStorePortal = () => {
                     warning: false,
                   });
                 }
+                setTimeout(() => {
+                  navigate(`/store/${res.data._id}`);
+                }, 2000);
               });
           }
         });

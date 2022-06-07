@@ -126,9 +126,9 @@ export interface timeSlotType {
 }
 
 export interface StylistAppointmentType {
-  employee: string;
-  owner: string;
-  service: string;
+  employee: UserType;
+  owner: UserType;
+  service: ServiceType;
   timeSlots: timeSlotType[];
   _id: string;
   comments: string;

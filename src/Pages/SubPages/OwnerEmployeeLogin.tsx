@@ -71,9 +71,8 @@ const OwnerEmployeeLogin = () => {
                 <MediumButton portal>Employee Portal</MediumButton>
               </Link>
               <p>
-                If you wish to become a store owner, please{" "}
-                <Link to={"/"}> fill out this form</Link> and await to be
-                whitelisted by Yakumon's team.
+                If you wish to become a store owner, please email the admin at
+                admin@yakumon.com and await to be whitelisted by Yakumon's team.
               </p>
             </div>
           </PageSectionCard>
@@ -90,9 +89,8 @@ const OwnerEmployeeLogin = () => {
                 a request to your store's owner.
               </p>
               <p>
-                If you wish to become a store owner, please{" "}
-                <Link to={"/"}> fill out this form</Link> and await to be
-                whitelisted by Yakumon's team.
+                If you wish to become a store owner, please email the admin at
+                admin@yakumon.com and await to be whitelisted by Yakumon's team.
               </p>
             </div>
           </PageSectionCard>

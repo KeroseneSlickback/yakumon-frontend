@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   CloseButton,
   ClosedButtonDiv,
@@ -39,6 +40,7 @@ export const DeleteModal = (props: Props) => {
 };
 
 export const DoubleConfirmDeleteModal = (props: Props) => {
+  const navigate = useNavigate();
   const [message, setMessage] = useState<MessageType | null>(null);
   const handleDelete = () => {
     const jwt = localStorage.getItem("jwt");
@@ -54,18 +56,29 @@ export const DoubleConfirmDeleteModal = (props: Props) => {
           }
         )
         .then((res) => {
-          if (res.status === 201) {
+          console.log(res);
+          if (res.status === 200) {
             setMessage({
               message: "Store Deleted Successfully",
               warning: false,
             });
+            setTimeout(() => {
+              navigate(0);
+            }, 2000);
           }
+        })
+        .catch((e) => {
+          console.log(e);
+          setMessage({
+            message: "An Error has Occured",
+            warning: true,
+          });
+          setTimeout(() => {
+            navigate("/portal");
+          }, 2000);
         });
     } catch (e: any) {
-      setMessage({
-        message: "An Error has Occured",
-        warning: true,
-      });
+      console.log(e);
     }
   };
   return (

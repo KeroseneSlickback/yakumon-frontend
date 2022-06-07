@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 export const MessageContainer = styled.div<{
-  regular?: boolean;
   warning?: boolean;
 }>`
   border-radius: 0.6rem;
@@ -9,11 +8,10 @@ export const MessageContainer = styled.div<{
   background-color: ${({ theme }) => theme.secondaryAlt};
   animation: fadeIn 75ms ease-in both;
 
-  ${(props) => props.regular && css``};
   ${(props) =>
     props.warning &&
     css`
-      background-color: ${({ theme }) => theme.warning}
+      background-color: ${({ theme }) => theme.warning};
       color: ${({ theme }) => theme.fontColor};
     `};
 

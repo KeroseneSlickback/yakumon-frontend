@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import AuthContext from "../../Utilities/AuthContext";
 
@@ -7,8 +7,7 @@ interface Props {
 }
 
 export const RequireOwnerAuth = ({ children }: Props) => {
-  const authContext = useContext(AuthContext);
-  if (!authContext.owner) {
+  if (localStorage.getItem("owner") !== "true") {
     return <Navigate to="/noauth" />;
   }
   return children;

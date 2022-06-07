@@ -51,6 +51,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
           }, 1000);
         });
     } catch (e: any) {
+      console.log(e);
       setMessage((prev) => ({
         ...prev,
         message: "Please check username or password",

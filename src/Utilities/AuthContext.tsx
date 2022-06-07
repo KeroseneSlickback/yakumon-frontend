@@ -46,6 +46,12 @@ export const AuthProvider: React.FC = ({ children }) => {
     const parsedUser: UserType =
       pulledUser !== null ? JSON.parse(pulledUser) : null;
     setUser(parsedUser);
+    if (parsedUser.storeOwner === true) {
+      localStorage.setItem("owner", "true");
+    }
+    if (parsedUser.employee === true) {
+      localStorage.setItem("employee", "true");
+    }
     setOwner(parsedUser.storeOwner);
     setEmployee(parsedUser.employee);
   };

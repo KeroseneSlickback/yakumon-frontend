@@ -17,6 +17,7 @@ export const MessageBox = styled.div<{ marginTop?: boolean }>`
 `;
 
 const RegularMessage = ({ message, warning }: Props) => {
+  console.log(warning);
   if (warning) {
     return <MessageContainer warning>{message}</MessageContainer>;
   } else {

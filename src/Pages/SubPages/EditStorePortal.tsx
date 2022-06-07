@@ -13,11 +13,9 @@ import {
 import { ButtonBox } from "../../Components/ModalComponents";
 import {
   BackendResponseDataType,
-  CreateStoreType,
   EditStoreType,
   MessageType,
   ReturnStoreType,
-  StoreDayHour,
 } from "../../Utilities/types";
 import RegularMessage, {
   MessageBox,
@@ -31,6 +29,7 @@ import {
   StoreInfoContainer,
 } from "../../Components/Containers";
 import {
+  ErrorContainer,
   LoadingIcon,
   LoadingIconContainer,
   StoreHourTable,
@@ -43,7 +42,6 @@ import clock from "../../Utilities/Images/SVGs/clock.svg";
 import phone from "../../Utilities/Images/SVGs/phone.svg";
 import site from "../../Utilities/Images/SVGs/site.svg";
 import StoreHour from "../../Components/StoreHour";
-import AccordionModal from "../../Modules/Modals/AccordionModal";
 
 const daysArray = [
   "Sunday",
@@ -395,7 +393,11 @@ const EditStorePortal = () => {
 
   return (
     <SinglePageContainer>
-      {load ? (
+      {error ? (
+        <ErrorContainer absolute>
+          <h3>There was an error.</h3>
+        </ErrorContainer>
+      ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />
         </LoadingIconContainer>

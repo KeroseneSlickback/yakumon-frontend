@@ -3,7 +3,7 @@ import { parseJSON } from "date-fns";
 import { format } from "date-fns/esm";
 import { areIntervalsOverlappingWithOptions } from "date-fns/fp";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   PageSectionCard,
   SinglePageContainer,
@@ -41,7 +41,6 @@ const AppointmentConfirmation = () => {
             setLoad(false);
             setError(false);
             setAppointment(res.data);
-            console.log(res.data);
           })
           .catch((e) => {
             console.log(e);
@@ -52,7 +51,6 @@ const AppointmentConfirmation = () => {
     }, 300);
     return () => clearTimeout(debounce);
   }, []);
-  console.log(appointment?.employee.firstName);
 
   return (
     <SinglePageContainer>
@@ -67,34 +65,37 @@ const AppointmentConfirmation = () => {
       ) : appointment !== null ? (
         <PageSectionCard absolute>
           <PageSectionCard>
-            <TopH1>Your Reservation Details:</TopH1>
+            <TopH1>Appointment Made Successfully</TopH1>
           </PageSectionCard>
           <PageSectionCard styled>
             <div>
-              <span>Appointment Date:</span>
-              <span>
+              <p>Appointment Date:</p>
+              <h2>
                 {format(
                   parseJSON(appointment?.timeSlots[0].slotDateTime),
                   "MMMM dd yyyy"
                 )}
-              </span>
+              </h2>
             </div>
             <div>
-              <span>Appointment Time:</span>
-              <span>
+              <p>Appointment Time:</p>
+              <h2>
                 {format(
                   parseJSON(appointment?.timeSlots[0].slotDateTime!),
-                  "k:m"
+                  "k:m b"
                 )}
-              </span>
+              </h2>
             </div>
             <div>
-              <span>With:</span>
-              <span>{appointment.employee}</span>
+              <p>With:</p>
+              <h2>
+                {appointment.employee.firstName} {appointment.employee.lastName}
+              </h2>
             </div>
             <div>
-              <span>At: </span>
-              <span></span>
+              <Link to={`/store/${appointment.employee.store}`}>
+                <p>View Store Details</p>
+              </Link>
             </div>
           </PageSectionCard>
         </PageSectionCard>
