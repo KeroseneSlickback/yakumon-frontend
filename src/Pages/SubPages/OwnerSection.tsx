@@ -173,7 +173,10 @@ const OwnerSection = () => {
                         </div>
                       </span>
                     </StoreInfoContainer>
-                    <AccordionModal buttonMessage="View Employees">
+                    <AccordionModal
+                      buttonMessage="View Employees"
+                      storeID={store._id}
+                    >
                       {store.employees.map((employee, index) => {
                         return (
                           <div key={index}>

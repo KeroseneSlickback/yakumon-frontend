@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ReserveButton } from "../../Components/Buttons";
 import {
   FormH1,
@@ -158,6 +158,7 @@ const listHoursArray = [
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
 const EditStorePortal = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [store, setStore] = useState<ReturnStoreType | null>(null);
   const [storeImg, setStoreImg] = useState<string>("");
@@ -356,7 +357,6 @@ const EditStorePortal = () => {
 
     try {
       if (objectEvaluation || hourEvaluation) {
-        console.log("good object or good hours");
         axios.patch<ReturnStoreType>(
           `http://localhost:8888/store/${id}`,
           returnObject,
@@ -368,7 +368,6 @@ const EditStorePortal = () => {
         );
       }
       if (imageInputted) {
-        console.log("image uploaded");
         axios.patch<BackendResponseDataType>(
           `http://localhost:8888/store/${id}/picture`,
           imageFormData,
@@ -383,6 +382,9 @@ const EditStorePortal = () => {
         message: "Store Updated Successfully",
         warning: false,
       });
+      setTimeout(() => {
+        navigate(`/store/${id}`);
+      }, 2000);
     } catch (e) {
       setMessage({
         message: "An Error has Occured",

@@ -1,12 +1,6 @@
 
-Redirects:
-- NewStore => New Store 
-- EditStore => Edited Store
-- Deleted store => refresh page 
-
-Something with the confirmaction message before anything in the form was changed
-
 Add employee to store from Owner section
+Delete Employee from their listing, small X and modal
 
 Parallel axios requests if both edit store and image upload 
 - If/else? 
@@ -14,7 +8,11 @@ Parallel axios requests if both edit store and image upload
 Test backend store delete route with different user who isn't owner
 
 June 7th: 
-- Login not working?
-Select was the issue, now need to do .populate('user', '-password') for all routes that pull user infomation that's not directly authenticated by that user 
 - Start Employee page section 
+- Add button for employee to see their ID
 - Create Services
+
+- Login/Register on Employee/Owner section
+
+Better Axios error catching
+Move buttons and messages within formblocks?

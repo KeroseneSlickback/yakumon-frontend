@@ -63,7 +63,7 @@ export const DoubleConfirmDeleteModal = (props: Props) => {
               warning: false,
             });
             setTimeout(() => {
-              navigate(0);
+              navigate("/");
             }, 2000);
           }
         })
@@ -74,7 +74,7 @@ export const DoubleConfirmDeleteModal = (props: Props) => {
             warning: true,
           });
           setTimeout(() => {
-            navigate("/portal");
+            navigate("/");
           }, 2000);
         });
     } catch (e: any) {
