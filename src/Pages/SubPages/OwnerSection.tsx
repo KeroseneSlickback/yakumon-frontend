@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   CenterButtonDiv,
   EditDeleteButtonDiv,
-  MediumButton,
+  EmptyButton,
   SmallButton,
   StyledLinkButton,
 } from "../../Components/Buttons";
@@ -36,8 +36,15 @@ import {
   DeleteModal,
   DoubleConfirmDeleteModal,
 } from "../../Modules/Modals/DeleteModals";
+import close from "../../Utilities/Images/SVGs/close.svg";
+import RemoveEmployeeModal from "../../Modules/Modals/RemoveEmployeeModal";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+
+interface RemoveEmployeeProps {
+  storeId: string;
+  employeeId: string;
+}
 
 const OwnerSection = () => {
   const authContext = useContext(AuthContext);
@@ -47,6 +54,8 @@ const OwnerSection = () => {
   const [error, setError] = useState<boolean>(false);
   const [storeToDelete, setStoreToDelete] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
+  const [removeEmployee, setRemoveEmployee] =
+    useState<RemoveEmployeeProps | null>(null);
 
   useEffect(() => {
     setLoad(true);
@@ -83,6 +92,7 @@ const OwnerSection = () => {
   const closeModal = () => {
     setStoreToDelete(null);
     setConfirmDelete(false);
+    setRemoveEmployee(null);
   };
 
   const toggleConfirm = () => {
@@ -91,6 +101,10 @@ const OwnerSection = () => {
 
   const deleteStore = (storeId: string) => {
     setStoreToDelete(storeId);
+  };
+
+  const toggleRemoveEmployee = (employeeId: string, storeId: string) => {
+    setRemoveEmployee({ storeId, employeeId });
   };
 
   return (
@@ -183,6 +197,13 @@ const OwnerSection = () => {
                             <Link to={`/reservation/${employee._id}`}>
                               {employee.firstName} {employee.lastName}
                             </Link>
+                            <EmptyButton
+                              onClick={() =>
+                                toggleRemoveEmployee(employee._id, store._id)
+                              }
+                            >
+                              <img src={close} alt="remove employee" />
+                            </EmptyButton>
                           </div>
                         );
                       })}
@@ -214,7 +235,7 @@ const OwnerSection = () => {
           </PageSectionCard>
         </>
       )}
-      {storeToDelete || confirmDelete ? (
+      {storeToDelete || confirmDelete || removeEmployee ? (
         <BackDrop onClick={closeModal} />
       ) : null}
       {storeToDelete && !confirmDelete ? (
@@ -234,6 +255,13 @@ const OwnerSection = () => {
           title="Confirm Store Delete"
           subTitle="Are you sure that you want to delete this store?"
           toggleConfirm={toggleConfirm}
+          closeModal={closeModal}
+        />
+      ) : null}
+      {removeEmployee ? (
+        <RemoveEmployeeModal
+          employeeId={removeEmployee.employeeId}
+          storeId={removeEmployee.storeId}
           closeModal={closeModal}
         />
       ) : null}

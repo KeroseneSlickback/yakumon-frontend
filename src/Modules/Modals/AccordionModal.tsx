@@ -24,9 +24,8 @@ export const AccordionButton = styled.button`
 `;
 
 export const AccordionDiv = styled.div<{ height?: any }>`
-  padding: 4px 18px 18px 18px;
+  padding: 0px 18px;
   background-color: ${({ theme }) => theme.alternativeAlt};
-  height: 0;
   overflow: hidden;
   transition: height ease 0.2s;
   height: ${({ height }) => height}px;
@@ -34,6 +33,12 @@ export const AccordionDiv = styled.div<{ height?: any }>`
 
   div {
     margin: 16px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    button {
+      margin-left: 2px;
+    }
   }
 `;
 
@@ -63,7 +68,9 @@ const AccordionModal = (props: AccordionProps) => {
       </AccordionButton>
       <AccordionDiv ref={contentEL} height={height}>
         {props.children}
-        <SmallButton onClick={toggleModal}>Add Employee</SmallButton>
+        <SmallButton onClick={toggleModal} bottomPadding>
+          Add Employee
+        </SmallButton>
       </AccordionDiv>
       {addEmployee ? <BackDrop onClick={toggleModal} /> : null}
       {addEmployee ? (

@@ -8,6 +8,7 @@ export const TinyButton = styled.button<{
   portal?: boolean;
   warning?: boolean;
   nonConstraint?: boolean;
+  bottomPadding?: boolean;
 }>`
   color: ${({ theme }) => theme.fontColor};
   border: none;
@@ -67,6 +68,12 @@ export const TinyButton = styled.button<{
     props.nonConstraint &&
     css`
       align-self: center;
+    `}
+
+    ${(props) =>
+    props.bottomPadding &&
+    css`
+      margin-bottom: 12px;
     `}
 `;
 
@@ -196,4 +203,11 @@ export const EditDeleteButtonDiv = styled.div`
   justify-content: flex-end;
   gap: 10px;
   margin: 12px 0 4px 0;
+`;
+
+export const EmptyButton = styled.button`
+  border: none;
+  cursor: pointer;
+  background-color: inherit;
+  text-decoration: none;
 `;

@@ -16,3 +16,6 @@ June 7th:
 
 Better Axios error catching
 Move buttons and messages within formblocks?
+
+June 8th:
+- Remove Employee
