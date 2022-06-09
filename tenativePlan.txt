@@ -1,14 +1,21 @@
-Parallel axios requests if both edit store and image upload 
-- If/else? 
+June 9th:
 
-Test backend store delete route with different user who isn't owner
+- Better authentication from react-router-dom v6 to better support refreshing
 
-June 7th: 
-- Start Employee page section 
-- Add button for employee to see their ID
-- Create Services
+- Fix axios calls
+-- Instead of try/catch, just use then/catch calls 
+-- What to do about the double calls? Parallel? New store and Edit store pages.
+-- Better error catching with Axios 
 
-- Login/Register on Employee/Owner section
+- Create Register/Login section for Owner/Employee area
 
-Better Axios error catching
-Move buttons and messages within formblocks?
+- Start Employee section 
+-- Add patch area for employee to add/alter their infomation -- Both upon being accepted and later when wanting to edit, dual purpose
+-- Add modal to create/remove services
+-- Add modal for Employees to see their ID to offer to owners 
+-- Accordian view of their services 
+-- Intergrate the employee's schedule
+--- Adjust logic to support adding appointment ID to taken slot
+-- Create modal to view appointment data 
+--- Edit time of appointment, or delete 
+-- Create new appointment directly? 

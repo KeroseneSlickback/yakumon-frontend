@@ -7,6 +7,7 @@ export const StyledForm = styled.form`
 
 export const StyledFormBlock = styled.div<{
   sideBySide?: boolean;
+  nonDivMargin?: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -18,6 +19,14 @@ export const StyledFormBlock = styled.div<{
       font-size: 0.7rem;
     }
   }
+
+  ${(props) =>
+    props.nonDivMargin &&
+    css`
+      div {
+        margin: 0px 0px 4px 0px;
+      }
+    `}
 
   ${(props) =>
     props.sideBySide &&

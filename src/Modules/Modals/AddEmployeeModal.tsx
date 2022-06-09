@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   CloseButton,
   ClosedButtonDiv,
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const AddEmployeeModal = (props: Props) => {
+  const navigate = useNavigate();
   const [employee, setEmployee] = useState<string>("");
   const [message, setMessage] = useState<MessageType | null>(null);
 
@@ -56,6 +58,7 @@ const AddEmployeeModal = (props: Props) => {
         }));
         setTimeout(() => {
           props.toggleModal();
+          navigate(0);
         }, 2000);
       })
       .catch((e) => {
@@ -72,7 +75,7 @@ const AddEmployeeModal = (props: Props) => {
       <h3>Add Employee</h3>
       <h4>Please enter the employee's ID.</h4>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledFormBlock>
+        <StyledFormBlock nonDivMargin>
           <div>
             <StyledLabel>Employee ID:</StyledLabel>
             <StyledTextInput

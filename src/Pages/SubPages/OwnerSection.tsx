@@ -58,13 +58,12 @@ const OwnerSection = () => {
     useState<RemoveEmployeeProps | null>(null);
 
   useEffect(() => {
+    const owner = JSON.parse(localStorage.getItem("user") as string);
     setLoad(true);
     const debounce = setTimeout(() => {
       const getData = async () => {
         await axios
-          .get<ReturnUserType>(
-            `http://localhost:8888/user/${authContext.user?._id}`
-          )
+          .get<ReturnUserType>(`http://localhost:8888/user/${owner?._id}`)
           .then((response) => {
             setLoad(false);
             setError(false);

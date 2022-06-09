@@ -63,7 +63,7 @@ export const DoubleConfirmDeleteModal = (props: Props) => {
               warning: false,
             });
             setTimeout(() => {
-              navigate("/");
+              navigate(0);
             }, 2000);
           }
         })

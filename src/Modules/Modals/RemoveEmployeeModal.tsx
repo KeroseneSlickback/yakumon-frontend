@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   CloseButton,
   ClosedButtonDiv,
@@ -16,6 +17,7 @@ type Props = {
 };
 
 const RemoveEmployeeModal = (props: Props) => {
+  const navigate = useNavigate();
   const [message, setMessage] = useState<MessageType | null>(null);
 
   const handleRemoval = (e: React.SyntheticEvent) => {
@@ -46,6 +48,7 @@ const RemoveEmployeeModal = (props: Props) => {
         }));
         setTimeout(() => {
           props.closeModal();
+          navigate(0);
         }, 2000);
       })
       .catch((e) => {

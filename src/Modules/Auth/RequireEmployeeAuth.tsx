@@ -7,8 +7,7 @@ interface Props {
 }
 
 export const RequireEmployeeAuth = ({ children }: Props) => {
-  const authContext = useContext(AuthContext);
-  if (!authContext.employee) {
+  if (localStorage.getItem("employee") !== "true") {
     return <Navigate to="/noauth" />;
   }
   return children;
