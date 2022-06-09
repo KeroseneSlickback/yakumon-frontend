@@ -1,7 +1,3 @@
-
-Add employee to store from Owner section
-Delete Employee from their listing, small X and modal
-
 Parallel axios requests if both edit store and image upload 
 - If/else? 
 
@@ -16,6 +12,3 @@ June 7th:
 
 Better Axios error catching
 Move buttons and messages within formblocks?
-
-June 8th:
-- Remove Employee

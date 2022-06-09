@@ -13,7 +13,7 @@ import {
 } from "../../Components/FormComponents";
 import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
 import { BackendResponseDataType, MessageType } from "../../Utilities/types";
-import RegularMessage from "../Messages/RegularMessage";
+import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
 interface Props {
   toggleModal(): void;
@@ -56,7 +56,7 @@ const AddEmployeeModal = (props: Props) => {
         }));
         setTimeout(() => {
           props.toggleModal();
-        }, 1000);
+        }, 2000);
       })
       .catch((e) => {
         console.log(e);
@@ -85,10 +85,12 @@ const AddEmployeeModal = (props: Props) => {
             ></StyledTextInput>
           </div>
           {message ? (
-            <RegularMessage
-              message={message.message}
-              warning={message.warning}
-            />
+            <MessageBox>
+              <RegularMessage
+                message={message.message}
+                warning={message.warning}
+              />
+            </MessageBox>
           ) : null}
           <ButtonBox>
             <MediumButton register>Add Employee</MediumButton>

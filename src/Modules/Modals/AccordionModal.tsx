@@ -32,7 +32,7 @@ export const AccordionDiv = styled.div<{ height?: any }>`
   border-radius: 0.4rem;
 
   div {
-    margin: 16px 0;
+    margin: 16px 0 4px 0;
     display: flex;
     flex-direction: row;
     align-items: center;

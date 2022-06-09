@@ -73,7 +73,7 @@ export const TinyButton = styled.button<{
     ${(props) =>
     props.bottomPadding &&
     css`
-      margin-bottom: 12px;
+      margin: 12px 0 12px 0;
     `}
 `;
 
