@@ -1,7 +1,6 @@
 import axios from "axios";
 import { parseJSON } from "date-fns";
 import { format } from "date-fns/esm";
-import { areIntervalsOverlappingWithOptions } from "date-fns/fp";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -82,7 +81,7 @@ const AppointmentConfirmation = () => {
               <h2>
                 {format(
                   parseJSON(appointment?.timeSlots[0].slotDateTime!),
-                  "k:m b"
+                  "h:mm b"
                 )}
               </h2>
             </div>
