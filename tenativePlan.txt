@@ -1,9 +1,4 @@
 
-- Fix axios calls
--- Instead of try/catch, just use then/catch calls 
--- What to do about the double calls? Parallel? New store and Edit store pages.
--- Better error catching with Axios 
-
 - LogoutModal
 
 - Create Register/Login section for Owner/Employee area
