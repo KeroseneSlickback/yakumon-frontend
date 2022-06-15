@@ -226,45 +226,45 @@ const NewStorePortal = () => {
     const imageFormData = new FormData();
     imageFormData.append("picture", image);
     setMessage(null);
-    try {
-      axios
-        .post<ReturnStoreType>("http://localhost:8888/store", formData, {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        })
-        .then((res) => {
-          if (res.status === 201) {
-            const storeId = res.data._id;
-            axios
-              .patch<ReturnStoreType>(
-                `http://localhost:8888/store/${storeId}/picture`,
-                imageFormData,
-                {
-                  headers: {
-                    Authorization: `Bearer ${jwt}`,
-                  },
-                }
-              )
-              .then((res) => {
-                if (res.status === 200) {
-                  setMessage({
-                    message: "Store Created Successfully",
-                    warning: false,
-                  });
-                }
-                setTimeout(() => {
-                  navigate(`/store/${res.data._id}`);
-                }, 2000);
+    axios
+      .post<ReturnStoreType>("http://localhost:8888/store", formData, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          const storeId = res.data._id;
+          axios
+            .patch<ReturnStoreType>(
+              `http://localhost:8888/store/${storeId}/picture`,
+              imageFormData,
+              {
+                headers: {
+                  Authorization: `Bearer ${jwt}`,
+                },
+              }
+            )
+            .then((res) => {
+              if (res.status === 200) {
+                setMessage({
+                  message: "Store Created Successfully",
+                  warning: false,
+                });
+              }
+              setTimeout(() => {
+                navigate(`/store/${res.data._id}`);
+              }, 2000);
+            })
+            .catch((e) => {
+              console.log(e);
+              setMessage({
+                message: "An Error has Occured",
+                warning: true,
               });
-          }
-        });
-    } catch (e) {
-      setMessage({
-        message: "An Error has Occured",
-        warning: true,
+            });
+        }
       });
-    }
   };
 
   return (

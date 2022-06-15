@@ -13,21 +13,25 @@ import {
   LoadingIconContainer,
   TopH1,
 } from "../../Components/Page-accessories";
-import { StylistAppointmentType } from "../../Utilities/types";
+import RegularMessage, {
+  MessageBox,
+} from "../../Modules/Messages/RegularMessage";
+import { MessageType, StylistAppointmentType } from "../../Utilities/types";
 
 const AppointmentConfirmation = () => {
   const { id } = useParams();
   const [load, setLoad] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<MessageType | null>(null);
   const [appointment, setAppointment] = useState<StylistAppointmentType | null>(
     null
   );
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
+    setError(null);
     const debounce = setTimeout(() => {
-      const getData = async () => {
-        await axios
+      const getData = () => {
+        axios
           .get<StylistAppointmentType>(
             `http://localhost:8888/appointment/${id}`,
             {
@@ -38,12 +42,14 @@ const AppointmentConfirmation = () => {
           )
           .then((res) => {
             setLoad(false);
-            setError(false);
             setAppointment(res.data);
           })
           .catch((e) => {
             console.log(e);
-            setError(true);
+            setError({
+              message: "Cannot find appoinment at this time",
+              warning: true,
+            });
           });
       };
       getData();
@@ -54,9 +60,9 @@ const AppointmentConfirmation = () => {
   return (
     <SinglePageContainer>
       {error ? (
-        <ErrorContainer absolute>
-          <h3>There was an error.</h3>
-        </ErrorContainer>
+        <MessageBox absolute>
+          <RegularMessage message={error.message} warning={error.warning} />
+        </MessageBox>
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />

@@ -19,7 +19,7 @@ import {
   ModalCloseProp,
   UserRegisterType,
 } from "../../Utilities/types";
-import RegularMessage from "../Messages/RegularMessage";
+import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
 const RegisterModal = ({ closeModal }: ModalCloseProp) => {
   const authContext = useContext(AuthContext);
@@ -61,11 +61,10 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
           localStorage.setItem("user", JSON.stringify(response.data.user));
           localStorage.setItem("jwt", response.data.token.split(" ")[1]);
           authContext.login();
-          setMessage((prev) => ({
-            ...prev,
+          setMessage({
             message: "Successfully Registered!",
             warning: false,
-          }));
+          });
           setTimeout(() => {
             closeModal();
           }, 1000);
@@ -73,25 +72,22 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
     } catch (e: any) {
       if (e.response) {
         if (e.response.data.keyPattern.hasOwnProperty("username")) {
-          setMessage((prev) => ({
-            ...prev,
+          setMessage({
             message: "Username taken.",
             warning: true,
-          }));
+          });
         }
       } else if (e instanceof Error) {
         if (e.message === "no match") {
-          setMessage((prev) => ({
-            ...prev,
+          setMessage({
             message: "Passwords don't match.",
             warning: true,
-          }));
+          });
         } else if (e.message === "too short") {
-          setMessage((prev) => ({
-            ...prev,
+          setMessage({
             message: "Password too short",
             warning: true,
-          }));
+          });
         }
       }
     }
@@ -187,10 +183,12 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
             />
           </div>
           {message ? (
-            <RegularMessage
-              message={message.message}
-              warning={message.warning}
-            />
+            <MessageBox>
+              <RegularMessage
+                message={message.message}
+                warning={message.warning}
+              />
+            </MessageBox>
           ) : null}
         </StyledFormBlock>
         <ButtonBox>

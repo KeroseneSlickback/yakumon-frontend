@@ -12,7 +12,7 @@ export const TopH1 = styled.h1<{ storePage?: boolean }>`
   ${(props) =>
     props.storePage &&
     css`
-      margin-bottom: 16px;
+      margin: 4px 18px 18px 18px;
     `}
 `;
 

@@ -8,12 +8,12 @@ import {
   SelectContainerDiv,
 } from "../Components/Containers";
 import {
-  ErrorContainer,
   TopH1,
   LoadingIcon,
   LoadingIconContainer,
   ShowcaseImg,
 } from "../Components/Page-accessories";
+import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
 import { MessageType, ReturnStoreType } from "../Utilities/types";
 
@@ -25,9 +25,10 @@ const Home = () => {
   const [error, setError] = useState<MessageType | null>(null);
   useEffect(() => {
     setLoad(true);
+    setError(null);
     const debounce = setTimeout(() => {
-      const getData = async () => {
-        await axios
+      const getData = () => {
+        axios
           .get<ReturnStoreType[]>("http://localhost:8888/store")
           .then((response) => {
             response.data.forEach((store) => {
@@ -37,15 +38,13 @@ const Home = () => {
             });
             setFetchedStores(response.data);
             setLoad(false);
-            setError(null);
           })
           .catch((e) => {
             console.log(e);
-            setError((prev) => ({
-              ...prev,
-              message: "Cannot find stores.",
+            setError({
+              message: "Error: Cannot find stores.",
               warning: true,
-            }));
+            });
           });
       };
       getData();
@@ -61,9 +60,9 @@ const Home = () => {
         <h2>Select a Store to Start a Reservation</h2>
         <ShowcaseGrid>
           {error ? (
-            <ErrorContainer>
-              <h3>There was an error.</h3>
-            </ErrorContainer>
+            <MessageBox>
+              <RegularMessage message={error.message} warning={error.warning} />
+            </MessageBox>
           ) : load ? (
             <LoadingIconContainer>
               <LoadingIcon />

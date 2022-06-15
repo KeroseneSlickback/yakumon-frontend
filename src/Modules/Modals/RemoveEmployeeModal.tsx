@@ -22,6 +22,7 @@ const RemoveEmployeeModal = (props: Props) => {
 
   const handleRemoval = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setMessage(null);
     const jwt = localStorage.getItem("jwt");
     const formData = {
       employee: props.employeeId,
@@ -41,11 +42,10 @@ const RemoveEmployeeModal = (props: Props) => {
       )
       .then((res) => {
         console.log(res);
-        setMessage((prev) => ({
-          ...prev,
+        setMessage({
           message: "Successfully removed employee",
           warning: false,
-        }));
+        });
         setTimeout(() => {
           props.closeModal();
           navigate(0);
@@ -53,11 +53,10 @@ const RemoveEmployeeModal = (props: Props) => {
       })
       .catch((e) => {
         console.log(e);
-        setMessage((prev) => ({
-          ...prev,
+        setMessage({
           message: "An Error has Occurred",
           warning: true,
-        }));
+        });
       });
   };
 

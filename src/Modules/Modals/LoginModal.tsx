@@ -19,7 +19,7 @@ import {
   ModalCloseProp,
   UserLoginType,
 } from "../../Utilities/types";
-import RegularMessage from "../Messages/RegularMessage";
+import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
 const LoginModal = ({ closeModal }: ModalCloseProp) => {
   const authContext = useContext(AuthContext);
@@ -29,35 +29,33 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
   });
   const [message, setMessage] = useState<MessageType | null>(null);
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    try {
-      await axios
-        .post<BackendResponseDataType>(
-          "http://localhost:8888/user/login",
-          formData
-        )
-        .then((response) => {
-          localStorage.setItem("user", JSON.stringify(response.data.user));
-          localStorage.setItem("jwt", response.data.token.split(" ")[1]);
-          authContext.login();
-          setMessage((prev) => ({
-            ...prev,
-            message: "Successfully Logged In!",
-            warning: false,
-          }));
-          setTimeout(() => {
-            closeModal();
-          }, 1000);
+    setMessage(null);
+    axios
+      .post<BackendResponseDataType>(
+        "http://localhost:8888/user/login",
+        formData
+      )
+      .then((response) => {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        localStorage.setItem("jwt", response.data.token.split(" ")[1]);
+        authContext.login();
+        setMessage({
+          message: "Successfully Logged In!",
+          warning: false,
         });
-    } catch (e: any) {
-      console.log(e);
-      setMessage((prev) => ({
-        ...prev,
-        message: "Please check username or password",
-        warning: true,
-      }));
-    }
+        setTimeout(() => {
+          closeModal();
+        }, 1000);
+      })
+      .catch((e) => {
+        console.log(e);
+        setMessage({
+          message: "Please check username or password",
+          warning: true,
+        });
+      });
   };
 
   const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -97,10 +95,12 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
             />
           </div>
           {message ? (
-            <RegularMessage
-              message={message.message}
-              warning={message.warning}
-            />
+            <MessageBox>
+              <RegularMessage
+                message={message.message}
+                warning={message.warning}
+              />
+            </MessageBox>
           ) : null}
           <ButtonBox>
             <MediumButton register>Login</MediumButton>

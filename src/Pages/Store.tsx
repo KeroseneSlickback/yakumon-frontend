@@ -22,11 +22,12 @@ import clock from "../Utilities/Images/SVGs/clock.svg";
 import phone from "../Utilities/Images/SVGs/phone.svg";
 import site from "../Utilities/Images/SVGs/site.svg";
 import { useState, useEffect } from "react";
-import { ReturnStoreType } from "../Utilities/types";
+import { MessageType, ReturnStoreType } from "../Utilities/types";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import StoreHour from "../Components/StoreHour";
 import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
+import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -34,7 +35,7 @@ const Store = () => {
   const { id } = useParams();
   const [store, setStore] = useState<ReturnStoreType | null>(null);
   const [load, setLoad] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<MessageType | null>(null);
   const [storeImg, setStoreImg] = useState<string>("");
   // const [storeDays, setStoreDays] = useState<string[]>([]);
 
@@ -42,13 +43,13 @@ const Store = () => {
 
   useEffect(() => {
     setLoad(true);
+    setError(null);
     const debounce = setTimeout(() => {
-      const getData = async () => {
-        await axios
+      const getData = () => {
+        axios
           .get<ReturnStoreType>(`http://localhost:8888/store/${id}`)
           .then((response) => {
             setLoad(false);
-            setError(false);
             setStore(response.data);
             if (response.data.picture) {
               setStoreImg(response.data.picture.toString("base64"));
@@ -56,7 +57,10 @@ const Store = () => {
           })
           .catch((e) => {
             console.log(e);
-            setError(true);
+            setError({
+              message: "Error: Cannot find store.",
+              warning: true,
+            });
           });
       };
       getData();
@@ -67,9 +71,9 @@ const Store = () => {
   return (
     <SinglePageContainer>
       {error ? (
-        <ErrorContainer absolute>
-          <h3>There was an error.</h3>
-        </ErrorContainer>
+        <MessageBox absolute>
+          <RegularMessage message={error.message} warning={error.warning} />
+        </MessageBox>
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />

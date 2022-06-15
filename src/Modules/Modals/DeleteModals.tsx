@@ -45,41 +45,34 @@ export const DoubleConfirmDeleteModal = (props: Props) => {
   const handleDelete = () => {
     const jwt = localStorage.getItem("jwt");
     setMessage(null);
-    try {
-      axios
-        .delete<BackendResponseDataType>(
-          `http://localhost:8888/${props.type}/${props.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            setMessage({
-              message: "Store Deleted Successfully",
-              warning: false,
-            });
-            setTimeout(() => {
-              navigate(0);
-            }, 2000);
-          }
-        })
-        .catch((e) => {
-          console.log(e);
+    axios
+      .delete<BackendResponseDataType>(
+        `http://localhost:8888/${props.type}/${props.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
           setMessage({
-            message: "An Error has Occured",
-            warning: true,
+            message: "Store Deleted Successfully",
+            warning: false,
           });
           setTimeout(() => {
-            navigate("/");
+            navigate(0);
           }, 2000);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        setMessage({
+          message: "An Error has Occured",
+          warning: true,
         });
-    } catch (e: any) {
-      console.log(e);
-    }
+      });
   };
   return (
     <ModalContainer>

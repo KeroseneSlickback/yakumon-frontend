@@ -23,7 +23,7 @@ import {
   TopH1,
 } from "../../Components/Page-accessories";
 import AuthContext from "../../Utilities/AuthContext";
-import { ReturnUserType } from "../../Utilities/types";
+import { MessageType, ReturnUserType } from "../../Utilities/types";
 import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg";
 import location from "../../Utilities/Images/SVGs/location.svg";
 import clock from "../../Utilities/Images/SVGs/clock.svg";
@@ -38,6 +38,9 @@ import {
 } from "../../Modules/Modals/DeleteModals";
 import close from "../../Utilities/Images/SVGs/close.svg";
 import RemoveEmployeeModal from "../../Modules/Modals/RemoveEmployeeModal";
+import RegularMessage, {
+  MessageBox,
+} from "../../Modules/Messages/RegularMessage";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -51,7 +54,7 @@ const OwnerSection = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<ReturnUserType | null>(null);
   const [load, setLoad] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<MessageType | null>(null);
   const [storeToDelete, setStoreToDelete] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const [removeEmployee, setRemoveEmployee] =
@@ -60,13 +63,13 @@ const OwnerSection = () => {
   useEffect(() => {
     const owner = JSON.parse(localStorage.getItem("user") as string);
     setLoad(true);
+    setError(null);
     const debounce = setTimeout(() => {
-      const getData = async () => {
-        await axios
+      const getData = () => {
+        axios
           .get<ReturnUserType>(`http://localhost:8888/user/${owner?._id}`)
           .then((response) => {
             setLoad(false);
-            setError(false);
             response.data.ownedStores?.forEach((store) => {
               if (store.picture) {
                 store.picture.toString("base64");
@@ -76,7 +79,10 @@ const OwnerSection = () => {
           })
           .catch((e) => {
             console.log(e);
-            setError(true);
+            setError({
+              message: "Could not find user profile",
+              warning: true,
+            });
           });
       };
       getData();
@@ -109,9 +115,9 @@ const OwnerSection = () => {
   return (
     <SinglePageContainer>
       {error ? (
-        <ErrorContainer absolute>
-          <h3>There was an error.</h3>
-        </ErrorContainer>
+        <MessageBox absolute>
+          <RegularMessage message={error.message} warning={error.warning} />
+        </MessageBox>
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />

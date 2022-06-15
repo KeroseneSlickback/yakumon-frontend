@@ -1,15 +1,10 @@
-June 9th:
-
-- Date.fns dates on confirmation page odd? Double digits?
-- Removal of employee removes their store ID? Do I need a array of stores they're under?
-- Remove employee from store array 
-
-- Better authentication from react-router-dom v6 to better support refreshing
 
 - Fix axios calls
 -- Instead of try/catch, just use then/catch calls 
 -- What to do about the double calls? Parallel? New store and Edit store pages.
 -- Better error catching with Axios 
+
+- LogoutModal
 
 - Create Register/Login section for Owner/Employee area
 

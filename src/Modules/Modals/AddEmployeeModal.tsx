@@ -32,6 +32,7 @@ const AddEmployeeModal = (props: Props) => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setMessage(null);
     const jwt = localStorage.getItem("jwt");
     const formData = {
       employee,
@@ -51,11 +52,10 @@ const AddEmployeeModal = (props: Props) => {
       )
       .then((res) => {
         console.log(res);
-        setMessage((prev) => ({
-          ...prev,
+        setMessage({
           message: "Successfully added employee",
           warning: false,
-        }));
+        });
         setTimeout(() => {
           props.toggleModal();
           navigate(0);
@@ -63,11 +63,10 @@ const AddEmployeeModal = (props: Props) => {
       })
       .catch((e) => {
         console.log(e);
-        setMessage((prev) => ({
-          ...prev,
+        setMessage({
           message: "An Error has Occurred",
           warning: true,
-        }));
+        });
       });
   };
   return (

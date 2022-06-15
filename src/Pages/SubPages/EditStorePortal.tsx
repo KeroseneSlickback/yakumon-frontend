@@ -163,7 +163,7 @@ const EditStorePortal = () => {
   const [store, setStore] = useState<ReturnStoreType | null>(null);
   const [storeImg, setStoreImg] = useState<string>("");
   const [load, setLoad] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<MessageType | null>(null);
   const [message, setMessage] = useState<MessageType | null>(null);
   const [formError, setFormError] = useState<string | null>("");
   const [formData, setFormData] = useState<EditStoreType>({
@@ -189,13 +189,13 @@ const EditStorePortal = () => {
 
   useEffect(() => {
     setLoad(true);
+    setError(null);
     const debounce = setTimeout(() => {
-      const getData = async () => {
-        await axios
+      const getData = () => {
+        axios
           .get<ReturnStoreType>(`http://localhost:8888/store/${id}`)
           .then((response) => {
             setLoad(false);
-            setError(false);
             setStore(response.data);
             if (response.data.picture) {
               setStoreImg(response.data.picture.toString("base64"));
@@ -203,7 +203,10 @@ const EditStorePortal = () => {
           })
           .catch((e) => {
             console.log(e);
-            setError(true);
+            setError({
+              message: "Could not find store",
+              warning: true,
+            });
           });
       };
       getData();

@@ -9,7 +9,6 @@ import {
 } from "../Components/FormComponents";
 import { ButtonBox } from "../Components/ModalComponents";
 import {
-  ErrorContainer,
   LoadingIcon,
   LoadingIconContainer,
   RegisterLoginDiv,
@@ -23,7 +22,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
-  BackendResponseDataType,
+  MessageType,
   ReservationType,
   ReturnUserType,
   ScheduleDateType,
@@ -40,8 +39,8 @@ const Reservation = () => {
   const [stylist, setStylist] = useState<ReturnUserType | null>(null);
   const [stylistImg, setStylistImg] = useState<string>("");
   const [load, setLoad] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [error, setError] = useState<MessageType | null>(null);
+  const [formError, setFormError] = useState<MessageType | null>(null);
   const [viewRegister, setViewRegister] = useState(false);
   const [viewLogin, setViewLogin] = useState(false);
   const [reservation, setReservation] = useState<ReservationType>({
@@ -65,13 +64,23 @@ const Reservation = () => {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setFormError(null);
     if (!reservation.slotDateTime || !reservation.service) {
-      setFormError("Please Select a Service and Time");
+      setFormError((prev) => ({
+        ...prev,
+        message: "Please Select a Service and Time",
+        warning: true,
+      }));
       return;
     }
     const jwt = localStorage.getItem("jwt");
     if (!jwt || user?._id) {
-      setError(true);
+      setError((prev) => ({
+        ...prev,
+        message: "Error: User cannot be found.",
+        warning: true,
+      }));
+      return;
     }
     const currentTime = new Date();
     const reservationData = {
@@ -80,27 +89,30 @@ const Reservation = () => {
       customer: user?._id,
       createAt: currentTime,
     };
-    try {
-      axios
-        .post<StylistAppointmentType>(
-          "http://localhost:8888/appointment",
-          reservationData,
-          {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
-          }
-        )
-        .then((res) => {
-          setError(false);
-          setFormError(null);
-          setTimeout(() => {
-            navigate(`/appointmentConfirm/${res.data._id}`);
-          }, 500);
-        });
-    } catch (e: any) {
-      console.log(e);
-    }
+    axios
+      .post<StylistAppointmentType>(
+        "http://localhost:8888/appointment",
+        reservationData,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
+      .then((res) => {
+        setTimeout(() => {
+          navigate(`/appointmentConfirm/${res.data._id}`);
+        }, 500);
+      })
+      .catch((e) => {
+        setFormError((prev) => ({
+          ...prev,
+          message: "Error submitting reservation",
+          warning: true,
+        }));
+
+        console.log(e);
+      });
   };
   console.log(stylist);
 
@@ -128,13 +140,13 @@ const Reservation = () => {
 
   useEffect(() => {
     setLoad(true);
+    setError(null);
     const debounce = setTimeout(() => {
-      const getData = async () => {
-        await axios
+      const getData = () => {
+        axios
           .get<ReturnUserType>(`http://localhost:8888/user/${id}`)
           .then((response) => {
             setLoad(false);
-            setError(false);
             setStylist(response.data);
             if (response.data.picture) {
               setStylistImg(response.data.picture.toString("base64"));
@@ -142,7 +154,10 @@ const Reservation = () => {
           })
           .catch((e) => {
             console.log(e);
-            setError(true);
+            setError({
+              message: "Error: Cannot find employee.",
+              warning: true,
+            });
           });
       };
       getData();
@@ -153,9 +168,9 @@ const Reservation = () => {
   return (
     <SinglePageContainer>
       {error ? (
-        <ErrorContainer absolute>
-          <h3>There was an error.</h3>
-        </ErrorContainer>
+        <MessageBox absolute>
+          <RegularMessage message={error.message} warning={error.warning} />
+        </MessageBox>
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />
@@ -236,7 +251,10 @@ const Reservation = () => {
             <ButtonBox centered>
               {formError ? (
                 <MessageBox>
-                  <RegularMessage message={formError} warning={true} />
+                  <RegularMessage
+                    message={formError.message}
+                    warning={formError.warning}
+                  />
                 </MessageBox>
               ) : null}
               <ReserveButton register>Reserve Now</ReserveButton>
