@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { TinyButton } from "../../Components/Buttons";
 import { FooterContainer } from "../../Components/Containers";
 
-function Footer() {
+const Footer = () => {
   return (
     <FooterContainer>
       <p>
@@ -16,6 +16,6 @@ function Footer() {
       </div>
     </FooterContainer>
   );
-}
+};
 
 export default Footer;

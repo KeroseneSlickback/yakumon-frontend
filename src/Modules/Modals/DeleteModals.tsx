@@ -10,14 +10,14 @@ import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
 import { BackendResponseDataType, MessageType } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
-type Props = {
+interface Props {
   id: string | null;
   closeModal(): void;
   toggleConfirm(): void;
   title: string;
   subTitle: string;
   type: "store" | "user";
-};
+}
 
 export const DeleteModal = (props: Props) => {
   return (

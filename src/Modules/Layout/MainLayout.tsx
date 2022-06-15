@@ -9,7 +9,7 @@ interface ThemeProps {
   children: JSX.Element;
 }
 
-function MainLayout({ children }: ThemeProps) {
+const MainLayout = ({ children }: ThemeProps) => {
   return (
     <OverallPageContainer>
       <NavBar />
@@ -17,6 +17,6 @@ function MainLayout({ children }: ThemeProps) {
       <Footer />
     </OverallPageContainer>
   );
-}
+};
 
 export default MainLayout;

@@ -16,7 +16,11 @@ export const MainPageContainer = styled.main`
 
 // Navbar containers
 export const NavBarHeader = styled.header`
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
   a {
     padding: 6px;
     display: flex;
@@ -31,12 +35,6 @@ export const NavBarHeader = styled.header`
 
   h1 {
     padding-left: 6px;
-  }
-
-  div,
-  svg {
-    height: 32px;
-    width: 32px;
   }
 `;
 

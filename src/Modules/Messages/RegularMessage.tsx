@@ -36,7 +36,7 @@ const MessageContainer = styled.div<{
 }>`
   border-radius: 0.6rem;
   text-align: center;
-  /* background-color: ${({ theme }) => theme.secondaryAlt}; */
+  background-color: ${({ theme }) => theme.secondaryAlt};
   animation: fadeIn 75ms ease-in both;
 
   ${(props) =>

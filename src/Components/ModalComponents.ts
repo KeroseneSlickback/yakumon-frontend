@@ -46,3 +46,9 @@ export const ButtonBox = styled.div<{
       margin-top: 16px;
     `}
 `;
+
+export const NavLogButtonBox = styled.div`
+  padding: 6px;
+  display: flex;
+  gap: 6px;
+`;
