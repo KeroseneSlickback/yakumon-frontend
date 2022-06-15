@@ -110,11 +110,9 @@ const Reservation = () => {
           message: "Error submitting reservation",
           warning: true,
         }));
-
         console.log(e);
       });
   };
-  console.log(stylist);
 
   const selectService = (id: string) => {
     setReservation((prev) => ({

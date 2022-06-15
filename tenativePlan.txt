@@ -1,8 +1,4 @@
 
-- LogoutModal
-
-- Create Register/Login section for Owner/Employee area
-
 - Start Employee section 
 -- Add patch area for employee to add/alter their infomation -- Both upon being accepted and later when wanting to edit, dual purpose
 -- Add modal to create/remove services
