@@ -5,28 +5,39 @@ import {
   StylistAppointmentType,
 } from "../../Utilities/types";
 
+interface TakenArrayType {
+  time: Date;
+  appointmentId: string;
+}
+
 // helper function, flattens stylist's appointment timeSlots to a single array of day/times
 const flattenArrayDates = async (stylistArray: StylistAppointmentType[]) => {
   return stylistArray.flatMap((appointment) => {
     return appointment.timeSlots.flatMap((timeslot) => {
-      console.log(timeslot);
-      return parseJSON(timeslot.slotDateTime);
+      return {
+        time: parseJSON(timeslot.slotDateTime),
+        appointmentId: timeslot.appointment,
+      };
     });
   });
 };
 
 // helper function that compares an array of dates to given date
 // work around due to date-fns having issues with async/await functionality
-const compareDatesInArray = async (array: Date[], givenDate: Date) => {
-  let findMatching = (date: Date) => {
-    return isEqual(date, givenDate);
+const compareDatesInArray = async (
+  array: TakenArrayType[],
+  givenDate: Date
+) => {
+  let findMatching = (obj: any) => {
+    return isEqual(obj.time, givenDate);
   };
-  return array.findIndex(findMatching);
+  const foundId = array.findIndex(findMatching);
+  return array[foundId];
 };
 
 const compareAndFillArray = async (
   blankArray: ScheduleArrayType[],
-  takenArray: Date[]
+  takenArray: TakenArrayType[]
 ) => {
   let returnArray = [];
 
@@ -37,11 +48,12 @@ const compareAndFillArray = async (
     for (let j = 0; j < slots.length; j++) {
       let slot = slots[j];
       let filledTimeSlot = await compareDatesInArray(takenArray, slot.time);
-      if (filledTimeSlot >= 0) {
+      if (filledTimeSlot !== undefined) {
         slot = {
           ...slot,
           available: false,
           applicable: false,
+          appointmentId: filledTimeSlot.appointmentId,
         };
       } else {
         slot = {

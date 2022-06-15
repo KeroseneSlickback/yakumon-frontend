@@ -74,8 +74,8 @@ const Reservation = () => {
       return;
     }
     const jwt = localStorage.getItem("jwt");
-    if (!jwt || user?._id) {
-      setError((prev) => ({
+    if (!jwt || !user?._id) {
+      setFormError((prev) => ({
         ...prev,
         message: "Error: User cannot be found.",
         warning: true,
