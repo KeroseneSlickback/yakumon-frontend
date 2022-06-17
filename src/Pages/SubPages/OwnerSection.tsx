@@ -32,9 +32,9 @@ import StoreHour from "../../Components/StoreHour";
 import AccordionModal from "../../Modules/Modals/AccordionModal";
 import { BackDrop } from "../../Components/Backdrop";
 import {
-  DeleteModal,
-  DoubleConfirmDeleteModal,
-} from "../../Modules/Modals/DeleteModals";
+  DeleteStoreModal,
+  DoubleConfirmDeleteStoreModal,
+} from "../../Modules/Modals/DeleteStoreModals";
 import close from "../../Utilities/Images/SVGs/close.svg";
 import RemoveEmployeeModal from "../../Modules/Modals/RemoveEmployeeModal";
 import RegularMessage, {
@@ -198,10 +198,7 @@ const OwnerSection = () => {
                         </div>
                       </span>
                     </StoreInfoContainer>
-                    <AccordionModal
-                      buttonMessage="View Employees"
-                      storeID={store._id}
-                    >
+                    <AccordionModal buttonMessage="View Employees">
                       {store.employees.map((employee, index) => {
                         return (
                           <div key={index}>
@@ -260,7 +257,7 @@ const OwnerSection = () => {
         <BackDrop onClick={closeModal} />
       ) : null}
       {storeToDelete && !confirmDelete ? (
-        <DeleteModal
+        <DeleteStoreModal
           type="store"
           id={storeToDelete}
           title="Delete Store"
@@ -270,7 +267,7 @@ const OwnerSection = () => {
         />
       ) : null}
       {confirmDelete && confirmDelete ? (
-        <DoubleConfirmDeleteModal
+        <DoubleConfirmDeleteStoreModal
           type="store"
           id={storeToDelete}
           title="Confirm Store Delete"

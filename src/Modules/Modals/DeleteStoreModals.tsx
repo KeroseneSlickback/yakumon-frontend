@@ -19,7 +19,7 @@ interface Props {
   type: "store" | "user";
 }
 
-export const DeleteModal = (props: Props) => {
+export const DeleteStoreModal = (props: Props) => {
   return (
     <ModalContainer>
       <h3>{props.title}</h3>
@@ -39,7 +39,7 @@ export const DeleteModal = (props: Props) => {
   );
 };
 
-export const DoubleConfirmDeleteModal = (props: Props) => {
+export const DoubleConfirmDeleteStoreModal = (props: Props) => {
   const navigate = useNavigate();
   const [message, setMessage] = useState<MessageType | null>(null);
   const handleDelete = () => {

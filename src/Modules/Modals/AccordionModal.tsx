@@ -28,12 +28,17 @@ export const AccordionDiv = styled.div<{ height?: any }>`
   border-radius: 0.4rem;
 
   div {
-    margin: 16px 0 4px 0;
+    margin: 8px 0;
     display: flex;
     flex-direction: row;
     align-items: center;
-    button {
-      margin-left: 2px;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
     }
   }
 `;
@@ -41,7 +46,6 @@ export const AccordionDiv = styled.div<{ height?: any }>`
 interface AccordionProps {
   buttonMessage: string;
   children: React.ReactNode | React.ReactNode[];
-  storeID: string;
 }
 
 const AccordionModal = (props: AccordionProps) => {

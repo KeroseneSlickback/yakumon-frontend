@@ -9,16 +9,10 @@
 --- Edit time of appointment, or delete 
 -- Create new appointment directly? 
 
-If no store:
-- Display only button to show User ID to offer to owner 
-Else: 
-- Display store 
+June 17:
+- Show Services that will be altered in Edit in modal 
+- Finish up Delete service
+- Throw up axios calls for them, test 
 
-Currently, store image seems to expand
-
-If no services:
-- Display only button to add service 
-Else: 
-- Display services and button to add services 
 
 Show appointment

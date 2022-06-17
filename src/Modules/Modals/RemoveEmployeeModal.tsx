@@ -10,11 +10,11 @@ import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
 import { BackendResponseDataType, MessageType } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
-type Props = {
+interface Props {
   employeeId: string;
   storeId: string;
   closeModal(): void;
-};
+}
 
 const RemoveEmployeeModal = (props: Props) => {
   const navigate = useNavigate();
@@ -29,7 +29,6 @@ const RemoveEmployeeModal = (props: Props) => {
       store: props.storeId,
       setAsEmployee: false,
     };
-    console.log(formData);
     axios
       .patch<BackendResponseDataType>(
         "http://localhost:8888/user/employeeauthenticate",
