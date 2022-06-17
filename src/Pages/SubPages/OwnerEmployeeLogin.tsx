@@ -52,7 +52,7 @@ const OwnerEmployeeLogin = () => {
       return (
         <SinglePageContainer>
           <PageSectionCard absolute>
-            <h1>Welcome Store Owner</h1>
+            <TopH1>Welcome Store Owner</TopH1>
             <div>
               <Link to={"/portal/owner"}>
                 <MediumButton portal>Owner Portal</MediumButton>
@@ -65,7 +65,7 @@ const OwnerEmployeeLogin = () => {
       return (
         <SinglePageContainer>
           <PageSectionCard absolute smallp>
-            <h1>Welcome Store Employee</h1>
+            <TopH1>Welcome Store Employee</TopH1>
             <div>
               <Link to={"/portal/employee"}>
                 <MediumButton portal>Employee Portal</MediumButton>
@@ -82,7 +82,7 @@ const OwnerEmployeeLogin = () => {
       return (
         <SinglePageContainer>
           <PageSectionCard absolute>
-            <h1>Not Yet an Owner or Employee?</h1>
+            <TopH1>Not Yet an Owner or Employee?</TopH1>
             <div>
               <p>
                 If you wish to be listed as an employee on Yakumon, please make
@@ -101,7 +101,7 @@ const OwnerEmployeeLogin = () => {
     return (
       <SinglePageContainer>
         <PageSectionCard absolute>
-          <h1>Welcome Owner or Employee</h1>
+          <TopH1>Welcome Owner or Employee</TopH1>
           <h2>Please Login or Register</h2>
           <RegisterLoginDiv>
             <div>

@@ -1,9 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import styled, { css } from "styled-components";
-import { BackDrop } from "../../Components/Backdrop";
-import { SmallButton } from "../../Components/Buttons";
-import { UserType } from "../../Utilities/types";
-import AddEmployeeModal from "./AddEmployeeModal";
+import { useRef, useState } from "react";
+import styled from "styled-components";
 
 export const AccordionButton = styled.button`
   background-color: ${({ theme }) => theme.secondaryAlt};
@@ -44,20 +40,16 @@ export const AccordionDiv = styled.div<{ height?: any }>`
 
 interface AccordionProps {
   buttonMessage: string;
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode | React.ReactNode[];
   storeID: string;
 }
 
 const AccordionModal = (props: AccordionProps) => {
   const contentEL = useRef<any>(null);
   const [height, setHeight] = useState(0);
-  const [addEmployee, setAddEmployee] = useState(false);
-
-  const toggleModal = () => {
-    setAddEmployee((prev) => !prev);
-  };
 
   const flipFlop = () => {
+    console.log(contentEL.current.scrollHeight);
     setHeight(height === 0 ? contentEL.current.scrollHeight : 0);
   };
 
@@ -68,14 +60,7 @@ const AccordionModal = (props: AccordionProps) => {
       </AccordionButton>
       <AccordionDiv ref={contentEL} height={height}>
         {props.children}
-        <SmallButton onClick={toggleModal} bottomPadding>
-          Add Employee
-        </SmallButton>
       </AccordionDiv>
-      {addEmployee ? <BackDrop onClick={toggleModal} /> : null}
-      {addEmployee ? (
-        <AddEmployeeModal toggleModal={toggleModal} storeId={props.storeID} />
-      ) : null}
     </>
   );
 };

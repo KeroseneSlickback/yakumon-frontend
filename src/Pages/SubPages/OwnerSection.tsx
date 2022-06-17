@@ -15,7 +15,6 @@ import {
   StoreInfoContainer,
 } from "../../Components/Containers";
 import {
-  ErrorContainer,
   LoadingIcon,
   LoadingIconContainer,
   StoreHourTable,
@@ -41,6 +40,7 @@ import RemoveEmployeeModal from "../../Modules/Modals/RemoveEmployeeModal";
 import RegularMessage, {
   MessageBox,
 } from "../../Modules/Messages/RegularMessage";
+import AddEmployeeModal from "../../Modules/Modals/AddEmployeeModal";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -57,12 +57,13 @@ const OwnerSection = () => {
   const [error, setError] = useState<MessageType | null>(null);
   const [storeToDelete, setStoreToDelete] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
+  const [addEmployee, setAddEmployee] = useState<boolean>(false);
   const [removeEmployee, setRemoveEmployee] =
     useState<RemoveEmployeeProps | null>(null);
 
   useEffect(() => {
     const owner = JSON.parse(localStorage.getItem("user") as string);
-    setLoad(true);
+
     setError(null);
     const debounce = setTimeout(() => {
       const getData = () => {
@@ -98,6 +99,7 @@ const OwnerSection = () => {
     setStoreToDelete(null);
     setConfirmDelete(false);
     setRemoveEmployee(null);
+    setAddEmployee(false);
   };
 
   const toggleConfirm = () => {
@@ -110,6 +112,10 @@ const OwnerSection = () => {
 
   const toggleRemoveEmployee = (employeeId: string, storeId: string) => {
     setRemoveEmployee({ storeId, employeeId });
+  };
+
+  const toggleAddEmployee = () => {
+    setAddEmployee(true);
   };
 
   return (
@@ -212,6 +218,9 @@ const OwnerSection = () => {
                           </div>
                         );
                       })}
+                      <SmallButton onClick={toggleAddEmployee} bottomPadding>
+                        Add Employee
+                      </SmallButton>
                     </AccordionModal>
                     <EditDeleteButtonDiv>
                       <SmallButton
@@ -228,6 +237,13 @@ const OwnerSection = () => {
                         Delete
                       </SmallButton>
                     </EditDeleteButtonDiv>
+                    {addEmployee ? (
+                      <AddEmployeeModal
+                        toggleModal={toggleAddEmployee}
+                        storeId={store._id}
+                        closeModal={closeModal}
+                      />
+                    ) : null}
                   </PageSectionCard>
                 );
               })}
@@ -240,7 +256,7 @@ const OwnerSection = () => {
           </PageSectionCard>
         </>
       )}
-      {storeToDelete || confirmDelete || removeEmployee ? (
+      {storeToDelete || confirmDelete || removeEmployee || addEmployee ? (
         <BackDrop onClick={closeModal} />
       ) : null}
       {storeToDelete && !confirmDelete ? (

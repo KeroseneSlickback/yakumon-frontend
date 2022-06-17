@@ -60,12 +60,12 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
         .then((response) => {
           localStorage.setItem("user", JSON.stringify(response.data.user));
           localStorage.setItem("jwt", response.data.token.split(" ")[1]);
-          authContext.login();
           setMessage({
             message: "Successfully Registered!",
             warning: false,
           });
           setTimeout(() => {
+            authContext.login();
             closeModal();
           }, 1000);
         });

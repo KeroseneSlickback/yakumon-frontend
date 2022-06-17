@@ -19,6 +19,7 @@ import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 interface Props {
   toggleModal(): void;
   storeId: string;
+  closeModal(): void;
 }
 
 const AddEmployeeModal = (props: Props) => {
@@ -100,7 +101,7 @@ const AddEmployeeModal = (props: Props) => {
         </StyledFormBlock>
       </StyledForm>
       <ClosedButtonDiv>
-        <CloseButton onClick={props.toggleModal} />
+        <CloseButton onClick={props.closeModal} />
       </ClosedButtonDiv>
     </ModalContainer>
   );
