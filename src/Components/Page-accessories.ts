@@ -116,3 +116,13 @@ export const StoreHourTable = styled.table`
     }
   }
 `;
+
+export const ServiceDetailDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const DetailP = styled.p`
+  font-size: 0.7rem;
+  margin-top: 3px;
+`;

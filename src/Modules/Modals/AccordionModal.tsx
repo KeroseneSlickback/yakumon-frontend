@@ -30,14 +30,13 @@ export const AccordionDiv = styled.div<{ height?: any }>`
   div {
     margin: 8px 0;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid black;
+    a {
+      text-decoration: none;
+    }
     div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
       border: none;
     }
   }
@@ -53,7 +52,6 @@ const AccordionModal = (props: AccordionProps) => {
   const [height, setHeight] = useState(0);
 
   const flipFlop = () => {
-    console.log(contentEL.current.scrollHeight);
     setHeight(height === 0 ? contentEL.current.scrollHeight : 0);
   };
 

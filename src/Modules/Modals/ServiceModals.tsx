@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   CloseButton,
@@ -50,7 +50,29 @@ export const NewServiceModal = (props: Props) => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(e);
+    setMessage(null);
+    const jwt = localStorage.getItem("jwt");
+    axios
+      .post<ServiceType>("http://localhost:8888/service", formData, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      .then(() => {
+        setMessage({
+          message: "Successfuly made service",
+          warning: false,
+        });
+        setTimeout(() => {
+          navigate(0);
+        }, 1500);
+      })
+      .catch(() => {
+        setMessage({
+          message: "Error making service",
+          warning: true,
+        });
+      });
   };
 
   return (
@@ -60,7 +82,7 @@ export const NewServiceModal = (props: Props) => {
       <StyledForm onSubmit={handleSubmit}>
         <StyledFormBlock>
           <div>
-            <StyledLabel>Service Name</StyledLabel>
+            <StyledLabel>Service Name:</StyledLabel>
             <StyledTextInput
               required
               name="serviceName"
@@ -71,7 +93,7 @@ export const NewServiceModal = (props: Props) => {
             />
           </div>
           <div>
-            <StyledLabel>Price</StyledLabel>
+            <StyledLabel>Price:</StyledLabel>
             <p>Please enter a number with optional periods, no money signs.</p>
             <StyledTextInput
               required
@@ -83,10 +105,10 @@ export const NewServiceModal = (props: Props) => {
             />
           </div>
           <div>
-            <StyledLabel>Time Span</StyledLabel>
+            <StyledLabel>Time Span:</StyledLabel>
             <StyledFormSelect
               required
-              name="timeSpand"
+              name="timeSpan"
               value={formData.timeSpan}
               onChange={handleFormChange}
             >
@@ -134,6 +156,16 @@ export const EditServiceModal = (props: Props) => {
     price: "",
   });
 
+  useEffect(() => {
+    if (props.service) {
+      setFormData({
+        serviceName: props.service.serviceName,
+        timeSpan: `${props.service.timeSpan}`,
+        price: `${props.service.price}`,
+      });
+    }
+  }, [props.service]);
+
   const handleFormChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -146,17 +178,43 @@ export const EditServiceModal = (props: Props) => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(e);
+    setMessage(null);
+    const jwt = localStorage.getItem("jwt");
+    axios
+      .patch<ServiceType>(
+        `http://localhost:8888/service/${props.service?._id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
+      .then(() => {
+        setMessage({
+          message: "Successfuly edited service",
+          warning: false,
+        });
+        setTimeout(() => {
+          navigate(0);
+        }, 1500);
+      })
+      .catch(() => {
+        setMessage({
+          message: "Error editing service",
+          warning: true,
+        });
+      });
   };
 
   return (
     <ModalContainer>
       <h3>Edit Service</h3>
-      <h4>Enter the infomation below to add a service.</h4>
+      <h4>Alter the infomation below to edit service.</h4>
       <StyledForm onSubmit={handleSubmit}>
         <StyledFormBlock>
           <div>
-            <StyledLabel>Service Name</StyledLabel>
+            <StyledLabel>Service Name:</StyledLabel>
             <StyledTextInput
               required
               name="serviceName"
@@ -167,7 +225,7 @@ export const EditServiceModal = (props: Props) => {
             />
           </div>
           <div>
-            <StyledLabel>Price</StyledLabel>
+            <StyledLabel>Price:</StyledLabel>
             <p>Please enter a number with optional periods, no money signs.</p>
             <StyledTextInput
               required
@@ -179,10 +237,10 @@ export const EditServiceModal = (props: Props) => {
             />
           </div>
           <div>
-            <StyledLabel>Time Span</StyledLabel>
+            <StyledLabel>Time Span:</StyledLabel>
             <StyledFormSelect
               required
-              name="timeSpand"
+              name="timeSpan"
               value={formData.timeSpan}
               onChange={handleFormChange}
             >
@@ -229,15 +287,45 @@ export const RemoveServiceModal = (props: Props) => {
     e.preventDefault();
     setMessage(null);
     const jwt = localStorage.getItem("jwt");
+    axios
+      .delete<ServiceType>(`http://localhost:8888/service/${props.serviceId}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      .then(() => {
+        setMessage({
+          message: "Successfuly removed service",
+          warning: false,
+        });
+        setTimeout(() => {
+          navigate(0);
+        }, 1500);
+      })
+      .catch(() => {
+        setMessage({
+          message: "Error removing service",
+          warning: true,
+        });
+      });
   };
 
   return (
     <ModalContainer>
       <h3>Remove Service</h3>
       <h4>Are you sure you want to remove this service?</h4>
-      <ButtonBox topPadding>
-        <MediumButton></MediumButton>
-        <MediumButton></MediumButton>
+      {message ? (
+        <MessageBox marginTop>
+          <RegularMessage message={message.message} warning={message.warning} />
+        </MessageBox>
+      ) : null}
+      <ButtonBox topPadding sideBySide>
+        <MediumButton register onClick={handleRemoval}>
+          Confirm
+        </MediumButton>
+        <MediumButton warning onClick={props.closeModal}>
+          Close
+        </MediumButton>
       </ButtonBox>
       <ClosedButtonDiv>
         <CloseButton onClick={props.closeModal} />

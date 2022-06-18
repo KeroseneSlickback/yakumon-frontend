@@ -8,8 +8,10 @@ import {
   StoreInfoContainer,
 } from "../../Components/Containers";
 import {
+  DetailP,
   LoadingIcon,
   LoadingIconContainer,
+  ServiceDetailDiv,
   StoreHourTable,
   StoreImg,
   TopH1,
@@ -43,7 +45,18 @@ import {
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
-interface RemoveServiceProps {}
+const timesArray = [
+  "0 minutes",
+  "30 minutes",
+  "1 hour",
+  "1h 30 minutes",
+  "2 hours",
+  "2h 30 minutes",
+  "3 hours",
+  "3h 30 minutes",
+  "4 hours",
+  "4h 30 minutes",
+];
 
 const EmployeeSection = () => {
   const authContext = useContext(AuthContext);
@@ -96,6 +109,10 @@ const EmployeeSection = () => {
 
   const showNewService = () => {
     setNewService(true);
+  };
+
+  const parseServiceTime = (timeSpan: number) => {
+    return timesArray[timeSpan];
   };
 
   return (
@@ -179,7 +196,13 @@ const EmployeeSection = () => {
                     {user.services.map((service, serviceIndex) => {
                       return (
                         <div key={serviceIndex}>
-                          <p>{service.serviceName}</p>
+                          <ServiceDetailDiv>
+                            <p>{service.serviceName}</p>
+                            <DetailP>
+                              Time: {parseServiceTime(service.timeSpan)}
+                            </DetailP>
+                            <DetailP>Price: ${service.price}</DetailP>
+                          </ServiceDetailDiv>
                           <div>
                             <EmptyButton
                               onClick={() => showEditService(service)}
@@ -210,8 +233,12 @@ const EmployeeSection = () => {
         <BackDrop onClick={closeModal} />
       ) : null}
       {newService ? <NewServiceModal closeModal={closeModal} /> : null}
-      {editService ? <EditServiceModal closeModal={closeModal} /> : null}
-      {removeService ? <RemoveServiceModal closeModal={closeModal} /> : null}
+      {editService ? (
+        <EditServiceModal closeModal={closeModal} service={editService} />
+      ) : null}
+      {removeService ? (
+        <RemoveServiceModal closeModal={closeModal} serviceId={removeService} />
+      ) : null}
     </SinglePageContainer>
   );
 };

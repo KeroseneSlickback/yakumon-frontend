@@ -13,6 +13,8 @@ June 17:
 - Show Services that will be altered in Edit in modal 
 - Finish up Delete service
 - Throw up axios calls for them, test 
-
+- Services show prices and time amount
 
 Show appointment
+
+- Throw store details into formData
