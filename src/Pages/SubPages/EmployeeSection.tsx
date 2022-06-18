@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   PageSectionCard,
@@ -45,7 +45,11 @@ import {
   RemoveServiceModal,
 } from "../../Modules/Modals/ServiceModals";
 import ScheduleView from "../../Modules/Schedule/ScheduleView";
-import { ViewAppointmentModal } from "../../Modules/Modals/AppointmentModals";
+import {
+  DeleteAppointmentModal,
+  EditAppointmentModal,
+  ViewAppointmentModal,
+} from "../../Modules/Modals/AppointmentModals";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -73,8 +77,10 @@ const EmployeeSection = () => {
   const [newService, setNewService] = useState<boolean>(false);
   const [appointmentLookup, setAppointmentLookup] =
     useState<StylistAppointmentType | null>(null);
-  const [editAppointment, setEditAppointment] = useState();
-  const [removeAppointment, setRemoveAppointment] = useState();
+  const [editAppointment, setEditAppointment] =
+    useState<StylistAppointmentType | null>(null);
+  const [deleteAppointment, setDeleteAppointment] =
+    useState<StylistAppointmentType | null>(null);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") as string);
@@ -105,6 +111,8 @@ const EmployeeSection = () => {
     setEditService(null);
     setNewService(false);
     setAppointmentLookup(null);
+    setEditAppointment(null);
+    setDeleteAppointment(null);
   };
 
   const showRemoveService = (serviceId: string) => {
@@ -117,6 +125,16 @@ const EmployeeSection = () => {
 
   const showNewService = () => {
     setNewService(true);
+  };
+
+  const showEditAppointment = (appointment: StylistAppointmentType) => {
+    closeModal();
+    setEditAppointment(appointment);
+  };
+
+  const showDeleteAppointment = (appointment: StylistAppointmentType) => {
+    closeModal();
+    setDeleteAppointment(appointment);
   };
 
   const parseServiceTime = (timeSpan: number) => {
@@ -267,7 +285,12 @@ const EmployeeSection = () => {
           <PageSectionCard styled>Create Appointment</PageSectionCard>
         </>
       ) : null}
-      {removeService || editService || newService || appointmentLookup ? (
+      {removeService ||
+      editService ||
+      newService ||
+      appointmentLookup ||
+      editAppointment ||
+      deleteAppointment ? (
         <BackDrop onClick={closeModal} />
       ) : null}
       {newService ? <NewServiceModal closeModal={closeModal} /> : null}
@@ -281,6 +304,20 @@ const EmployeeSection = () => {
         <ViewAppointmentModal
           closeModal={closeModal}
           appointment={appointmentLookup}
+          showDeleteAppointment={showDeleteAppointment}
+          showEditAppointment={showDeleteAppointment}
+        />
+      ) : null}
+      {editAppointment ? (
+        <EditAppointmentModal
+          closeModal={closeModal}
+          appointment={editAppointment}
+        />
+      ) : null}
+      {deleteAppointment ? (
+        <DeleteAppointmentModal
+          closeModal={closeModal}
+          appointment={deleteAppointment}
         />
       ) : null}
     </SinglePageContainer>

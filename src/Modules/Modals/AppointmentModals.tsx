@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { parseJSON } from "date-fns/esm";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   CloseButton,
@@ -12,7 +12,7 @@ import {
   SinglePageContainer,
 } from "../../Components/Containers";
 import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
-import { StylistAppointmentType } from "../../Utilities/types";
+import { MessageType, StylistAppointmentType } from "../../Utilities/types";
 
 const timesArray = [
   "0 minutes",
@@ -44,12 +44,19 @@ const AppointmentViewDiv = styled.div`
   }
 `;
 
-type Props = {
+type ViewAppointmentProps = {
   closeModal(): void;
+  showEditAppointment: (appointment: StylistAppointmentType) => void;
+  showDeleteAppointment: (appointment: StylistAppointmentType) => void;
   appointment: StylistAppointmentType;
 };
 
-export const ViewAppointmentModal = ({ appointment, closeModal }: Props) => {
+export const ViewAppointmentModal = ({
+  appointment,
+  closeModal,
+  showDeleteAppointment,
+  showEditAppointment,
+}: ViewAppointmentProps) => {
   console.log(appointment);
   return (
     <ModalContainer>
@@ -93,12 +100,50 @@ export const ViewAppointmentModal = ({ appointment, closeModal }: Props) => {
         </AppointmentViewDiv>
       </AppointmentModalContainer>
       <ButtonBox sideBySide>
-        <MediumButton warning>Delete</MediumButton>
-        <MediumButton register>Edit</MediumButton>
+        <MediumButton
+          warning
+          onClick={() => showDeleteAppointment(appointment)}
+        >
+          Delete
+        </MediumButton>
+        <MediumButton register onClick={() => showEditAppointment(appointment)}>
+          Edit
+        </MediumButton>
         <MediumButton onClick={closeModal}>Close</MediumButton>
       </ButtonBox>
       <ClosedButtonDiv>
         <CloseButton onClick={closeModal} />
+      </ClosedButtonDiv>
+    </ModalContainer>
+  );
+};
+
+interface EditDeleteAppointmentProps {
+  closeModal(): void;
+  appointment: StylistAppointmentType;
+}
+
+export const EditAppointmentModal = (props: EditDeleteAppointmentProps) => {
+  const [message, setMessage] = useState<MessageType | null>(null);
+  const [formData, setFormData] = useState<Date | null>(null);
+  return (
+    <ModalContainer>
+      <h3>Edit Appointment</h3>
+      <ClosedButtonDiv>
+        <CloseButton onClick={props.closeModal} />
+      </ClosedButtonDiv>
+    </ModalContainer>
+  );
+};
+
+export const DeleteAppointmentModal = (props: EditDeleteAppointmentProps) => {
+  const [message, setMessage] = useState<MessageType | null>(null);
+  const [formData, setFormData] = useState<Date | null>(null);
+  return (
+    <ModalContainer>
+      <h3>Delete Appointment</h3>
+      <ClosedButtonDiv>
+        <CloseButton onClick={props.closeModal} />
       </ClosedButtonDiv>
     </ModalContainer>
   );
