@@ -1,20 +1,11 @@
 
 - Start Employee section 
--- Add patch area for employee to add/alter their infomation -- Both upon being accepted and later when wanting to edit, dual purpose
--- Add modal to create/remove services
--- Add modal for Employees to see their ID to offer to owners 
--- Accordian view of their services 
 -- Intergrate the employee's schedule
 -- Create modal to view appointment data 
 --- Edit time of appointment, or delete 
 -- Create new appointment directly? 
 
-June 17:
-- Show Services that will be altered in Edit in modal 
-- Finish up Delete service
-- Throw up axios calls for them, test 
-- Services show prices and time amount
-
 Show appointment
 
 - Throw store details into formData
+- Appointment error handling?

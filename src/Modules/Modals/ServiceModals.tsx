@@ -249,7 +249,7 @@ export const EditServiceModal = (props: Props) => {
               </option>
               <option value="1">30 minutes</option>
               <option value="2">1 hour</option>
-              <option value="3">1h minutes</option>
+              <option value="3">1h 30 minutes</option>
               <option value="4">2 hours</option>
               <option value="5">2h 30 minutes</option>
               <option value="6">3 hours</option>

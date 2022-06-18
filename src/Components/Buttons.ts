@@ -155,10 +155,15 @@ export const ScheduleBlankButton = styled.button<{
   applicable?: boolean;
   possibleHead?: boolean;
   chosen?: boolean;
+  enabled?: boolean;
 }>`
+  ${(props) =>
+    props.enabled &&
+    css`
+      cursor: pointer;
+    `}
   background-color: inherit;
   border: none;
-  cursor: pointer;
   width: 100%;
   height: 100%;
   margin: none;

@@ -1,5 +1,11 @@
 import { format, addDays, subDays, isBefore } from "date-fns";
-import { ChangeEventHandler, useCallback, useEffect, useState } from "react";
+import {
+  ChangeEventHandler,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import {
   ErrorContainer,
   LoadingIcon,
@@ -7,10 +13,12 @@ import {
 } from "../../Components/Page-accessories";
 import {
   ReturnStoreType,
+  ReturnUserType,
   ScheduleArrayType,
   ScheduleDateType,
   ServiceType,
   StylistAppointmentType,
+  UserType,
 } from "../../Utilities/types";
 import { scheduleArrayBuild, scheduleSectionFilter } from "./ScheduleHelpers";
 import {
@@ -26,6 +34,7 @@ import {
 } from "../../Components/ScheduleComponents";
 import { ScheduleBlankButton, ScheduleButton } from "../../Components/Buttons";
 import { compareAsc } from "date-fns/esm";
+import AuthContext from "../../Utilities/AuthContext";
 
 interface SchedulePropTypes {
   appointments?: StylistAppointmentType[];
@@ -33,6 +42,7 @@ interface SchedulePropTypes {
   selectedService?: string;
   store?: ReturnStoreType;
   handleOnSelect: (params: any) => any;
+  user?: ReturnUserType;
 }
 
 const ScheduleView = ({
@@ -41,7 +51,10 @@ const ScheduleView = ({
   selectedService,
   store,
   handleOnSelect,
+  user,
 }: SchedulePropTypes) => {
+  const authContext = useContext(AuthContext);
+  const [employeeCheck, setEmployeeCheck] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [outputDays, setOutputDays] = useState<number>(4);
   const [load, setLoad] = useState<boolean>(false);
@@ -63,6 +76,12 @@ const ScheduleView = ({
       day: 3,
     },
   });
+
+  useEffect(() => {
+    if (user?._id === authContext.user?._id) {
+      setEmployeeCheck(true);
+    }
+  }, []);
 
   useEffect(() => {
     setLoad(true);
@@ -177,7 +196,9 @@ const ScheduleView = ({
     const today = new Date();
     const newDate = subDays(startDate, outputDays);
     if (isBefore(addDays(newDate, 1), today)) {
-      // Pop up a warning?
+      if (employeeCheck) {
+        setStartDate(newDate);
+      }
       return;
     } else {
       setStartDate(newDate);
@@ -207,7 +228,9 @@ const ScheduleView = ({
         }),
       };
     });
-    setDateTimeArray(chosenArray);
+    if (!employeeCheck) {
+      setDateTimeArray(chosenArray);
+    }
     handleOnSelect(chosenSlot);
   };
 
@@ -269,13 +292,22 @@ const ScheduleView = ({
                       <StyledTh block key={index2}>
                         {slot?.closed ? (
                           <CrossSvg key={index2} />
-                        ) : !slot.available ? (
-                          <CrossSvg key={index2} />
+                        ) : !slot.available &&
+                          employeeCheck &&
+                          slot.appointmentId ? (
+                          <ScheduleBlankButton
+                            chosen
+                            enabled
+                            onClick={() => chosenStartDate(slot)}
+                          >
+                            <CrossSvg key={index2} />
+                          </ScheduleBlankButton>
                         ) : slot.possibleHead ? (
                           <ScheduleBlankButton
                             applicable={slot.applicable ? true : false}
                             possibleHead={slot.possibleHead ? true : false}
                             chosen={slot.chosen ? true : false}
+                            enabled
                             onClick={() => chosenStartDate(slot)}
                             type="button"
                           >

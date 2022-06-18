@@ -38,6 +38,7 @@ export interface ReturnUserType {
   admin?: boolean;
   employee?: boolean;
   ownedStores?: ReturnStoreType[];
+  _id?: string;
 }
 
 export interface BackendResponseDataType {

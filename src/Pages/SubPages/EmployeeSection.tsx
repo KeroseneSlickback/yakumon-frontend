@@ -25,7 +25,9 @@ import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg"
 import {
   MessageType,
   ReturnUserType,
+  ScheduleDateType,
   ServiceType,
+  StylistAppointmentType,
 } from "../../Utilities/types";
 
 import location from "../../Utilities/Images/SVGs/location.svg";
@@ -42,6 +44,8 @@ import {
   NewServiceModal,
   RemoveServiceModal,
 } from "../../Modules/Modals/ServiceModals";
+import ScheduleView from "../../Modules/Schedule/ScheduleView";
+import { ViewAppointmentModal } from "../../Modules/Modals/AppointmentModals";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -67,6 +71,10 @@ const EmployeeSection = () => {
   const [removeService, setRemoveService] = useState<string | null>(null);
   const [editService, setEditService] = useState<ServiceType | null>(null);
   const [newService, setNewService] = useState<boolean>(false);
+  const [appointmentLookup, setAppointmentLookup] =
+    useState<StylistAppointmentType | null>(null);
+  const [editAppointment, setEditAppointment] = useState();
+  const [removeAppointment, setRemoveAppointment] = useState();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") as string);
@@ -78,7 +86,6 @@ const EmployeeSection = () => {
           .then((response) => {
             setLoad(false);
             setUser(response.data);
-            console.log(response.data);
           })
           .catch((e) => {
             console.log(e);
@@ -97,6 +104,7 @@ const EmployeeSection = () => {
     setRemoveService(null);
     setEditService(null);
     setNewService(false);
+    setAppointmentLookup(null);
   };
 
   const showRemoveService = (serviceId: string) => {
@@ -113,6 +121,26 @@ const EmployeeSection = () => {
 
   const parseServiceTime = (timeSpan: number) => {
     return timesArray[timeSpan];
+  };
+
+  const selectTime = (headSlot: ScheduleDateType) => {
+    const jwt = localStorage.getItem("jwt");
+    setAppointmentLookup(null);
+    axios
+      .get<StylistAppointmentType>(
+        `http://localhost:8888/appointment/${headSlot.appointmentId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
+      .then((res) => {
+        setAppointmentLookup(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -226,10 +254,20 @@ const EmployeeSection = () => {
               </AccordionModal>
             </PageSectionCard>
           ) : null}
-          <PageSectionCard>Appointment Section</PageSectionCard>
+          <PageSectionCard noPadding>
+            <h3>Appointments</h3>
+            <ScheduleView
+              appointments={user.appointments}
+              services={user.services}
+              handleOnSelect={selectTime}
+              store={user.store}
+              user={user}
+            />
+          </PageSectionCard>
+          <PageSectionCard styled>Create Appointment</PageSectionCard>
         </>
       ) : null}
-      {removeService || editService || newService ? (
+      {removeService || editService || newService || appointmentLookup ? (
         <BackDrop onClick={closeModal} />
       ) : null}
       {newService ? <NewServiceModal closeModal={closeModal} /> : null}
@@ -238,6 +276,12 @@ const EmployeeSection = () => {
       ) : null}
       {removeService ? (
         <RemoveServiceModal closeModal={closeModal} serviceId={removeService} />
+      ) : null}
+      {appointmentLookup ? (
+        <ViewAppointmentModal
+          closeModal={closeModal}
+          appointment={appointmentLookup}
+        />
       ) : null}
     </SinglePageContainer>
   );
