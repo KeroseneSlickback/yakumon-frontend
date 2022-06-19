@@ -7,10 +7,6 @@ import {
   ClosedButtonDiv,
   MediumButton,
 } from "../../Components/Buttons";
-import {
-  PageSectionCard,
-  SinglePageContainer,
-} from "../../Components/Containers";
 import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
 import { MessageType, StylistAppointmentType } from "../../Utilities/types";
 
@@ -27,7 +23,7 @@ const timesArray = [
   "4h 30 minutes",
 ];
 
-const AppointmentModalContainer = styled.div`
+export const AppointmentModalContainer = styled.div`
   background-color: ${({ theme }) => theme.alternative};
   border-radius: 0.5rem;
   color: ${({ theme }) => theme.fontColorAlt};
@@ -35,11 +31,14 @@ const AppointmentModalContainer = styled.div`
   margin-bottom: 16px;
 `;
 
-const AppointmentViewDiv = styled.div`
+export const AppointmentViewDiv = styled.div`
   margin: 6px;
   border-bottom: 1px solid black;
+  p {
+    font-size: 0.8rem;
+  }
   h4 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin: 6px;
   }
 `;
@@ -98,6 +97,10 @@ export const ViewAppointmentModal = ({
           <p>Service:</p>
           <h4>{appointment.service.serviceName}</h4>
         </AppointmentViewDiv>
+        <AppointmentViewDiv>
+          <p>Comment:</p>
+          <h4>{appointment.comments}</h4>
+        </AppointmentViewDiv>
       </AppointmentModalContainer>
       <ButtonBox sideBySide>
         <MediumButton
@@ -118,25 +121,12 @@ export const ViewAppointmentModal = ({
   );
 };
 
-interface EditDeleteAppointmentProps {
+interface DeleteAppointmentProps {
   closeModal(): void;
   appointment: StylistAppointmentType;
 }
 
-export const EditAppointmentModal = (props: EditDeleteAppointmentProps) => {
-  const [message, setMessage] = useState<MessageType | null>(null);
-  const [formData, setFormData] = useState<Date | null>(null);
-  return (
-    <ModalContainer>
-      <h3>Edit Appointment</h3>
-      <ClosedButtonDiv>
-        <CloseButton onClick={props.closeModal} />
-      </ClosedButtonDiv>
-    </ModalContainer>
-  );
-};
-
-export const DeleteAppointmentModal = (props: EditDeleteAppointmentProps) => {
+export const DeleteAppointmentModal = (props: DeleteAppointmentProps) => {
   const [message, setMessage] = useState<MessageType | null>(null);
   const [formData, setFormData] = useState<Date | null>(null);
   return (

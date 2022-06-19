@@ -79,7 +79,12 @@ const ScheduleView = ({
 
   useEffect(() => {
     if (user?._id === authContext.user?._id) {
-      setEmployeeCheck(true);
+      if (selectedService) {
+        setEmployeeCheck(false);
+      } else {
+        setEmployeeCheck(true);
+      }
+      setStartDate(subDays(new Date(), 1));
     }
   }, []);
 

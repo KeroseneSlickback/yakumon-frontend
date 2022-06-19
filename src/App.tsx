@@ -19,6 +19,7 @@ import OwnerEmployeeLogin from "./Pages/SubPages/OwnerEmployeeLogin";
 import NewStorePortal from "./Pages/SubPages/NewStorePortal";
 import EditStorePortal from "./Pages/SubPages/EditStorePortal";
 import AppointmentConfirmation from "./Pages/SubPages/AppointmentConfirmation";
+import EditAppointment from "./Pages/SubPages/EditAppointment";
 
 function App() {
   return (
@@ -42,6 +43,14 @@ function App() {
               element={
                 <RequireEmployeeAuth>
                   <EmployeeSection />
+                </RequireEmployeeAuth>
+              }
+            />
+            <Route
+              path="editAppointment/:id"
+              element={
+                <RequireEmployeeAuth>
+                  <EditAppointment />
                 </RequireEmployeeAuth>
               }
             />

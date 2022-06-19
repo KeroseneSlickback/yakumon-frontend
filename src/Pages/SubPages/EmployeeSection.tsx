@@ -47,7 +47,6 @@ import {
 import ScheduleView from "../../Modules/Schedule/ScheduleView";
 import {
   DeleteAppointmentModal,
-  EditAppointmentModal,
   ViewAppointmentModal,
 } from "../../Modules/Modals/AppointmentModals";
 
@@ -77,8 +76,6 @@ const EmployeeSection = () => {
   const [newService, setNewService] = useState<boolean>(false);
   const [appointmentLookup, setAppointmentLookup] =
     useState<StylistAppointmentType | null>(null);
-  const [editAppointment, setEditAppointment] =
-    useState<StylistAppointmentType | null>(null);
   const [deleteAppointment, setDeleteAppointment] =
     useState<StylistAppointmentType | null>(null);
 
@@ -89,9 +86,10 @@ const EmployeeSection = () => {
       const getData = () => {
         axios
           .get<ReturnUserType>(`http://localhost:8888/user/${user?._id}`)
-          .then((response) => {
+          .then((res) => {
             setLoad(false);
-            setUser(response.data);
+            setUser(res.data);
+            console.log(res.data);
           })
           .catch((e) => {
             console.log(e);
@@ -111,7 +109,6 @@ const EmployeeSection = () => {
     setEditService(null);
     setNewService(false);
     setAppointmentLookup(null);
-    setEditAppointment(null);
     setDeleteAppointment(null);
   };
 
@@ -129,7 +126,7 @@ const EmployeeSection = () => {
 
   const showEditAppointment = (appointment: StylistAppointmentType) => {
     closeModal();
-    setEditAppointment(appointment);
+    navigate(`/portal/editAppointment/${appointment._id}`);
   };
 
   const showDeleteAppointment = (appointment: StylistAppointmentType) => {
@@ -289,7 +286,6 @@ const EmployeeSection = () => {
       editService ||
       newService ||
       appointmentLookup ||
-      editAppointment ||
       deleteAppointment ? (
         <BackDrop onClick={closeModal} />
       ) : null}
@@ -305,13 +301,7 @@ const EmployeeSection = () => {
           closeModal={closeModal}
           appointment={appointmentLookup}
           showDeleteAppointment={showDeleteAppointment}
-          showEditAppointment={showDeleteAppointment}
-        />
-      ) : null}
-      {editAppointment ? (
-        <EditAppointmentModal
-          closeModal={closeModal}
-          appointment={editAppointment}
+          showEditAppointment={showEditAppointment}
         />
       ) : null}
       {deleteAppointment ? (

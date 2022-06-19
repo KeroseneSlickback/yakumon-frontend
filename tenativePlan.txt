@@ -9,3 +9,18 @@ Show appointment
 
 - Throw store details into formData
 - Appointment error handling?
+
+June 18: 
+
+- What to do with edit appointment? 
+- Show the full scheduleView with the predetermined timespan?
+
+June 19:
+
+- Allow alter within current reservation's time period?
+- Comments overflow in Appointment view
+
+- Remove appointment modal
+- Test
+
+- Create appointment???

@@ -127,8 +127,8 @@ export interface timeSlotType {
 }
 
 export interface StylistAppointmentType {
-  employee: UserType;
-  owner: UserType;
+  employee: ReturnUserType;
+  owner: ReturnUserType;
   service: ServiceType;
   timeSlots: timeSlotType[];
   _id: string;

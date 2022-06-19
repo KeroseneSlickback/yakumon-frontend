@@ -242,7 +242,7 @@ const Reservation = () => {
             <StyledTextArea
               marginBottom
               name="comments"
-              placeholder="Add commnets here..."
+              placeholder="Add comments here..."
               value={reservation.comments}
               onChange={handleTextAreaChange}
             ></StyledTextArea>
