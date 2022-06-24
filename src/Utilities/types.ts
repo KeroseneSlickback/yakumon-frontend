@@ -38,7 +38,7 @@ export interface ReturnUserType {
   admin?: boolean;
   employee?: boolean;
   ownedStores?: ReturnStoreType[];
-  _id?: string;
+  _id: string;
 }
 
 export interface BackendResponseDataType {
@@ -100,6 +100,13 @@ export interface ReservationType {
   slotDateTime: Date | null;
   comments: string;
   service: string;
+}
+
+export interface NewAppointmentType {
+  slotDateTime: Date | null;
+  comments: string;
+  service: string;
+  customer: string;
 }
 
 export interface ScheduleDateType {

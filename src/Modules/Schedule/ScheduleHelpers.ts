@@ -96,7 +96,6 @@ const compareAndFillArray = async (
       slots: slotsArray,
     });
   }
-  console.log(returnArray);
   return returnArray;
 };
 

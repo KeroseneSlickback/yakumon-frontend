@@ -40,10 +40,10 @@ const CheckboxInput = styled.input`
 
 export const ListItem: React.FC<{
   text1: string;
-  text2: number;
+  text2: number | string;
   handleOnChange: ChangeEventHandler;
   selected: string;
-  id: string;
+  id: string | undefined;
 }> = ({ text1, text2, handleOnChange, selected, id }) => {
   return (
     <CheckboxDescription checked={id === selected ? true : false}>

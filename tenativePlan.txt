@@ -22,3 +22,9 @@ If edit={true} and the edit appoinment date given, hand down to compareAndFillAr
 
 - Employee sets timeOff
 - Backend return error sending
+
+Search functionality:
+- Pulls all users from Backend
+- Shows a searchbar + an overflow section of all users 
+- Can search by either first name or last name to limit 
+- Once a user section is selected, the ID is pushed up to the parent component

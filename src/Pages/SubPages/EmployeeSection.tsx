@@ -37,7 +37,13 @@ import site from "../../Utilities/Images/SVGs/site.svg";
 import close from "../../Utilities/Images/SVGs/close.svg";
 import edit from "../../Utilities/Images/SVGs/edit.svg";
 import StoreHour from "../../Components/StoreHour";
-import { EmptyButton, SmallButton } from "../../Components/Buttons";
+import {
+  CenterButtonDiv,
+  EmptyButton,
+  LargeButton,
+  SmallButton,
+  StyledLinkButton,
+} from "../../Components/Buttons";
 import { BackDrop } from "../../Components/Backdrop";
 import {
   EditServiceModal,
@@ -279,7 +285,13 @@ const EmployeeSection = () => {
               user={user}
             />
           </PageSectionCard>
-          <PageSectionCard styled>Create Appointment</PageSectionCard>
+          <PageSectionCard styled>
+            <CenterButtonDiv>
+              <StyledLinkButton to={`/portal/createAppointment/${user._id}`}>
+                Create Appointment
+              </StyledLinkButton>
+            </CenterButtonDiv>
+          </PageSectionCard>
         </>
       ) : null}
       {removeService ||

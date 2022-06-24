@@ -20,6 +20,7 @@ import NewStorePortal from "./Pages/SubPages/NewStorePortal";
 import EditStorePortal from "./Pages/SubPages/EditStorePortal";
 import AppointmentConfirmation from "./Pages/SubPages/AppointmentConfirmation";
 import EditAppointment from "./Pages/SubPages/EditAppointment";
+import EmployeeCreateAppointment from "./Pages/SubPages/EmployeeCreateAppointment";
 
 function App() {
   return (
@@ -51,6 +52,14 @@ function App() {
               element={
                 <RequireEmployeeAuth>
                   <EditAppointment />
+                </RequireEmployeeAuth>
+              }
+            />
+            <Route
+              path="createAppointment/:id"
+              element={
+                <RequireEmployeeAuth>
+                  <EmployeeCreateAppointment />
                 </RequireEmployeeAuth>
               }
             />
