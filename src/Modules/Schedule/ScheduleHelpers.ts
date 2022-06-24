@@ -3,6 +3,7 @@ import {
   ScheduleArrayType,
   StoreDayHour,
   StylistAppointmentType,
+  timeSlotType,
 } from "../../Utilities/types";
 
 interface TakenArrayType {
@@ -22,6 +23,15 @@ const flattenArrayDates = async (stylistArray: StylistAppointmentType[]) => {
   });
 };
 
+const flattenEditAppointment = async (timeSlots: timeSlotType[]) => {
+  return timeSlots.flatMap((timeslot) => {
+    return {
+      time: parseJSON(timeslot.slotDateTime),
+      appointmentId: timeslot.appointment,
+    };
+  });
+};
+
 // helper function that compares an array of dates to given date
 // work around due to date-fns having issues with async/await functionality
 const compareDatesInArray = async (
@@ -37,7 +47,8 @@ const compareDatesInArray = async (
 
 const compareAndFillArray = async (
   blankArray: ScheduleArrayType[],
-  takenArray: TakenArrayType[]
+  takenArray: TakenArrayType[],
+  flattenedEditAppointment?: TakenArrayType[]
 ) => {
   let returnArray = [];
 
@@ -48,13 +59,29 @@ const compareAndFillArray = async (
     for (let j = 0; j < slots.length; j++) {
       let slot = slots[j];
       let filledTimeSlot = await compareDatesInArray(takenArray, slot.time);
+      let editTimeSlot;
+      if (flattenedEditAppointment) {
+        editTimeSlot = await compareDatesInArray(
+          flattenedEditAppointment,
+          slot.time
+        );
+      }
       if (filledTimeSlot !== undefined) {
-        slot = {
-          ...slot,
-          available: false,
-          applicable: false,
-          appointmentId: filledTimeSlot.appointmentId,
-        };
+        if (editTimeSlot) {
+          slot = {
+            ...slot,
+            available: true,
+            applicable: false,
+            appointmentId: editTimeSlot.appointmentId,
+          };
+        } else {
+          slot = {
+            ...slot,
+            available: false,
+            applicable: false,
+            appointmentId: filledTimeSlot.appointmentId,
+          };
+        }
       } else {
         slot = {
           ...slot,
@@ -255,11 +282,24 @@ export const scheduleArrayBuild = async (
   startDate: Date,
   storeHours: StoreDayHour[],
   outputDays: number,
-  stylistAppointments: StylistAppointmentType[]
+  stylistAppointments: StylistAppointmentType[],
+  editAppointmentTimeslots?: timeSlotType[]
 ) => {
   let timesTakenArray = await flattenArrayDates(stylistAppointments);
   let builtArray = await outputByHour(storeHours, startDate, outputDays);
-  let checkedArray = await compareAndFillArray(builtArray, timesTakenArray);
+  let checkedArray;
+  if (editAppointmentTimeslots) {
+    let flattenedEditAppointment = await flattenEditAppointment(
+      editAppointmentTimeslots
+    );
+    checkedArray = await compareAndFillArray(
+      builtArray,
+      timesTakenArray,
+      flattenedEditAppointment
+    );
+  } else {
+    checkedArray = await compareAndFillArray(builtArray, timesTakenArray);
+  }
 
   return checkedArray;
 };

@@ -36,9 +36,10 @@ export const AppointmentViewDiv = styled.div`
   border-bottom: 1px solid black;
   p {
     font-size: 0.8rem;
+    margin-bottom: 4px;
   }
   h4 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 6px;
   }
 `;
@@ -99,7 +100,7 @@ export const ViewAppointmentModal = ({
         </AppointmentViewDiv>
         <AppointmentViewDiv>
           <p>Comment:</p>
-          <h4>{appointment.comments}</h4>
+          <p>{appointment.comments}</p>
         </AppointmentViewDiv>
       </AppointmentModalContainer>
       <ButtonBox sideBySide>

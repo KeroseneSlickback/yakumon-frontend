@@ -1,11 +1,5 @@
 import { format, addDays, subDays, isBefore } from "date-fns";
-import {
-  ChangeEventHandler,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   ErrorContainer,
   LoadingIcon,
@@ -18,7 +12,7 @@ import {
   ScheduleDateType,
   ServiceType,
   StylistAppointmentType,
-  UserType,
+  timeSlotType,
 } from "../../Utilities/types";
 import { scheduleArrayBuild, scheduleSectionFilter } from "./ScheduleHelpers";
 import {
@@ -43,6 +37,8 @@ interface SchedulePropTypes {
   store?: ReturnStoreType;
   handleOnSelect: (params: any) => any;
   user?: ReturnUserType;
+  edit?: boolean;
+  editAppointmentTimeslots?: timeSlotType[];
 }
 
 const ScheduleView = ({
@@ -52,6 +48,8 @@ const ScheduleView = ({
   store,
   handleOnSelect,
   user,
+  edit,
+  editAppointmentTimeslots,
 }: SchedulePropTypes) => {
   const authContext = useContext(AuthContext);
   const [employeeCheck, setEmployeeCheck] = useState<boolean>(false);
@@ -96,12 +94,23 @@ const ScheduleView = ({
       if (appointments && store?.hours) {
         const storeHours = store.hours;
         const prepArray = async () => {
-          const blankScheduleArray = await scheduleArrayBuild(
-            startDate,
-            storeHours,
-            outputDays,
-            appointments
-          );
+          let blankScheduleArray = [];
+          if (edit) {
+            blankScheduleArray = await scheduleArrayBuild(
+              startDate,
+              storeHours,
+              outputDays,
+              appointments,
+              editAppointmentTimeslots
+            );
+          } else {
+            blankScheduleArray = await scheduleArrayBuild(
+              startDate,
+              storeHours,
+              outputDays,
+              appointments
+            );
+          }
           if (selectedService) {
             if (services) {
               let foundService = services.find(

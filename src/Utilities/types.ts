@@ -111,6 +111,7 @@ export interface ScheduleDateType {
   id?: number;
   possibleHead?: boolean;
   chosen?: boolean;
+  editAppointmentBlock?: boolean;
 }
 
 export interface ScheduleArrayType {
@@ -121,8 +122,8 @@ export interface ScheduleArrayType {
 export interface timeSlotType {
   appointment: string;
   createdAt: Date;
-  employee: UserType;
-  owner: UserType;
+  employee: string;
+  owner: string;
   slotDateTime: Date;
 }
 

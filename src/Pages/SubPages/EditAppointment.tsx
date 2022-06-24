@@ -95,7 +95,6 @@ const EditAppointment = () => {
           .get<ReturnUserType>(`http://localhost:8888/user/${parsedUser._id}`)
           .then((res) => {
             setUser(res.data);
-            console.log(res.data);
           })
           .catch((e) => {
             console.log(e);
@@ -218,6 +217,10 @@ const EditAppointment = () => {
               <p>Service:</p>
               <h4>{appointment.service.serviceName}</h4>
             </AppointmentViewDiv>
+            <AppointmentViewDiv>
+              <p>Comment:</p>
+              <p>{appointment.comments}</p>
+            </AppointmentViewDiv>
           </PageSectionCard>
           <PageSectionCard noPadding>
             <h3>Select a date/time to edit</h3>
@@ -229,6 +232,8 @@ const EditAppointment = () => {
                 store={user.store}
                 user={user}
                 handleOnSelect={selectTime}
+                edit={true}
+                editAppointmentTimeslots={appointment.timeSlots}
               />
             ) : null}
           </PageSectionCard>
