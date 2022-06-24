@@ -135,7 +135,6 @@ const EditAppointment = () => {
       createdAt: currentTime,
       comments: reservation.comments,
     };
-    console.log(editReservationData);
     axios
       .patch<StylistAppointmentType>(
         `http://localhost:8888/appointment/${appointment?._id}`,
@@ -156,9 +155,9 @@ const EditAppointment = () => {
         }, 1500);
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e.response.data.error);
         setFormError({
-          message: "Error editing appointment",
+          message: `${e.response.data.error}`,
           warning: true,
         });
       });

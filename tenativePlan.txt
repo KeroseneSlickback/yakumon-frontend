@@ -13,8 +13,6 @@ Show appointment
 
 June 19:
 
-- Allow alter within current reservation's time period?
-
 - Remove appointment modal
 - Test
 
@@ -23,3 +21,4 @@ June 19:
 If edit={true} and the edit appoinment date given, hand down to compareAndFillArray to neutralize that timeSlot 
 
 - Employee sets timeOff
+- Backend return error sending
