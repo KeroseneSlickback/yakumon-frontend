@@ -155,7 +155,6 @@ const EditAppointment = () => {
         }, 1500);
       })
       .catch((e) => {
-        console.log(e.response.data.error);
         setFormError({
           message: `${e.response.data.error}`,
           warning: true,

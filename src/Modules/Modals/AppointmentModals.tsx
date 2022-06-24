@@ -1,6 +1,8 @@
+import axios from "axios";
 import { format } from "date-fns";
 import { parseJSON } from "date-fns/esm";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {
   CloseButton,
@@ -8,7 +10,12 @@ import {
   MediumButton,
 } from "../../Components/Buttons";
 import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
-import { MessageType, StylistAppointmentType } from "../../Utilities/types";
+import {
+  BackendResponseDataType,
+  MessageType,
+  StylistAppointmentType,
+} from "../../Utilities/types";
+import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
 const timesArray = [
   "0 minutes",
@@ -128,11 +135,60 @@ interface DeleteAppointmentProps {
 }
 
 export const DeleteAppointmentModal = (props: DeleteAppointmentProps) => {
+  const navigate = useNavigate();
   const [message, setMessage] = useState<MessageType | null>(null);
   const [formData, setFormData] = useState<Date | null>(null);
+
+  const handleDelete = () => {
+    const jwt = localStorage.getItem("jwt");
+    setMessage(null);
+    axios
+      .delete<BackendResponseDataType>(
+        `http://localhost:8888/appointment/${props.appointment?._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setMessage({
+            message: "Appointment Deleted Successfully",
+            warning: false,
+          });
+          setTimeout(() => {
+            navigate(0);
+          }, 2000);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        setMessage({
+          message: `${e.response.data.error}`,
+          warning: true,
+        });
+      });
+  };
+
   return (
     <ModalContainer>
       <h3>Delete Appointment</h3>
+      <h4>Are you sure you want to delete this appointment?</h4>
+      {message ? (
+        <MessageBox marginTop>
+          <RegularMessage message={message.message} warning={message.warning} />
+        </MessageBox>
+      ) : null}
+      <ButtonBox sideBySide topPadding>
+        <MediumButton register onClick={handleDelete}>
+          Confirm
+        </MediumButton>
+        <MediumButton warning onClick={props.closeModal}>
+          Cancel
+        </MediumButton>
+      </ButtonBox>
       <ClosedButtonDiv>
         <CloseButton onClick={props.closeModal} />
       </ClosedButtonDiv>

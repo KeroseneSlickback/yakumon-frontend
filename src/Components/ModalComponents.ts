@@ -14,7 +14,7 @@ export const ModalContainer = styled.div`
   box-shadow: 0px 0px 3px 1px rgba(255, 255, 255, 0.4);
 
   h3 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     padding: 0px 16px 18px 0;
   }
 `;
