@@ -1,32 +1,14 @@
 
-- Start Employee section 
--- Intergrate the employee's schedule
--- Create modal to view appointment data 
---- Edit time of appointment, or delete 
--- Create new appointment directly? 
-
 Show appointment
 
 - Throw store details into formData
+
 - Appointment error handling?
 
-
-June 19:
-
-- Remove appointment modal
-- Test
-
-- Create appointment???
-
-If edit={true} and the edit appoinment date given, hand down to compareAndFillArray to neutralize that timeSlot 
-
 - Employee sets timeOff
+
 - Backend return error sending
 
-Search functionality:
-- Pulls all users from Backend
-- Shows a searchbar + an overflow section of all users 
-- Can search by either first name or last name to limit 
-- Once a user section is selected, the ID is pushed up to the parent component
+- Centering in services area?
 
-- Hover for service and user selection
+- Add customer search into owner

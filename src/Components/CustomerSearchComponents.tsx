@@ -21,9 +21,14 @@ const CustomerResultsDiv = styled.div<{ height?: any }>`
   max-height: 100px;
 `;
 
+const GuestDiv = styled.div`
+  margin-top: 6px;
+`;
+
 interface Props {
   handleOnChange: (id: string) => void;
   selected: string;
+  guest?: boolean;
 }
 
 export const CustomerSearchBlock = (props: Props) => {
@@ -138,6 +143,20 @@ export const CustomerSearchBlock = (props: Props) => {
             : null}
         </CustomerResultsDiv>
       )}
+      {props.guest ? (
+        <GuestDiv>
+          <ListItem
+            text1="Guest"
+            text2="User?"
+            handleOnChange={() =>
+              selectID("Guest", "User", "62b826eebd071eb37cf036f6")
+            }
+            selected={props.selected}
+            id="62b826eebd071eb37cf036f6"
+            guest
+          />
+        </GuestDiv>
+      ) : null}
     </CustomerSearchDiv>
   );
 };

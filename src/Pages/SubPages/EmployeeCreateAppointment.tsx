@@ -12,6 +12,7 @@ import {
 } from "../../Components/FormComponents";
 import { ButtonBox } from "../../Components/ModalComponents";
 import {
+  DetailP,
   LoadingIcon,
   LoadingIconContainer,
   RegisterLoginDiv,
@@ -177,6 +178,7 @@ const EmployeeCreateAppointment = () => {
             <CustomerSearchBlock
               handleOnChange={handleCustomerSelect}
               selected={reservation.customer}
+              guest
             />
           </PageSectionCard>
           <PageSectionCard styled>
@@ -213,6 +215,9 @@ const EmployeeCreateAppointment = () => {
           </PageSectionCard>
           <PageSectionCard styled>
             <h3>Comments</h3>
+            <DetailP>
+              For Guest User, please enter the customer's infomation below.
+            </DetailP>
             <StyledTextArea
               marginBottom
               name="comments"

@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 const CheckboxDescription = styled.label<{
   checked?: boolean;
-  services?: boolean;
+  guest?: boolean;
 }>`
   display: grid;
   width: 100%;
@@ -24,7 +24,9 @@ const CheckboxDescription = styled.label<{
     background-color: ${({ theme }) => theme.fontColor};
   }
 
-  /* ${(props) => props.services && css``} */
+  &:hover {
+    background-color: ${({ theme }) => theme.highlightAlt};
+  }
 
   ${(props) =>
     props.checked &&
@@ -34,6 +36,19 @@ const CheckboxDescription = styled.label<{
       &:nth-child(even) {
         background-color: ${({ theme }) => theme.highlight};
         color: ${({ theme }) => theme.fontColorAlt};
+      }
+    `}
+
+  ${(props) =>
+    props.guest &&
+    css`
+      background-color: ${({ theme }) => theme.primary};
+      color: ${({ theme }) => theme.fontColorAlt};
+      &:first-child {
+        border-radius: 6px;
+      }
+      &:hover {
+        background-color: ${({ theme }) => theme.primaryAlt};
       }
     `}
 `;
@@ -51,10 +66,11 @@ export const ListItem: React.FC<{
   selected: string;
   id: string | undefined;
   services?: boolean;
-}> = ({ text1, text2, handleOnChange, selected, id, services }) => {
+  guest?: boolean;
+}> = ({ text1, text2, handleOnChange, selected, id, services, guest }) => {
   if (services) {
     return (
-      <CheckboxDescription checked={id === selected ? true : false} services>
+      <CheckboxDescription checked={id === selected ? true : false}>
         <CheckboxInput
           type="radio"
           checked={id === selected ? true : false}
@@ -66,7 +82,10 @@ export const ListItem: React.FC<{
     );
   } else {
     return (
-      <CheckboxDescription checked={id === selected ? true : false}>
+      <CheckboxDescription
+        checked={id === selected ? true : false}
+        guest={guest ? true : false}
+      >
         <CheckboxInput
           type="radio"
           checked={id === selected ? true : false}
