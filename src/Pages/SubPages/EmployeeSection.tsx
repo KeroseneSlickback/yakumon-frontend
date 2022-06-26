@@ -283,6 +283,7 @@ const EmployeeSection = () => {
               handleOnSelect={selectTime}
               store={user.store}
               user={user}
+              unlockDates
             />
           </PageSectionCard>
           <PageSectionCard styled>

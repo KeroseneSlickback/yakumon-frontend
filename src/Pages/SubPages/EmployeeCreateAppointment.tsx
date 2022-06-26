@@ -207,7 +207,6 @@ const EmployeeCreateAppointment = () => {
                 selectedService={reservation.service}
                 store={stylist?.store}
                 handleOnSelect={selectTime}
-                user={stylist}
                 unlockDates
               />
             ) : null}

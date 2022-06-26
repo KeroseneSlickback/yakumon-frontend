@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { MessageType, ReturnUserType } from "../Utilities/types";
 import { ListItem } from "./CheckboxComponents";
 import { StyledLabel, StyledTextInput } from "./FormComponents";
@@ -16,6 +17,8 @@ const CustomerResultsDiv = styled.div<{ height?: any }>`
   overflow: hidden;
   transition: height ease 0.1s;
   height: ${({ height }) => height}px;
+  overflow: scroll;
+  max-height: 100px;
 `;
 
 interface Props {
@@ -102,29 +105,39 @@ export const CustomerSearchBlock = (props: Props) => {
         name="search"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        required
       />
-      <CustomerResultsDiv ref={contentEL} height={height}>
-        {searchResults
-          ? searchResults.map((customer) => {
-              return (
-                <ListItem
-                  key={customer._id}
-                  text1={customer.firstName}
-                  text2={customer.lastName}
-                  handleOnChange={() =>
-                    selectID(
-                      customer.firstName,
-                      customer.lastName,
-                      customer._id
-                    )
-                  }
-                  selected={props.selected}
-                  id={customer._id}
-                />
-              );
-            })
-          : null}
-      </CustomerResultsDiv>
+      {customerError ? (
+        <MessageBox>
+          <RegularMessage
+            message={customerError.message}
+            warning={customerError.warning}
+          />
+        </MessageBox>
+      ) : (
+        <CustomerResultsDiv ref={contentEL} height={height}>
+          {searchResults
+            ? searchResults.map((customer) => {
+                return (
+                  <ListItem
+                    key={customer._id}
+                    text1={customer.firstName}
+                    text2={customer.lastName}
+                    handleOnChange={() =>
+                      selectID(
+                        customer.firstName,
+                        customer.lastName,
+                        customer._id
+                      )
+                    }
+                    selected={props.selected}
+                    id={customer._id}
+                  />
+                );
+              })
+            : null}
+        </CustomerResultsDiv>
+      )}
     </CustomerSearchDiv>
   );
 };
