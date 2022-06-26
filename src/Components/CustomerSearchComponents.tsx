@@ -1,12 +1,21 @@
 import axios from "axios";
-import { ChangeEventHandler, useEffect, useState } from "react";
+import { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { MessageType, ReturnUserType } from "../Utilities/types";
 import { ListItem } from "./CheckboxComponents";
 import { StyledLabel, StyledTextInput } from "./FormComponents";
 
-export const CustomerSearchDiv = styled.div`
+const CustomerSearchDiv = styled.div`
   margin: 16px 0 8px 0;
+`;
+
+const CustomerResultsDiv = styled.div<{ height?: any }>`
+  background-color: ${({ theme }) => theme.alternative};
+  border-radius: 6px;
+  color: ${({ theme }) => theme.fontColorAlt};
+  overflow: hidden;
+  transition: height ease 0.1s;
+  height: ${({ height }) => height}px;
 `;
 
 interface Props {
@@ -15,11 +24,15 @@ interface Props {
 }
 
 export const CustomerSearchBlock = (props: Props) => {
+  const contentEL = useRef<any>(null);
+  const [height, setHeight] = useState(0);
   const [customers, setCustomers] = useState<ReturnUserType[] | null>(null);
+  const [searchResults, setSearchResults] = useState<ReturnUserType[] | null>(
+    null
+  );
   const [search, setSearch] = useState<string>("");
   const [load, setLoad] = useState<boolean>(false);
   const [customerError, setCustomerError] = useState<MessageType | null>(null);
-  console.log(props);
 
   useEffect(() => {
     setLoad(true);
@@ -31,7 +44,6 @@ export const CustomerSearchBlock = (props: Props) => {
           .then((res) => {
             setCustomers(res.data);
             setLoad(false);
-            console.log(res.data);
           })
           .catch((e) => {
             console.log(e);
@@ -46,17 +58,40 @@ export const CustomerSearchBlock = (props: Props) => {
     return () => clearTimeout(debounce);
   }, []);
 
-  // useEffect(() => {
-  //   const debounce = setTimeout(() => {
-  //     setCustomers((prev) => ({
-  //       ...prev,
-  //       return prev.filter()
-  //     }))
-  //   }, 100)
-  //   return () => clearTimeout(debounce)
-  // }, [search]);
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      if (searchResults && searchResults.length > 0) {
+        setHeight(contentEL.current.scrollHeight);
+      }
+    }, 100);
+    return () => clearTimeout(debounce);
+  }, [searchResults]);
 
-  const selectID = (customerId: string) => {
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      if (customers) {
+        setSearchResults(null);
+        setHeight(0);
+        if (search !== "") {
+          const searchedList = customers.filter((user) => {
+            return (
+              user.firstName.toLowerCase().includes(search.toLowerCase()) ||
+              user.lastName.toLowerCase().includes(search.toLowerCase())
+            );
+          });
+          setSearchResults(searchedList);
+        }
+      }
+    }, 400);
+    return () => clearTimeout(debounce);
+  }, [search]);
+
+  const selectID = (
+    customerFirst: string,
+    customerLast: string,
+    customerId: string
+  ) => {
+    setSearch(`${customerFirst} ${customerLast}`);
     props.handleOnChange(customerId);
   };
 
@@ -68,22 +103,28 @@ export const CustomerSearchBlock = (props: Props) => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <div>
-        {customers
-          ? customers.map((customer) => {
+      <CustomerResultsDiv ref={contentEL} height={height}>
+        {searchResults
+          ? searchResults.map((customer) => {
               return (
                 <ListItem
                   key={customer._id}
                   text1={customer.firstName}
                   text2={customer.lastName}
-                  handleOnChange={() => selectID(customer._id)}
+                  handleOnChange={() =>
+                    selectID(
+                      customer.firstName,
+                      customer.lastName,
+                      customer._id
+                    )
+                  }
                   selected={props.selected}
                   id={customer._id}
                 />
               );
             })
           : null}
-      </div>
+      </CustomerResultsDiv>
     </CustomerSearchDiv>
   );
 };

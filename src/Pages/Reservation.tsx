@@ -203,6 +203,7 @@ const Reservation = () => {
                             handleOnChange={() => selectService(service._id)}
                             selected={reservation.service}
                             id={service._id}
+                            services
                           ></ListItem>
                         );
                       })

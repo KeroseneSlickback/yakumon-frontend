@@ -39,6 +39,7 @@ interface SchedulePropTypes {
   user?: ReturnUserType;
   edit?: boolean;
   editAppointmentTimeslots?: timeSlotType[];
+  unlockDates?: boolean;
 }
 
 const ScheduleView = ({
@@ -50,6 +51,7 @@ const ScheduleView = ({
   user,
   edit,
   editAppointmentTimeslots,
+  unlockDates,
 }: SchedulePropTypes) => {
   const authContext = useContext(AuthContext);
   const [employeeCheck, setEmployeeCheck] = useState<boolean>(false);
@@ -210,7 +212,7 @@ const ScheduleView = ({
     const today = new Date();
     const newDate = subDays(startDate, outputDays);
     if (isBefore(addDays(newDate, 1), today)) {
-      if (employeeCheck) {
+      if (unlockDates) {
         setStartDate(newDate);
       }
       return;

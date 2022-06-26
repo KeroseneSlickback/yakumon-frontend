@@ -134,6 +134,7 @@ const EmployeeCreateAppointment = () => {
       customer: id,
     }));
   };
+  console.log(reservation);
 
   useEffect(() => {
     setLoad(true);
@@ -191,6 +192,7 @@ const EmployeeCreateAppointment = () => {
                         handleOnChange={() => selectService(service._id)}
                         selected={reservation.service}
                         id={service._id}
+                        services
                       ></ListItem>
                     );
                   })
@@ -206,6 +208,7 @@ const EmployeeCreateAppointment = () => {
                 store={stylist?.store}
                 handleOnSelect={selectTime}
                 user={stylist}
+                unlockDates
               />
             ) : null}
           </PageSectionCard>
