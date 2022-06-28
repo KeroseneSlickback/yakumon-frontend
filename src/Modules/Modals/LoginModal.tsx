@@ -11,7 +11,11 @@ import {
   StyledLabel,
   StyledTextInput,
 } from "../../Components/FormComponents";
-import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
+import {
+  ButtonBox,
+  ModalContainer,
+  ModalH3,
+} from "../../Components/ModalComponents";
 import AuthContext from "../../Utilities/AuthContext";
 import {
   BackendResponseDataType,
@@ -68,7 +72,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
 
   return (
     <ModalContainer>
-      <h3>Login</h3>
+      <ModalH3 paddingBottom>Login</ModalH3>
       <h4>Please enter your infomation</h4>
       <StyledForm onSubmit={handleSubmit}>
         <StyledFormBlock>

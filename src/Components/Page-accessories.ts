@@ -119,6 +119,7 @@ export const StoreHourTable = styled.table`
 
 export const ServiceDetailDiv = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
 `;
 

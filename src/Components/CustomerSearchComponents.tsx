@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ChangeEventHandler, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { MessageType, ReturnUserType } from "../Utilities/types";
@@ -83,8 +83,12 @@ export const CustomerSearchBlock = (props: Props) => {
         if (search !== "") {
           const searchedList = customers.filter((user) => {
             return (
-              user.firstName.toLowerCase().includes(search.toLowerCase()) ||
-              user.lastName.toLowerCase().includes(search.toLowerCase())
+              user.firstName
+                .toLowerCase()
+                .includes(search.replace(/\s+/g, "").toLowerCase()) ||
+              user.lastName
+                .toLowerCase()
+                .includes(search.replace(/\s+/g, "").toLowerCase())
             );
           });
           setSearchResults(searchedList);

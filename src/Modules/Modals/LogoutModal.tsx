@@ -5,7 +5,11 @@ import {
   ClosedButtonDiv,
   MediumButton,
 } from "../../Components/Buttons";
-import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
+import {
+  ButtonBox,
+  ModalContainer,
+  ModalH3,
+} from "../../Components/ModalComponents";
 import AuthContext from "../../Utilities/AuthContext";
 import { MessageType } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
@@ -36,7 +40,7 @@ const LogoutModal = (props: Props) => {
 
   return (
     <ModalContainer>
-      <h3>Logout</h3>
+      <ModalH3 paddingBottom>Logout</ModalH3>
       <h4>Are you use you want to logout?</h4>
       {message ? (
         <MessageBox marginTop>

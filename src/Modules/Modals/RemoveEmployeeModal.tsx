@@ -6,7 +6,11 @@ import {
   ClosedButtonDiv,
   MediumButton,
 } from "../../Components/Buttons";
-import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
+import {
+  ButtonBox,
+  ModalContainer,
+  ModalH3,
+} from "../../Components/ModalComponents";
 import { BackendResponseDataType, MessageType } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
@@ -61,7 +65,7 @@ const RemoveEmployeeModal = (props: Props) => {
 
   return (
     <ModalContainer>
-      <h3>Remove Employee</h3>
+      <ModalH3 paddingBottom>Remove Employee</ModalH3>
       <h4>Are you sure you want to remove this employee?</h4>
       {message ? (
         <MessageBox marginTop>

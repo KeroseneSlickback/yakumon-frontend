@@ -57,10 +57,6 @@ const OwnerEmployeeLogin = () => {
               <Link to={"/portal/owner"}>
                 <MediumButton portal>Owner Portal</MediumButton>
               </Link>
-              <p>
-                To add yourself as an employee to your stores, please input this
-                ID in the "Add Employee" section: "{authContext.user?._id}"
-              </p>
             </div>
           </PageSectionCard>
         </SinglePageContainer>
@@ -90,8 +86,7 @@ const OwnerEmployeeLogin = () => {
             <div>
               <p>
                 If you wish to be listed as an employee on Yakumon, please make
-                a request to your store's owner with this ID: "
-                {authContext.user?._id}".
+                a request to your store's owner.
               </p>
               <p>
                 If you wish to become a store owner, please email the admin at

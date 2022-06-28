@@ -1,8 +1,7 @@
 
-- Add customer search into owner
--- Fix old ID compliance
+
 - Employee sets timeOff
-- Centering in services area?
 
 - Backend return error sending
 - Appointment error handling?
+- Employee placeholder image on store page

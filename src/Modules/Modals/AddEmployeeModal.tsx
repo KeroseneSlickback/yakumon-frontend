@@ -1,23 +1,22 @@
 import axios from "axios";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   CloseButton,
   ClosedButtonDiv,
   MediumButton,
 } from "../../Components/Buttons";
+import { CustomerSearchBlock } from "../../Components/CustomerSearchComponents";
+import { StyledForm } from "../../Components/FormComponents";
 import {
-  StyledForm,
-  StyledFormBlock,
-  StyledLabel,
-  StyledTextInput,
-} from "../../Components/FormComponents";
-import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
+  ButtonBox,
+  ModalContainer,
+  ModalH3,
+} from "../../Components/ModalComponents";
 import { BackendResponseDataType, MessageType } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
 interface Props {
-  toggleModal(): void;
   storeId: string;
   closeModal(): void;
 }
@@ -27,8 +26,8 @@ const AddEmployeeModal = (props: Props) => {
   const [employee, setEmployee] = useState<string>("");
   const [message, setMessage] = useState<MessageType | null>(null);
 
-  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmployee(e.target.value);
+  const handleFormChange = (id: string) => {
+    setEmployee(id);
   };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
@@ -40,7 +39,6 @@ const AddEmployeeModal = (props: Props) => {
       store: props.storeId,
       setAsEmployee: true,
     };
-    console.log(formData);
     axios
       .patch<BackendResponseDataType>(
         "http://localhost:8888/user/employeeauthenticate",
@@ -51,19 +49,17 @@ const AddEmployeeModal = (props: Props) => {
           },
         }
       )
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         setMessage({
           message: "Successfully added employee",
           warning: false,
         });
         setTimeout(() => {
-          props.toggleModal();
+          props.closeModal();
           navigate(0);
         }, 2000);
       })
-      .catch((e) => {
-        console.log(e);
+      .catch(() => {
         setMessage({
           message: "An Error has Occurred",
           warning: true,
@@ -72,33 +68,23 @@ const AddEmployeeModal = (props: Props) => {
   };
   return (
     <ModalContainer>
-      <h3>Add Employee</h3>
-      <h4>Please enter the employee's ID.</h4>
+      <ModalH3>Add Employee</ModalH3>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledFormBlock nonDivMargin>
-          <div>
-            <StyledLabel>Employee ID:</StyledLabel>
-            <StyledTextInput
-              required
-              name="employee"
-              type="text"
-              placeholder="6260eb669a..."
-              value={employee}
-              onChange={handleFormChange}
-            ></StyledTextInput>
-          </div>
-          {message ? (
-            <MessageBox>
-              <RegularMessage
-                message={message.message}
-                warning={message.warning}
-              />
-            </MessageBox>
-          ) : null}
-          <ButtonBox>
-            <MediumButton register>Add Employee</MediumButton>
-          </ButtonBox>
-        </StyledFormBlock>
+        <CustomerSearchBlock
+          handleOnChange={handleFormChange}
+          selected={employee}
+        />
+        {message ? (
+          <MessageBox>
+            <RegularMessage
+              message={message.message}
+              warning={message.warning}
+            />
+          </MessageBox>
+        ) : null}
+        <ButtonBox>
+          <MediumButton register>Add Employee</MediumButton>
+        </ButtonBox>
       </StyledForm>
       <ClosedButtonDiv>
         <CloseButton onClick={props.closeModal} />

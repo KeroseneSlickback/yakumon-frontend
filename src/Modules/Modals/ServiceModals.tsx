@@ -13,7 +13,11 @@ import {
   StyledLabel,
   StyledTextInput,
 } from "../../Components/FormComponents";
-import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
+import {
+  ButtonBox,
+  ModalContainer,
+  ModalH3,
+} from "../../Components/ModalComponents";
 import { MessageType, ServiceType } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
@@ -77,7 +81,7 @@ export const NewServiceModal = (props: Props) => {
 
   return (
     <ModalContainer>
-      <h3>Add New Service</h3>
+      <ModalH3 paddingBottom>Add New Service</ModalH3>
       <h4>Enter the infomation below to add a service.</h4>
       <StyledForm onSubmit={handleSubmit}>
         <StyledFormBlock>
@@ -209,7 +213,7 @@ export const EditServiceModal = (props: Props) => {
 
   return (
     <ModalContainer>
-      <h3>Edit Service</h3>
+      <ModalH3>Edit Service</ModalH3>
       <h4>Alter the infomation below to edit service.</h4>
       <StyledForm onSubmit={handleSubmit}>
         <StyledFormBlock>
@@ -312,7 +316,7 @@ export const RemoveServiceModal = (props: Props) => {
 
   return (
     <ModalContainer>
-      <h3>Remove Service</h3>
+      <ModalH3>Remove Service</ModalH3>
       <h4>Are you sure you want to remove this service?</h4>
       {message ? (
         <MessageBox marginTop>

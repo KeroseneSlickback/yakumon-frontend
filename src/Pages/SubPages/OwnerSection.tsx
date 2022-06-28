@@ -57,7 +57,7 @@ const OwnerSection = () => {
   const [error, setError] = useState<MessageType | null>(null);
   const [storeToDelete, setStoreToDelete] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
-  const [addEmployee, setAddEmployee] = useState<boolean>(false);
+  const [addEmployee, setAddEmployee] = useState<string | null>(null);
   const [removeEmployee, setRemoveEmployee] =
     useState<RemoveEmployeeProps | null>(null);
 
@@ -99,7 +99,7 @@ const OwnerSection = () => {
     setStoreToDelete(null);
     setConfirmDelete(false);
     setRemoveEmployee(null);
-    setAddEmployee(false);
+    setAddEmployee(null);
   };
 
   const toggleConfirm = () => {
@@ -114,8 +114,8 @@ const OwnerSection = () => {
     setRemoveEmployee({ storeId, employeeId });
   };
 
-  const toggleAddEmployee = () => {
-    setAddEmployee(true);
+  const toggleAddEmployee = (storeId: string) => {
+    setAddEmployee(storeId);
   };
 
   return (
@@ -215,7 +215,10 @@ const OwnerSection = () => {
                           </div>
                         );
                       })}
-                      <SmallButton onClick={toggleAddEmployee} bottomPadding>
+                      <SmallButton
+                        onClick={() => toggleAddEmployee(store._id)}
+                        bottomPadding
+                      >
                         Add Employee
                       </SmallButton>
                     </AccordionModal>
@@ -234,13 +237,6 @@ const OwnerSection = () => {
                         Delete
                       </SmallButton>
                     </EditDeleteButtonDiv>
-                    {addEmployee ? (
-                      <AddEmployeeModal
-                        toggleModal={toggleAddEmployee}
-                        storeId={store._id}
-                        closeModal={closeModal}
-                      />
-                    ) : null}
                   </PageSectionCard>
                 );
               })}
@@ -255,6 +251,9 @@ const OwnerSection = () => {
       )}
       {storeToDelete || confirmDelete || removeEmployee || addEmployee ? (
         <BackDrop onClick={closeModal} />
+      ) : null}
+      {addEmployee ? (
+        <AddEmployeeModal storeId={addEmployee} closeModal={closeModal} />
       ) : null}
       {storeToDelete && !confirmDelete ? (
         <DeleteStoreModal

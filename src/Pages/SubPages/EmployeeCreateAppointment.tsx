@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect, ChangeEvent } from "react";
-import { BackDrop } from "../../Components/Backdrop";
-import { MediumButton, ReserveButton } from "../../Components/Buttons";
+import { ReserveButton } from "../../Components/Buttons";
 import {
   PageSectionCard,
   SinglePageContainer,
@@ -15,12 +14,8 @@ import {
   DetailP,
   LoadingIcon,
   LoadingIconContainer,
-  RegisterLoginDiv,
-  StylistImg,
   TopH1,
 } from "../../Components/Page-accessories";
-import LoginModal from "../../Modules/Modals/LoginModal";
-import RegisterModal from "../../Modules/Modals/RegisterModal";
 import AuthContext from "../../Utilities/AuthContext";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -28,7 +23,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   MessageType,
   NewAppointmentType,
-  ReservationType,
   ReturnUserType,
   ScheduleDateType,
   StylistAppointmentType,
@@ -43,7 +37,7 @@ import { CustomerSearchBlock } from "../../Components/CustomerSearchComponents";
 const EmployeeCreateAppointment = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { loggedIn, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [stylist, setStylist] = useState<ReturnUserType | null>(null);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
