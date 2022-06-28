@@ -4,4 +4,8 @@
 
 - Backend return error sending
 - Appointment error handling?
-- Employee placeholder image on store page
+
+Testing:
+
+- Blank fields, not submitted store and employee pictures 
+- 

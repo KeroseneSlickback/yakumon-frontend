@@ -31,13 +31,14 @@ import {
 import { ListItem } from "../Components/CheckboxComponents";
 import ScheduleView from "../Modules/Schedule/ScheduleView";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
+import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
 
 const Reservation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { loggedIn, user } = useContext(AuthContext);
   const [stylist, setStylist] = useState<ReturnUserType | null>(null);
-  const [stylistImg, setStylistImg] = useState<string>("");
+  const [stylistImg, setStylistImg] = useState<string | null>(null);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
   const [formError, setFormError] = useState<MessageType | null>(null);
@@ -176,10 +177,14 @@ const Reservation = () => {
       ) : (
         <StyledForm onSubmit={handleFormSubmit}>
           <PageSectionCard row stylist>
-            <StylistImg
-              src={`data:image/png;base64,${stylistImg}`}
-              alt={stylist?.firstName}
-            />
+            {stylistImg ? (
+              <StylistImg
+                src={`data:image/png;base64,${stylistImg}`}
+                alt={stylist?.firstName}
+              />
+            ) : (
+              <FillerImgSvg stylist />
+            )}
             <div>
               <TopH1>
                 {stylist?.firstName} {stylist?.lastName}

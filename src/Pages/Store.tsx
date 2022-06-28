@@ -152,10 +152,14 @@ const Store = () => {
                     to={`/reservation/${employee._id}`}
                     key={employee._id}
                   >
-                    <ShowcaseImg
-                      src={`data:image/png;base64,${employee?.picture}`}
-                      alt="hairsalon"
-                    />
+                    {employee.picture ? (
+                      <ShowcaseImg
+                        src={`data:image/png;base64,${employee.picture}`}
+                        alt="hairsalon"
+                      />
+                    ) : (
+                      <FillerImgSvg storeImg />
+                    )}
                     <h3>
                       {employee.firstName} {employee.lastName}
                     </h3>

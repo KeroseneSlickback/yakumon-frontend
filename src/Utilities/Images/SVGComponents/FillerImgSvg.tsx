@@ -45,6 +45,16 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
       height: 160px;
       border-radius: 1rem;
     `}
+
+    ${(props) =>
+    props.stylist &&
+    css`
+      height: 120px;
+      width: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.5);
+    `}
 `;
 
 // export const FillerImgSvg: React.FC<SvgPropsDefault> = (props) => (
