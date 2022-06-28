@@ -15,7 +15,7 @@ const CustomerResultsDiv = styled.div<{ height?: any }>`
   border-radius: 6px;
   color: ${({ theme }) => theme.fontColorAlt};
   overflow: hidden;
-  transition: height ease 0.1s;
+  transition: height ease 0.2s;
   height: ${({ height }) => height}px;
   overflow: scroll;
   max-height: 100px;

@@ -138,7 +138,9 @@ const Store = () => {
           <PageSectionCard secondary>
             <StoreDescContainer>
               <h2>Description:</h2>
-              <p>{store?.storeDescription}</p>
+              {store?.storeDescription.split("\n").map((str, i) => {
+                return <p key={i}>{str}</p>;
+              })}
             </StoreDescContainer>
           </PageSectionCard>
           <PageSectionCard styled>

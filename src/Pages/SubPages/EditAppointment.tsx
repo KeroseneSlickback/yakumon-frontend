@@ -217,7 +217,9 @@ const EditAppointment = () => {
             </AppointmentViewDiv>
             <AppointmentViewDiv>
               <p>Comment:</p>
-              <p>{appointment.comments}</p>
+              {appointment.comments.split("\n").map((str, i) => {
+                return <p key={i}>{str}</p>;
+              })}
             </AppointmentViewDiv>
           </PageSectionCard>
           <PageSectionCard noPadding>

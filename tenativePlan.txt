@@ -1,14 +1,9 @@
-
-Show appointment
-
-- Throw store details into formData
-
-- Appointment error handling?
-
+- Add spacing input and output compliance
+- Throw store details into formData 
+- Add customer search into owner
+-- Fix old ID compliance
 - Employee sets timeOff
-
-- Backend return error sending
-
 - Centering in services area?
 
-- Add customer search into owner
+- Backend return error sending
+- Appointment error handling?

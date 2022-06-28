@@ -97,11 +97,13 @@ const AppointmentConfirmation = () => {
                 {appointment.employee.firstName} {appointment.employee.lastName}
               </h2>
             </div>
-            <div>
-              <Link to={`/store/${appointment.employee.store}`}>
-                <p>View Store Details</p>
-              </Link>
-            </div>
+            {appointment.employee.store ? (
+              <div>
+                <Link to={`/store/${appointment.employee.store._id}`}>
+                  <p>View Store Details</p>
+                </Link>
+              </div>
+            ) : null}
           </PageSectionCard>
         </PageSectionCard>
       ) : null}

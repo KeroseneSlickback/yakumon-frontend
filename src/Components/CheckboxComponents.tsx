@@ -43,7 +43,7 @@ const CheckboxDescription = styled.label<{
     props.guest &&
     css`
       background-color: ${({ theme }) => theme.primary};
-      color: ${({ theme }) => theme.fontColorAlt};
+      color: ${({ theme }) => theme.fontColor};
       &:first-child {
         border-radius: 6px;
       }
