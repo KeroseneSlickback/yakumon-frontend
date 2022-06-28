@@ -1,5 +1,4 @@
-- Add spacing input and output compliance
-- Throw store details into formData 
+
 - Add customer search into owner
 -- Fix old ID compliance
 - Employee sets timeOff

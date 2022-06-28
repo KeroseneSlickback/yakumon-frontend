@@ -160,7 +160,6 @@ const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 const EditStorePortal = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [store, setStore] = useState<ReturnStoreType | null>(null);
   const [storeImg, setStoreImg] = useState<string>("");
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
@@ -196,10 +195,19 @@ const EditStorePortal = () => {
           .get<ReturnStoreType>(`http://localhost:8888/store/${id}`)
           .then((response) => {
             setLoad(false);
-            setStore(response.data);
             if (response.data.picture) {
               setStoreImg(response.data.picture.toString("base64"));
             }
+            setFormData({
+              storeName: response.data.storeName,
+              storeType: response.data.storeType,
+              storeDescription: response.data.storeDescription,
+              storeWebsite: response.data.storeWebsite,
+              location: response.data.location,
+              locationLink: response.data.locationLink,
+              phoneNumber: response.data.phoneNumber,
+              hours: response.data.hours,
+            });
           })
           .catch((e) => {
             console.log(e);
@@ -413,12 +421,6 @@ const EditStorePortal = () => {
             <h4>Please change the infomation below as you wish</h4>
           </PageSectionCard>
           <PageSectionCard styled formFormatting>
-            <StoreEditContainer topCard>
-              <h2>{store?.storeName}</h2>
-              <h3>Type: {store?.storeType}</h3>
-              <h5>Description:</h5>
-              <p>{store?.storeDescription}</p>
-            </StoreEditContainer>
             <div>
               <StyledLabel>Store Name:</StyledLabel>
               <StyledTextInput
@@ -461,36 +463,6 @@ const EditStorePortal = () => {
             </div>
           </PageSectionCard>
           <PageSectionCard formFormatting>
-            <StoreEditContainer>
-              <StoreInfoContainer ownerSection>
-                <span>
-                  <img src={location} alt="location" />
-                  <a
-                    href={store?.locationLink}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {store?.location}
-                  </a>
-                </span>
-                {store?.storeWebsite ? (
-                  <span>
-                    <img src={site} alt="site" />
-                    <a
-                      href={store.storeWebsite}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Visit Website
-                    </a>
-                  </span>
-                ) : null}
-                <span>
-                  <img src={phone} alt="phone" />
-                  <p>{store?.phoneNumber}</p>
-                </span>
-              </StoreInfoContainer>
-            </StoreEditContainer>
             <div>
               <StyledLabel>Store Website:</StyledLabel>
               <p>Please provide a clickable URL</p>
@@ -538,28 +510,6 @@ const EditStorePortal = () => {
             </div>
           </PageSectionCard>
           <PageSectionCard styled formFormatting>
-            <StoreEditContainer>
-              <StoreInfoContainer ownerSection>
-                <span>
-                  <img src={clock} alt="clock" />
-                  <div>
-                    <StoreHourTable>
-                      <tbody>
-                        {store?.hours.map((day, dayIndex) => {
-                          return (
-                            <StoreHour
-                              key={day._id}
-                              day={day}
-                              weekday={weekdaysArray[dayIndex]}
-                            />
-                          );
-                        })}
-                      </tbody>
-                    </StoreHourTable>
-                  </div>
-                </span>
-              </StoreInfoContainer>
-            </StoreEditContainer>
             <div>
               <StyledLabel>Hours:</StyledLabel>
               <p>
