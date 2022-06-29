@@ -2,13 +2,9 @@
 
 - Employee sets timeOff
 
-
-- Appointment error handling?
-
 Clean up:
 
 - Types 
-- Unused imports 
 - 
 
 Testing:

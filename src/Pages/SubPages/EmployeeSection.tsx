@@ -288,6 +288,13 @@ const EmployeeSection = () => {
               </StyledLinkButton>
             </CenterButtonDiv>
           </PageSectionCard>
+          <PageSectionCard>
+            <CenterButtonDiv>
+              <StyledLinkButton to={`/portal/timeOff/${user._id}`}>
+                Set Time Off
+              </StyledLinkButton>
+            </CenterButtonDiv>
+          </PageSectionCard>
         </>
       ) : null}
       {removeService ||

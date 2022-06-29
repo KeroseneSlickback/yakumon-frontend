@@ -40,6 +40,7 @@ interface SchedulePropTypes {
   edit?: boolean;
   editAppointmentTimeslots?: timeSlotType[];
   unlockDates?: boolean;
+  timeOff?: boolean;
 }
 
 const ScheduleView = ({
@@ -52,13 +53,13 @@ const ScheduleView = ({
   edit,
   editAppointmentTimeslots,
   unlockDates,
+  timeOff,
 }: SchedulePropTypes) => {
   const authContext = useContext(AuthContext);
   const [employeeCheck, setEmployeeCheck] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [outputDays, setOutputDays] = useState<number>(4);
   const [load, setLoad] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
   const [dateTimeArray, setDateTimeArray] = useState<ScheduleArrayType[]>([]);
   const [displayData, setDisplayData] = useState({
     dateList: [
@@ -113,53 +114,53 @@ const ScheduleView = ({
               appointments
             );
           }
-          if (selectedService) {
+          if (selectedService || timeOff) {
             if (services) {
               let foundService = services.find(
                 (service) => service._id === selectedService
               );
-              if (foundService?.timeSpan) {
-                let timeSpan = foundService.timeSpan;
-                const selectedScheduleArray = await scheduleSectionFilter(
-                  blankScheduleArray,
-                  timeSpan
-                );
-                setDateTimeArray(selectedScheduleArray);
-                let dateList = selectedScheduleArray[0].slots.map((day) => {
-                  let date = format(day.time, "MM/dd").replace(/^0+/, "");
-                  let weekday = format(day.time, "EEE");
-                  return { date, weekday };
-                });
-                let earlyMonth = format(
-                  selectedScheduleArray[0].slots[0].time,
-                  "MMM"
-                );
-                let earlyDay = parseInt(
-                  format(selectedScheduleArray[0].slots[0].time, "d")
-                );
-                let laterMonth = format(
-                  selectedScheduleArray[0].slots[outputDays - 1].time,
-                  "MMM"
-                );
-                let laterDay = parseInt(
-                  format(
-                    selectedScheduleArray[0].slots[outputDays - 1].time,
-                    "d"
-                  )
-                );
-                setDisplayData((prev) => ({
-                  ...prev,
-                  dateList,
-                  earliestDay: {
-                    month: earlyMonth,
-                    day: earlyDay,
-                  },
-                  latestDay: {
-                    month: laterMonth,
-                    day: laterDay,
-                  },
-                }));
+              let timeSpan = 0;
+              if (foundService) {
+                timeSpan = foundService.timeSpan;
+              } else if (timeOff) {
+                timeSpan = 1;
               }
+              const selectedScheduleArray = await scheduleSectionFilter(
+                blankScheduleArray,
+                timeSpan
+              );
+              setDateTimeArray(selectedScheduleArray);
+              let dateList = selectedScheduleArray[0].slots.map((day) => {
+                let date = format(day.time, "MM/dd").replace(/^0+/, "");
+                let weekday = format(day.time, "EEE");
+                return { date, weekday };
+              });
+              let earlyMonth = format(
+                selectedScheduleArray[0].slots[0].time,
+                "MMM"
+              );
+              let earlyDay = parseInt(
+                format(selectedScheduleArray[0].slots[0].time, "d")
+              );
+              let laterMonth = format(
+                selectedScheduleArray[0].slots[outputDays - 1].time,
+                "MMM"
+              );
+              let laterDay = parseInt(
+                format(selectedScheduleArray[0].slots[outputDays - 1].time, "d")
+              );
+              setDisplayData((prev) => ({
+                ...prev,
+                dateList,
+                earliestDay: {
+                  month: earlyMonth,
+                  day: earlyDay,
+                },
+                latestDay: {
+                  month: laterMonth,
+                  day: laterDay,
+                },
+              }));
             }
           } else {
             setDateTimeArray(blankScheduleArray);
@@ -220,43 +221,68 @@ const ScheduleView = ({
       setStartDate(newDate);
     }
   };
+  console.log(dateTimeArray);
 
   const chosenStartDate = (chosenSlot: ScheduleDateType) => {
-    let chosenService = services?.find(
-      (service) => service._id === selectedService
-    );
-    let counter = 0;
-    let chosenArray = dateTimeArray.map((hour) => {
-      return {
-        hour: hour.hour,
-        slots: hour.slots.map((slot) => {
-          slot.chosen = false;
-          slot.applicable = false;
-          if (counter !== chosenService?.timeSpan) {
-            if (compareAsc(chosenSlot.time, slot.time) <= 0) {
-              if (chosenSlot.id === slot.id) {
-                counter += 1;
-                return { ...slot, chosen: true };
+    if (timeOff) {
+      let selectedTimeSpan = 1;
+      let counter = 0;
+      console.log(dateTimeArray);
+      let chosenArray = dateTimeArray.map((hour) => {
+        return {
+          hour: hour.hour,
+          slots: hour.slots.map((slot) => {
+            // slot.chosen = false;
+            slot.applicable = false;
+            if (counter !== selectedTimeSpan) {
+              if (compareAsc(chosenSlot.time, slot.time) <= 0) {
+                if (chosenSlot.id === slot.id) {
+                  counter += 1;
+                  return { ...slot, chosen: true };
+                }
               }
             }
-          }
-          return slot;
-        }),
-      };
-    });
-    if (!employeeCheck) {
-      setDateTimeArray(chosenArray);
+            return slot;
+          }),
+        };
+      });
+      if (!employeeCheck) {
+        setDateTimeArray(chosenArray);
+      }
+    } else {
+      let chosenService = services?.find(
+        (service) => service._id === selectedService
+      );
+      let counter = 0;
+      let chosenArray = dateTimeArray.map((hour) => {
+        return {
+          hour: hour.hour,
+          slots: hour.slots.map((slot) => {
+            slot.chosen = false;
+            slot.applicable = false;
+            if (counter !== chosenService?.timeSpan) {
+              if (compareAsc(chosenSlot.time, slot.time) <= 0) {
+                if (chosenSlot.id === slot.id) {
+                  counter += 1;
+                  return { ...slot, chosen: true };
+                }
+              }
+            }
+            return slot;
+          }),
+        };
+      });
+      if (!employeeCheck) {
+        setDateTimeArray(chosenArray);
+      }
     }
+
     handleOnSelect(chosenSlot);
   };
 
   return (
     <>
-      {error ? (
-        <ErrorContainer>
-          <h3>There was an error.</h3>
-        </ErrorContainer>
-      ) : load ? (
+      {load ? (
         <LoadingIconContainer marginBottom>
           <LoadingIcon padding />
         </LoadingIconContainer>
