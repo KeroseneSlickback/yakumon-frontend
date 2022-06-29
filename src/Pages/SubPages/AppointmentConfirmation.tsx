@@ -1,14 +1,13 @@
 import axios from "axios";
 import { parseJSON } from "date-fns";
 import { format } from "date-fns/esm";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   PageSectionCard,
   SinglePageContainer,
 } from "../../Components/Containers";
 import {
-  ErrorContainer,
   LoadingIcon,
   LoadingIconContainer,
   TopH1,
@@ -45,9 +44,8 @@ const AppointmentConfirmation = () => {
             setAppointment(res.data);
           })
           .catch((e) => {
-            console.log(e);
             setError({
-              message: "Cannot find appoinment at this time",
+              message: `${e.response.data.error}`,
               warning: true,
             });
           });

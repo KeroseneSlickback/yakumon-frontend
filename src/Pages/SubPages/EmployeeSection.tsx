@@ -97,9 +97,8 @@ const EmployeeSection = () => {
             setUser(res.data);
           })
           .catch((e) => {
-            console.log(e);
             setError({
-              message: "Could not find user profile",
+              message: `${e.response.data.error}`,
               warning: true,
             });
           });
@@ -157,9 +156,6 @@ const EmployeeSection = () => {
       )
       .then((res) => {
         setAppointmentLookup(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
       });
   };
 

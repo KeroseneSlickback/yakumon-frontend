@@ -85,9 +85,8 @@ const EditAppointment = () => {
             console.log(res.data);
           })
           .catch((e) => {
-            console.log(e);
             setError({
-              message: "Cannot find appoinment at this time",
+              message: `${e.response.data.error}`,
               warning: true,
             });
           });
@@ -97,9 +96,8 @@ const EditAppointment = () => {
             setUser(res.data);
           })
           .catch((e) => {
-            console.log(e);
             setError({
-              message: "Cannot find user at this time",
+              message: `${e.response.data.error}`,
               warning: true,
             });
           });

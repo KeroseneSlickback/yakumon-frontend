@@ -59,7 +59,6 @@ export const DoubleConfirmDeleteStoreModal = (props: Props) => {
         }
       )
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setMessage({
             message: "Store Deleted Successfully",
@@ -71,9 +70,8 @@ export const DoubleConfirmDeleteStoreModal = (props: Props) => {
         }
       })
       .catch((e) => {
-        console.log(e);
         setMessage({
-          message: "An Error has Occured",
+          message: `${e.response.data.error}`,
           warning: true,
         });
       });

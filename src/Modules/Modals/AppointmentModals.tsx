@@ -169,7 +169,6 @@ export const DeleteAppointmentModal = (props: DeleteAppointmentProps) => {
         }
       })
       .catch((e) => {
-        console.log(e);
         setMessage({
           message: `${e.response.data.error}`,
           warning: true,

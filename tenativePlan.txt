@@ -2,8 +2,14 @@
 
 - Employee sets timeOff
 
-- Backend return error sending
+
 - Appointment error handling?
+
+Clean up:
+
+- Types 
+- Unused imports 
+- 
 
 Testing:
 

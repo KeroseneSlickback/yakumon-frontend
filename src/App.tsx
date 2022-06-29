@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import MainLayout from "./Modules/Layout/MainLayout";
-import DateTest from "./Pages/DateTest";
 import Home from "./Pages/Home";
 import Store from "./Pages/Store";
 import Reservation from "./Pages/Reservation";
@@ -31,7 +30,6 @@ function App() {
           <Route index element={<Home />} />
           <Route path="store/:id" element={<Store />} />
           <Route path="reservation/:id" element={<Reservation />} />
-          <Route path="datetest" element={<DateTest />} />
           <Route path="confirmation/:id" element={<Confirmation />} />
           <Route
             path="appointmentConfirm/:id"

@@ -106,11 +106,10 @@ const Reservation = () => {
         }, 500);
       })
       .catch((e) => {
-        setFormError((prev) => ({
-          ...prev,
-          message: "Error submitting reservation",
+        setFormError({
+          message: `${e.response.data.error}`,
           warning: true,
-        }));
+        });
         console.log(e);
       });
   };
@@ -152,9 +151,8 @@ const Reservation = () => {
             }
           })
           .catch((e) => {
-            console.log(e);
             setError({
-              message: "Error: Cannot find employee.",
+              message: `${e.response.data.error}`,
               warning: true,
             });
           });

@@ -8,7 +8,6 @@ import {
   StoreImgDiv,
 } from "../Components/Containers";
 import {
-  ErrorContainer,
   LoadingIcon,
   LoadingIconContainer,
   ShowcaseImg,
@@ -56,9 +55,8 @@ const Store = () => {
             }
           })
           .catch((e) => {
-            console.log(e);
             setError({
-              message: "Error: Cannot find store.",
+              message: `${e.response.data.error}`,
               warning: true,
             });
           });

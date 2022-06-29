@@ -24,24 +24,16 @@ import {
   CheckboxSpan,
   PageSectionCard,
   SinglePageContainer,
-  StoreEditContainer,
   StoreImgDiv,
-  StoreInfoContainer,
 } from "../../Components/Containers";
 import {
   ErrorContainer,
   LoadingIcon,
   LoadingIconContainer,
-  StoreHourTable,
   StoreImg,
 } from "../../Components/Page-accessories";
 import axios from "axios";
 import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg";
-import location from "../../Utilities/Images/SVGs/location.svg";
-import clock from "../../Utilities/Images/SVGs/clock.svg";
-import phone from "../../Utilities/Images/SVGs/phone.svg";
-import site from "../../Utilities/Images/SVGs/site.svg";
-import StoreHour from "../../Components/StoreHour";
 
 const daysArray = [
   "Sunday",
@@ -155,8 +147,6 @@ const listHoursArray = [
   "12:30 pm",
 ];
 
-const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
-
 const EditStorePortal = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -210,9 +200,8 @@ const EditStorePortal = () => {
             });
           })
           .catch((e) => {
-            console.log(e);
             setError({
-              message: "Could not find store",
+              message: `${e.response.data.error}`,
               warning: true,
             });
           });

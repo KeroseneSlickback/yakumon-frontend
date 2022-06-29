@@ -9,9 +9,8 @@ import {
   StyledTextArea,
   StyledTextInput,
 } from "../../Components/FormComponents";
-import { ButtonBox, ModalContainer } from "../../Components/ModalComponents";
+import { ButtonBox } from "../../Components/ModalComponents";
 import {
-  BackendResponseDataType,
   CreateStoreType,
   MessageType,
   ReturnStoreType,
@@ -257,9 +256,8 @@ const NewStorePortal = () => {
               }, 2000);
             })
             .catch((e) => {
-              console.log(e);
               setMessage({
-                message: "An Error has Occured",
+                message: `${e.response.data.error}`,
                 warning: true,
               });
             });

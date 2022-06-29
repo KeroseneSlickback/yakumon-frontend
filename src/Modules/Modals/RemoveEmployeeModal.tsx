@@ -43,8 +43,7 @@ const RemoveEmployeeModal = (props: Props) => {
           },
         }
       )
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         setMessage({
           message: "Successfully removed employee",
           warning: false,
@@ -55,9 +54,8 @@ const RemoveEmployeeModal = (props: Props) => {
         }, 2000);
       })
       .catch((e) => {
-        console.log(e);
         setMessage({
-          message: "An Error has Occurred",
+          message: `${e.response.data.error}`,
           warning: true,
         });
       });

@@ -40,9 +40,8 @@ const Home = () => {
             setLoad(false);
           })
           .catch((e) => {
-            console.log(e);
             setError({
-              message: "Error: Cannot find stores.",
+              message: `${e.response.data.error}`,
               warning: true,
             });
           });

@@ -79,9 +79,8 @@ const OwnerSection = () => {
             setUser(response.data);
           })
           .catch((e) => {
-            console.log(e);
             setError({
-              message: "Could not find user profile",
+              message: `${e.response.data.error}`,
               warning: true,
             });
           });

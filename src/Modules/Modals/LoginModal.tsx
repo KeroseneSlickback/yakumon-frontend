@@ -41,9 +41,9 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
         "http://localhost:8888/user/login",
         formData
       )
-      .then((response) => {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        localStorage.setItem("jwt", response.data.token.split(" ")[1]);
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("jwt", res.data.token.split(" ")[1]);
         setMessage({
           message: "Successfully Logged In!",
           warning: false,
@@ -54,9 +54,8 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
         }, 1000);
       })
       .catch((e) => {
-        console.log(e);
         setMessage({
-          message: "Please check username or password",
+          message: `${e.response.data.error}`,
           warning: true,
         });
       });

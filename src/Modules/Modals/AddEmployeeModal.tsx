@@ -59,9 +59,9 @@ const AddEmployeeModal = (props: Props) => {
           navigate(0);
         }, 2000);
       })
-      .catch(() => {
+      .catch((e) => {
         setMessage({
-          message: "An Error has Occurred",
+          message: `${e.response.data.error}`,
           warning: true,
         });
       });

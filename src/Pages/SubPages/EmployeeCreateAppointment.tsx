@@ -92,12 +92,10 @@ const EmployeeCreateAppointment = () => {
         }, 500);
       })
       .catch((e) => {
-        setFormError((prev) => ({
-          ...prev,
-          message: "Error submitting reservation",
+        setFormError({
+          message: `${e.response.data.error}`,
           warning: true,
-        }));
-        console.log(e);
+        });
       });
   };
 
@@ -138,14 +136,13 @@ const EmployeeCreateAppointment = () => {
       const getData = () => {
         axios
           .get<ReturnUserType>(`http://localhost:8888/user/${id}`)
-          .then((response) => {
+          .then((res) => {
             setLoad(false);
-            setStylist(response.data);
+            setStylist(res.data);
           })
           .catch((e) => {
-            console.log(e);
             setError({
-              message: "Error: Cannot find employee.",
+              message: `${e.response.data.error}`,
               warning: true,
             });
           });

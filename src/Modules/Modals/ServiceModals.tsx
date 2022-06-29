@@ -71,9 +71,9 @@ export const NewServiceModal = (props: Props) => {
           navigate(0);
         }, 1500);
       })
-      .catch(() => {
+      .catch((e) => {
         setMessage({
-          message: "Error making service",
+          message: `${e.response.data.error}`,
           warning: true,
         });
       });
@@ -203,9 +203,9 @@ export const EditServiceModal = (props: Props) => {
           navigate(0);
         }, 1500);
       })
-      .catch(() => {
+      .catch((e) => {
         setMessage({
-          message: "Error editing service",
+          message: `${e.response.data.error}`,
           warning: true,
         });
       });
@@ -306,9 +306,9 @@ export const RemoveServiceModal = (props: Props) => {
           navigate(0);
         }, 1500);
       })
-      .catch(() => {
+      .catch((e) => {
         setMessage({
-          message: "Error removing service",
+          message: `${e.response.data.error}`,
           warning: true,
         });
       });
