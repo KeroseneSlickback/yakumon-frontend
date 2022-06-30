@@ -1,4 +1,4 @@
-import { format, addDays, subDays, isBefore } from "date-fns";
+import { format, addDays, subDays, isBefore, isEqual } from "date-fns";
 import { useContext, useEffect, useState } from "react";
 import {
   ErrorContainer,
@@ -221,33 +221,55 @@ const ScheduleView = ({
       setStartDate(newDate);
     }
   };
-  console.log(dateTimeArray);
 
   const chosenStartDate = (chosenSlot: ScheduleDateType) => {
     if (timeOff) {
-      let selectedTimeSpan = 1;
-      let counter = 0;
-      console.log(dateTimeArray);
-      let chosenArray = dateTimeArray.map((hour) => {
-        return {
-          hour: hour.hour,
-          slots: hour.slots.map((slot) => {
-            // slot.chosen = false;
-            slot.applicable = false;
-            if (counter !== selectedTimeSpan) {
-              if (compareAsc(chosenSlot.time, slot.time) <= 0) {
-                if (chosenSlot.id === slot.id) {
-                  counter += 1;
-                  return { ...slot, chosen: true };
+      if (chosenSlot.chosen) {
+        let selectedTimeSpan = 1;
+        let counter = 0;
+        let chosenArray = dateTimeArray.map((hour) => {
+          return {
+            hour: hour.hour,
+            slots: hour.slots.map((slot) => {
+              slot.applicable = false;
+              if (counter !== selectedTimeSpan) {
+                if (compareAsc(chosenSlot.time, slot.time) <= 0) {
+                  if (chosenSlot.id === slot.id) {
+                    counter += 1;
+                    return { ...slot, chosen: false };
+                  }
                 }
               }
-            }
-            return slot;
-          }),
-        };
-      });
-      if (!employeeCheck) {
-        setDateTimeArray(chosenArray);
+              return slot;
+            }),
+          };
+        });
+        if (!employeeCheck) {
+          setDateTimeArray(chosenArray);
+        }
+      } else {
+        let selectedTimeSpan = 1;
+        let counter = 0;
+        let chosenArray = dateTimeArray.map((hour) => {
+          return {
+            hour: hour.hour,
+            slots: hour.slots.map((slot) => {
+              slot.applicable = false;
+              if (counter !== selectedTimeSpan) {
+                if (compareAsc(chosenSlot.time, slot.time) <= 0) {
+                  if (chosenSlot.id === slot.id) {
+                    counter += 1;
+                    return { ...slot, chosen: true };
+                  }
+                }
+              }
+              return slot;
+            }),
+          };
+        });
+        if (!employeeCheck) {
+          setDateTimeArray(chosenArray);
+        }
       }
     } else {
       let chosenService = services?.find(
@@ -276,7 +298,6 @@ const ScheduleView = ({
         setDateTimeArray(chosenArray);
       }
     }
-
     handleOnSelect(chosenSlot);
   };
 

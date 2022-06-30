@@ -1,4 +1,5 @@
 import axios from "axios";
+import { isEqual } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ReserveButton } from "../../Components/Buttons";
@@ -30,14 +31,28 @@ const EmployeeTimeOff = () => {
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
   const [formError, setFormError] = useState<MessageType | null>(null);
+  const [timeOff, setTimeOff] = useState<ScheduleDateType[]>([]);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted");
+    console.log(timeOff);
   };
 
   const selectTime = (timeBlock: ScheduleDateType) => {
-    console.log(timeBlock);
+    if (timeOff.length > 0) {
+      const foundTimeBlock = timeOff.find((prevBlock) =>
+        isEqual(prevBlock.time, timeBlock.time)
+      );
+      if (foundTimeBlock) {
+        setTimeOff((timeOff) =>
+          timeOff.filter((item) => !isEqual(item.time, timeBlock.time))
+        );
+      } else {
+        setTimeOff([...timeOff, timeBlock]);
+      }
+    } else {
+      setTimeOff([...timeOff, timeBlock]);
+    }
   };
 
   useEffect(() => {
