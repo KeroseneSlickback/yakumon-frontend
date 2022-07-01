@@ -9,6 +9,7 @@ import {
 interface TakenArrayType {
   time: Date;
   appointmentId: string;
+  timeOff?: boolean;
 }
 
 // helper function, flattens stylist's appointment timeSlots to a single array of day/times
@@ -18,6 +19,7 @@ const flattenArrayDates = async (stylistArray: StylistAppointmentType[]) => {
       return {
         time: parseJSON(timeslot.slotDateTime),
         appointmentId: timeslot.appointment,
+        timeOff: timeslot.timeOff ? timeslot.timeOff : false,
       };
     });
   });
@@ -28,6 +30,7 @@ const flattenEditAppointment = async (timeSlots: timeSlotType[]) => {
     return {
       time: parseJSON(timeslot.slotDateTime),
       appointmentId: timeslot.appointment,
+      timeOff: timeslot.timeOff ? timeslot.timeOff : false,
     };
   });
 };
@@ -73,6 +76,7 @@ const compareAndFillArray = async (
             available: true,
             applicable: false,
             appointmentId: editTimeSlot.appointmentId,
+            timeOff: filledTimeSlot.timeOff,
           };
         } else {
           slot = {
@@ -80,6 +84,7 @@ const compareAndFillArray = async (
             available: false,
             applicable: false,
             appointmentId: filledTimeSlot.appointmentId,
+            timeOff: filledTimeSlot.timeOff,
           };
         }
       } else {
@@ -367,6 +372,7 @@ export const scheduleSectionFilter = async (
             let tailCalc = countingArray.length - steps;
             let randomId = Math.floor(Math.random() * 100000);
             let newCountingArray = countingArray.map((obj, index) => {
+              console.log(obj);
               if (index <= tailCalc) {
                 return (obj = {
                   ...obj,

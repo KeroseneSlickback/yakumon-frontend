@@ -156,6 +156,7 @@ export const ScheduleBlankButton = styled.button<{
   possibleHead?: boolean;
   chosen?: boolean;
   enabled?: boolean;
+  offChosen?: boolean;
 }>`
   ${(props) =>
     props.enabled &&
@@ -181,10 +182,27 @@ export const ScheduleBlankButton = styled.button<{
     }
   }
 
+  @keyframes pulseRed {
+    0% {
+      box-shadow: 0 0 1px 2px rgba(155, 0, 0, 0.8);
+    }
+    50% {
+      box-shadow: 0 0 1px 2px rgba(155, 0, 0, 1);
+    }
+    100% {
+      box-shadow: 0 0 1px 2px rgba(155, 0, 0, 0.8);
+    }
+  }
+
   ${(props) =>
     props.chosen &&
     css`
       animation: pulseGreen 1.5s ease-in-out infinite;
+    `}
+  ${(props) =>
+    props.offChosen &&
+    css`
+      animation: pulseRed 1.5s ease-in-out infinite;
     `}
 `;
 

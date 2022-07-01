@@ -63,7 +63,7 @@ function App() {
               }
             />
             <Route
-              path="timeOff/:id"
+              path="timeoff/:id"
               element={
                 <RequireEmployeeAuth>
                   <EmployeeTimeOff />

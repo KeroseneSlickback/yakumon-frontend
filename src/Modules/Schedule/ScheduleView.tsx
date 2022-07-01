@@ -88,6 +88,7 @@ const ScheduleView = ({
       setStartDate(subDays(new Date(), 1));
     }
   }, []);
+  console.log(dateTimeArray);
 
   useEffect(() => {
     setLoad(true);
@@ -223,6 +224,7 @@ const ScheduleView = ({
   };
 
   const chosenStartDate = (chosenSlot: ScheduleDateType) => {
+    console.log(chosenSlot);
     if (timeOff) {
       if (chosenSlot.chosen) {
         let selectedTimeSpan = 1;
@@ -248,6 +250,7 @@ const ScheduleView = ({
           setDateTimeArray(chosenArray);
         }
       } else {
+        console.log("here?");
         let selectedTimeSpan = 1;
         let counter = 0;
         let chosenArray = dateTimeArray.map((hour) => {
@@ -258,6 +261,7 @@ const ScheduleView = ({
               if (counter !== selectedTimeSpan) {
                 if (compareAsc(chosenSlot.time, slot.time) <= 0) {
                   if (chosenSlot.id === slot.id) {
+                    console.log(slot);
                     counter += 1;
                     return { ...slot, chosen: true };
                   }
@@ -353,16 +357,20 @@ const ScheduleView = ({
                   {time.slots.map((slot, index2) => {
                     return (
                       <StyledTh block key={index2}>
-                        {slot?.closed ? (
+                        {slot.timeOff ? (
+                          <ScheduleBlankButton
+                            onClick={() => chosenStartDate(slot)}
+                            offChosen={slot.chosen ? true : false}
+                            type="button"
+                          >
+                            <p>Off</p>
+                          </ScheduleBlankButton>
+                        ) : slot?.closed ? (
                           <CrossSvg key={index2} />
                         ) : !slot.available &&
                           employeeCheck &&
                           slot.appointmentId ? (
-                          <ScheduleBlankButton
-                            chosen
-                            enabled
-                            onClick={() => chosenStartDate(slot)}
-                          >
+                          <ScheduleBlankButton chosen enabled type="button">
                             <CrossSvg key={index2} />
                           </ScheduleBlankButton>
                         ) : slot.possibleHead ? (

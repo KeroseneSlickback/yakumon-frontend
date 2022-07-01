@@ -119,6 +119,7 @@ export interface ScheduleDateType {
   possibleHead?: boolean;
   chosen?: boolean;
   editAppointmentBlock?: boolean;
+  timeOff?: boolean;
 }
 
 export interface ScheduleArrayType {
@@ -132,6 +133,7 @@ export interface timeSlotType {
   employee: string;
   owner: string;
   slotDateTime: Date;
+  timeOff?: boolean;
 }
 
 export interface StylistAppointmentType {

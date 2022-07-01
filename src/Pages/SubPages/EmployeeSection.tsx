@@ -290,7 +290,7 @@ const EmployeeSection = () => {
           </PageSectionCard>
           <PageSectionCard>
             <CenterButtonDiv>
-              <StyledLinkButton to={`/portal/timeOff/${user._id}`}>
+              <StyledLinkButton to={`/portal/timeoff/${user._id}`}>
                 Set Time Off
               </StyledLinkButton>
             </CenterButtonDiv>

@@ -2,6 +2,13 @@
 
 - Employee sets timeOff
 
+-- Create removeTimeOff state 
+-- When timeBlock is chosen, function sorts it by boolean timeOff 
+-- Dual, conditional, axios calls 
+-- "TimeOff" blank button has a black highlight around it for selection
+
+-- Removal is simply removing the appointment (wrapper)
+
 Clean up:
 
 - Types 

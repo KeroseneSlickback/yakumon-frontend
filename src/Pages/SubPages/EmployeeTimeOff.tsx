@@ -22,6 +22,7 @@ import {
   MessageType,
   ReturnUserType,
   ScheduleDateType,
+  StylistAppointmentType,
 } from "../../Utilities/types";
 
 const EmployeeTimeOff = () => {
@@ -32,26 +33,69 @@ const EmployeeTimeOff = () => {
   const [error, setError] = useState<MessageType | null>(null);
   const [formError, setFormError] = useState<MessageType | null>(null);
   const [timeOff, setTimeOff] = useState<ScheduleDateType[]>([]);
+  const [removeTimeOff, setRemoveTimeOff] = useState<ScheduleDateType[]>([]);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(timeOff);
+    const jwt = localStorage.getItem("jwt");
+    const currentTime = new Date();
+
+    const sendingData = {
+      createdAt: currentTime,
+      timeOff,
+    };
+
+    axios
+      .post<StylistAppointmentType>(
+        "http://localhost:8888/appointment/timeoff",
+        sendingData,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("Fine", res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const selectTime = (timeBlock: ScheduleDateType) => {
-    if (timeOff.length > 0) {
-      const foundTimeBlock = timeOff.find((prevBlock) =>
-        isEqual(prevBlock.time, timeBlock.time)
-      );
-      if (foundTimeBlock) {
-        setTimeOff((timeOff) =>
-          timeOff.filter((item) => !isEqual(item.time, timeBlock.time))
+    // console.log(timeBlock);
+    if (timeBlock.timeOff) {
+      if (removeTimeOff.length > 0) {
+        const foundTimeBlock = removeTimeOff.find((prevBlock) =>
+          isEqual(prevBlock.time, timeBlock.time)
         );
+        if (foundTimeBlock) {
+          setRemoveTimeOff((removeTimeOff) =>
+            removeTimeOff.filter((item) => !isEqual(item.time, timeBlock.time))
+          );
+        } else {
+          setRemoveTimeOff([...removeTimeOff, timeBlock]);
+        }
+      } else {
+        setRemoveTimeOff([...removeTimeOff, timeBlock]);
+      }
+    } else {
+      if (timeOff.length > 0) {
+        const foundTimeBlock = timeOff.find((prevBlock) =>
+          isEqual(prevBlock.time, timeBlock.time)
+        );
+        if (foundTimeBlock) {
+          setTimeOff((timeOff) =>
+            timeOff.filter((item) => !isEqual(item.time, timeBlock.time))
+          );
+        } else {
+          setTimeOff([...timeOff, timeBlock]);
+        }
       } else {
         setTimeOff([...timeOff, timeBlock]);
       }
-    } else {
-      setTimeOff([...timeOff, timeBlock]);
     }
   };
 
@@ -91,7 +135,7 @@ const EmployeeTimeOff = () => {
       ) : (
         <StyledForm onSubmit={handleFormSubmit}>
           <PageSectionCard>
-            <TopH1>Create Time Off</TopH1>
+            <TopH1>Time Off</TopH1>
           </PageSectionCard>
           <PageSectionCard styled>
             <p>
