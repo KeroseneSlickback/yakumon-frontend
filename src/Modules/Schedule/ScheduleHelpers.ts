@@ -372,7 +372,6 @@ export const scheduleSectionFilter = async (
             let tailCalc = countingArray.length - steps;
             let randomId = Math.floor(Math.random() * 100000);
             let newCountingArray = countingArray.map((obj, index) => {
-              console.log(obj);
               if (index <= tailCalc) {
                 return (obj = {
                   ...obj,

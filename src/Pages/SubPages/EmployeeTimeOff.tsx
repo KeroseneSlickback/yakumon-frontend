@@ -7,7 +7,7 @@ import {
   PageSectionCard,
   SinglePageContainer,
 } from "../../Components/Containers";
-import { StyledForm, StyledTextArea } from "../../Components/FormComponents";
+import { StyledForm } from "../../Components/FormComponents";
 import { ButtonBox } from "../../Components/ModalComponents";
 import {
   LoadingIcon,
@@ -19,6 +19,7 @@ import RegularMessage, {
 } from "../../Modules/Messages/RegularMessage";
 import ScheduleView from "../../Modules/Schedule/ScheduleView";
 import {
+  BackendResponseDataType,
   MessageType,
   ReturnUserType,
   ScheduleDateType,
@@ -37,35 +38,67 @@ const EmployeeTimeOff = () => {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(timeOff);
+    setFormError(null);
     const jwt = localStorage.getItem("jwt");
     const currentTime = new Date();
 
-    const sendingData = {
-      createdAt: currentTime,
-      timeOff,
-    };
+    try {
+      if (timeOff.length > 0) {
+        const sendingData = {
+          createdAt: currentTime,
+          timeOff,
+        };
 
-    axios
-      .post<StylistAppointmentType>(
-        "http://localhost:8888/appointment/timeoff",
-        sendingData,
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("Fine", res);
-      })
-      .catch((e) => {
-        console.log(e);
+        axios
+          .post<StylistAppointmentType>(
+            "http://localhost:8888/timeoff",
+            sendingData,
+            {
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log("Fine", res);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      }
+      if (removeTimeOff.length > 0) {
+        axios
+          .delete<BackendResponseDataType>("http://localhost:8888/timeoff", {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+            data: {
+              removeTimeOff,
+            },
+          })
+          .then((res) => {
+            console.log("Fine", res);
+          })
+          .catch((e) => {
+            console.log(e.response);
+          });
+      }
+      setFormError({
+        message: "Time successfully updated",
+        warning: false,
       });
+      setTimeout(() => {
+        navigate("/portal/employee");
+      }, 2000);
+    } catch (e) {
+      setFormError({
+        message: "An error had Occured",
+        warning: true,
+      });
+    }
   };
 
   const selectTime = (timeBlock: ScheduleDateType) => {
-    // console.log(timeBlock);
     if (timeBlock.timeOff) {
       if (removeTimeOff.length > 0) {
         const foundTimeBlock = removeTimeOff.find((prevBlock) =>
@@ -142,6 +175,11 @@ const EmployeeTimeOff = () => {
               Select multiple time blocks to list them as "Time off" in your
               schedule.
             </p>
+            <br />
+            <p>
+              You may select previously selected sections to revert them to open
+              time.
+            </p>
           </PageSectionCard>
           <PageSectionCard noPadding>
             {user ? (
@@ -165,7 +203,7 @@ const EmployeeTimeOff = () => {
                   />
                 </MessageBox>
               ) : null}
-              <ReserveButton register>Submit Time Off</ReserveButton>
+              <ReserveButton register>Submit Time</ReserveButton>
             </ButtonBox>
           </PageSectionCard>
         </StyledForm>

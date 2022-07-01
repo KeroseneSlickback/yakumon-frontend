@@ -88,7 +88,6 @@ const ScheduleView = ({
       setStartDate(subDays(new Date(), 1));
     }
   }, []);
-  console.log(dateTimeArray);
 
   useEffect(() => {
     setLoad(true);
@@ -224,7 +223,6 @@ const ScheduleView = ({
   };
 
   const chosenStartDate = (chosenSlot: ScheduleDateType) => {
-    console.log(chosenSlot);
     if (timeOff) {
       if (chosenSlot.chosen) {
         let selectedTimeSpan = 1;
@@ -235,11 +233,9 @@ const ScheduleView = ({
             slots: hour.slots.map((slot) => {
               slot.applicable = false;
               if (counter !== selectedTimeSpan) {
-                if (compareAsc(chosenSlot.time, slot.time) <= 0) {
-                  if (chosenSlot.id === slot.id) {
-                    counter += 1;
-                    return { ...slot, chosen: false };
-                  }
+                if (isEqual(chosenSlot.time, slot.time)) {
+                  counter += 1;
+                  return { ...slot, chosen: false };
                 }
               }
               return slot;
@@ -250,7 +246,6 @@ const ScheduleView = ({
           setDateTimeArray(chosenArray);
         }
       } else {
-        console.log("here?");
         let selectedTimeSpan = 1;
         let counter = 0;
         let chosenArray = dateTimeArray.map((hour) => {
@@ -259,12 +254,9 @@ const ScheduleView = ({
             slots: hour.slots.map((slot) => {
               slot.applicable = false;
               if (counter !== selectedTimeSpan) {
-                if (compareAsc(chosenSlot.time, slot.time) <= 0) {
-                  if (chosenSlot.id === slot.id) {
-                    console.log(slot);
-                    counter += 1;
-                    return { ...slot, chosen: true };
-                  }
+                if (isEqual(chosenSlot.time, slot.time)) {
+                  counter += 1;
+                  return { ...slot, chosen: true };
                 }
               }
               return slot;
@@ -287,11 +279,9 @@ const ScheduleView = ({
             slot.chosen = false;
             slot.applicable = false;
             if (counter !== chosenService?.timeSpan) {
-              if (compareAsc(chosenSlot.time, slot.time) <= 0) {
-                if (chosenSlot.id === slot.id) {
-                  counter += 1;
-                  return { ...slot, chosen: true };
-                }
+              if (isEqual(chosenSlot.time, slot.time)) {
+                counter += 1;
+                return { ...slot, chosen: false };
               }
             }
             return slot;
