@@ -3,6 +3,7 @@ export interface UserRegisterType {
   lastName: string;
   username: string;
   phoneNumber: string;
+  title?: string;
   email: string;
   password: string;
   passwordConfirmation: string;

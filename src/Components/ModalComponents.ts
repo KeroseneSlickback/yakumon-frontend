@@ -27,6 +27,7 @@ export const ButtonBox = styled.div<{
   centered?: boolean;
   sideBySide?: boolean;
   topPadding?: boolean;
+  smallTopPadding?: boolean;
 }>`
   ${(props) =>
     props.centered &&
@@ -48,6 +49,11 @@ export const ButtonBox = styled.div<{
     props.topPadding &&
     css`
       margin-top: 16px;
+    `}
+    ${(props) =>
+    props.smallTopPadding &&
+    css`
+      margin-top: 6px;
     `}
 `;
 

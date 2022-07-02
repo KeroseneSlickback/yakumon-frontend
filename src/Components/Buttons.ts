@@ -14,7 +14,7 @@ export const TinyButton = styled.button<{
   border: none;
   cursor: pointer;
   background-color: ${({ theme }) => theme.primary};
-  padding: 2px 4px;
+  padding: 3px 6px;
   font-size: 0.6rem;
   border-radius: 6px;
   text-decoration: none;
@@ -197,12 +197,16 @@ export const ScheduleBlankButton = styled.button<{
   ${(props) =>
     props.chosen &&
     css`
-      animation: pulseGreen 1.5s ease-in-out infinite;
+      /* animation: pulseGreen 1.5s ease-in-out infinite; */
+
+      box-shadow: 0 0 1px 2px rgba(168, 240, 208, 1);
     `}
   ${(props) =>
     props.offChosen &&
     css`
-      animation: pulseRed 1.5s ease-in-out infinite;
+      /* animation: pulseRed 1.5s ease-in-out infinite; */
+
+      box-shadow: 0 0 1px 2px rgba(155, 0, 0, 1);
     `}
 `;
 

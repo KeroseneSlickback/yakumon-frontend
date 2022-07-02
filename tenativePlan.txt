@@ -1,13 +1,16 @@
 
 
-- Employee sets timeOff
+- Delete user 
+- Hide user settings if not logged in
+- Employee patch 
+-- Employee picture upload
+-- Employee title enter
 
-
--- "TimeOff" blank button has a black highlight around it for selection
--- Clicking on timeoff within employee area (and maybe reservation?) causes crash
--- Schedule styling
-
--- Removal is simply removing the appointment (wrapper)
+- Store hours for full digits 
+- Modal transitions?
+- box-shadows around buttons?
+-- Renew all box-shadows?
+- 
 
 Clean up:
 

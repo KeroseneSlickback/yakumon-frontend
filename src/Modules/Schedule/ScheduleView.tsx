@@ -1,7 +1,13 @@
-import { format, addDays, subDays, isBefore, isEqual } from "date-fns";
+import {
+  format,
+  addDays,
+  subDays,
+  isBefore,
+  isEqual,
+  compareAsc,
+} from "date-fns";
 import { useContext, useEffect, useState } from "react";
 import {
-  ErrorContainer,
   LoadingIcon,
   LoadingIconContainer,
 } from "../../Components/Page-accessories";
@@ -27,7 +33,6 @@ import {
   StyledTr,
 } from "../../Components/ScheduleComponents";
 import { ScheduleBlankButton, ScheduleButton } from "../../Components/Buttons";
-import { compareAsc } from "date-fns/esm";
 import AuthContext from "../../Utilities/AuthContext";
 
 interface SchedulePropTypes {
@@ -279,9 +284,11 @@ const ScheduleView = ({
             slot.chosen = false;
             slot.applicable = false;
             if (counter !== chosenService?.timeSpan) {
-              if (isEqual(chosenSlot.time, slot.time)) {
-                counter += 1;
-                return { ...slot, chosen: false };
+              if (chosenSlot.id == slot.id) {
+                if (compareAsc(slot.time, chosenSlot.time) >= 0) {
+                  counter += 1;
+                  return { ...slot, chosen: true };
+                }
               }
             }
             return slot;
@@ -349,7 +356,9 @@ const ScheduleView = ({
                       <StyledTh block key={index2}>
                         {slot.timeOff ? (
                           <ScheduleBlankButton
-                            onClick={() => chosenStartDate(slot)}
+                            onClick={
+                              timeOff ? () => chosenStartDate(slot) : undefined
+                            }
                             offChosen={slot.chosen ? true : false}
                             type="button"
                           >
@@ -360,7 +369,16 @@ const ScheduleView = ({
                         ) : !slot.available &&
                           employeeCheck &&
                           slot.appointmentId ? (
-                          <ScheduleBlankButton chosen enabled type="button">
+                          <ScheduleBlankButton
+                            chosen
+                            enabled
+                            onClick={() => chosenStartDate(slot)}
+                            type="button"
+                          >
+                            <CrossSvg key={index2} />
+                          </ScheduleBlankButton>
+                        ) : !slot.available && slot.appointmentId ? (
+                          <ScheduleBlankButton type="button">
                             <CrossSvg key={index2} />
                           </ScheduleBlankButton>
                         ) : slot.possibleHead ? (

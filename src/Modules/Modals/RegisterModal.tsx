@@ -16,6 +16,7 @@ import {
   ModalContainer,
   ModalH3,
 } from "../../Components/ModalComponents";
+import { DetailP } from "../../Components/Page-accessories";
 import AuthContext from "../../Utilities/AuthContext";
 import {
   BackendResponseDataType,
@@ -151,6 +152,17 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
           </div>
         </StyledFormBlock>
         <StyledFormBlock>
+          <div>
+            <StyledLabel>Title</StyledLabel>
+            <DetailP>For future employees, not required</DetailP>
+            <StyledTextInput
+              name="title"
+              type="text"
+              placeholder="Junior Hair Stylists"
+              value={formData.title}
+              onChange={handleFormChange}
+            />
+          </div>
           <div>
             <StyledLabel>Email</StyledLabel>
             <StyledTextInput

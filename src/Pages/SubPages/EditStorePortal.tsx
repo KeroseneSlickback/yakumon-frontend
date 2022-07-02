@@ -339,7 +339,6 @@ const EditStorePortal = () => {
 
     const { returnObject, objectEvaluation, hourEvaluation } =
       await verifyFormObject(shallowFormData);
-    console.log(returnObject, objectEvaluation, hourEvaluation);
 
     const imageInputted = await checkImg(image);
 

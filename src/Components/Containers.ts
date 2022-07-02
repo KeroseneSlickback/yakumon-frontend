@@ -48,9 +48,6 @@ export const FooterContainer = styled.footer`
   align-items: center;
   justify-content: center;
   margin-top: auto;
-  p {
-    font-size: 10px;
-  }
 `;
 
 // Page containers
