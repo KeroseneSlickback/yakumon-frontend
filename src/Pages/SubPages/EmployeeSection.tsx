@@ -41,6 +41,7 @@ import {
   CenterButtonDiv,
   EmptyButton,
   LargeButton,
+  MediumButton,
   SmallButton,
   StyledLinkButton,
 } from "../../Components/Buttons";
@@ -55,6 +56,7 @@ import {
   DeleteAppointmentModal,
   ViewAppointmentModal,
 } from "../../Modules/Modals/AppointmentModals";
+import { EmployeePatchModal } from "../../Modules/Modals/UserModals";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -79,6 +81,7 @@ const EmployeeSection = () => {
   const [user, setUser] = useState<ReturnUserType | null>(null);
   const [removeService, setRemoveService] = useState<string | null>(null);
   const [editService, setEditService] = useState<ServiceType | null>(null);
+  const [editUser, setEditUser] = useState<boolean | string>(false);
   const [newService, setNewService] = useState<boolean>(false);
   const [appointmentLookup, setAppointmentLookup] =
     useState<StylistAppointmentType | null>(null);
@@ -109,11 +112,16 @@ const EmployeeSection = () => {
   }, []);
 
   const closeModal = () => {
+    setEditUser(false);
     setRemoveService(null);
     setEditService(null);
     setNewService(false);
     setAppointmentLookup(null);
     setDeleteAppointment(null);
+  };
+
+  const showEditUser = (userId: string) => {
+    setEditUser(userId);
   };
 
   const showRemoveService = (serviceId: string) => {
@@ -289,10 +297,13 @@ const EmployeeSection = () => {
             </CenterButtonDiv>
           </PageSectionCard>
           <PageSectionCard>
-            <CenterButtonDiv>
+            <CenterButtonDiv sideBySide>
               <StyledLinkButton to={`/portal/timeoff/${user._id}`}>
                 Set Time Off
               </StyledLinkButton>
+              <MediumButton onClick={() => showEditUser(user._id)}>
+                Edit User
+              </MediumButton>
             </CenterButtonDiv>
           </PageSectionCard>
         </>
@@ -301,6 +312,7 @@ const EmployeeSection = () => {
       editService ||
       newService ||
       appointmentLookup ||
+      editUser ||
       deleteAppointment ? (
         <BackDrop onClick={closeModal} />
       ) : null}
@@ -324,6 +336,9 @@ const EmployeeSection = () => {
           closeModal={closeModal}
           appointment={deleteAppointment}
         />
+      ) : null}
+      {editUser ? (
+        <EmployeePatchModal closeModal={closeModal} userId={editUser} />
       ) : null}
     </SinglePageContainer>
   );

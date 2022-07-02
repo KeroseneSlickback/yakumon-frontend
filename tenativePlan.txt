@@ -1,16 +1,10 @@
 
 
-- Delete user 
-- Hide user settings if not logged in
-- Employee patch 
--- Employee picture upload
--- Employee title enter
-
 - Store hours for full digits 
 - Modal transitions?
 - box-shadows around buttons?
 -- Renew all box-shadows?
-- 
+- Spacing on Reservation page
 
 Clean up:
 

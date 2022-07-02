@@ -92,10 +92,16 @@ export const LargeButton = styled(TinyButton)`
   font-size: 1.4rem;
 `;
 
-export const CenterButtonDiv = styled.div`
+export const CenterButtonDiv = styled.div<{ sideBySide?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${(props) =>
+    props.sideBySide &&
+    css`
+      justify-content: space-between;
+    `}
 `;
 
 export const ReserveButton = styled(TinyButton)`

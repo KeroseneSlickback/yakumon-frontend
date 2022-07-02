@@ -154,7 +154,6 @@ const EditStorePortal = () => {
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
   const [message, setMessage] = useState<MessageType | null>(null);
-  const [formError, setFormError] = useState<string | null>("");
   const [formData, setFormData] = useState<EditStoreType>({
     storeName: "",
     storeType: "",
@@ -601,12 +600,6 @@ const EditStorePortal = () => {
               <ReserveButton register>Edit Store</ReserveButton>
             </ButtonBox>
           </PageSectionCard>
-
-          {formError ? (
-            <MessageBox>
-              <RegularMessage message={formError} warning={true} />
-            </MessageBox>
-          ) : null}
         </StyledForm>
       )}
     </SinglePageContainer>

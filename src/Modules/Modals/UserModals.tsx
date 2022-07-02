@@ -6,9 +6,11 @@ import {
   ClosedButtonDiv,
   MediumButton,
 } from "../../Components/Buttons";
+import { StoreImgDiv } from "../../Components/Containers";
 import {
   StyledForm,
   StyledFormBlock,
+  StyledImgInput,
   StyledLabel,
   StyledTextInput,
 } from "../../Components/FormComponents";
@@ -21,8 +23,10 @@ import {
   DetailP,
   LoadingIcon,
   LoadingIconContainer,
+  StoreImg,
 } from "../../Components/Page-accessories";
 import AuthContext from "../../Utilities/AuthContext";
+import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg";
 import {
   BackendResponseDataType,
   MessageType,
@@ -41,8 +45,8 @@ interface EditUserType {
 
 interface Props {
   closeModal(): void;
-  confirmDelete(): void;
-  userId?: string;
+  confirmDelete?: () => void;
+  userId?: string | boolean;
 }
 
 export const UserModal = (props: Props) => {
@@ -271,40 +275,84 @@ export const EmployeePatchModal = (props: Props) => {
   const [message, setMessage] = useState<MessageType | null>(null);
   const [load, setLoad] = useState<boolean>(true);
   const [error, setError] = useState<MessageType | null>(null);
+  const [formError, setFormError] = useState<MessageType | null>(null);
   const [title, setTitle] = useState<string>("");
+  const [displayImg, setDisplayImg] = useState<string>("");
   const [image, setImage] = useState("");
+
+  const handleImageUpload = (e: any) => {
+    setImage(e.target.files[0]);
+  };
+
+  const checkImg = (img: string) => {
+    if (img === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    setMessage(null);
+    setFormError(null);
     const jwt = localStorage.getItem("jwt");
 
-    axios
-      .patch<BackendResponseDataType>(
-        "http://localhost:8888/user",
-        verifiedObject,
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
-      )
-      .then(() => {
-        setMessage({
-          message: "Successfully Edited User!",
-          warning: false,
-        });
-        authContext.login();
-        setTimeout(() => {
-          navigate(0);
-        }, 2000);
-      })
-      .catch((e) => {
-        setMessage({
-          message: `${e.response.data.error}`,
-          warning: true,
-        });
+    const imageInputted = await checkImg(image);
+    const imageFormData = new FormData();
+    imageFormData.append("picture", image);
+    let sendingObj = {
+      title: "",
+    };
+    let sendingObjCheck = false;
+
+    if (title !== "") {
+      sendingObj.title = title;
+      sendingObjCheck = true;
+    }
+
+    if (!imageInputted && sendingObjCheck) {
+      setFormError({
+        message: "Nothing to edit",
+        warning: true,
       });
+    }
+
+    try {
+      if (imageInputted) {
+        axios.patch<BackendResponseDataType>(
+          "http://localhost:8888/user/picture",
+          imageFormData,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+      }
+      if (sendingObjCheck) {
+        axios.patch<BackendResponseDataType>(
+          "http://localhost:8888/user",
+          sendingObj,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+      }
+      setFormError({
+        message: "User updated",
+        warning: false,
+      });
+      setTimeout(() => {
+        navigate(0);
+      }, 2000);
+    } catch (e) {
+      setFormError({
+        message: "An Error had Occured",
+        warning: true,
+      });
+    }
   };
 
   useEffect(() => {
@@ -313,11 +361,11 @@ export const EmployeePatchModal = (props: Props) => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnUserType>(`http://localhost:8888/user/${id}`)
+          .get<ReturnUserType>(`http://localhost:8888/user/${props.userId}`)
           .then((res) => {
             setLoad(false);
             if (res.data.picture) {
-              setImage(res.data.picture.toString("base64"));
+              setDisplayImg(res.data.picture.toString("base64"));
             }
             if (res.data.title) {
               setTitle(res.data.title);
@@ -345,28 +393,63 @@ export const EmployeePatchModal = (props: Props) => {
         <LoadingIconContainer>
           <LoadingIcon />
         </LoadingIconContainer>
-      ) : title ? (
+      ) : (
         <>
-          <ModalH3 paddingBottom>Employee Edit Section</ModalH3>
+          <ModalH3 paddingBottom>Employee Edit</ModalH3>
           <h4>Please add or edit your title and picture.</h4>
-          <StyledForm onSubmit={handleSubmit}></StyledForm>
-
-          {message ? (
-            <MessageBox marginTop>
-              <RegularMessage
-                message={message.message}
-                warning={message.warning}
+          <StyledForm onSubmit={handleSubmit}>
+            <StyledFormBlock>
+              <StyledLabel>Title</StyledLabel>
+              <StyledTextInput
+                name="title"
+                type="text"
+                placeholder="Senior Hair Stylist"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
-            </MessageBox>
-          ) : null}
-          <ButtonBox topPadding sideBySide>
-            <MediumButton warning onClick={handleDelete}>
-              Delete
-            </MediumButton>
-            <MediumButton onClick={props.closeModal}>Cancel</MediumButton>
-          </ButtonBox>
+            </StyledFormBlock>
+            <StyledFormBlock>
+              <div>
+                <StoreImgDiv ownerSection>
+                  {displayImg ? (
+                    <StoreImg
+                      ownerSection
+                      src={`data:image/png;base64,${displayImg}`}
+                    />
+                  ) : (
+                    <FillerImgSvg ownerSection />
+                  )}
+                </StoreImgDiv>
+              </div>
+              <div>
+                <StyledLabel>Employee Image</StyledLabel>
+                <p>
+                  Please upload a jpg, jpeg, or png image under 200kb only.
+                  Photos with a 1/1 aspect ratio work best.
+                </p>
+                <StyledImgInput
+                  type="file"
+                  name="picture"
+                  accept="image/png, image/jpeg, image/jpg"
+                  onChange={handleImageUpload}
+                />
+              </div>
+            </StyledFormBlock>
+
+            {formError ? (
+              <MessageBox marginTop>
+                <RegularMessage
+                  message={formError.message}
+                  warning={formError.warning}
+                />
+              </MessageBox>
+            ) : null}
+            <ButtonBox topPadding>
+              <MediumButton register>Submit</MediumButton>
+            </ButtonBox>
+          </StyledForm>
         </>
-      ) : null}
+      )}
       <ClosedButtonDiv>
         <CloseButton onClick={props.closeModal} />
       </ClosedButtonDiv>
