@@ -1,10 +1,10 @@
 
 
 - Store hours for full digits 
-- Modal transitions?
 - box-shadows around buttons?
 -- Renew all box-shadows?
 - Spacing on Reservation page
+- Phone number sections to strings
 
 Clean up:
 

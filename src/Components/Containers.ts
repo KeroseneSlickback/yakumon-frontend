@@ -40,14 +40,19 @@ export const NavBarHeader = styled.header`
 
 // Footer containers
 export const FooterContainer = styled.footer`
-  border-radius: 0.7rem 0.7rem 0 0px;
+  border-radius: 0.5rem 0.5rem 0 0px;
   background-color: ${({ theme }) => theme.alternative};
-  padding: 4px;
+  padding: 4px 6px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: auto;
+`;
+
+export const FooterButtonDiv = styled.div`
+  display: flex;
+  gap: 2px;
 `;
 
 // Page containers
