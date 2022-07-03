@@ -45,6 +45,34 @@ export const theme = {
   warningAlt: "#A50935",
 };
 
+export const newTheme = {
+  green1: "",
+  green2: "",
+  green3: "",
+  green4: "",
+  green5: "",
+  green6: "",
+  green7: "",
+  green8: "",
+  pruple1: "",
+  pruple2: "",
+  pruple3: "",
+  pruple4: "",
+  pruple5: "",
+  pruple6: "",
+  pruple7: "",
+  red1: "",
+  red2: "",
+  red3: "",
+  red4: "",
+  red5: "",
+  red6: "",
+  red7: "",
+  red8: "",
+  white1: "",
+  white2: "",
+};
+
 export const GlobalStyles = createGlobalStyle` 
   body {
     background-color: ${(props) => props.theme.background};

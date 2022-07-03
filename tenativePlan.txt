@@ -1,4 +1,7 @@
 
+- Revise colors 
+- Set standard border-radius-s 
+- 
 
 Clean up:
 

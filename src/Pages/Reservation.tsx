@@ -36,9 +36,9 @@ import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
 const Reservation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { loggedIn, user } = useContext(AuthContext);
-  const [stylist, setStylist] = useState<ReturnUserType | null>(null);
-  const [stylistImg, setStylistImg] = useState<string | null>(null);
+  const { loggedIn, user: AuthUser } = useContext(AuthContext);
+  const [user, setUser] = useState<ReturnUserType | null>(null);
+  const [userImg, setUserImg] = useState<string | null>(null);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
   const [formError, setFormError] = useState<MessageType | null>(null);
@@ -75,7 +75,7 @@ const Reservation = () => {
       return;
     }
     const jwt = localStorage.getItem("jwt");
-    if (!jwt || !user?._id) {
+    if (!jwt || !AuthUser?._id) {
       setFormError((prev) => ({
         ...prev,
         message: "Error: User cannot be found.",
@@ -87,7 +87,7 @@ const Reservation = () => {
     const reservationData = {
       ...reservation,
       employee: id,
-      customer: user?._id,
+      customer: AuthUser?._id,
       createAt: currentTime,
     };
     axios
@@ -145,9 +145,9 @@ const Reservation = () => {
           .get<ReturnUserType>(`http://localhost:8888/user/${id}`)
           .then((response) => {
             setLoad(false);
-            setStylist(response.data);
+            setUser(response.data);
             if (response.data.picture) {
-              setStylistImg(response.data.picture.toString("base64"));
+              setUserImg(response.data.picture.toString("base64"));
             }
           })
           .catch((e) => {
@@ -162,6 +162,8 @@ const Reservation = () => {
     return () => clearTimeout(debounce);
   }, []);
 
+  console.log(user?.services);
+
   return (
     <SinglePageContainer>
       {error ? (
@@ -175,43 +177,54 @@ const Reservation = () => {
       ) : (
         <StyledForm onSubmit={handleFormSubmit}>
           <PageSectionCard row stylist>
-            {stylistImg ? (
+            {userImg ? (
               <StylistImg
-                src={`data:image/png;base64,${stylistImg}`}
-                alt={stylist?.firstName}
+                src={`data:image/png;base64,${userImg}`}
+                alt={user?.firstName}
               />
             ) : (
               <FillerImgSvg stylist />
             )}
             <div>
               <TopH1 storePage>
-                {stylist?.firstName} {stylist?.lastName}
+                {user?.firstName} {user?.lastName}
               </TopH1>
-              <h3>{stylist?.title}</h3>
+              <h3>{user?.title}</h3>
             </div>
           </PageSectionCard>
           <PageSectionCard styled>
             <h2>Start Your Reservation</h2>
             {loggedIn ? (
               <>
-                <p>Select a service.</p>
-                <ServiceContainer>
-                  {stylist?.services
-                    ? stylist?.services.map((service) => {
-                        return (
-                          <ListItem
-                            key={service._id}
-                            text1={service.serviceName}
-                            text2={service.price}
-                            handleOnChange={() => selectService(service._id)}
-                            selected={reservation.service}
-                            id={service._id}
-                            services
-                          ></ListItem>
-                        );
-                      })
-                    : null}
-                </ServiceContainer>
+                {user?.services && user.services.length > 0 ? (
+                  <>
+                    <p>Select a service.</p>
+                    <ServiceContainer>
+                      {user.services
+                        ? user.services.map((service) => {
+                            return (
+                              <ListItem
+                                key={service._id}
+                                text1={service.serviceName}
+                                text2={service.price}
+                                handleOnChange={() =>
+                                  selectService(service._id)
+                                }
+                                selected={reservation.service}
+                                id={service._id}
+                                services
+                              ></ListItem>
+                            );
+                          })
+                        : null}
+                    </ServiceContainer>
+                  </>
+                ) : (
+                  <p>
+                    This employee hasn't made services yet. Please check back
+                    later.
+                  </p>
+                )}
               </>
             ) : (
               <RegisterLoginDiv>
@@ -234,10 +247,10 @@ const Reservation = () => {
           <PageSectionCard noPadding>
             <h3>Select any white section as the start of your reservation.</h3>
             <ScheduleView
-              appointments={stylist?.appointments}
-              services={stylist?.services}
+              appointments={user?.appointments}
+              services={user?.services}
               selectedService={reservation.service}
-              store={stylist?.store}
+              store={user?.store}
               handleOnSelect={selectTime}
             />
           </PageSectionCard>
