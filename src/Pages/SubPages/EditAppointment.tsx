@@ -23,7 +23,7 @@ import ScheduleView from "../../Modules/Schedule/ScheduleView";
 import {
   MessageType,
   ReservationType,
-  ReturnUserType,
+  UserType,
   ScheduleDateType,
   StylistAppointmentType,
 } from "../../Utilities/types";
@@ -50,7 +50,7 @@ const EditAppointment = () => {
   const [appointment, setAppointment] = useState<StylistAppointmentType | null>(
     null
   );
-  const [user, setUser] = useState<ReturnUserType | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [reservation, setReservation] = useState<ReservationType>({
     slotDateTime: null,
     comments: "",
@@ -60,7 +60,7 @@ const EditAppointment = () => {
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     const user = localStorage.getItem("user");
-    const parsedUser: ReturnUserType = user !== null ? JSON.parse(user) : null;
+    const parsedUser: UserType = user !== null ? JSON.parse(user) : null;
     setError(null);
     const debounce = setTimeout(() => {
       const getData = async () => {
@@ -91,7 +91,7 @@ const EditAppointment = () => {
             });
           });
         await axios
-          .get<ReturnUserType>(`http://localhost:8888/user/${parsedUser._id}`)
+          .get<UserType>(`http://localhost:8888/user/${parsedUser._id}`)
           .then((res) => {
             setUser(res.data);
           })

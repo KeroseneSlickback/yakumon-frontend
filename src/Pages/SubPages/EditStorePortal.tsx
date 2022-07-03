@@ -15,7 +15,7 @@ import {
   BackendResponseDataType,
   EditStoreType,
   MessageType,
-  ReturnStoreType,
+  StoreType,
 } from "../../Utilities/types";
 import RegularMessage, {
   MessageBox,
@@ -181,7 +181,7 @@ const EditStorePortal = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnStoreType>(`http://localhost:8888/store/${id}`)
+          .get<StoreType>(`http://localhost:8888/store/${id}`)
           .then((response) => {
             setLoad(false);
             if (response.data.picture) {
@@ -355,7 +355,7 @@ const EditStorePortal = () => {
 
     try {
       if (objectEvaluation || hourEvaluation) {
-        axios.patch<ReturnStoreType>(
+        axios.patch<StoreType>(
           `http://localhost:8888/store/${id}`,
           returnObject,
           {

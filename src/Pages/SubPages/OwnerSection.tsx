@@ -22,7 +22,7 @@ import {
   TopH1,
 } from "../../Components/Page-accessories";
 import AuthContext from "../../Utilities/AuthContext";
-import { MessageType, ReturnUserType } from "../../Utilities/types";
+import { MessageType, UserType } from "../../Utilities/types";
 import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg";
 import location from "../../Utilities/Images/SVGs/location.svg";
 import clock from "../../Utilities/Images/SVGs/clock.svg";
@@ -52,7 +52,7 @@ interface RemoveEmployeeProps {
 const OwnerSection = () => {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
-  const [user, setUser] = useState<ReturnUserType | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [load, setLoad] = useState<boolean>(true);
   const [error, setError] = useState<MessageType | null>(null);
   const [storeToDelete, setStoreToDelete] = useState<string | null>(null);
@@ -68,7 +68,7 @@ const OwnerSection = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnUserType>(`http://localhost:8888/user/${owner?._id}`)
+          .get<UserType>(`http://localhost:8888/user/${owner?._id}`)
           .then((response) => {
             setLoad(false);
             response.data.ownedStores?.forEach((store) => {

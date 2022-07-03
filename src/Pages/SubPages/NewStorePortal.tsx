@@ -10,11 +10,7 @@ import {
   StyledTextInput,
 } from "../../Components/FormComponents";
 import { ButtonBox } from "../../Components/ModalComponents";
-import {
-  CreateStoreType,
-  MessageType,
-  ReturnStoreType,
-} from "../../Utilities/types";
+import { CreateStoreType, MessageType, StoreType } from "../../Utilities/types";
 import RegularMessage, {
   MessageBox,
 } from "../../Modules/Messages/RegularMessage";
@@ -226,7 +222,7 @@ const NewStorePortal = () => {
     imageFormData.append("picture", image);
     setMessage(null);
     axios
-      .post<ReturnStoreType>("http://localhost:8888/store", formData, {
+      .post<StoreType>("http://localhost:8888/store", formData, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
@@ -235,7 +231,7 @@ const NewStorePortal = () => {
         if (res.status === 201) {
           const storeId = res.data._id;
           axios
-            .patch<ReturnStoreType>(
+            .patch<StoreType>(
               `http://localhost:8888/store/${storeId}/picture`,
               imageFormData,
               {

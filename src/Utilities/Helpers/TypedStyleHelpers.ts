@@ -37,7 +37,7 @@ export const SvgDefaultContainer = styled.div<SvgPropsDefault>`
 
 export const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
   & svg {
-    fill: ${({ theme }) => theme.hero};
+    fill: ${({ theme }) => theme.green1};
     & rect {
       fill: "#a08ec2";
     }

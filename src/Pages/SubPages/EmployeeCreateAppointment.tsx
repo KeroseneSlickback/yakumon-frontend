@@ -23,7 +23,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   MessageType,
   NewAppointmentType,
-  ReturnUserType,
+  UserType,
   ScheduleDateType,
   StylistAppointmentType,
 } from "../../Utilities/types";
@@ -38,7 +38,7 @@ const EmployeeCreateAppointment = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const [stylist, setStylist] = useState<ReturnUserType | null>(null);
+  const [stylist, setStylist] = useState<UserType | null>(null);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
   const [formError, setFormError] = useState<MessageType | null>(null);
@@ -135,7 +135,7 @@ const EmployeeCreateAppointment = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnUserType>(`http://localhost:8888/user/${id}`)
+          .get<UserType>(`http://localhost:8888/user/${id}`)
           .then((res) => {
             setLoad(false);
             setStylist(res.data);

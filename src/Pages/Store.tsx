@@ -21,7 +21,7 @@ import clock from "../Utilities/Images/SVGs/clock.svg";
 import phone from "../Utilities/Images/SVGs/phone.svg";
 import site from "../Utilities/Images/SVGs/site.svg";
 import { useState, useEffect } from "react";
-import { MessageType, ReturnStoreType } from "../Utilities/types";
+import { MessageType, StoreType } from "../Utilities/types";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import StoreHour from "../Components/StoreHour";
@@ -32,7 +32,7 @@ const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
 const Store = () => {
   const { id } = useParams();
-  const [store, setStore] = useState<ReturnStoreType | null>(null);
+  const [store, setStore] = useState<StoreType | null>(null);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
   const [storeImg, setStoreImg] = useState<string>("");
@@ -43,7 +43,7 @@ const Store = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnStoreType>(`http://localhost:8888/store/${id}`)
+          .get<StoreType>(`http://localhost:8888/store/${id}`)
           .then((response) => {
             setLoad(false);
             setStore(response.data);

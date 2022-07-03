@@ -27,7 +27,7 @@ export const NavBarHeader = styled.header`
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    color: ${({ theme }) => theme.fontColor};
+    color: ${({ theme }) => theme.white1};
     text-decoration: none;
     font-size: 1.2rem;
     max-width: max-content;
@@ -41,7 +41,7 @@ export const NavBarHeader = styled.header`
 // Footer containers
 export const FooterContainer = styled.footer`
   border-radius: 0.5rem 0.5rem 0 0px;
-  background-color: ${({ theme }) => theme.alternative};
+  background-color: ${({ theme }) => theme.white1};
   padding: 4px 6px;
   width: 100%;
   display: flex;
@@ -86,8 +86,8 @@ export const PageSectionCard = styled.div<{
   position: relative;
   padding: 18px 18px 36px 18px;
   width: 100%;
-  color: ${({ theme }) => theme.fontColor};
-  background-color: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.white1};
+  background-color: ${({ theme }) => theme.purple1};
   border-radius: 1rem 1rem 0 0;
   h2 {
     font-size: 1.3rem;
@@ -121,8 +121,8 @@ export const PageSectionCard = styled.div<{
   ${(props) =>
     props.styled &&
     css`
-      background-color: ${({ theme }) => theme.alternative};
-      color: ${({ theme }) => theme.fontColorAlt};
+      background-color: ${({ theme }) => theme.white1};
+      color: ${({ theme }) => theme.black};
     `}
 
   ${(props) =>
@@ -167,7 +167,7 @@ export const PageSectionCard = styled.div<{
   ${(props) =>
     props.secondary &&
     css`
-      background-color: ${({ theme }) => theme.primary};
+      background-color: ${({ theme }) => theme.purple1};
     `}
 
   ${(props) =>
@@ -268,7 +268,7 @@ export const StoreImgDiv = styled.div<{ ownerSection?: boolean }>`
   z-index: 0;
   object-fit: cover;
   div {
-    background-color: ${({ theme }) => theme.alternative};
+    background-color: ${({ theme }) => theme.white1};
     border-radius: 1rem 1rem 0 0;
   }
 
@@ -307,8 +307,8 @@ export const ShowcaseGrid = styled.div`
 
 export const SelectContainer = styled(Link)`
   text-decoration: none;
-  color: ${({ theme }) => theme.fontColorAlt};
-  background-color: ${({ theme }) => theme.alternative};
+  color: ${({ theme }) => theme.black};
+  background-color: ${({ theme }) => theme.white1};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -322,7 +322,7 @@ export const SelectContainer = styled(Link)`
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.backgroundAlt};
+    background-color: ${({ theme }) => theme.white2};
   }
 `;
 
@@ -332,6 +332,9 @@ export const SelectContainerDiv = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
+  h3 {
+    text-align: center;
+  }
 `;
 
 export const StoreInfoContainer = styled.div<{ ownerSection?: boolean }>`
@@ -377,8 +380,8 @@ export const StoreDescContainer = styled.div`
 `;
 
 export const StoreEditContainer = styled.div<{ topCard?: boolean }>`
-  background-color: ${({ theme }) => theme.alternativeAlt};
-  border: 1px solid ${({ theme }) => theme.background};
+  background-color: ${({ theme }) => theme.white2};
+  border: 1px solid ${({ theme }) => theme.purple1};
   border-radius: 0.5rem;
   padding: 0px 6px;
   h2 {

@@ -24,7 +24,7 @@ import AuthContext from "../../Utilities/AuthContext";
 import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg";
 import {
   MessageType,
-  ReturnUserType,
+  UserType,
   ScheduleDateType,
   ServiceType,
   StylistAppointmentType,
@@ -78,7 +78,7 @@ const EmployeeSection = () => {
   const navigate = useNavigate();
   const [load, setLoad] = useState<boolean>(true);
   const [error, setError] = useState<MessageType | null>(null);
-  const [user, setUser] = useState<ReturnUserType | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [removeService, setRemoveService] = useState<string | null>(null);
   const [editService, setEditService] = useState<ServiceType | null>(null);
   const [editUser, setEditUser] = useState<boolean | string>(false);
@@ -94,7 +94,7 @@ const EmployeeSection = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnUserType>(`http://localhost:8888/user/${user?._id}`)
+          .get<UserType>(`http://localhost:8888/user/${user?._id}`)
           .then((res) => {
             setLoad(false);
             setUser(res.data);

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
-import { MessageType, ReturnUserType } from "../Utilities/types";
+import { MessageType, UserType } from "../Utilities/types";
 import { ListItem } from "./CheckboxComponents";
 import { StyledLabel, StyledTextInput } from "./FormComponents";
 
@@ -11,9 +11,9 @@ const CustomerSearchDiv = styled.div`
 `;
 
 const CustomerResultsDiv = styled.div<{ height?: any }>`
-  background-color: ${({ theme }) => theme.alternative};
-  border-radius: 6px;
-  color: ${({ theme }) => theme.fontColorAlt};
+  background-color: ${({ theme }) => theme.white1};
+  border-radius: 0.5rem;
+  color: ${({ theme }) => theme.black};
   overflow: hidden;
   transition: height ease 0.2s;
   height: ${({ height }) => height}px;
@@ -34,24 +34,19 @@ interface Props {
 export const CustomerSearchBlock = (props: Props) => {
   const contentEL = useRef<any>(null);
   const [height, setHeight] = useState(0);
-  const [customers, setCustomers] = useState<ReturnUserType[] | null>(null);
-  const [searchResults, setSearchResults] = useState<ReturnUserType[] | null>(
-    null
-  );
+  const [customers, setCustomers] = useState<UserType[] | null>(null);
+  const [searchResults, setSearchResults] = useState<UserType[] | null>(null);
   const [search, setSearch] = useState<string>("");
-  const [load, setLoad] = useState<boolean>(false);
   const [customerError, setCustomerError] = useState<MessageType | null>(null);
 
   useEffect(() => {
-    setLoad(true);
     setCustomerError(null);
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnUserType[]>("http://localhost:8888/user/all")
+          .get<UserType[]>("http://localhost:8888/user/all")
           .then((res) => {
             setCustomers(res.data);
-            setLoad(false);
           })
           .catch((e) => {
             console.log(e);
@@ -96,7 +91,7 @@ export const CustomerSearchBlock = (props: Props) => {
       }
     }, 400);
     return () => clearTimeout(debounce);
-  }, [search]);
+  }, [search, customers]);
 
   const selectID = (
     customerFirst: string,

@@ -22,30 +22,30 @@ export interface ServiceType {
   owner: string;
 }
 
-// Make appointment type
-
-export interface ReturnUserType {
+export interface UserType {
   firstName: string;
   lastName: string;
   title?: string;
   username: string;
   phoneNumber: string;
   email?: string;
-  store?: ReturnStoreType;
+  store?: StoreType;
   appointments?: StylistAppointmentType[];
   services?: ServiceType[];
   picture?: Buffer;
   owner?: boolean;
   admin?: boolean;
   employee?: boolean;
-  ownedStores?: ReturnStoreType[];
+  storeOwner?: boolean;
+  ownedStores?: StoreType[];
   _id: string;
 }
 
+// Maybe?
 export interface BackendResponseDataType {
   success: boolean;
   token: string;
-  user?: ReturnUserType;
+  user?: UserType;
 }
 
 export interface MessageType {
@@ -64,24 +64,7 @@ export interface StoreDayHour {
   _id?: string;
 }
 
-export interface UserType {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  title: string;
-  username: string;
-  phoneNumber: string;
-  email?: string;
-  store?: ReturnStoreType;
-  appointments?: StylistAppointmentType[];
-  services: ServiceType[];
-  picture?: string;
-  storeOwner: boolean;
-  admin: boolean;
-  employee: boolean;
-}
-
-export interface ReturnStoreType {
+export interface StoreType {
   _id: string;
   storeName: string;
   storeType: string;
@@ -128,7 +111,7 @@ export interface ScheduleArrayType {
   slots: ScheduleDateType[];
 }
 
-export interface timeSlotType {
+export interface TimeSlotType {
   appointment: string;
   createdAt: Date;
   employee: string;
@@ -138,10 +121,10 @@ export interface timeSlotType {
 }
 
 export interface StylistAppointmentType {
-  employee: ReturnUserType;
-  owner: ReturnUserType;
+  employee: UserType;
+  owner: UserType;
   service: ServiceType;
-  timeSlots: timeSlotType[];
+  timeSlots: TimeSlotType[];
   _id: string;
   comments: string;
 }

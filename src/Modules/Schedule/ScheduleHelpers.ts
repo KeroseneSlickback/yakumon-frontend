@@ -3,7 +3,7 @@ import {
   ScheduleArrayType,
   StoreDayHour,
   StylistAppointmentType,
-  timeSlotType,
+  TimeSlotType,
 } from "../../Utilities/types";
 
 interface TakenArrayType {
@@ -25,7 +25,7 @@ const flattenArrayDates = async (stylistArray: StylistAppointmentType[]) => {
   });
 };
 
-const flattenEditAppointment = async (timeSlots: timeSlotType[]) => {
+const flattenEditAppointment = async (timeSlots: TimeSlotType[]) => {
   return timeSlots.flatMap((timeslot) => {
     return {
       time: parseJSON(timeslot.slotDateTime),
@@ -288,7 +288,7 @@ export const scheduleArrayBuild = async (
   storeHours: StoreDayHour[],
   outputDays: number,
   stylistAppointments: StylistAppointmentType[],
-  editAppointmentTimeslots?: timeSlotType[]
+  editAppointmentTimeslots?: TimeSlotType[]
 ) => {
   let timesTakenArray = await flattenArrayDates(stylistAppointments);
   let builtArray = await outputByHour(storeHours, startDate, outputDays);

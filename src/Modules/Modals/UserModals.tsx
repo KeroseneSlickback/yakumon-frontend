@@ -30,7 +30,7 @@ import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg"
 import {
   BackendResponseDataType,
   MessageType,
-  ReturnUserType,
+  UserType,
 } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
@@ -361,7 +361,7 @@ export const EmployeePatchModal = (props: Props) => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnUserType>(`http://localhost:8888/user/${props.userId}`)
+          .get<UserType>(`http://localhost:8888/user/${props.userId}`)
           .then((res) => {
             setLoad(false);
             if (res.data.picture) {

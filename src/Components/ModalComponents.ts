@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 
 export const ModalContainer = styled.div`
-  background-color: ${({ theme }) => theme.background};
-  color: ${({ theme }) => theme.fontColor};
+  background-color: ${({ theme }) => theme.purple1};
+  color: ${({ theme }) => theme.white1};
   position: fixed;
   width: 100%;
   top: 50%;

@@ -12,13 +12,13 @@ import {
   LoadingIconContainer,
 } from "../../Components/Page-accessories";
 import {
-  ReturnStoreType,
-  ReturnUserType,
+  StoreType,
+  UserType,
   ScheduleArrayType,
   ScheduleDateType,
   ServiceType,
   StylistAppointmentType,
-  timeSlotType,
+  TimeSlotType,
 } from "../../Utilities/types";
 import { scheduleArrayBuild, scheduleSectionFilter } from "./ScheduleHelpers";
 import {
@@ -39,11 +39,11 @@ interface SchedulePropTypes {
   appointments?: StylistAppointmentType[];
   services?: ServiceType[];
   selectedService?: string;
-  store?: ReturnStoreType;
+  store?: StoreType;
   handleOnSelect: (params: any) => any;
-  user?: ReturnUserType;
+  user?: UserType;
   edit?: boolean;
-  editAppointmentTimeslots?: timeSlotType[];
+  editAppointmentTimeslots?: TimeSlotType[];
   unlockDates?: boolean;
   timeOff?: boolean;
 }

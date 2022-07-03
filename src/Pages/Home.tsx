@@ -15,12 +15,10 @@ import {
 } from "../Components/Page-accessories";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
-import { MessageType, ReturnStoreType } from "../Utilities/types";
+import { MessageType, StoreType } from "../Utilities/types";
 
 const Home = () => {
-  const [fetchedStores, setFetchedStores] = useState<ReturnStoreType[] | null>(
-    null
-  );
+  const [fetchedStores, setFetchedStores] = useState<StoreType[] | null>(null);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
   useEffect(() => {
@@ -29,7 +27,7 @@ const Home = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnStoreType[]>("http://localhost:8888/store")
+          .get<StoreType[]>("http://localhost:8888/store")
           .then((response) => {
             response.data.forEach((store) => {
               if (store.picture) {

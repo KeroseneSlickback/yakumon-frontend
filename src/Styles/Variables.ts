@@ -3,79 +3,75 @@ import { createGlobalStyle } from "styled-components";
 // Add further types to this to spread them across for size as well?
 declare module "styled-components" {
   interface DefaultTheme {
-    hero?: string;
-    primary?: string;
-    primaryAlt?: string;
-    secondary?: string;
-    secondaryAlt?: string;
-    secondaryHighlight?: string;
-    background?: string;
-    backgroundAlt?: string;
-    subdued?: string;
-    subduedAlt?: string;
-    alternative?: string;
-    alternativeAlt?: string;
-    fontColor?: string;
-    fontColorAlt?: string;
-    highlight?: string;
-    highlightAlt?: string;
-    warning?: string;
-    warningAlt?: string;
+    green1?: string;
+    green2?: string;
+    green3?: string;
+    green4?: string;
+    green5?: string;
+    green6?: string;
+    purple1?: string;
+    purple2?: string;
+    purple3?: string;
+    purple4?: string;
+    purple5?: string;
+    purple6?: string;
+    red1?: string;
+    red2?: string;
+    red3?: string;
+    red4?: string;
+    red5?: string;
+    white1?: string;
+    white2?: string;
+    black?: string;
   }
 }
 
 // Global variables, themes, Global styles, and media breaks
 
-export const theme = {
-  hero: "#40B590",
-  primary: "#A08EC2",
-  primaryAlt: "#B7A9D1",
-  secondary: "#60A988",
-  secondaryAlt: "#88BFA6",
-  secondaryHighlight: "#A8F0D0",
-  background: "#907AB8",
-  backgroundAlt: "#947FBB",
-  alternative: "#F7F7F7",
-  alternativeAlt: "#ffffff",
-  fontColor: "#f7f7f7",
-  fontColorAlt: "#001c00",
-  highlight: "#FFFACD",
-  highlightAlt: "#FBF9E2",
-  warning: "#9b0832",
-  warningAlt: "#A50935",
-};
+// export const theme = {
+//   hero: "#40B590",
+//   primary: "#A08EC2",
+//   primaryAlt: "#B7A9D1",
+//   secondary: "#60A988",
+//   secondaryAlt: "#88BFA6",
+//   secondaryHighlight: "#A8F0D0",
+//   background: "#907AB8",
+//   backgroundAlt: "#947FBB",
+//   alternative: "#F7F7F7",
+//   alternativeAlt: "#ffffff",
+//   fontColor: "#f7f7f7",
+//   fontColorAlt: "#001c00",
+//   highlight: "#FFFACD",
+//   highlightAlt: "#FBF9E2",
+//   warning: "#9b0832",
+//   warningAlt: "#A50935",
+// };
 
-export const newTheme = {
-  green1: "",
-  green2: "",
-  green3: "",
-  green4: "",
-  green5: "",
-  green6: "",
-  green7: "",
-  green8: "",
-  pruple1: "",
-  pruple2: "",
-  pruple3: "",
-  pruple4: "",
-  pruple5: "",
-  pruple6: "",
-  pruple7: "",
-  red1: "",
-  red2: "",
-  red3: "",
-  red4: "",
-  red5: "",
-  red6: "",
-  red7: "",
-  red8: "",
-  white1: "",
-  white2: "",
+export const theme = {
+  green1: "#60A988",
+  green2: "#6BAF90",
+  green3: "#86BDA4",
+  green4: "#8BC0A8",
+  green5: "#ACD0C0",
+  green6: "#BFDACE",
+  purple1: "#907AB8",
+  purple2: "#947FBB",
+  purple3: "#A08EC2",
+  purple4: "#A696C6",
+  purple5: "#B6A9D0",
+  purple6: "#CCC3DD",
+  red1: "#A0143C",
+  red2: "#AD3558",
+  red3: "#B24464",
+  red4: "#BE5F7B",
+  white1: "#F7F7F7",
+  white2: "#ffffff",
+  black: "#001c00",
 };
 
 export const GlobalStyles = createGlobalStyle` 
   body {
-    background-color: ${(props) => props.theme.background};
+    background-color: ${(props) => props.theme.purple1};
   }
 `;
 

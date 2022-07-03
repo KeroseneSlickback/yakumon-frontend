@@ -24,7 +24,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   MessageType,
   ReservationType,
-  ReturnUserType,
+  UserType,
   ScheduleDateType,
   StylistAppointmentType,
 } from "../Utilities/types";
@@ -37,7 +37,7 @@ const Reservation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { loggedIn, user: AuthUser } = useContext(AuthContext);
-  const [user, setUser] = useState<ReturnUserType | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [userImg, setUserImg] = useState<string | null>(null);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
@@ -142,7 +142,7 @@ const Reservation = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnUserType>(`http://localhost:8888/user/${id}`)
+          .get<UserType>(`http://localhost:8888/user/${id}`)
           .then((response) => {
             setLoad(false);
             setUser(response.data);

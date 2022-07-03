@@ -14,7 +14,7 @@ export const StyledTr = styled.tr<{ head?: boolean; dateList?: boolean }>`
   grid-template-columns: 1.5fr repeat(4, 1fr);
   justify-items: center;
   &:nth-child(even) {
-    background-color: ${({ theme }) => theme.primary};
+    background-color: ${({ theme }) => theme.purple3};
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   }

@@ -21,7 +21,7 @@ import ScheduleView from "../../Modules/Schedule/ScheduleView";
 import {
   BackendResponseDataType,
   MessageType,
-  ReturnUserType,
+  UserType,
   ScheduleDateType,
   StylistAppointmentType,
 } from "../../Utilities/types";
@@ -29,7 +29,7 @@ import {
 const EmployeeTimeOff = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [user, setUser] = useState<ReturnUserType | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
   const [formError, setFormError] = useState<MessageType | null>(null);
@@ -138,7 +138,7 @@ const EmployeeTimeOff = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<ReturnUserType>(`http://localhost:8888/user/${id}`)
+          .get<UserType>(`http://localhost:8888/user/${id}`)
           .then((res) => {
             setLoad(false);
             setUser(res.data);

@@ -35,9 +35,9 @@ const timesArray = [
 ];
 
 export const AppointmentModalContainer = styled.div`
-  background-color: ${({ theme }) => theme.alternative};
+  background-color: ${({ theme }) => theme.white1};
   border-radius: 0.5rem;
-  color: ${({ theme }) => theme.fontColorAlt};
+  color: ${({ theme }) => theme.black};
   padding: 4px;
   margin-bottom: 16px;
 `;

@@ -10,39 +10,39 @@ export const TinyButton = styled.button<{
   nonConstraint?: boolean;
   bottomPadding?: boolean;
 }>`
-  color: ${({ theme }) => theme.fontColor};
+  color: ${({ theme }) => theme.white1};
   border: none;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.purple3};
   padding: 3px 6px;
   font-size: 0.6rem;
-  border-radius: 6px;
+  border-radius: 0.33rem;
   text-decoration: none;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 2px,
     rgba(255, 255, 255, 0.1) 0px 0px 2px,
     rgba(255, 255, 255, 0.1) 0px 0px 1px 1px inset;
   &:hover {
-    background-color: ${({ theme }) => theme.primaryAlt};
-    color: ${({ theme }) => theme.fontColorAlt};
+    background-color: ${({ theme }) => theme.purple4};
+    color: ${({ theme }) => theme.black};
   }
 
   ${(props) =>
     props.register &&
     css`
-      background-color: ${({ theme }) => theme.secondary};
+      background-color: ${({ theme }) => theme.green1};
       &:hover {
-        background-color: ${({ theme }) => theme.secondaryAlt};
-        color: ${({ theme }) => theme.fontColorAlt};
+        background-color: ${({ theme }) => theme.green2};
+        color: ${({ theme }) => theme.black};
       }
     `}
   ${(props) =>
     props.log &&
     css`
-      background-color: ${({ theme }) => theme.primary};
-      color: ${({ theme }) => theme.fontColor};
+      background-color: ${({ theme }) => theme.purple3};
+      color: ${({ theme }) => theme.white1};
       &:hover {
-        background-color: ${({ theme }) => theme.primaryAlt};
-        color: ${({ theme }) => theme.fontColorAlt};
+        background-color: ${({ theme }) => theme.purple4};
+        color: ${({ theme }) => theme.black};
       }
     `}
 
@@ -50,20 +50,20 @@ export const TinyButton = styled.button<{
     props.portal &&
     css`
       padding: 6px 8px;
-      background-color: ${({ theme }) => theme.secondary};
+      background-color: ${({ theme }) => theme.green1};
       &:hover {
-        background-color: ${({ theme }) => theme.secondaryAlt};
-        color: ${({ theme }) => theme.fontColorAlt};
+        background-color: ${({ theme }) => theme.green2};
+        color: ${({ theme }) => theme.black};
       }
     `}
 
     ${(props) =>
     props.warning &&
     css`
-      background-color: ${({ theme }) => theme.warning};
+      background-color: ${({ theme }) => theme.red1};
       &:hover {
-        background-color: ${({ theme }) => theme.warningAlt};
-        color: ${({ theme }) => theme.fontColorAlt};
+        background-color: ${({ theme }) => theme.red2};
+        color: ${({ theme }) => theme.white1};
       }
     `}
 
@@ -133,7 +133,7 @@ export const CloseButton = styled.button`
 
   &:hover:after,
   &:hover:before {
-    background-color: ${(props) => props.theme.fontColor};
+    background-color: ${(props) => props.theme.white1};
   }
 
   &:before,
@@ -142,7 +142,7 @@ export const CloseButton = styled.button`
     content: " ";
     height: 24px;
     width: 3px;
-    background-color: ${(props) => props.theme.fontColor};
+    background-color: ${(props) => props.theme.white1};
   }
 
   &:before {
@@ -155,7 +155,6 @@ export const CloseButton = styled.button`
 `;
 
 export const ScheduleButton = styled(TinyButton)`
-  background-color: ${({ theme }) => theme.primaryAlt};
   padding: 6px 10px;
   font-size: 1rem;
   display: flex;
@@ -226,20 +225,20 @@ export const ScheduleBlankButton = styled.button<{
 `;
 
 export const StyledLinkButton = styled(Link)`
-  color: ${({ theme }) => theme.fontColor};
+  color: ${({ theme }) => theme.white1};
   border: none;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.secondaryAlt};
+  background-color: ${({ theme }) => theme.green2};
   padding: 10px 20px;
   font-size: 1.1rem;
-  border-radius: 6px;
+  border-radius: 0.5rem;
   text-decoration: none;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 2px,
     rgba(255, 255, 255, 0.1) 0px 0px 2px,
     rgba(255, 255, 255, 0.1) 0px 0px 1px 1px inset;
   &:hover {
-    background-color: ${({ theme }) => theme.secondaryHighlight};
-    color: ${({ theme }) => theme.fontColorAlt};
+    background-color: ${({ theme }) => theme.green3};
+    color: ${({ theme }) => theme.black};
   }
 `;
 

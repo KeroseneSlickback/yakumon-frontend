@@ -77,16 +77,16 @@ export const ServiceContainer = styled.div`
   display: flex;
   flex-direction: column;
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.4);
-  border-radius: 6px;
-  background-color: ${({ theme }) => theme.alternativeAlt};
+  border-radius: 0.5rem;
+  background-color: ${({ theme }) => theme.white2};
   margin: 12px 0px;
 `;
 
 export const StyledFormSelect = styled.select<{ compact?: boolean }>`
-  background-color: ${({ theme }) => theme.alternative};
+  background-color: ${({ theme }) => theme.white1};
   margin: 4px 0 14px 0;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
   ${(props) =>

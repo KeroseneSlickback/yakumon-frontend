@@ -28,8 +28,12 @@ export const AuthProvider: React.FC = ({ children }) => {
       const parsedUser: UserType =
         pulledUser !== null ? JSON.parse(pulledUser) : null;
       setUser(parsedUser);
-      setOwner(parsedUser.storeOwner);
-      setEmployee(parsedUser.employee);
+      if (parsedUser.storeOwner) {
+        setOwner(parsedUser.storeOwner);
+      }
+      if (parsedUser.employee) {
+        setEmployee(parsedUser.employee);
+      }
     }
     if (
       !localStorage.hasOwnProperty("jwt") ||
@@ -46,14 +50,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     const parsedUser: UserType =
       pulledUser !== null ? JSON.parse(pulledUser) : null;
     setUser(parsedUser);
-    if (parsedUser.storeOwner === true) {
+    if (parsedUser.storeOwner) {
       localStorage.setItem("owner", "true");
+      setOwner(parsedUser.storeOwner);
     }
-    if (parsedUser.employee === true) {
+    if (parsedUser.employee) {
       localStorage.setItem("employee", "true");
+      setEmployee(parsedUser.employee);
     }
-    setOwner(parsedUser.storeOwner);
-    setEmployee(parsedUser.employee);
   };
 
   const logout = () => {

@@ -15,40 +15,40 @@ const CheckboxDescription = styled.label<{
   }
 
   &:first-child {
-    border-radius: 6px 6px 0 0;
+    border-radius: 0.5rem 0.5rem 0 0;
   }
   &:last-child {
-    border-radius: 0 0 6px 6px;
+    border-radius: 0 0 0.5rem 0.5rem;
   }
   &:nth-child(even) {
-    background-color: ${({ theme }) => theme.fontColor};
+    background-color: ${({ theme }) => theme.white1};
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.highlightAlt};
+    background-color: ${({ theme }) => theme.green6};
   }
 
   ${(props) =>
     props.checked &&
     css`
-      color: ${({ theme }) => theme.fontColorAlt};
-      background-color: ${({ theme }) => theme.highlight};
+      color: ${({ theme }) => theme.black};
+      background-color: ${({ theme }) => theme.green5};
       &:nth-child(even) {
-        background-color: ${({ theme }) => theme.highlight};
-        color: ${({ theme }) => theme.fontColorAlt};
+        background-color: ${({ theme }) => theme.green5};
+        color: ${({ theme }) => theme.black};
       }
     `}
 
   ${(props) =>
     props.guest &&
     css`
-      background-color: ${({ theme }) => theme.primary};
-      color: ${({ theme }) => theme.fontColor};
+      background-color: ${({ theme }) => theme.purple1};
+      color: ${({ theme }) => theme.white1};
       &:first-child {
-        border-radius: 6px;
+        border-radius: 0.5rem;
       }
       &:hover {
-        background-color: ${({ theme }) => theme.primaryAlt};
+        background-color: ${({ theme }) => theme.purple2};
       }
     `}
 `;

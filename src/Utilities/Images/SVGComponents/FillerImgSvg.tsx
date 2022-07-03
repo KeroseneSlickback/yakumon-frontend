@@ -13,14 +13,13 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
   border-radius: 1rem 1rem 0 0;
   height: 100%;
   width: 100%;
-  background-color: ${({ theme }) => theme.alternative};
+  background-color: ${({ theme }) => theme.white1};
   svg {
     height: 200px;
     width: 200px;
-    stroke: ${({ theme }) => theme.primary};
+    stroke: ${({ theme }) => theme.purple1};
     object-fit: contain;
     path {
-      /* fill: ${({ theme }) => theme.primary}; */
     }
   }
   ${(props) =>
@@ -54,7 +53,7 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
       height: 120px;
       width: 120px;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: 1rem;
       box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
         rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
     `}

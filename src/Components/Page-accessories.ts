@@ -4,7 +4,7 @@ export const ShowcaseImg = styled.img`
   height: 200px;
   width: 100%;
   object-fit: cover;
-  border-radius: 12px 12px 0 0;
+  border-radius: 1rem 1rem 0 0;
 `;
 
 export const TopH1 = styled.h1<{ storePage?: boolean }>`
@@ -39,7 +39,7 @@ export const StylistImg = styled.img`
   height: 120px;
   width: 120px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
     rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
 `;
@@ -80,7 +80,7 @@ export const ErrorContainer = styled(LoadingIconContainer)``;
 export const LoadingIcon = styled.div<{ padding?: boolean }>`
   border: 10px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 10px solid ${({ theme }) => theme.secondary};
+  border-top: 10px solid ${({ theme }) => theme.green3};
   width: 60px;
   height: 60px;
   animation: spin 0.6s linear infinite;

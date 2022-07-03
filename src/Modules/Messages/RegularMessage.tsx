@@ -34,16 +34,16 @@ export const MessageBox = styled.div<{
 const MessageContainer = styled.div<{
   warning?: boolean;
 }>`
-  border-radius: 0.6rem;
+  border-radius: 0.5rem;
   text-align: center;
-  background-color: ${({ theme }) => theme.secondaryAlt};
+  background-color: ${({ theme }) => theme.green4};
   animation: fadeIn 75ms ease-in both;
 
   ${(props) =>
     props.warning &&
     css`
-      background-color: ${({ theme }) => theme.warning};
-      color: ${({ theme }) => theme.fontColor};
+      background-color: ${({ theme }) => theme.red1};
+      color: ${({ theme }) => theme.white1};
     `};
 
   @keyframes fadeIn {

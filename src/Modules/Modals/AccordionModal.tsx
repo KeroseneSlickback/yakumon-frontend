@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 
 export const AccordionButton = styled.button`
-  background-color: ${({ theme }) => theme.secondaryAlt};
-  color: ${({ theme }) => theme.fontColor};
+  background-color: ${({ theme }) => theme.green3};
+  color: ${({ theme }) => theme.white1};
   cursor: pointer;
   padding: 6px;
   width: 100%;
@@ -11,21 +11,21 @@ export const AccordionButton = styled.button`
   border: none;
   outline: none;
   transition: 0.2s;
-  border-radius: 0.4rem;
+  border-radius: 0.5rem;
 
   &:hover {
-    background-color: ${({ theme }) => theme.secondaryHighlight};
-    color: ${({ theme }) => theme.fontColorAlt};
+    background-color: ${({ theme }) => theme.green4};
+    color: ${({ theme }) => theme.black};
   }
 `;
 
 export const AccordionDiv = styled.div<{ height?: any }>`
   padding: 0px 18px;
-  background-color: ${({ theme }) => theme.alternativeAlt};
+  background-color: ${({ theme }) => theme.white2};
   overflow: hidden;
   transition: height ease 0.2s;
   height: ${({ height }) => height}px;
-  border-radius: 0.4rem;
+  border-radius: 0.5rem;
 
   div {
     margin: 8px 0;
