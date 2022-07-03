@@ -184,7 +184,7 @@ const Reservation = () => {
               <FillerImgSvg stylist />
             )}
             <div>
-              <TopH1>
+              <TopH1 storePage>
                 {stylist?.firstName} {stylist?.lastName}
               </TopH1>
               <h3>{stylist?.title}</h3>

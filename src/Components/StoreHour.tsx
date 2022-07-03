@@ -23,11 +23,11 @@ const StoreHour = ({ day, weekday }: Props) => {
       }
     } else {
       if (openTimeArray[0] === 12) {
-        setOpen("12 pm");
+        setOpen("12:00 pm");
       } else if (openTimeArray[0] > 12) {
-        setOpen(`${openTimeArray[0] % 12} pm`);
+        setOpen(`${openTimeArray[0] % 12}:00 pm`);
       } else {
-        setOpen(`${openTimeArray[0]} am`);
+        setOpen(`${openTimeArray[0]}:00 am`);
       }
     }
     if (closeTimeArray.length > 1) {
@@ -40,11 +40,11 @@ const StoreHour = ({ day, weekday }: Props) => {
       }
     } else {
       if (closeTimeArray[0] === 12) {
-        setClose("12 pm");
+        setClose("12:00 pm");
       } else if (closeTimeArray[0] > 12) {
-        setClose(`${closeTimeArray[0] % 12} pm`);
+        setClose(`${closeTimeArray[0] % 12}:00 pm`);
       } else {
-        setClose(`${closeTimeArray[0]} am`);
+        setClose(`${closeTimeArray[0]}:00 am`);
       }
     }
   }, [day]);

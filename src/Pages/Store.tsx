@@ -36,9 +36,6 @@ const Store = () => {
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<MessageType | null>(null);
   const [storeImg, setStoreImg] = useState<string>("");
-  // const [storeDays, setStoreDays] = useState<string[]>([]);
-
-  // const processDays = ()
 
   useEffect(() => {
     setLoad(true);

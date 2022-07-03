@@ -365,7 +365,12 @@ export const StoreInfoContainer = styled.div<{ ownerSection?: boolean }>`
     `}
 `;
 
-export const StoreDescContainer = styled.div``;
+export const StoreDescContainer = styled.div`
+  p {
+    word-break: break-all;
+    white-space: normal;
+  }
+`;
 
 export const StoreEditContainer = styled.div<{ topCard?: boolean }>`
   background-color: ${({ theme }) => theme.alternativeAlt};

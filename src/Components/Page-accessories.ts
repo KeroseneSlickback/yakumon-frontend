@@ -13,6 +13,7 @@ export const TopH1 = styled.h1<{ storePage?: boolean }>`
     props.storePage &&
     css`
       margin: 4px 18px 18px 18px;
+      text-align: center;
     `}
 `;
 
