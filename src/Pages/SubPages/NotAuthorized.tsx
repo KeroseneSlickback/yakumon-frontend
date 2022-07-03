@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   PageSectionCard,
@@ -16,7 +16,7 @@ const NotAuthorized = () => {
     setTimeout(() => {
       navigate("/");
     }, 2000);
-  }, []);
+  }, [navigate]);
   return (
     <SinglePageContainer>
       <PageSectionCard absolute>

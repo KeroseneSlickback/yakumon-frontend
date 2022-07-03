@@ -12,13 +12,9 @@ import {
   LoadingIconContainer,
 } from "../../Components/Page-accessories";
 import {
-  StoreType,
-  UserType,
   ScheduleArrayType,
   ScheduleDateType,
-  ServiceType,
-  StylistAppointmentType,
-  TimeSlotType,
+  SchedulePropTypes,
 } from "../../Utilities/types";
 import { scheduleArrayBuild, scheduleSectionFilter } from "./ScheduleHelpers";
 import {
@@ -34,19 +30,6 @@ import {
 } from "../../Components/ScheduleComponents";
 import { ScheduleBlankButton, ScheduleButton } from "../../Components/Buttons";
 import AuthContext from "../../Utilities/AuthContext";
-
-interface SchedulePropTypes {
-  appointments?: StylistAppointmentType[];
-  services?: ServiceType[];
-  selectedService?: string;
-  store?: StoreType;
-  handleOnSelect: (params: any) => any;
-  user?: UserType;
-  edit?: boolean;
-  editAppointmentTimeslots?: TimeSlotType[];
-  unlockDates?: boolean;
-  timeOff?: boolean;
-}
 
 const ScheduleView = ({
   appointments,
@@ -92,7 +75,7 @@ const ScheduleView = ({
       }
       setStartDate(subDays(new Date(), 1));
     }
-  }, []);
+  }, [user?._id, authContext.user?._id, selectedService]);
 
   useEffect(() => {
     setLoad(true);
@@ -207,7 +190,17 @@ const ScheduleView = ({
         setLoad(false);
       }
     }, 500);
-  }, [appointments, startDate, selectedService]);
+  }, [
+    appointments,
+    startDate,
+    selectedService,
+    edit,
+    editAppointmentTimeslots,
+    outputDays,
+    services,
+    store,
+    timeOff,
+  ]);
 
   const incrementDate = () => {
     const newDate = addDays(startDate, outputDays);
@@ -284,7 +277,7 @@ const ScheduleView = ({
             slot.chosen = false;
             slot.applicable = false;
             if (counter !== chosenService?.timeSpan) {
-              if (chosenSlot.id == slot.id) {
+              if (chosenSlot.id === slot.id) {
                 if (compareAsc(slot.time, chosenSlot.time) >= 0) {
                   counter += 1;
                   return { ...slot, chosen: true };

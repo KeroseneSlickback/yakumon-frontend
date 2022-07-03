@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { BackDrop } from "../../Components/Backdrop";
-import { SmallButton, TinyButton } from "../../Components/Buttons";
+import { TinyButton } from "../../Components/Buttons";
 import { FooterButtonDiv, FooterContainer } from "../../Components/Containers";
 import { DetailP } from "../../Components/Page-accessories";
 import AuthContext from "../../Utilities/AuthContext";

@@ -26,27 +26,6 @@ declare module "styled-components" {
   }
 }
 
-// Global variables, themes, Global styles, and media breaks
-
-// export const theme = {
-//   hero: "#40B590",
-//   primary: "#A08EC2",
-//   primaryAlt: "#B7A9D1",
-//   secondary: "#60A988",
-//   secondaryAlt: "#88BFA6",
-//   secondaryHighlight: "#A8F0D0",
-//   background: "#907AB8",
-//   backgroundAlt: "#947FBB",
-//   alternative: "#F7F7F7",
-//   alternativeAlt: "#ffffff",
-//   fontColor: "#f7f7f7",
-//   fontColorAlt: "#001c00",
-//   highlight: "#FFFACD",
-//   highlightAlt: "#FBF9E2",
-//   warning: "#9b0832",
-//   warningAlt: "#A50935",
-// };
-
 export const theme = {
   green1: "#60A988",
   green2: "#6BAF90",

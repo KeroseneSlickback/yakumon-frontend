@@ -20,6 +20,7 @@ import RegularMessage, {
 } from "../../Modules/Messages/RegularMessage";
 import { AppointmentViewDiv } from "../../Modules/Modals/AppointmentModals";
 import ScheduleView from "../../Modules/Schedule/ScheduleView";
+import { timesArray } from "../../Utilities/Helpers/HelperObjArrays";
 import {
   MessageType,
   ReservationType,
@@ -27,19 +28,6 @@ import {
   ScheduleDateType,
   StylistAppointmentType,
 } from "../../Utilities/types";
-
-const timesArray = [
-  "0 minutes",
-  "30 minutes",
-  "1 hour",
-  "1h 30 minutes",
-  "2 hours",
-  "2h 30 minutes",
-  "3 hours",
-  "3h 30 minutes",
-  "4 hours",
-  "4h 30 minutes",
-];
 
 const EditAppointment = () => {
   const { id } = useParams();
@@ -105,7 +93,7 @@ const EditAppointment = () => {
       getData();
     }, 300);
     return () => clearTimeout(debounce);
-  }, []);
+  }, [id]);
 
   const selectTime = (headSlot: ScheduleDateType) => {
     console.log(headSlot);

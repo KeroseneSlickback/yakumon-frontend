@@ -25,123 +25,15 @@ import {
 } from "../../Components/Page-accessories";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-const daysArray = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
-const hoursArray = [
-  "1",
-  "1:30",
-  "2",
-  "2:30",
-  "3",
-  "3:30",
-  "4",
-  "4:30",
-  "5",
-  "5:30",
-  "6",
-  "6:30",
-  "7",
-  "7:30",
-  "8",
-  "8:30",
-  "9",
-  "9:30",
-  "10",
-  "10:30",
-  "11",
-  "11:30",
-  "12",
-  "12:30",
-  "13",
-  "13:30",
-  "14",
-  "14:30",
-  "15",
-  "15:30",
-  "16",
-  "16:30",
-  "17",
-  "17:30",
-  "18",
-  "18:30",
-  "19",
-  "19:30",
-  "20",
-  "20:30",
-  "21",
-  "21:30",
-  "22",
-  "22:30",
-  "23",
-  "23:30",
-  "24",
-  "24:30",
-];
-
-const listHoursArray = [
-  "1 am",
-  "1:30 am",
-  "2 am",
-  "2:30 am",
-  "3 am",
-  "3:30 am",
-  "4 am",
-  "4:30 am",
-  "5 am",
-  "5:30 am",
-  "6 am",
-  "6:30 am",
-  "7 am",
-  "7:30 am",
-  "8 am",
-  "8:30 am",
-  "9 am",
-  "9:30 am",
-  "10 am",
-  "10:30 am",
-  "11 am",
-  "11:30 am",
-  "12 pm",
-  "12:30 pm",
-  "1 pm",
-  "1:30 pm",
-  "2 pm",
-  "2:30 pm",
-  "3 pm",
-  "3:30 pm",
-  "4 pm",
-  "4:30 pm",
-  "5 pm",
-  "5:30 pm",
-  "6 pm",
-  "6:30 pm",
-  "7 pm",
-  "7:30 pm",
-  "8 pm",
-  "8:30 pm",
-  "9 pm",
-  "9:30 pm",
-  "10 pm",
-  "10:30 pm",
-  "11 pm",
-  "11:30 pm",
-  "12 pm",
-  "12:30 pm",
-];
+import {
+  daysArray,
+  hoursArray,
+  listHoursArray,
+} from "../../Utilities/Helpers/HelperObjArrays";
 
 const NewStorePortal = () => {
   const navigate = useNavigate();
   const [load, setLoad] = useState(true);
-  const [formError, setFormError] = useState<string | null>("");
   const [message, setMessage] = useState<MessageType | null>(null);
   const [formData, setFormData] = useState<CreateStoreType>({
     storeName: "",
@@ -162,6 +54,7 @@ const NewStorePortal = () => {
     ],
   });
   const [image, setImage] = useState("");
+  const [alteredHours, setAlteredHours] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -215,50 +108,153 @@ const NewStorePortal = () => {
     setImage(e.target.files[0]);
   };
 
+  const checkHourArray = (data: any) => {
+    let evaluation = true;
+    // quick edit, check later
+    for (let i = 0; i < data.hours.length; i++) {
+      const day = data.hours[i];
+      for (let key in day) {
+        if (day[key] === "") {
+          evaluation = false;
+          return;
+        }
+      }
+    }
+    // data.hours.map((day: any) => {
+    //   for (let key in day) {
+    //     if (day[key] === "") {
+    //       evaluation = false;
+    //       return;
+    //     }
+    //   }
+    // });
+    if (evaluation) {
+      setAlteredHours(false);
+    }
+    return evaluation;
+  };
+
+  const splitObjects = (data: CreateStoreType) => {
+    let simpleObj = {
+      storeName: data.storeName,
+      storeType: data.storeType,
+      storeDescription: data.storeDescription,
+      storeWebsite: data.storeWebsite,
+      location: data.location,
+      locationLink: data.locationLink,
+      phoneNumber: data.phoneNumber,
+    };
+    let hourObj = {
+      hours: data.hours,
+    };
+    return {
+      simpleObj,
+      hourObj,
+    };
+  };
+
+  const verifyFormObject = async (data: CreateStoreType) => {
+    const { simpleObj, hourObj }: { simpleObj: any; hourObj: any } =
+      await splitObjects(data);
+
+    let returnObject: any = {};
+    let objectEvaluation = true;
+    let hourEvaluation = true;
+
+    for (let key in simpleObj) {
+      if (simpleObj[key] !== "") {
+        returnObject[key] = simpleObj[key];
+      }
+    }
+    if (Object.keys(returnObject).length === 0) {
+      objectEvaluation = false;
+    }
+    if (!checkHourArray(data)) {
+      hourEvaluation = false;
+    } else {
+      setAlteredHours(true);
+      returnObject = {
+        ...returnObject,
+        ...hourObj,
+      };
+    }
+    return { returnObject, objectEvaluation, hourEvaluation };
+  };
+
+  const checkImg = (img: string) => {
+    if (img === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setMessage(null);
     const jwt = localStorage.getItem("jwt");
     const imageFormData = new FormData();
     imageFormData.append("picture", image);
-    setMessage(null);
-    axios
-      .post<StoreType>("http://localhost:8888/store", formData, {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      })
-      .then((res) => {
-        if (res.status === 201) {
-          const storeId = res.data._id;
-          axios
-            .patch<StoreType>(
-              `http://localhost:8888/store/${storeId}/picture`,
-              imageFormData,
-              {
-                headers: {
-                  Authorization: `Bearer ${jwt}`,
-                },
-              }
-            )
-            .then((res) => {
-              if (res.status === 200) {
-                setMessage({
-                  message: "Store Created Successfully",
-                  warning: false,
-                });
-              }
-              setTimeout(() => {
-                navigate(`/store/${res.data._id}`);
-              }, 2000);
-            })
-            .catch((e) => {
-              setMessage({
-                message: `${e.response.data.error}`,
-                warning: true,
-              });
-            });
-        }
+
+    const shallowFormData = { ...formData };
+
+    const { returnObject, objectEvaluation, hourEvaluation } =
+      await verifyFormObject(shallowFormData);
+
+    const imageInputted = await checkImg(image);
+
+    if (!hourEvaluation && alteredHours) {
+      setMessage({
+        message: "Enter all hours for store",
+        warning: true,
       });
+    } else if (!objectEvaluation && !hourEvaluation && !imageInputted) {
+      setMessage({
+        message: "Please enter the store infomation",
+        warning: true,
+      });
+    }
+
+    if (objectEvaluation && hourEvaluation && imageInputted) {
+      axios
+        .post<StoreType>("http://localhost:8888/store", returnObject, {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 201) {
+            const storeId = res.data._id;
+            axios
+              .patch<StoreType>(
+                `http://localhost:8888/store/${storeId}/picture`,
+                imageFormData,
+                {
+                  headers: {
+                    Authorization: `Bearer ${jwt}`,
+                  },
+                }
+              )
+              .then((res) => {
+                if (res.status === 200) {
+                  setMessage({
+                    message: "Store Created Successfully",
+                    warning: false,
+                  });
+                }
+                setTimeout(() => {
+                  navigate(`/store/${res.data._id}`);
+                }, 2000);
+              })
+              .catch((e) => {
+                setMessage({
+                  message: `${e.response.data.error}`,
+                  warning: true,
+                });
+              });
+          }
+        });
+    }
   };
 
   return (
@@ -463,12 +459,6 @@ const NewStorePortal = () => {
               <ReserveButton register>Create Store</ReserveButton>
             </ButtonBox>
           </PageSectionCard>
-
-          {formError ? (
-            <MessageBox>
-              <RegularMessage message={formError} warning={true} />
-            </MessageBox>
-          ) : null}
         </StyledForm>
       )}
     </SinglePageContainer>

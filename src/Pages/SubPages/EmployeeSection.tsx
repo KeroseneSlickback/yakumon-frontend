@@ -40,7 +40,6 @@ import StoreHour from "../../Components/StoreHour";
 import {
   CenterButtonDiv,
   EmptyButton,
-  LargeButton,
   MediumButton,
   SmallButton,
   StyledLinkButton,
@@ -57,21 +56,10 @@ import {
   ViewAppointmentModal,
 } from "../../Modules/Modals/AppointmentModals";
 import { EmployeePatchModal } from "../../Modules/Modals/UserModals";
-
-const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
-
-const timesArray = [
-  "0 minutes",
-  "30 minutes",
-  "1 hour",
-  "1h 30 minutes",
-  "2 hours",
-  "2h 30 minutes",
-  "3 hours",
-  "3h 30 minutes",
-  "4 hours",
-  "4h 30 minutes",
-];
+import {
+  timesArray,
+  weekdaysArray,
+} from "../../Utilities/Helpers/HelperObjArrays";
 
 const EmployeeSection = () => {
   const authContext = useContext(AuthContext);

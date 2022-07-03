@@ -1,12 +1,5 @@
 
 
-- 
-
-Clean up:
-
-- Types 
-- 
-
 Testing:
 
 - Blank fields, not submitted store and employee pictures 

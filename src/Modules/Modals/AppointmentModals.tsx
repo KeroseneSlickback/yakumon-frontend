@@ -14,25 +14,13 @@ import {
   ModalContainer,
   ModalH3,
 } from "../../Components/ModalComponents";
+import { timesArray } from "../../Utilities/Helpers/HelperObjArrays";
 import {
   BackendResponseDataType,
   MessageType,
   StylistAppointmentType,
 } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
-
-const timesArray = [
-  "0 minutes",
-  "30 minutes",
-  "1 hour",
-  "1h 30 minutes",
-  "2 hours",
-  "2h 30 minutes",
-  "3 hours",
-  "3h 30 minutes",
-  "4 hours",
-  "4h 30 minutes",
-];
 
 export const AppointmentModalContainer = styled.div`
   background-color: ${({ theme }) => theme.white1};

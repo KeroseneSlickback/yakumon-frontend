@@ -20,7 +20,6 @@ import {
   ModalH3,
 } from "../../Components/ModalComponents";
 import {
-  DetailP,
   LoadingIcon,
   LoadingIconContainer,
   StoreImg,
@@ -29,19 +28,11 @@ import AuthContext from "../../Utilities/AuthContext";
 import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg";
 import {
   BackendResponseDataType,
+  EditUserType,
   MessageType,
   UserType,
 } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
-
-interface EditUserType {
-  username?: string;
-  firstName?: string;
-  lastName?: string;
-  phoneNumber?: string;
-  email?: string;
-  password?: string;
-}
 
 interface Props {
   closeModal(): void;
@@ -271,8 +262,6 @@ export const UserDeleteConfirm = (props: Props) => {
 
 export const EmployeePatchModal = (props: Props) => {
   const navigate = useNavigate();
-  const authContext = useContext(AuthContext);
-  const [message, setMessage] = useState<MessageType | null>(null);
   const [load, setLoad] = useState<boolean>(true);
   const [error, setError] = useState<MessageType | null>(null);
   const [formError, setFormError] = useState<MessageType | null>(null);

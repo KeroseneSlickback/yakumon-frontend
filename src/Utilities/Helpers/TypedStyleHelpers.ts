@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { theme } from "../../Styles/Variables";
 
 export interface SvgPropsDefault {
   width?: number;
@@ -16,11 +15,6 @@ export interface SvgPropsDefault {
 export interface SvgProps extends SvgPropsDefault {
   Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 }
-
-// export interface SvgPropsDefault {
-//   height?: number;
-//   width?: number;
-// }
 
 export const SvgDefaultContainer = styled.div<SvgPropsDefault>`
   height: ${({ height }) => (height ? `${height}px` : "100%")};
@@ -43,12 +37,3 @@ export const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
     }
   }
 `;
-
-// export const SvgIcon: React.FC<SvgProps> = (props) => {
-//   const { Icon } = props;
-//   return (
-//     <SvgContainer {...props}>
-//       <Icon />
-//     </SvgContainer>
-//   );
-// };

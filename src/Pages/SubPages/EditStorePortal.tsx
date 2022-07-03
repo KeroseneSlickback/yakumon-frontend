@@ -34,118 +34,11 @@ import {
 } from "../../Components/Page-accessories";
 import axios from "axios";
 import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg";
-
-const daysArray = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
-const hoursArray = [
-  "1",
-  "1:30",
-  "2",
-  "2:30",
-  "3",
-  "3:30",
-  "4",
-  "4:30",
-  "5",
-  "5:30",
-  "6",
-  "6:30",
-  "7",
-  "7:30",
-  "8",
-  "8:30",
-  "9",
-  "9:30",
-  "10",
-  "10:30",
-  "11",
-  "11:30",
-  "12",
-  "12:30",
-  "13",
-  "13:30",
-  "14",
-  "14:30",
-  "15",
-  "15:30",
-  "16",
-  "16:30",
-  "17",
-  "17:30",
-  "18",
-  "18:30",
-  "19",
-  "19:30",
-  "20",
-  "20:30",
-  "21",
-  "21:30",
-  "22",
-  "22:30",
-  "23",
-  "23:30",
-  "24",
-  "24:30",
-];
-
-const listHoursArray = [
-  "1 am",
-  "1:30 am",
-  "2 am",
-  "2:30 am",
-  "3 am",
-  "3:30 am",
-  "4 am",
-  "4:30 am",
-  "5 am",
-  "5:30 am",
-  "6 am",
-  "6:30 am",
-  "7 am",
-  "7:30 am",
-  "8 am",
-  "8:30 am",
-  "9 am",
-  "9:30 am",
-  "10 am",
-  "10:30 am",
-  "11 am",
-  "11:30 am",
-  "12 pm",
-  "12:30 pm",
-  "1 pm",
-  "1:30 pm",
-  "2 pm",
-  "2:30 pm",
-  "3 pm",
-  "3:30 pm",
-  "4 pm",
-  "4:30 pm",
-  "5 pm",
-  "5:30 pm",
-  "6 pm",
-  "6:30 pm",
-  "7 pm",
-  "7:30 pm",
-  "8 pm",
-  "8:30 pm",
-  "9 pm",
-  "9:30 pm",
-  "10 pm",
-  "10:30 pm",
-  "11 pm",
-  "11:30 pm",
-  "12 pm",
-  "12:30 pm",
-];
+import {
+  daysArray,
+  hoursArray,
+  listHoursArray,
+} from "../../Utilities/Helpers/HelperObjArrays";
 
 const EditStorePortal = () => {
   const navigate = useNavigate();
@@ -259,14 +152,24 @@ const EditStorePortal = () => {
 
   const checkHourArray = (data: any) => {
     let evaluation = true;
-    data.hours.map((day: any) => {
+    // quick edit, check later
+    for (let i = 0; i < data.hours.length; i++) {
+      const day = data.hours[i];
       for (let key in day) {
         if (day[key] === "") {
           evaluation = false;
           return;
         }
       }
-    });
+    }
+    // data.hours.map((day: any) => {
+    //   for (let key in day) {
+    //     if (day[key] === "") {
+    //       evaluation = false;
+    //       return;
+    //     }
+    //   }
+    // });
     if (evaluation) {
       setAlteredHours(false);
     }

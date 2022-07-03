@@ -5,7 +5,6 @@ import { SmallButton } from "../../Components/Buttons";
 import { NavBarHeader } from "../../Components/Containers";
 import { NavLogButtonBox } from "../../Components/ModalComponents";
 import AuthContext from "../../Utilities/AuthContext";
-// import { SvgIcon, TestIcon } from "../../Utilities/Images/TestIcon";
 import { YakumonLogoSvg } from "../../Utilities/Images/SVGComponents/YakumonLogoSvg";
 import LoginModal from "../Modals/LoginModal";
 import LogoutModal from "../Modals/LogoutModal";

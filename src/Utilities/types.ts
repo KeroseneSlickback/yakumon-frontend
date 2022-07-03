@@ -41,7 +41,6 @@ export interface UserType {
   _id: string;
 }
 
-// Maybe?
 export interface BackendResponseDataType {
   success: boolean;
   token: string;
@@ -149,4 +148,26 @@ export interface EditStoreType {
   locationLink?: string;
   phoneNumber?: string;
   hours?: StoreDayHour[];
+}
+
+export interface EditUserType {
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  email?: string;
+  password?: string;
+}
+
+export interface SchedulePropTypes {
+  appointments?: StylistAppointmentType[];
+  services?: ServiceType[];
+  selectedService?: string;
+  store?: StoreType;
+  handleOnSelect: (params: any) => any;
+  user?: UserType;
+  edit?: boolean;
+  editAppointmentTimeslots?: TimeSlotType[];
+  unlockDates?: boolean;
+  timeOff?: boolean;
 }
