@@ -48,6 +48,8 @@ export const FooterContainer = styled.footer`
   align-items: center;
   justify-content: center;
   margin-top: auto;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
+    rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
 `;
 
 export const FooterButtonDiv = styled.div`
@@ -97,7 +99,8 @@ export const PageSectionCard = styled.div<{
 
   &:not(:first-child) {
     margin-top: -24px;
-    box-shadow: 4px 4px 12px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
+      rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
   }
 
   &:last-child {
@@ -309,7 +312,8 @@ export const SelectContainer = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
+    rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
   border-radius: 1rem;
   h3 {
     padding: 8px;

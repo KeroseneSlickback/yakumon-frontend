@@ -74,7 +74,7 @@ const Store = () => {
           <LoadingIcon />
         </LoadingIconContainer>
       ) : (
-        <div>
+        <>
           <PageSectionCard topCard center>
             <TopH1 storePage>{store?.storeName}</TopH1>
             <StoreImgDiv>
@@ -163,7 +163,7 @@ const Store = () => {
               })}
             </ShowcaseGrid>
           </PageSectionCard>
-        </div>
+        </>
       )}
     </SinglePageContainer>
   );

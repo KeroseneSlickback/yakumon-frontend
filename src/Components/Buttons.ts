@@ -18,6 +18,9 @@ export const TinyButton = styled.button<{
   font-size: 0.6rem;
   border-radius: 6px;
   text-decoration: none;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 2px,
+    rgba(255, 255, 255, 0.1) 0px 0px 2px,
+    rgba(255, 255, 255, 0.1) 0px 0px 1px 1px inset;
   &:hover {
     background-color: ${({ theme }) => theme.primaryAlt};
     color: ${({ theme }) => theme.fontColorAlt};
@@ -107,6 +110,9 @@ export const CenterButtonDiv = styled.div<{ sideBySide?: boolean }>`
 export const ReserveButton = styled(TinyButton)`
   padding: 8px 50px;
   font-size: 1.3rem;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 2px,
+    rgba(255, 255, 255, 0.1) 0px 0px 2px,
+    rgba(255, 255, 255, 0.1) 0px 0px 1px 1px inset;
 `;
 
 export const ClosedButtonDiv = styled.div`
@@ -117,8 +123,8 @@ export const ClosedButtonDiv = styled.div`
 
 export const CloseButton = styled.button`
   background-color: inherit;
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -134,8 +140,8 @@ export const CloseButton = styled.button`
   &:after {
     position: absolute;
     content: " ";
-    height: 20px;
-    width: 2px;
+    height: 24px;
+    width: 3px;
     background-color: ${(props) => props.theme.fontColor};
   }
 
@@ -155,6 +161,9 @@ export const ScheduleButton = styled(TinyButton)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 2px,
+    rgba(255, 255, 255, 0.1) 0px 0px 2px,
+    rgba(255, 255, 255, 0.1) 0px 0px 1px 1px inset;
 `;
 
 export const ScheduleBlankButton = styled.button<{
@@ -225,6 +234,9 @@ export const StyledLinkButton = styled(Link)`
   font-size: 1.1rem;
   border-radius: 6px;
   text-decoration: none;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 2px,
+    rgba(255, 255, 255, 0.1) 0px 0px 2px,
+    rgba(255, 255, 255, 0.1) 0px 0px 1px 1px inset;
   &:hover {
     background-color: ${({ theme }) => theme.secondaryHighlight};
     color: ${({ theme }) => theme.fontColorAlt};

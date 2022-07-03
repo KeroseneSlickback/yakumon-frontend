@@ -148,7 +148,7 @@ export const UserModal = (props: Props) => {
             <StyledLabel>Phone number</StyledLabel>
             <StyledTextInput
               name="phoneNumber"
-              type="number"
+              type="text"
               placeholder="111-123-4567"
               value={formData.phoneNumber}
               onChange={handleFormChange}

@@ -11,7 +11,9 @@ export const ModalContainer = styled.div`
   z-index: 2;
   border-radius: 1rem;
   padding: 18px;
-  box-shadow: 0px 0px 3px 1px rgba(255, 255, 255, 0.4);
+  box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 8px,
+    rgba(255, 255, 255, 0.3) 0px 0px 4px,
+    rgba(255, 255, 255, 0.05) 0px 0px 4px 1px inset;
 `;
 
 export const ModalH3 = styled.h3<{ paddingBottom?: boolean }>`

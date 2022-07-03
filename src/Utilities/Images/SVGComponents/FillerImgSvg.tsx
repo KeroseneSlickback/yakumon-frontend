@@ -35,7 +35,9 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
         z-index: 0;
         object-fit: cover;
         border-radius: 1rem 1rem 0 0;
-        box-shadow: 0px 0px 8px 1px rgba(255, 255, 255, 0.5);
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px,
+          rgba(0, 0, 0, 0.3) 0px 0px 4px,
+          rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
       }
     `}
   ${(props) =>
@@ -53,7 +55,8 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
       width: 120px;
       object-fit: cover;
       border-radius: 12px;
-      box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.5);
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
+        rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
     `}
 `;
 

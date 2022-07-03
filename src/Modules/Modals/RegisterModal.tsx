@@ -133,7 +133,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
             <StyledTextInput
               required
               name="phoneNumber"
-              type="number"
+              type="text"
               placeholder="111-333-4444"
               value={formData.phoneNumber}
               onChange={handleFormChange}
