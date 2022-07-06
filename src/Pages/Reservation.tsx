@@ -32,6 +32,7 @@ import { ListItem } from "../Components/CheckboxComponents";
 import ScheduleView from "../Modules/Schedule/ScheduleView";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
+import { timesArrayShort } from "../Utilities/Helpers/HelperObjArrays";
 
 const Reservation = () => {
   const { id } = useParams();
@@ -160,9 +161,7 @@ const Reservation = () => {
       getData();
     }, 500);
     return () => clearTimeout(debounce);
-  }, []);
-
-  console.log(user?.services);
+  }, [id]);
 
   return (
     <SinglePageContainer>
@@ -206,7 +205,8 @@ const Reservation = () => {
                               <ListItem
                                 key={service._id}
                                 text1={service.serviceName}
-                                text2={service.price}
+                                text2={timesArrayShort[service.timeSpan]}
+                                text3={service.price}
                                 handleOnChange={() =>
                                   selectService(service._id)
                                 }

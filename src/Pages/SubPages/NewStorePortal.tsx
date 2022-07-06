@@ -120,14 +120,6 @@ const NewStorePortal = () => {
         }
       }
     }
-    // data.hours.map((day: any) => {
-    //   for (let key in day) {
-    //     if (day[key] === "") {
-    //       evaluation = false;
-    //       return;
-    //     }
-    //   }
-    // });
     if (evaluation) {
       setAlteredHours(false);
     }
@@ -208,7 +200,7 @@ const NewStorePortal = () => {
         message: "Enter all hours for store",
         warning: true,
       });
-    } else if (!objectEvaluation && !hourEvaluation && !imageInputted) {
+    } else if (!objectEvaluation || !hourEvaluation || !imageInputted) {
       setMessage({
         message: "Please enter the store infomation",
         warning: true,

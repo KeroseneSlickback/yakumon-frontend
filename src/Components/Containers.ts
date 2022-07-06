@@ -340,27 +340,30 @@ export const SelectContainerDiv = styled.div`
 export const StoreInfoContainer = styled.div<{ ownerSection?: boolean }>`
   display: flex;
   flex-direction: column;
-  span {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+  align-items: center;
+  div {
+    span {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
 
-    &:not(:first-child) {
-      padding-top: 8px;
-    }
-    a,
-    p {
-      padding-left: 8px;
-      font-size: 0.8rem;
-      margin: auto 0;
-    }
-    img {
-      height: 20px;
-    }
-    table {
-      td {
+      &:not(:first-child) {
+        padding-top: 8px;
+      }
+      a,
+      p {
+        padding-left: 8px;
         font-size: 0.8rem;
-        padding: 0 6px 4px 6px;
+        margin: auto 0;
+      }
+      img {
+        height: 20px;
+      }
+      table {
+        td {
+          font-size: 0.8rem;
+          padding: 0 6px 4px 6px;
+        }
       }
     }
   }

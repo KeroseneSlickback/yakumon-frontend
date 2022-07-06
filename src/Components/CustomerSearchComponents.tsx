@@ -18,7 +18,7 @@ const CustomerResultsDiv = styled.div<{ height?: any }>`
   transition: height ease 0.2s;
   height: ${({ height }) => height}px;
   overflow: scroll;
-  max-height: 100px;
+  max-height: 160px;
 `;
 
 const GuestDiv = styled.div`

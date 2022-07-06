@@ -23,6 +23,15 @@ declare module "styled-components" {
     white1?: string;
     white2?: string;
     black?: string;
+    grey?: string;
+    mobileS?: string;
+    mobileM?: string;
+    mobileL?: string;
+    tabletS?: string;
+    tabletM?: string;
+    tabletL?: string;
+    laptop?: string;
+    laptopL?: string;
   }
 }
 
@@ -46,6 +55,7 @@ export const theme = {
   white1: "#F7F7F7",
   white2: "#ffffff",
   black: "#001c00",
+  grey: "#696969",
 };
 
 export const GlobalStyles = createGlobalStyle` 

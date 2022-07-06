@@ -11,6 +11,19 @@ export const timesArray = [
   "4h 30 minutes",
 ];
 
+export const timesArrayShort = [
+  "0 mins",
+  "30 mins",
+  "1 hour",
+  "1h 30 mins",
+  "2 hours",
+  "2h 30 mins",
+  "3 hours",
+  "3h 30 mins",
+  "4 hours",
+  "4h 30 mins",
+];
+
 export const daysArray = [
   "Sunday",
   "Monday",

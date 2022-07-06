@@ -5,6 +5,7 @@ import {
   isBefore,
   isEqual,
   compareAsc,
+  isSameDay,
 } from "date-fns";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -45,6 +46,7 @@ const ScheduleView = ({
 }: SchedulePropTypes) => {
   const authContext = useContext(AuthContext);
   const [employeeCheck, setEmployeeCheck] = useState<boolean>(false);
+  const [customerBlock, setCustomerBlock] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [outputDays, setOutputDays] = useState<number>(4);
   const [load, setLoad] = useState<boolean>(false);
@@ -65,6 +67,16 @@ const ScheduleView = ({
       day: 3,
     },
   });
+
+  useEffect(() => {
+    if (unlockDates) {
+      setCustomerBlock(false);
+    } else if (timeOff) {
+      setCustomerBlock(false);
+    } else {
+      setCustomerBlock(true);
+    }
+  }, [unlockDates, timeOff]);
 
   useEffect(() => {
     if (user?._id === authContext.user?._id) {
@@ -204,6 +216,7 @@ const ScheduleView = ({
 
   const incrementDate = () => {
     const newDate = addDays(startDate, outputDays);
+    setCustomerBlock(false);
     setStartDate(newDate);
   };
 
@@ -217,6 +230,9 @@ const ScheduleView = ({
       return;
     } else {
       setStartDate(newDate);
+    }
+    if (isSameDay(newDate, today) && !unlockDates) {
+      setCustomerBlock(true);
     }
   };
 
@@ -306,7 +322,11 @@ const ScheduleView = ({
           <StyledThead>
             <StyledTr head>
               <StyledTh>
-                <ScheduleButton onClick={decrementDate} type="button">
+                <ScheduleButton
+                  onClick={decrementDate}
+                  type="button"
+                  disabledCheck={customerBlock}
+                >
                   <span>Prev</span>
                 </ScheduleButton>
               </StyledTh>

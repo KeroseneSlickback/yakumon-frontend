@@ -7,7 +7,7 @@ const CheckboxDescription = styled.label<{
 }>`
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 40px;
+  grid-template-columns: 0.75fr 1fr 40px;
   padding: 8px 12px;
   cursor: pointer;
   p {
@@ -62,12 +62,22 @@ const CheckboxInput = styled.input`
 export const ListItem: React.FC<{
   text1: string;
   text2: number | string;
+  text3?: number | string;
   handleOnChange: ChangeEventHandler;
   selected: string;
   id: string | undefined;
   services?: boolean;
   guest?: boolean;
-}> = ({ text1, text2, handleOnChange, selected, id, services, guest }) => {
+}> = ({
+  text1,
+  text2,
+  text3,
+  handleOnChange,
+  selected,
+  id,
+  services,
+  guest,
+}) => {
   if (services) {
     return (
       <CheckboxDescription checked={id === selected ? true : false}>
@@ -77,7 +87,8 @@ export const ListItem: React.FC<{
           onChange={handleOnChange}
         ></CheckboxInput>
         <p>{text1}</p>
-        <p>${text2}</p>
+        <p>{text2}</p>
+        <p>${text3}</p>
       </CheckboxDescription>
     );
   } else {

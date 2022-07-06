@@ -92,42 +92,52 @@ const Store = () => {
           </PageSectionCard>
           <PageSectionCard styled>
             <StoreInfoContainer>
-              <span>
-                <img src={location} alt="location" />
-                <a href={store?.locationLink} target="_blank" rel="noreferrer">
-                  {store?.location}
-                </a>
-              </span>
-              {store?.storeWebsite ? (
+              <div>
                 <span>
-                  <img src={site} alt="site" />
-                  <a href={store.storeWebsite} target="_blank" rel="noreferrer">
-                    Visit Website
+                  <img src={location} alt="location" />
+                  <a
+                    href={store?.locationLink}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {store?.location}
                   </a>
                 </span>
-              ) : null}
-              <span>
-                <img src={phone} alt="phone" />
-                <p>{store?.phoneNumber}</p>
-              </span>
-              <span>
-                <img src={clock} alt="clock" />
-                <div>
-                  <StoreHourTable>
-                    <tbody>
-                      {store?.hours.map((day, dayIndex) => {
-                        return (
-                          <StoreHour
-                            key={day._id}
-                            day={day}
-                            weekday={weekdaysArray[dayIndex]}
-                          />
-                        );
-                      })}
-                    </tbody>
-                  </StoreHourTable>
-                </div>
-              </span>
+                {store?.storeWebsite ? (
+                  <span>
+                    <img src={site} alt="site" />
+                    <a
+                      href={store.storeWebsite}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Visit Website
+                    </a>
+                  </span>
+                ) : null}
+                <span>
+                  <img src={phone} alt="phone" />
+                  <p>{store?.phoneNumber}</p>
+                </span>
+                <span>
+                  <img src={clock} alt="clock" />
+                  <div>
+                    <StoreHourTable>
+                      <tbody>
+                        {store?.hours.map((day, dayIndex) => {
+                          return (
+                            <StoreHour
+                              key={day._id}
+                              day={day}
+                              weekday={weekdaysArray[dayIndex]}
+                            />
+                          );
+                        })}
+                      </tbody>
+                    </StoreHourTable>
+                  </div>
+                </span>
+              </div>
             </StoreInfoContainer>
           </PageSectionCard>
           <PageSectionCard secondary>

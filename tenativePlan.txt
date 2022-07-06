@@ -1,6 +1,2 @@
-
-
-Testing:
-
-- Blank fields, not submitted store and employee pictures 
-- 
+- Work break in store description? 
+- Store updated but picture failed...

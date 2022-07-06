@@ -74,7 +74,7 @@ export interface StoreType {
   locationLink: string;
   hours: StoreDayHour[];
   employees: UserType[];
-  owners: UserType[];
+  owner: UserType[];
   __V: number;
   picture?: Buffer | string;
 }

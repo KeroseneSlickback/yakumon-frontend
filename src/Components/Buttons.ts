@@ -9,6 +9,7 @@ export const TinyButton = styled.button<{
   warning?: boolean;
   nonConstraint?: boolean;
   bottomPadding?: boolean;
+  disabledCheck?: boolean;
 }>`
   color: ${({ theme }) => theme.white1};
   border: none;
@@ -77,6 +78,17 @@ export const TinyButton = styled.button<{
     props.bottomPadding &&
     css`
       margin: 12px 0 12px 0;
+    `}
+
+    ${(props) =>
+    props.disabledCheck &&
+    css`
+      cursor: not-allowed;
+      background-color: ${({ theme }) => theme.purple5};
+      color: ${({ theme }) => theme.grey};
+      &:hover {
+        background-color: ${({ theme }) => theme.purple5};
+      }
     `}
 `;
 
