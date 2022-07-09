@@ -8,7 +8,7 @@ export interface SvgPropsDefault {
   possibleHead?: boolean;
   chosen?: boolean;
   storeImg?: boolean;
-  ownerSection?: boolean;
+  rearPortal?: boolean;
   stylist?: boolean;
 }
 

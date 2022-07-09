@@ -399,14 +399,14 @@ export const EmployeePatchModal = (props: Props) => {
             </StyledFormBlock>
             <StyledFormBlock>
               <div>
-                <StoreImgDiv ownerSection>
+                <StoreImgDiv rearPortal>
                   {displayImg ? (
                     <StoreImg
-                      ownerSection
+                      rearPortal
                       src={`data:image/png;base64,${displayImg}`}
                     />
                   ) : (
-                    <FillerImgSvg ownerSection />
+                    <FillerImgSvg rearPortal />
                   )}
                 </StoreImgDiv>
               </div>

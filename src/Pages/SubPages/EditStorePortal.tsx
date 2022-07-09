@@ -466,14 +466,14 @@ const EditStorePortal = () => {
             </div>
           </PageSectionCard>
           <PageSectionCard formFormatting>
-            <StoreImgDiv ownerSection>
+            <StoreImgDiv rearPortal>
               {storeImg ? (
                 <StoreImg
-                  ownerSection
+                  rearPortal
                   src={`data:image/png;base64,${storeImg}`}
                 />
               ) : (
-                <FillerImgSvg ownerSection />
+                <FillerImgSvg rearPortal />
               )}
             </StoreImgDiv>
             <div>

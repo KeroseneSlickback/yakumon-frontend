@@ -78,16 +78,14 @@ const Store = () => {
           <PageSectionCard topCard center>
             <TopH1 storePage>{store?.storeName}</TopH1>
             <StoreImgDiv>
-              <div>
-                {storeImg ? (
-                  <StoreImg
-                    src={`data:image/png;base64,${storeImg}`}
-                    alt={store?.storeName}
-                  />
-                ) : (
-                  <FillerImgSvg storeImg />
-                )}
-              </div>
+              {storeImg ? (
+                <StoreImg
+                  src={`data:image/png;base64,${storeImg}`}
+                  alt={store?.storeName}
+                />
+              ) : (
+                <FillerImgSvg storeImg />
+              )}
             </StoreImgDiv>
           </PageSectionCard>
           <PageSectionCard styled>
@@ -121,21 +119,19 @@ const Store = () => {
                 </span>
                 <span>
                   <img src={clock} alt="clock" />
-                  <div>
-                    <StoreHourTable>
-                      <tbody>
-                        {store?.hours.map((day, dayIndex) => {
-                          return (
-                            <StoreHour
-                              key={day._id}
-                              day={day}
-                              weekday={weekdaysArray[dayIndex]}
-                            />
-                          );
-                        })}
-                      </tbody>
-                    </StoreHourTable>
-                  </div>
+                  <StoreHourTable>
+                    <tbody>
+                      {store?.hours.map((day, dayIndex) => {
+                        return (
+                          <StoreHour
+                            key={day._id}
+                            day={day}
+                            weekday={weekdaysArray[dayIndex]}
+                          />
+                        );
+                      })}
+                    </tbody>
+                  </StoreHourTable>
                 </span>
               </div>
             </StoreInfoContainer>

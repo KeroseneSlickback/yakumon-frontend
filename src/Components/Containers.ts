@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import { devices } from "../Styles/Variables";
 
 export const OverallPageContainer = styled.div`
   min-height: 100vh;
@@ -81,7 +82,6 @@ export const PageSectionCard = styled.div<{
   smallp?: boolean;
   bottomPadding?: boolean;
   formFormatting?: boolean;
-  ownerSection?: boolean;
 }>`
   position: relative;
   padding: 18px 18px 36px 18px;
@@ -252,34 +252,22 @@ export const PageSectionCard = styled.div<{
         }
       }
     `}
-
-    ${(props) =>
-    props.ownerSection &&
-    css`
-      /* display: flex;
-      flex-direction: column; */
-    `}
 `;
 
-export const StoreImgDiv = styled.div<{ ownerSection?: boolean }>`
+export const StoreImgDiv = styled.div<{ rearPortal?: boolean }>`
   height: 100%;
-  width: 400px;
+  width: 100%;
   max-width: 100vw;
   z-index: 0;
   object-fit: cover;
-  div {
-    background-color: ${({ theme }) => theme.white1};
-    border-radius: 1rem 1rem 0 0;
-  }
 
   ${(props) =>
-    props.ownerSection &&
+    props.rearPortal &&
     css`
       width: 100%;
-      max-width: 300px;
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: center;
       gap: 4px;
       div {
         display: flex;
@@ -337,11 +325,14 @@ export const SelectContainerDiv = styled.div`
   }
 `;
 
-export const StoreInfoContainer = styled.div<{ ownerSection?: boolean }>`
+export const StoreInfoContainer = styled.div<{ rearPortal?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   div {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
     span {
       display: flex;
       flex-direction: row;
@@ -355,6 +346,12 @@ export const StoreInfoContainer = styled.div<{ ownerSection?: boolean }>`
         padding-left: 8px;
         font-size: 0.8rem;
         margin: auto 0;
+        @media ${devices.mobileM} {
+          font-size: 0.9rem;
+        }
+        @media ${devices.mobileL} {
+          font-size: 1rem;
+        }
       }
       img {
         height: 20px;
@@ -363,13 +360,19 @@ export const StoreInfoContainer = styled.div<{ ownerSection?: boolean }>`
         td {
           font-size: 0.8rem;
           padding: 0 6px 4px 6px;
+          @media ${devices.mobileM} {
+            font-size: 0.9rem;
+          }
+          @media ${devices.mobileL} {
+            font-size: 1rem;
+          }
         }
       }
     }
   }
 
   ${(props) =>
-    props.ownerSection &&
+    props.rearPortal &&
     css`
       margin: 20px 0 10px 0;
     `}
@@ -377,8 +380,9 @@ export const StoreInfoContainer = styled.div<{ ownerSection?: boolean }>`
 
 export const StoreDescContainer = styled.div`
   p {
-    word-break: break-all;
+    word-break: break;
     white-space: normal;
+    margin-top: 12px;
   }
 `;
 

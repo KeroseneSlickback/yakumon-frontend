@@ -40,7 +40,7 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
       }
     `}
   ${(props) =>
-    props.ownerSection &&
+    props.rearPortal &&
     css`
       width: 160px;
       height: 160px;

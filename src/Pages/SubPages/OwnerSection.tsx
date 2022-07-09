@@ -138,49 +138,49 @@ const OwnerSection = () => {
             ? null
             : user.ownedStores.map((store, storeIndex) => {
                 return (
-                  <PageSectionCard styled ownerSection key={storeIndex}>
+                  <PageSectionCard styled key={storeIndex}>
                     <TopH1 storePage>{store.storeName}</TopH1>
-                    <StoreImgDiv ownerSection>
+                    <StoreImgDiv rearPortal>
                       {store.picture ? (
                         <StoreImg
-                          ownerSection
+                          rearPortal
                           src={`data:image/png;base64,${store.picture}`}
                           alt={store.storeName}
                         />
                       ) : (
-                        <FillerImgSvg ownerSection />
+                        <FillerImgSvg rearPortal />
                       )}
                     </StoreImgDiv>
-                    <StoreInfoContainer ownerSection>
-                      <span>
-                        <img src={location} alt="location" />
-                        <a
-                          href={store.locationLink}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {store.location}
-                        </a>
-                      </span>
-                      {store?.storeWebsite ? (
+                    <StoreInfoContainer rearPortal>
+                      <div>
                         <span>
-                          <img src={site} alt="site" />
+                          <img src={location} alt="location" />
                           <a
-                            href={store.storeWebsite}
+                            href={store.locationLink}
                             target="_blank"
                             rel="noreferrer"
                           >
-                            Visit Website
+                            {store.location}
                           </a>
                         </span>
-                      ) : null}
-                      <span>
-                        <img src={phone} alt="phone" />
-                        <p>{store.phoneNumber}</p>
-                      </span>
-                      <span>
-                        <img src={clock} alt="clock" />
-                        <div>
+                        {store?.storeWebsite ? (
+                          <span>
+                            <img src={site} alt="site" />
+                            <a
+                              href={store.storeWebsite}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Visit Website
+                            </a>
+                          </span>
+                        ) : null}
+                        <span>
+                          <img src={phone} alt="phone" />
+                          <p>{store.phoneNumber}</p>
+                        </span>
+                        <span>
+                          <img src={clock} alt="clock" />
                           <StoreHourTable>
                             <tbody>
                               {store?.hours.map((day, dayIndex) => {
@@ -194,8 +194,8 @@ const OwnerSection = () => {
                               })}
                             </tbody>
                           </StoreHourTable>
-                        </div>
-                      </span>
+                        </span>
+                      </div>
                     </StoreInfoContainer>
                     <AccordionModal buttonMessage="View Employees">
                       {store.employees.map((employee, index) => {

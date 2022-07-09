@@ -171,49 +171,49 @@ const EmployeeSection = () => {
             <TopH1>Welcome, {authContext.user?.firstName}</TopH1>
           </PageSectionCard>
           {user.store ? (
-            <PageSectionCard styled ownerSection>
+            <PageSectionCard styled>
               <TopH1 storePage>{user.store.storeName}</TopH1>
-              <StoreImgDiv ownerSection>
+              <StoreImgDiv rearPortal>
                 {user.store.picture ? (
                   <StoreImg
-                    ownerSection
+                    rearPortal
                     src={`data:image/png;base64,${user.store.picture}`}
                     alt={user.store.storeName}
                   />
                 ) : (
-                  <FillerImgSvg ownerSection />
+                  <FillerImgSvg rearPortal />
                 )}
               </StoreImgDiv>
-              <StoreInfoContainer ownerSection>
-                <span>
-                  <img src={location} alt="location" />
-                  <a
-                    href={user.store.locationLink}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {user.store.location}
-                  </a>
-                </span>
-                {user.store?.storeWebsite ? (
+              <StoreInfoContainer rearPortal>
+                <div>
                   <span>
-                    <img src={site} alt="site" />
+                    <img src={location} alt="location" />
                     <a
-                      href={user.store.storeWebsite}
+                      href={user.store.locationLink}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Visit Website
+                      {user.store.location}
                     </a>
                   </span>
-                ) : null}
-                <span>
-                  <img src={phone} alt="phone" />
-                  <p>{user.store.phoneNumber}</p>
-                </span>
-                <span>
-                  <img src={clock} alt="clock" />
-                  <div>
+                  {user.store?.storeWebsite ? (
+                    <span>
+                      <img src={site} alt="site" />
+                      <a
+                        href={user.store.storeWebsite}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Visit Website
+                      </a>
+                    </span>
+                  ) : null}
+                  <span>
+                    <img src={phone} alt="phone" />
+                    <p>{user.store.phoneNumber}</p>
+                  </span>
+                  <span>
+                    <img src={clock} alt="clock" />
                     <StoreHourTable>
                       <tbody>
                         {user.store?.hours.map((day, dayIndex) => {
@@ -227,8 +227,8 @@ const EmployeeSection = () => {
                         })}
                       </tbody>
                     </StoreHourTable>
-                  </div>
-                </span>
+                  </span>
+                </div>
               </StoreInfoContainer>
               <AccordionModal buttonMessage="View Services">
                 {user.services ? (

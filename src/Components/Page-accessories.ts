@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { devices } from "../Styles/Variables";
 
 export const ShowcaseImg = styled.img`
   height: 200px;
@@ -17,7 +18,7 @@ export const TopH1 = styled.h1<{ storePage?: boolean }>`
     `}
 `;
 
-export const StoreImg = styled.img<{ ownerSection?: boolean }>`
+export const StoreImg = styled.img<{ rearPortal?: boolean }>`
   height: 100%;
   width: 100%;
   max-height: 50vh;
@@ -28,9 +29,9 @@ export const StoreImg = styled.img<{ ownerSection?: boolean }>`
     rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
 
   ${(props) =>
-    props.ownerSection &&
+    props.rearPortal &&
     css`
-      width: 160px;
+      width: 70%;
       border-radius: 1rem;
     `}
 `;
@@ -102,9 +103,14 @@ export const LoadingIcon = styled.div<{ padding?: boolean }>`
 `;
 
 export const StoreHourTable = styled.table`
+  width: 100%;
   tr {
     display: grid;
-    grid-template-columns: 50px 70px 20px 70px;
+    grid-template-columns: 52px 1fr 10px 1fr;
+    @media ${devices.mobileM} {
+      grid-template-columns: 62px 1fr 10px 1fr;
+    }
+
     td {
       justify-self: center;
       &:first-child {
