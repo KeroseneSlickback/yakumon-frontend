@@ -11,7 +11,7 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
   justify-content: center;
   align-items: center;
   max-height: 200px;
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 1rem;
   height: 100%;
   width: 100%;
   background-color: ${({ theme }) => theme.white1};
@@ -20,21 +20,19 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
     width: 200px;
     stroke: ${({ theme }) => theme.purple1};
     object-fit: contain;
-    path {
-    }
   }
   ${(props) =>
     props.storeImg &&
     css`
       z-index: 0;
       object-fit: cover;
-      border-radius: 1rem 1rem 0 0;
+      border-radius: 1rem;
       svg {
         height: 200px;
         width: 500px;
         z-index: 0;
         object-fit: cover;
-        border-radius: 1rem 1rem 0 0;
+        border-radius: 1rem;
         box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px,
           rgba(0, 0, 0, 0.3) 0px 0px 4px,
           rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;

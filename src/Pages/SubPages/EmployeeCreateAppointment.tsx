@@ -127,7 +127,6 @@ const EmployeeCreateAppointment = () => {
       customer: id,
     }));
   };
-  console.log(reservation);
 
   useEffect(() => {
     setLoad(true);

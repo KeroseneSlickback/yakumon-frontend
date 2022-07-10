@@ -14,6 +14,7 @@ import {
   StoreHourTable,
   StoreImg,
   TopH1,
+  TopH2,
 } from "../Components/Page-accessories";
 
 import location from "../Utilities/Images/SVGs/location.svg";
@@ -75,8 +76,8 @@ const Store = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageSectionCard topCard center>
-            <TopH1 storePage>{store?.storeName}</TopH1>
+          <PageSectionCard noPadding>
+            <TopH1 extraPadding>{store?.storeName}</TopH1>
             <StoreImgDiv>
               {storeImg ? (
                 <StoreImg
@@ -138,14 +139,14 @@ const Store = () => {
           </PageSectionCard>
           <PageSectionCard secondary>
             <StoreDescContainer>
-              <h2>Description:</h2>
+              <TopH2>Description:</TopH2>
               {store?.storeDescription.split("\n").map((str, i) => {
                 return <p key={i}>{str}</p>;
               })}
             </StoreDescContainer>
           </PageSectionCard>
           <PageSectionCard styled>
-            <h2>Select a Stylist</h2>
+            <TopH2>Select a Stylist</TopH2>
             <ShowcaseGrid>
               {store?.employees.map((employee) => {
                 return (

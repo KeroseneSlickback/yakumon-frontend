@@ -7,7 +7,7 @@ const CheckboxDescription = styled.label<{
 }>`
   display: grid;
   width: 100%;
-  grid-template-columns: 0.75fr 1fr 40px;
+  grid-template-columns: 1fr 1fr 50px;
   padding: 8px 12px;
   cursor: pointer;
   p {
@@ -22,6 +22,9 @@ const CheckboxDescription = styled.label<{
   }
   &:nth-child(even) {
     background-color: ${({ theme }) => theme.white1};
+  }
+  &:only-child {
+    border-radius: 0.5rem;
   }
 
   &:hover {

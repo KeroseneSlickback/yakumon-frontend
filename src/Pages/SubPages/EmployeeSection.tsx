@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  EmployeeStoreContainer,
   PageSectionCard,
   SinglePageContainer,
   StoreImgDiv,
@@ -15,6 +16,7 @@ import {
   StoreHourTable,
   StoreImg,
   TopH1,
+  TopH3,
 } from "../../Components/Page-accessories";
 import RegularMessage, {
   MessageBox,
@@ -167,107 +169,109 @@ const EmployeeSection = () => {
         </LoadingIconContainer>
       ) : user ? (
         <>
-          <PageSectionCard topCard center bottomPadding>
+          <PageSectionCard>
             <TopH1>Welcome, {authContext.user?.firstName}</TopH1>
           </PageSectionCard>
           {user.store ? (
             <PageSectionCard styled>
-              <TopH1 storePage>{user.store.storeName}</TopH1>
-              <StoreImgDiv rearPortal>
-                {user.store.picture ? (
-                  <StoreImg
-                    rearPortal
-                    src={`data:image/png;base64,${user.store.picture}`}
-                    alt={user.store.storeName}
-                  />
-                ) : (
-                  <FillerImgSvg rearPortal />
-                )}
-              </StoreImgDiv>
-              <StoreInfoContainer rearPortal>
-                <div>
-                  <span>
-                    <img src={location} alt="location" />
-                    <a
-                      href={user.store.locationLink}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {user.store.location}
-                    </a>
-                  </span>
-                  {user.store?.storeWebsite ? (
+              <EmployeeStoreContainer>
+                <TopH1 lessPadding>{user.store.storeName}</TopH1>
+                <StoreImgDiv rearPortal>
+                  {user.store.picture ? (
+                    <StoreImg
+                      rearPortal
+                      src={`data:image/png;base64,${user.store.picture}`}
+                      alt={user.store.storeName}
+                    />
+                  ) : (
+                    <FillerImgSvg rearPortal />
+                  )}
+                </StoreImgDiv>
+                <StoreInfoContainer rearPortal>
+                  <div>
                     <span>
-                      <img src={site} alt="site" />
+                      <img src={location} alt="location" />
                       <a
-                        href={user.store.storeWebsite}
+                        href={user.store.locationLink}
                         target="_blank"
                         rel="noreferrer"
                       >
-                        Visit Website
+                        {user.store.location}
                       </a>
                     </span>
-                  ) : null}
-                  <span>
-                    <img src={phone} alt="phone" />
-                    <p>{user.store.phoneNumber}</p>
-                  </span>
-                  <span>
-                    <img src={clock} alt="clock" />
-                    <StoreHourTable>
-                      <tbody>
-                        {user.store?.hours.map((day, dayIndex) => {
-                          return (
-                            <StoreHour
-                              key={day._id}
-                              day={day}
-                              weekday={weekdaysArray[dayIndex]}
-                            />
-                          );
-                        })}
-                      </tbody>
-                    </StoreHourTable>
-                  </span>
-                </div>
-              </StoreInfoContainer>
-              <AccordionModal buttonMessage="View Services">
-                {user.services ? (
-                  <>
-                    {user.services.map((service, serviceIndex) => {
-                      return (
-                        <div key={serviceIndex}>
-                          <ServiceDetailDiv>
-                            <p>{service.serviceName}</p>
-                            <DetailP>
-                              Time: {parseServiceTime(service.timeSpan)}
-                            </DetailP>
-                            <DetailP>Price: ${service.price}</DetailP>
-                          </ServiceDetailDiv>
-                          <div>
-                            <EmptyButton
-                              onClick={() => showEditService(service)}
-                            >
-                              <img src={edit} alt="edit service" />
-                            </EmptyButton>
-                            <EmptyButton
-                              onClick={() => showRemoveService(service._id)}
-                            >
-                              <img src={close} alt="remove service" />
-                            </EmptyButton>
+                    {user.store?.storeWebsite ? (
+                      <span>
+                        <img src={site} alt="site" />
+                        <a
+                          href={user.store.storeWebsite}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Visit Website
+                        </a>
+                      </span>
+                    ) : null}
+                    <span>
+                      <img src={phone} alt="phone" />
+                      <p>{user.store.phoneNumber}</p>
+                    </span>
+                    <span>
+                      <img src={clock} alt="clock" />
+                      <StoreHourTable>
+                        <tbody>
+                          {user.store?.hours.map((day, dayIndex) => {
+                            return (
+                              <StoreHour
+                                key={day._id}
+                                day={day}
+                                weekday={weekdaysArray[dayIndex]}
+                              />
+                            );
+                          })}
+                        </tbody>
+                      </StoreHourTable>
+                    </span>
+                  </div>
+                </StoreInfoContainer>
+                <AccordionModal buttonMessage="View Services">
+                  {user.services ? (
+                    <>
+                      {user.services.map((service, serviceIndex) => {
+                        return (
+                          <div key={serviceIndex}>
+                            <ServiceDetailDiv>
+                              <p>{service.serviceName}</p>
+                              <DetailP>
+                                Time: {parseServiceTime(service.timeSpan)}
+                              </DetailP>
+                              <DetailP>Price: ${service.price}</DetailP>
+                            </ServiceDetailDiv>
+                            <div>
+                              <EmptyButton
+                                onClick={() => showEditService(service)}
+                              >
+                                <img src={edit} alt="edit service" />
+                              </EmptyButton>
+                              <EmptyButton
+                                onClick={() => showRemoveService(service._id)}
+                              >
+                                <img src={close} alt="remove service" />
+                              </EmptyButton>
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </>
-                ) : null}
-                <SmallButton bottomPadding onClick={showNewService}>
-                  Add Service
-                </SmallButton>
-              </AccordionModal>
+                        );
+                      })}
+                    </>
+                  ) : null}
+                  <SmallButton bottomPadding onClick={showNewService}>
+                    Add Service
+                  </SmallButton>
+                </AccordionModal>
+              </EmployeeStoreContainer>
             </PageSectionCard>
           ) : null}
-          <PageSectionCard noPadding>
-            <h3>Appointments</h3>
+          <PageSectionCard smallPaddingBottom>
+            <TopH3>Appointments</TopH3>
             <ScheduleView
               appointments={user.appointments}
               services={user.services}
@@ -278,7 +282,7 @@ const EmployeeSection = () => {
             />
           </PageSectionCard>
           <PageSectionCard styled>
-            <CenterButtonDiv>
+            <CenterButtonDiv bottomPadding>
               <StyledLinkButton to={`/portal/createAppointment/${user._id}`}>
                 Create Appointment
               </StyledLinkButton>

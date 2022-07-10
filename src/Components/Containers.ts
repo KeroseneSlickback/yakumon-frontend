@@ -10,7 +10,7 @@ export const OverallPageContainer = styled.div`
 `;
 
 export const MainPageContainer = styled.main`
-  padding-bottom: 18px;
+  padding-bottom: 16px;
   flex-grow: 1;
   align-self: stretch;
   display: flex;
@@ -63,9 +63,9 @@ export const FooterButtonDiv = styled.div`
 
 // Page containers
 export const SinglePageContainer = styled.div<{ homePage?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
 
   ${(props) =>
     props.homePage &&
@@ -81,53 +81,26 @@ export const FullWidthContainer = styled.div`
 `;
 
 export const PageSectionCard: any = styled.div<{
-  homeH1?: boolean;
   styled?: boolean;
-  topCard?: boolean;
-  noPadding?: boolean;
-  center?: boolean;
   secondary?: boolean;
-  row?: boolean;
-  stylist?: boolean;
-  absolute?: boolean;
-  smallp?: boolean;
-  bottomPadding?: boolean;
-  formFormatting?: boolean;
+  noPadding?: boolean;
+  smallPaddingBottom?: boolean;
 }>`
-  position: relative;
-  padding: 18px 18px 36px 18px;
   width: 100%;
   color: ${({ theme }) => theme.white1};
   background-color: ${({ theme }) => theme.purple1};
   border-radius: 1rem 1rem 0 0;
-  h2 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-  }
-  h3 {
-    font-size: 1.1rem;
-  }
+  padding: 16px 18px;
 
   &:not(:first-child) {
-    margin-top: -24px;
+    margin-top: -32px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
       rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
   }
 
   &:last-child {
     border-radius: 1rem;
-    padding: 18px;
   }
-
-  ${(props) =>
-    props.homeH1 &&
-    css`
-      h1 {
-        padding-bottom: 48px;
-        text-align: center;
-        margin: 10px;
-      }
-    `}
 
   ${(props) =>
     props.styled &&
@@ -137,156 +110,33 @@ export const PageSectionCard: any = styled.div<{
     `}
 
   ${(props) =>
-    props.topCard &&
-    css`
-      padding: 18px 0px 0px 0px;
-      position: relative;
-      z-index: -1;
-      h3 {
-        margin: 0 0 18px 18px;
-      }
-    `}
-
-    ${(props) =>
-    props.noPadding &&
-    css`
-      padding: 18px 0px 2px 0px;
-      h3 {
-        margin: 0 18px 10px 18px;
-        text-align: center;
-      }
-    `}
-    
-    ${(props) =>
-    props.bottomPadding &&
-    css`
-      padding: 18px 0px 36px 0px;
-      h3 {
-        margin: 0 18px 10px 18px;
-        text-align: center;
-      }
-    `}
-    
-    ${(props) =>
-    props.center &&
-    css`
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `}
-
-  ${(props) =>
     props.secondary &&
     css`
       background-color: ${({ theme }) => theme.purple3};
     `}
 
-  ${(props) =>
-    props.row &&
+    ${(props) =>
+    props.noPadding &&
     css`
-      display: flex;
-      flex-direction: row;
-      div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-left: 12px;
-      }
+      padding: 0;
     `}
 
     ${(props) =>
-    props.stylist &&
+    props.smallPaddingBottom &&
     css`
-      padding: 0 18px 36px 18px;
-      display: flex;
-      flex-direction: row;
-      div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-      }
-    `}
-
-    ${(props) =>
-    props.absolute &&
-    css`
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      align-items: center;
-      justify-content: center;
-      h1 {
-        padding-bottom: 18px;
-        line-height: 1.75rem;
-      }
-      div {
-        p {
-          padding: 10px;
-        }
-      }
-    `}
-    ${(props) =>
-    props.smallp &&
-    css`
-      p {
-        margin-top: 10px;
-        font-size: 0.8rem;
-      }
-    `}
-    ${(props) =>
-    props.formFormatting &&
-    css`
-      div {
-        margin-bottom: 4px;
-        div {
-          margin-top: 12px;
-          div {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 8px;
-            margin: 0 10px;
-            span {
-            }
-          }
-        }
-        p {
-          margin: 2px 0;
-          font-size: 0.7rem;
-        }
-        h4 {
-          font-size: 0.8rem;
-          margin: 6px 0 2px 0;
-        }
-      }
+      padding: 0 0 8px 0;
     `}
 `;
 
 export const StoreImgDiv = styled.div<{ rearPortal?: boolean }>`
-  height: 100%;
   width: 100%;
-  max-width: 100vw;
-  z-index: 0;
   object-fit: cover;
 
   ${(props) =>
     props.rearPortal &&
     css`
-      width: 100%;
       display: flex;
-      flex-direction: row;
       justify-content: center;
-      gap: 4px;
-      div {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 8px;
-        border-radius: 1rem;
-      }
     `};
 `;
 
@@ -297,6 +147,7 @@ export const CheckboxSpan = styled.span`
 `;
 
 export const ShowcaseGrid = styled.div`
+  margin-top: 16px;
   display: grid;
   grid-gap: 8px;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -350,6 +201,7 @@ export const StoreInfoContainer = styled.div<{ rearPortal?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 32px;
   div {
     display: flex;
     flex-direction: column;
@@ -395,11 +247,12 @@ export const StoreInfoContainer = styled.div<{ rearPortal?: boolean }>`
   ${(props) =>
     props.rearPortal &&
     css`
-      margin: 20px 0 10px 0;
+      padding: 16px 0 16px 0;
     `}
 `;
 
 export const StoreDescContainer = styled.div`
+  padding-bottom: 32px;
   p {
     word-break: break;
     white-space: normal;
@@ -431,4 +284,24 @@ export const StoreEditContainer = styled.div<{ topCard?: boolean }>`
     css`
       padding: 6px;
     `}
+`;
+
+export const ReservationImgHeaderContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding-bottom: 32px;
+`;
+
+export const ReservationTitleBlock = styled.div`
+  display: grid;
+  grid-gap: 8px;
+`;
+
+export const ServiceContainerWrapper = styled.div`
+  padding-bottom: 32px;
+`;
+
+export const EmployeeStoreContainer = styled.div`
+  padding-bottom: 32px;
 `;

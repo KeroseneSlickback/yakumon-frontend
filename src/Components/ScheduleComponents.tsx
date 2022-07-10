@@ -1,8 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const StyledTable = styled.table`
-  width: 100%;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 `;
 
 export const StyledThead = styled.thead``;

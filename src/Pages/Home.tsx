@@ -12,6 +12,7 @@ import {
   LoadingIcon,
   LoadingIconContainer,
   ShowcaseImg,
+  TopH2,
 } from "../Components/Page-accessories";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
@@ -51,11 +52,11 @@ const Home = () => {
 
   return (
     <SinglePageContainer homePage>
-      <PageSectionCard topCard homeH1>
+      <PageSectionCard>
         <TopH1>Welcome to Yakumon</TopH1>
       </PageSectionCard>
       <PageSectionCard styled>
-        <h2>Select a Store to Start a Reservation</h2>
+        <TopH2>Select a Store to Start a Reservation</TopH2>
         <ShowcaseGrid>
           {error ? (
             <MessageBox>

@@ -5,17 +5,47 @@ export const ShowcaseImg = styled.img`
   height: 200px;
   width: 100%;
   object-fit: cover;
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 1rem;
 `;
 
-export const TopH1 = styled.h1<{ storePage?: boolean }>`
+export const TopH1 = styled.h1<{
+  extraPadding?: boolean;
+  noPadding?: boolean;
+  lessPadding?: boolean;
+}>`
+  padding: 8px 0 40px 0;
   font-size: 1.65rem;
+  text-align: center;
+
   ${(props) =>
-    props.storePage &&
+    props.extraPadding &&
     css`
-      margin: 4px 18px 18px 18px;
-      text-align: center;
+      padding: 24px 18px 32px 18px;
     `}
+  ${(props) =>
+    props.noPadding &&
+    css`
+      padding: 0;
+    `}
+    ${(props) =>
+    props.lessPadding &&
+    css`
+      padding: 8px 0 16px 0;
+    `}
+`;
+
+export const TopH2 = styled.h2<{ extraBottomPadding?: boolean }>`
+  font-size: 1.25rem;
+  ${(props) =>
+    props.extraBottomPadding &&
+    css`
+      padding-bottom: 8px;
+    `}
+`;
+
+export const TopH3 = styled.h3`
+  padding: 16px 18px;
+  text-align: center;
 `;
 
 export const StoreImg = styled.img<{ rearPortal?: boolean }>`
@@ -32,6 +62,8 @@ export const StoreImg = styled.img<{ rearPortal?: boolean }>`
     props.rearPortal &&
     css`
       width: 70%;
+      height: 70%;
+      max-height: 35vh;
       border-radius: 1rem;
     `}
 `;
@@ -140,4 +172,17 @@ export const ServiceDetailDiv = styled.div`
 export const DetailP = styled.p`
   font-size: 0.7rem;
   margin-top: 3px;
+`;
+
+export const AppointmentConfirmContainer = styled.div`
+  div {
+    padding: 8px;
+    text-align: center;
+    p {
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
 `;

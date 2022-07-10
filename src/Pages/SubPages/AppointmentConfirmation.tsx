@@ -8,6 +8,7 @@ import {
   SinglePageContainer,
 } from "../../Components/Containers";
 import {
+  AppointmentConfirmContainer,
   LoadingIcon,
   LoadingIconContainer,
   TopH1,
@@ -71,37 +72,40 @@ const AppointmentConfirmation = () => {
             <TopH1>Appointment Made Successfully</TopH1>
           </PageSectionCard>
           <PageSectionCard styled>
-            <div>
-              <p>Appointment Date:</p>
-              <h2>
-                {format(
-                  parseJSON(appointment?.timeSlots[0].slotDateTime),
-                  "MMMM dd yyyy"
-                )}
-              </h2>
-            </div>
-            <div>
-              <p>Appointment Time:</p>
-              <h2>
-                {format(
-                  parseJSON(appointment?.timeSlots[0].slotDateTime!),
-                  "h:mm b"
-                )}
-              </h2>
-            </div>
-            <div>
-              <p>With:</p>
-              <h2>
-                {appointment.employee.firstName} {appointment.employee.lastName}
-              </h2>
-            </div>
-            {appointment.employee.store ? (
+            <AppointmentConfirmContainer>
               <div>
-                <Link to={`/store/${appointment.employee.store._id}`}>
-                  <p>View Store Details</p>
-                </Link>
+                <p>Appointment Date:</p>
+                <h2>
+                  {format(
+                    parseJSON(appointment?.timeSlots[0].slotDateTime),
+                    "MMMM dd yyyy"
+                  )}
+                </h2>
               </div>
-            ) : null}
+              <div>
+                <p>Appointment Time:</p>
+                <h2>
+                  {format(
+                    parseJSON(appointment?.timeSlots[0].slotDateTime!),
+                    "h:mm b"
+                  )}
+                </h2>
+              </div>
+              <div>
+                <p>With:</p>
+                <h2>
+                  {appointment.employee.firstName}{" "}
+                  {appointment.employee.lastName}
+                </h2>
+              </div>
+              {appointment.employee.store ? (
+                <div>
+                  <Link to={`/store/${appointment.employee.store._id}`}>
+                    <p>View Store Details</p>
+                  </Link>
+                </div>
+              ) : null}
+            </AppointmentConfirmContainer>
           </PageSectionCard>
         </PageSectionCard>
       ) : null}

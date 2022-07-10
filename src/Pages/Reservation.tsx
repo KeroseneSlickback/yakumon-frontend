@@ -1,7 +1,13 @@
 import React, { useContext, useState, useEffect, ChangeEvent } from "react";
 import { BackDrop } from "../Components/Backdrop";
 import { MediumButton, ReserveButton } from "../Components/Buttons";
-import { PageSectionCard, SinglePageContainer } from "../Components/Containers";
+import {
+  PageSectionCard,
+  ReservationImgHeaderContainer,
+  ReservationTitleBlock,
+  ServiceContainerWrapper,
+  SinglePageContainer,
+} from "../Components/Containers";
 import {
   ServiceContainer,
   StyledForm,
@@ -14,6 +20,8 @@ import {
   RegisterLoginDiv,
   StylistImg,
   TopH1,
+  TopH2,
+  TopH3,
 } from "../Components/Page-accessories";
 import LoginModal from "../Modules/Modals/LoginModal";
 import RegisterModal from "../Modules/Modals/RegisterModal";
@@ -175,77 +183,83 @@ const Reservation = () => {
         </LoadingIconContainer>
       ) : (
         <StyledForm onSubmit={handleFormSubmit}>
-          <PageSectionCard row stylist>
-            {userImg ? (
-              <StylistImg
-                src={`data:image/png;base64,${userImg}`}
-                alt={user?.firstName}
-              />
-            ) : (
-              <FillerImgSvg stylist />
-            )}
-            <div>
-              <TopH1 storePage>
-                {user?.firstName} {user?.lastName}
-              </TopH1>
-              <h3>{user?.title}</h3>
-            </div>
+          <PageSectionCard>
+            <ReservationImgHeaderContainer>
+              {userImg ? (
+                <StylistImg
+                  src={`data:image/png;base64,${userImg}`}
+                  alt={user?.firstName}
+                />
+              ) : (
+                <FillerImgSvg stylist />
+              )}
+              <ReservationTitleBlock>
+                <TopH1 noPadding>
+                  {user?.firstName} {user?.lastName}
+                </TopH1>
+                <p>{user?.title}</p>
+              </ReservationTitleBlock>
+            </ReservationImgHeaderContainer>
           </PageSectionCard>
           <PageSectionCard styled>
-            <h2>Start Your Reservation</h2>
-            {loggedIn ? (
-              <>
-                {user?.services && user.services.length > 0 ? (
-                  <>
-                    <p>Select a service.</p>
-                    <ServiceContainer>
-                      {user.services
-                        ? user.services.map((service) => {
-                            return (
-                              <ListItem
-                                key={service._id}
-                                text1={service.serviceName}
-                                text2={timesArrayShort[service.timeSpan]}
-                                text3={service.price}
-                                handleOnChange={() =>
-                                  selectService(service._id)
-                                }
-                                selected={reservation.service}
-                                id={service._id}
-                                services
-                              ></ListItem>
-                            );
-                          })
-                        : null}
-                    </ServiceContainer>
-                  </>
-                ) : (
-                  <p>
-                    This employee hasn't made services yet. Please check back
-                    later.
-                  </p>
-                )}
-              </>
-            ) : (
-              <RegisterLoginDiv>
-                <p>Please Register or Login</p>
-                <div>
-                  <MediumButton
-                    type="button"
-                    onClick={toggleRegisterModal}
-                    register
-                  >
-                    Register
-                  </MediumButton>
-                  <MediumButton type="button" onClick={toggleLoginModal} log>
-                    Login
-                  </MediumButton>
-                </div>
-              </RegisterLoginDiv>
-            )}
+            <TopH2 extraBottomPadding>Start Your Reservation</TopH2>
+            <ServiceContainerWrapper>
+              {loggedIn ? (
+                <>
+                  {user?.services && user.services.length > 0 ? (
+                    <>
+                      <p>Select a service.</p>
+                      <ServiceContainer>
+                        {user.services
+                          ? user.services.map((service) => {
+                              return (
+                                <ListItem
+                                  key={service._id}
+                                  text1={service.serviceName}
+                                  text2={timesArrayShort[service.timeSpan]}
+                                  text3={service.price}
+                                  handleOnChange={() =>
+                                    selectService(service._id)
+                                  }
+                                  selected={reservation.service}
+                                  id={service._id}
+                                  services
+                                ></ListItem>
+                              );
+                            })
+                          : null}
+                      </ServiceContainer>
+                    </>
+                  ) : (
+                    <p>
+                      This employee hasn't made services yet. Please check back
+                      later.
+                    </p>
+                  )}
+                </>
+              ) : (
+                <RegisterLoginDiv>
+                  <p>Please Register or Login</p>
+                  <div>
+                    <MediumButton
+                      type="button"
+                      onClick={toggleRegisterModal}
+                      register
+                    >
+                      Register
+                    </MediumButton>
+                    <MediumButton type="button" onClick={toggleLoginModal} log>
+                      Login
+                    </MediumButton>
+                  </div>
+                </RegisterLoginDiv>
+              )}
+            </ServiceContainerWrapper>
           </PageSectionCard>
-          <PageSectionCard noPadding>
-            <h3>Select any white section as the start of your reservation.</h3>
+          <PageSectionCard smallPaddingBottom>
+            <TopH3>
+              Select any white section as the start of your reservation.
+            </TopH3>
             <ScheduleView
               appointments={user?.appointments}
               services={user?.services}
@@ -255,7 +269,7 @@ const Reservation = () => {
             />
           </PageSectionCard>
           <PageSectionCard styled>
-            <h3>Comments</h3>
+            <p>Comments</p>
             <StyledTextArea
               marginBottom
               name="comments"

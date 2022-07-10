@@ -129,7 +129,7 @@ const OwnerSection = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageSectionCard topCard center bottomPadding>
+          <PageSectionCard>
             <TopH1>Welcome, {authContext.user?.firstName}</TopH1>
           </PageSectionCard>
           {!user
@@ -139,7 +139,7 @@ const OwnerSection = () => {
             : user.ownedStores.map((store, storeIndex) => {
                 return (
                   <PageSectionCard styled key={storeIndex}>
-                    <TopH1 storePage>{store.storeName}</TopH1>
+                    <TopH1 lessPadding>{store.storeName}</TopH1>
                     <StoreImgDiv rearPortal>
                       {store.picture ? (
                         <StoreImg

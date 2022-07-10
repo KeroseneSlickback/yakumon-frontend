@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PageSectionCard, SinglePageContainer } from "../Components/Containers";
 import {
   LoadingIcon,
   LoadingIconContainer,
+  TopH1,
 } from "../Components/Page-accessories";
 
 const confirmationMessages = [
@@ -31,8 +32,8 @@ const Confirmation = () => {
   }, []);
   return (
     <SinglePageContainer>
-      <PageSectionCard absolute>
-        <h1>{message}</h1>
+      <PageSectionCard>
+        <TopH1>{message}</TopH1>
         <p>You will be redirected shortly</p>
       </PageSectionCard>
       <LoadingIconContainer>
