@@ -49,7 +49,7 @@ const Home = () => {
     return () => clearTimeout(debounce);
   }, []);
   return (
-    <SinglePageContainer>
+    <SinglePageContainer homePage>
       <PageSectionCard topCard homeH1>
         <TopH1>Welcome to Yakumon</TopH1>
       </PageSectionCard>
@@ -83,7 +83,6 @@ const Home = () => {
             })
           )}
         </ShowcaseGrid>
-        {/*  */}
       </PageSectionCard>
     </SinglePageContainer>
   );

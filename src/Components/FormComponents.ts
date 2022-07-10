@@ -1,8 +1,12 @@
 import styled, { css } from "styled-components";
+import { devices } from "../Styles/Variables";
 
 export const StyledForm = styled.form`
   padding: 8px 0 0 0;
   width: 100%;
+  @media ${devices.mobileL} {
+    max-width: 400px;
+  }
 `;
 
 export const StyledFormBlock = styled.div<{

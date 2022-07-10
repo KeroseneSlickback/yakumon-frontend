@@ -13,6 +13,9 @@ export const MainPageContainer = styled.main`
   padding-bottom: 18px;
   flex-grow: 1;
   align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 // Navbar containers
@@ -59,17 +62,25 @@ export const FooterButtonDiv = styled.div`
 `;
 
 // Page containers
-export const SinglePageContainer = styled.div`
+export const SinglePageContainer = styled.div<{ homePage?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  ${(props) =>
+    props.homePage &&
+    css`
+      @media ${devices.mobileL} {
+        width: 90%;
+      }
+    `}
 `;
 
 export const FullWidthContainer = styled.div`
   width: 100%;
 `;
 
-export const PageSectionCard = styled.div<{
+export const PageSectionCard: any = styled.div<{
   homeH1?: boolean;
   styled?: boolean;
   topCard?: boolean;
@@ -167,7 +178,7 @@ export const PageSectionCard = styled.div<{
   ${(props) =>
     props.secondary &&
     css`
-      background-color: ${({ theme }) => theme.purple1};
+      background-color: ${({ theme }) => theme.purple3};
     `}
 
   ${(props) =>
@@ -291,6 +302,16 @@ export const ShowcaseGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr));
   justify-content: center;
+
+  @media ${devices.tabletS} {
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr));
+  }
+
+  @media ${devices.tabletM} {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr));
+  }
 `;
 
 export const SelectContainer = styled(Link)`

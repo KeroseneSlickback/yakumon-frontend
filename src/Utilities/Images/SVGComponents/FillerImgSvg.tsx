@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { devices } from "../../../Styles/Variables";
 import {
   SvgDefaultContainer,
   SvgPropsDefault,
@@ -56,6 +57,11 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
       border-radius: 1rem;
       box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
         rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
+
+      @media ${devices.mobileM} {
+        height: 160px;
+        width: 160px;
+      }
     `}
 `;
 

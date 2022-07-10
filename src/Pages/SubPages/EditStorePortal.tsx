@@ -162,14 +162,6 @@ const EditStorePortal = () => {
         }
       }
     }
-    // data.hours.map((day: any) => {
-    //   for (let key in day) {
-    //     if (day[key] === "") {
-    //       evaluation = false;
-    //       return;
-    //     }
-    //   }
-    // });
     if (evaluation) {
       setAlteredHours(false);
     }

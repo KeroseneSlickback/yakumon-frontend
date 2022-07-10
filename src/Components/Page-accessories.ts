@@ -43,6 +43,11 @@ export const StylistImg = styled.img`
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
     rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
+
+  @media ${devices.mobileM} {
+    height: 160px;
+    width: 160px;
+  }
 `;
 
 export const RegisterLoginDiv = styled.div`

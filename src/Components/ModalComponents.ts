@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { devices } from "../Styles/Variables";
 
 export const ModalContainer = styled.div`
   background-color: ${({ theme }) => theme.purple1};
@@ -14,6 +15,9 @@ export const ModalContainer = styled.div`
   box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 8px,
     rgba(255, 255, 255, 0.3) 0px 0px 4px,
     rgba(255, 255, 255, 0.05) 0px 0px 4px 1px inset;
+  @media ${devices.mobileM} {
+    max-width: 375px;
+  }
 `;
 
 export const ModalH3 = styled.h3<{ paddingBottom?: boolean }>`
