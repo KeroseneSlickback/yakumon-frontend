@@ -48,6 +48,7 @@ const Home = () => {
     }, 500);
     return () => clearTimeout(debounce);
   }, []);
+
   return (
     <SinglePageContainer homePage>
       <PageSectionCard topCard homeH1>
