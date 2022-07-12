@@ -203,58 +203,56 @@ const Reservation = () => {
           </PageSectionCard>
           <PageSectionCard styled>
             <TopH2 extraBottomPadding>Start Your Reservation</TopH2>
-            <ExtraPaddingWrapper>
-              {loggedIn ? (
-                <>
-                  {user?.services && user.services.length > 0 ? (
-                    <>
-                      <p>Select a service.</p>
-                      <ServiceContainer>
-                        {user.services
-                          ? user.services.map((service) => {
-                              return (
-                                <ListItem
-                                  key={service._id}
-                                  text1={service.serviceName}
-                                  text2={timesArrayShort[service.timeSpan]}
-                                  text3={service.price}
-                                  handleOnChange={() =>
-                                    selectService(service._id)
-                                  }
-                                  selected={reservation.service}
-                                  id={service._id}
-                                  services
-                                ></ListItem>
-                              );
-                            })
-                          : null}
-                      </ServiceContainer>
-                    </>
-                  ) : (
-                    <p>
-                      This employee hasn't made services yet. Please check back
-                      later.
-                    </p>
-                  )}
-                </>
-              ) : (
-                <RegisterLoginDiv>
-                  <p>Please Register or Login</p>
-                  <div>
-                    <MediumButton
-                      type="button"
-                      onClick={toggleRegisterModal}
-                      register
-                    >
-                      Register
-                    </MediumButton>
-                    <MediumButton type="button" onClick={toggleLoginModal} log>
-                      Login
-                    </MediumButton>
-                  </div>
-                </RegisterLoginDiv>
-              )}
-            </ExtraPaddingWrapper>
+            {loggedIn ? (
+              <>
+                {user?.services && user.services.length > 0 ? (
+                  <>
+                    <p>Select a service.</p>
+                    <ServiceContainer>
+                      {user.services
+                        ? user.services.map((service) => {
+                            return (
+                              <ListItem
+                                key={service._id}
+                                text1={service.serviceName}
+                                text2={timesArrayShort[service.timeSpan]}
+                                text3={service.price}
+                                handleOnChange={() =>
+                                  selectService(service._id)
+                                }
+                                selected={reservation.service}
+                                id={service._id}
+                                services
+                              ></ListItem>
+                            );
+                          })
+                        : null}
+                    </ServiceContainer>
+                  </>
+                ) : (
+                  <p>
+                    This employee hasn't made services yet. Please check back
+                    later.
+                  </p>
+                )}
+              </>
+            ) : (
+              <RegisterLoginDiv>
+                <p>Please Register or Login</p>
+                <div>
+                  <MediumButton
+                    type="button"
+                    onClick={toggleRegisterModal}
+                    register
+                  >
+                    Register
+                  </MediumButton>
+                  <MediumButton type="button" onClick={toggleLoginModal} log>
+                    Login
+                  </MediumButton>
+                </div>
+              </RegisterLoginDiv>
+            )}
           </PageSectionCard>
           <PageSectionCard smallPaddingBottom>
             <TopH3>

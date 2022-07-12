@@ -6,6 +6,7 @@ import {
   ShowcaseGrid,
   StoreDescContainer,
   StoreImgDiv,
+  PageDivider,
 } from "../Components/Containers";
 import {
   LoadingIcon,
@@ -76,8 +77,10 @@ const Store = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageSectionCard noPadding>
+          <PageSectionCard>
             <TopH1 extraPadding>{store?.storeName}</TopH1>
+          </PageSectionCard>
+          <PageSectionCard noPadding>
             <StoreImgDiv>
               {storeImg ? (
                 <StoreImg
@@ -147,7 +150,7 @@ const Store = () => {
           </PageSectionCard>
           <PageSectionCard styled>
             <TopH2>Select a Stylist</TopH2>
-            <ShowcaseGrid>
+            <ShowcaseGrid employee>
               {store?.employees.map((employee) => {
                 return (
                   <SelectContainer

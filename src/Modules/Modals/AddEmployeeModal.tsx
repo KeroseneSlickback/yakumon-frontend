@@ -6,6 +6,7 @@ import {
   ClosedButtonDiv,
   MediumButton,
 } from "../../Components/Buttons";
+import { ExtraPaddingWrapper } from "../../Components/Containers";
 import { CustomerSearchBlock } from "../../Components/CustomerSearchComponents";
 import { StyledForm } from "../../Components/FormComponents";
 import {
@@ -70,10 +71,12 @@ const AddEmployeeModal = (props: Props) => {
     <ModalContainer>
       <ModalH3>Add Employee</ModalH3>
       <StyledForm onSubmit={handleSubmit}>
-        <CustomerSearchBlock
-          handleOnChange={handleFormChange}
-          selected={employee}
-        />
+        <ExtraPaddingWrapper smallPadding>
+          <CustomerSearchBlock
+            handleOnChange={handleFormChange}
+            selected={employee}
+          />
+        </ExtraPaddingWrapper>
         {message ? (
           <MessageBox>
             <RegularMessage

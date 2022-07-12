@@ -13,25 +13,16 @@ export const TopH1 = styled.h1<{
   noPadding?: boolean;
   lessPadding?: boolean;
 }>`
-  padding: 8px 0 40px 0;
   font-size: 1.65rem;
   text-align: center;
+  padding: 8px 0 16px 0;
 
-  ${(props) =>
-    props.extraPadding &&
-    css`
-      padding: 24px 18px 32px 18px;
-    `}
   ${(props) =>
     props.noPadding &&
     css`
       padding: 0;
     `}
-    ${(props) =>
-    props.lessPadding &&
-    css`
-      padding: 8px 0 16px 0;
-    `}
+  ${(props) => props.lessPadding && css``}
 `;
 
 export const TopH2 = styled.h2<{ extraBottomPadding?: boolean }>`

@@ -10,7 +10,6 @@ const CustomerSearchDiv = styled.div``;
 
 const CustomerResultsDiv = styled.div<{
   height?: any;
-  paddingBottom?: boolean;
 }>`
   background-color: ${({ theme }) => theme.white1};
   border-radius: 0.5rem;
@@ -20,16 +19,10 @@ const CustomerResultsDiv = styled.div<{
   height: ${({ height }) => height}px;
   overflow: scroll;
   max-height: 160px;
-
-  ${(props) =>
-    props.paddingBottom &&
-    css`
-      padding-bottom: 24px;
-    `}
 `;
 
 const GuestDiv = styled.div`
-  margin-top: 6px;
+  margin-top: 4px;
 `;
 
 interface Props {

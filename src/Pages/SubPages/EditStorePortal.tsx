@@ -470,7 +470,7 @@ const EditStorePortal = () => {
                 <FillerImgSvg rearPortal />
               )}
             </StoreImgDiv>
-            <StyledFormBlock topPadding extraBottomPadding>
+            <StyledFormBlock topPadding>
               <StyledLabel>Store Image</StyledLabel>
               <DetailP>
                 Please upload a jpg, jpeg, or png image under 200kb only. Photos

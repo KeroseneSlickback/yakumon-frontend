@@ -1,8 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const StyledTable = styled.table`
-  margin-bottom: 32px;
-`;
+export const StyledTable = styled.table``;
 
 export const StyledThead = styled.thead``;
 

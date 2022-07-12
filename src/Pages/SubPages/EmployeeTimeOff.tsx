@@ -172,17 +172,15 @@ const EmployeeTimeOff = () => {
             <TopH1>Time Off</TopH1>
           </PageSectionCard>
           <PageSectionCard styled>
-            <ExtraPaddingWrapper>
-              <p>
-                Select multiple time blocks to list them as "Time off" in your
-                schedule.
-              </p>
-              <br />
-              <p>
-                You may select previously selected sections to revert them to
-                open time.
-              </p>
-            </ExtraPaddingWrapper>
+            <p>
+              Select multiple time blocks to list them as "Time off" in your
+              schedule.
+            </p>
+            <br />
+            <p>
+              You may select previously selected sections to revert them to open
+              time.
+            </p>
           </PageSectionCard>
           <PageSectionCard smallPaddingTopAndBottom>
             {user ? (

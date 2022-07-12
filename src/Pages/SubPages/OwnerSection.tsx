@@ -9,6 +9,7 @@ import {
   StyledLinkButton,
 } from "../../Components/Buttons";
 import {
+  ExtraPaddingWrapper,
   PageSectionCard,
   SinglePageContainer,
   StoreImgDiv,
@@ -139,18 +140,20 @@ const OwnerSection = () => {
             : user.ownedStores.map((store, storeIndex) => {
                 return (
                   <PageSectionCard styled key={storeIndex}>
-                    <TopH1 lessPadding>{store.storeName}</TopH1>
-                    <StoreImgDiv rearPortal>
-                      {store.picture ? (
-                        <StoreImg
-                          rearPortal
-                          src={`data:image/png;base64,${store.picture}`}
-                          alt={store.storeName}
-                        />
-                      ) : (
-                        <FillerImgSvg rearPortal />
-                      )}
-                    </StoreImgDiv>
+                    <div>
+                      <TopH1>{store.storeName}</TopH1>
+                      <StoreImgDiv rearPortal>
+                        {store.picture ? (
+                          <StoreImg
+                            rearPortal
+                            src={`data:image/png;base64,${store.picture}`}
+                            alt={store.storeName}
+                          />
+                        ) : (
+                          <FillerImgSvg rearPortal />
+                        )}
+                      </StoreImgDiv>
+                    </div>
                     <StoreInfoContainer rearPortal>
                       <div>
                         <span>

@@ -428,7 +428,7 @@ const NewStorePortal = () => {
             </StyledFormBlock>
           </PageSectionCard>
           <PageSectionCard>
-            <StyledFormBlock extraBottomPadding>
+            <StyledFormBlock>
               <StyledLabel>Store Image</StyledLabel>
               <DetailP>
                 Please upload a jpg, jpeg, or png image under 200kb only. Photos

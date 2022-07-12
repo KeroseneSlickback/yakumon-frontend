@@ -25,6 +25,7 @@ export const NavBarHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   width: 100vw;
+  padding: 0 18px;
   a {
     padding: 6px;
     display: flex;
@@ -46,7 +47,7 @@ export const NavBarHeader = styled.header`
 export const FooterContainer = styled.footer`
   border-radius: 0.5rem 0.5rem 0 0px;
   background-color: ${({ theme }) => theme.white1};
-  padding: 4px 6px;
+  padding: 4px 18px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -65,20 +66,21 @@ export const FooterButtonDiv = styled.div`
 export const SinglePageContainer = styled.div<{ homePage?: boolean }>`
   display: grid;
   grid-template-columns: 1fr;
+  justify-items: center;
   width: 100%;
 
-  ${(props) =>
-    props.homePage &&
-    css`
-      @media ${devices.mobileL} {
-        width: 90%;
-      }
-    `}
+  ${(props) => props.homePage && css``}
+
+  @media ${devices.mobileL} {
+    width: 90%;
+  }
 `;
 
 export const FullWidthContainer = styled.div`
   width: 100%;
 `;
+
+export const PageDivider = styled.div<{ left?: boolean; right?: boolean }>``;
 
 export const PageSectionCard: any = styled.div<{
   styled?: boolean;
@@ -86,12 +88,17 @@ export const PageSectionCard: any = styled.div<{
   noPadding?: boolean;
   smallPaddingBottom?: boolean;
   smallPaddingTopAndBottom?: boolean;
+  left?: boolean;
+  right?: boolean;
 }>`
-  width: 100%;
+  /* width: 100%; */
   color: ${({ theme }) => theme.white1};
   background-color: ${({ theme }) => theme.purple1};
   border-radius: 1rem 1rem 0 0;
   padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
   &:not(:first-child) {
     margin-top: -32px;
@@ -101,6 +108,10 @@ export const PageSectionCard: any = styled.div<{
 
   &:last-child {
     border-radius: 1rem;
+  }
+
+  &:not(:last-child) {
+    padding-bottom: 48px;
   }
 
   ${(props) =>
@@ -119,7 +130,10 @@ export const PageSectionCard: any = styled.div<{
     ${(props) =>
     props.noPadding &&
     css`
-      padding: 0;
+      padding: 0px;
+      &:not(:last-child) {
+        padding-bottom: 0px;
+      }
     `}
 
     ${(props) =>
@@ -154,23 +168,30 @@ export const CheckboxSpan = styled.span`
   justify-content: center;
 `;
 
-export const ShowcaseGrid = styled.div`
+export const ShowcaseGrid = styled.div<{ employee?: boolean }>`
   margin-top: 16px;
   display: grid;
   grid-gap: 8px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 0.8fr));
+  /* grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr)); */
   justify-content: center;
+  align-items: center;
 
-  @media ${devices.tabletS} {
-    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  /* @media ${devices.tabletS} { */
+  /* grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr));
   }
 
   @media ${devices.tabletM} {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr));
-  }
+  } */
+
+  ${(props) =>
+    props.employee &&
+    css`
+      grid-template-columns: repeat(auto-fill, minmax(200px, 0.65fr));
+    `}
 `;
 
 export const SelectContainer = styled(Link)`
@@ -179,7 +200,7 @@ export const SelectContainer = styled(Link)`
   background-color: ${({ theme }) => theme.white1};
   display: flex;
   flex-direction: column;
-  align-items: center;
+
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
     rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
   border-radius: 1rem;
@@ -209,11 +230,9 @@ export const StoreInfoContainer = styled.div<{ rearPortal?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 32px;
   div {
     display: flex;
     flex-direction: column;
-    width: 75%;
     span {
       display: flex;
       flex-direction: row;
@@ -260,7 +279,6 @@ export const StoreInfoContainer = styled.div<{ rearPortal?: boolean }>`
 `;
 
 export const StoreDescContainer = styled.div`
-  padding-bottom: 32px;
   p {
     word-break: break;
     white-space: normal;
@@ -298,7 +316,6 @@ export const ReservationImgHeaderContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  padding-bottom: 32px;
 `;
 
 export const ReservationTitleBlock = styled.div`
@@ -306,14 +323,11 @@ export const ReservationTitleBlock = styled.div`
   grid-gap: 8px;
 `;
 
-export const ExtraPaddingWrapper = styled.div`
+export const ExtraPaddingWrapper = styled.div<{ smallPadding?: boolean }>`
   padding-bottom: 32px;
-`;
-
-export const ServiceContainerWrapper = styled.div`
-  padding-bottom: 32px;
-`;
-
-export const EmployeeStoreContainer = styled.div`
-  padding-bottom: 32px;
+  ${(props) =>
+    props.smallPadding &&
+    css`
+      padding-bottom: 8px;
+    `}
 `;

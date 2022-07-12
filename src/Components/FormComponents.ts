@@ -11,24 +11,11 @@ export const StyledForm = styled.form`
 
 export const StyledFormBlock = styled.div<{
   topPadding?: boolean;
-  extraBottomPadding?: boolean;
 }>`
-  &:last-child {
-    margin-bottom: 24px;
-  }
-
   ${(props) =>
     props.topPadding &&
     css`
       margin-top: 16px;
-    `}
-
-  ${(props) =>
-    props.extraBottomPadding &&
-    css`
-      &:last-child {
-        margin-bottom: 32px;
-      }
     `}
 `;
 

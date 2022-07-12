@@ -109,7 +109,6 @@ export const LargeButton = styled(TinyButton)`
 
 export const CenterButtonDiv = styled.div<{
   sideBySide?: boolean;
-  bottomPadding?: boolean;
 }>`
   display: flex;
   justify-content: center;
@@ -119,11 +118,6 @@ export const CenterButtonDiv = styled.div<{
     props.sideBySide &&
     css`
       justify-content: space-between;
-    `}
-  ${(props) =>
-    props.bottomPadding &&
-    css`
-      padding-bottom: 32px;
     `}
 `;
 
@@ -266,7 +260,7 @@ export const EditDeleteButtonDiv = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin: 16px 0 32px 0;
+  margin: 16px 0 0 0;
 `;
 
 export const EmptyButton = styled.button`
