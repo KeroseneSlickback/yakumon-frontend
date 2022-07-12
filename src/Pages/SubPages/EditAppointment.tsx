@@ -14,6 +14,7 @@ import {
   LoadingIcon,
   LoadingIconContainer,
   TopH1,
+  TopH3,
 } from "../../Components/Page-accessories";
 import RegularMessage, {
   MessageBox,
@@ -160,7 +161,7 @@ const EditAppointment = () => {
         </LoadingIconContainer>
       ) : appointment !== null ? (
         <StyledForm onSubmit={handleFormSubmit}>
-          <PageSectionCard topCard center bottomPadding>
+          <PageSectionCard>
             <TopH1>Edit Appointment</TopH1>
           </PageSectionCard>
           <PageSectionCard styled>
@@ -201,15 +202,15 @@ const EditAppointment = () => {
               <p>Service:</p>
               <h4>{appointment.service.serviceName}</h4>
             </AppointmentViewDiv>
-            <AppointmentViewDiv>
+            <AppointmentViewDiv bottomMargin>
               <p>Comment:</p>
               {appointment.comments.split("\n").map((str, i) => {
                 return <p key={i}>{str}</p>;
               })}
             </AppointmentViewDiv>
           </PageSectionCard>
-          <PageSectionCard noPadding>
-            <h3>Select a date/time to edit</h3>
+          <PageSectionCard smallPaddingBottom>
+            <TopH3>Select a date/time to edit</TopH3>
             {user ? (
               <ScheduleView
                 appointments={user.appointments}

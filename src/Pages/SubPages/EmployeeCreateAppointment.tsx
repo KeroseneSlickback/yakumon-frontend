@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, ChangeEvent } from "react";
 import { ReserveButton } from "../../Components/Buttons";
 import {
   PageSectionCard,
+  ExtraPaddingWrapper,
   SinglePageContainer,
 } from "../../Components/Containers";
 import {
@@ -165,33 +166,37 @@ const EmployeeCreateAppointment = () => {
         <StyledForm onSubmit={handleFormSubmit}>
           <PageSectionCard>
             <TopH1>New Appointment</TopH1>
-            <CustomerSearchBlock
-              handleOnChange={handleCustomerSelect}
-              selected={reservation.customer}
-              guest
-            />
+            <ExtraPaddingWrapper>
+              <CustomerSearchBlock
+                handleOnChange={handleCustomerSelect}
+                selected={reservation.customer}
+                guest
+              />
+            </ExtraPaddingWrapper>
           </PageSectionCard>
           <PageSectionCard styled>
-            <h2>Select a service.</h2>
-            <ServiceContainer>
-              {stylist?.services
-                ? stylist?.services.map((service) => {
-                    return (
-                      <ListItem
-                        key={service._id}
-                        text1={service.serviceName}
-                        text2={service.price}
-                        handleOnChange={() => selectService(service._id)}
-                        selected={reservation.service}
-                        id={service._id}
-                        services
-                      ></ListItem>
-                    );
-                  })
-                : null}
-            </ServiceContainer>
+            <ExtraPaddingWrapper>
+              <p>Select a service</p>
+              <ServiceContainer>
+                {stylist?.services
+                  ? stylist?.services.map((service) => {
+                      return (
+                        <ListItem
+                          key={service._id}
+                          text1={service.serviceName}
+                          text2={service.price}
+                          handleOnChange={() => selectService(service._id)}
+                          selected={reservation.service}
+                          id={service._id}
+                          services
+                        ></ListItem>
+                      );
+                    })
+                  : null}
+              </ServiceContainer>
+            </ExtraPaddingWrapper>
           </PageSectionCard>
-          <PageSectionCard noPadding>
+          <PageSectionCard smallPaddingTopAndBottom>
             {stylist ? (
               <ScheduleView
                 appointments={stylist?.appointments}

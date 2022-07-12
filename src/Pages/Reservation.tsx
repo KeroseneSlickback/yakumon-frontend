@@ -5,7 +5,7 @@ import {
   PageSectionCard,
   ReservationImgHeaderContainer,
   ReservationTitleBlock,
-  ServiceContainerWrapper,
+  ExtraPaddingWrapper,
   SinglePageContainer,
 } from "../Components/Containers";
 import {
@@ -203,7 +203,7 @@ const Reservation = () => {
           </PageSectionCard>
           <PageSectionCard styled>
             <TopH2 extraBottomPadding>Start Your Reservation</TopH2>
-            <ServiceContainerWrapper>
+            <ExtraPaddingWrapper>
               {loggedIn ? (
                 <>
                   {user?.services && user.services.length > 0 ? (
@@ -254,7 +254,7 @@ const Reservation = () => {
                   </div>
                 </RegisterLoginDiv>
               )}
-            </ServiceContainerWrapper>
+            </ExtraPaddingWrapper>
           </PageSectionCard>
           <PageSectionCard smallPaddingBottom>
             <TopH3>

@@ -85,6 +85,7 @@ export const PageSectionCard: any = styled.div<{
   secondary?: boolean;
   noPadding?: boolean;
   smallPaddingBottom?: boolean;
+  smallPaddingTopAndBottom?: boolean;
 }>`
   width: 100%;
   color: ${({ theme }) => theme.white1};
@@ -125,6 +126,12 @@ export const PageSectionCard: any = styled.div<{
     props.smallPaddingBottom &&
     css`
       padding: 0 0 8px 0;
+    `}
+
+    ${(props) =>
+    props.smallPaddingTopAndBottom &&
+    css`
+      padding: 16px 0 8px 0;
     `}
 `;
 
@@ -297,6 +304,10 @@ export const ReservationImgHeaderContainer = styled.div`
 export const ReservationTitleBlock = styled.div`
   display: grid;
   grid-gap: 8px;
+`;
+
+export const ExtraPaddingWrapper = styled.div`
+  padding-bottom: 32px;
 `;
 
 export const ServiceContainerWrapper = styled.div`

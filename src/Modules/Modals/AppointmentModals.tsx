@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { parseJSON } from "date-fns/esm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
   CloseButton,
   ClosedButtonDiv,
@@ -30,7 +30,7 @@ export const AppointmentModalContainer = styled.div`
   margin-bottom: 16px;
 `;
 
-export const AppointmentViewDiv = styled.div`
+export const AppointmentViewDiv = styled.div<{ bottomMargin?: boolean }>`
   margin: 6px;
   border-bottom: 1px solid black;
   p {
@@ -41,6 +41,12 @@ export const AppointmentViewDiv = styled.div`
     font-size: 1rem;
     margin: 6px;
   }
+
+  ${(props) =>
+    props.bottomMargin &&
+    css`
+      margin-bottom: 32px;
+    `}
 `;
 
 type ViewAppointmentProps = {

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ReserveButton } from "../../Components/Buttons";
 import {
+  ExtraPaddingWrapper,
   PageSectionCard,
   SinglePageContainer,
 } from "../../Components/Containers";
@@ -171,17 +172,19 @@ const EmployeeTimeOff = () => {
             <TopH1>Time Off</TopH1>
           </PageSectionCard>
           <PageSectionCard styled>
-            <p>
-              Select multiple time blocks to list them as "Time off" in your
-              schedule.
-            </p>
-            <br />
-            <p>
-              You may select previously selected sections to revert them to open
-              time.
-            </p>
+            <ExtraPaddingWrapper>
+              <p>
+                Select multiple time blocks to list them as "Time off" in your
+                schedule.
+              </p>
+              <br />
+              <p>
+                You may select previously selected sections to revert them to
+                open time.
+              </p>
+            </ExtraPaddingWrapper>
           </PageSectionCard>
-          <PageSectionCard noPadding>
+          <PageSectionCard smallPaddingTopAndBottom>
             {user ? (
               <ScheduleView
                 appointments={user?.appointments}

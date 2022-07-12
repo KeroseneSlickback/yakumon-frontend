@@ -1,16 +1,17 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { MessageType, UserType } from "../Utilities/types";
 import { ListItem } from "./CheckboxComponents";
 import { StyledLabel, StyledTextInput } from "./FormComponents";
 
-const CustomerSearchDiv = styled.div`
-  margin: 16px 0 8px 0;
-`;
+const CustomerSearchDiv = styled.div``;
 
-const CustomerResultsDiv = styled.div<{ height?: any }>`
+const CustomerResultsDiv = styled.div<{
+  height?: any;
+  paddingBottom?: boolean;
+}>`
   background-color: ${({ theme }) => theme.white1};
   border-radius: 0.5rem;
   color: ${({ theme }) => theme.black};
@@ -19,6 +20,12 @@ const CustomerResultsDiv = styled.div<{ height?: any }>`
   height: ${({ height }) => height}px;
   overflow: scroll;
   max-height: 160px;
+
+  ${(props) =>
+    props.paddingBottom &&
+    css`
+      padding-bottom: 24px;
+    `}
 `;
 
 const GuestDiv = styled.div`
