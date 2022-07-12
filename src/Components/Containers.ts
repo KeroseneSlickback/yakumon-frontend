@@ -142,8 +142,9 @@ export const StoreImgDiv = styled.div<{ rearPortal?: boolean }>`
 
 export const CheckboxSpan = styled.span`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 export const ShowcaseGrid = styled.div`

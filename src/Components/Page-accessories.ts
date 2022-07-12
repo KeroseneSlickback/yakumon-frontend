@@ -171,7 +171,7 @@ export const ServiceDetailDiv = styled.div`
 
 export const DetailP = styled.p`
   font-size: 0.7rem;
-  margin-top: 3px;
+  margin-top: 4px;
 `;
 
 export const AppointmentConfirmContainer = styled.div`

@@ -7,7 +7,7 @@ import {
 } from "../../Components/Buttons";
 import {
   StyledForm,
-  StyledFormBlock,
+  StyledModalBlock,
   StyledLabel,
   StyledTextInput,
 } from "../../Components/FormComponents";
@@ -102,7 +102,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
       <ModalH3 paddingBottom>Register</ModalH3>
       <h4>Please enter the infomation below to register</h4>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledFormBlock sideBySide>
+        <StyledModalBlock sideBySide>
           <div>
             <StyledLabel>First Name</StyledLabel>
             <StyledTextInput
@@ -125,8 +125,8 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
               onChange={handleFormChange}
             />
           </div>
-        </StyledFormBlock>
-        <StyledFormBlock sideBySide>
+        </StyledModalBlock>
+        <StyledModalBlock sideBySide>
           <div>
             <StyledLabel>Phone Number</StyledLabel>
             <StyledTextInput
@@ -149,8 +149,8 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
               onChange={handleFormChange}
             />
           </div>
-        </StyledFormBlock>
-        <StyledFormBlock>
+        </StyledModalBlock>
+        <StyledModalBlock>
           <div>
             <StyledLabel>Email</StyledLabel>
             <StyledTextInput
@@ -162,8 +162,8 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
               onChange={handleFormChange}
             />
           </div>
-        </StyledFormBlock>
-        <StyledFormBlock>
+        </StyledModalBlock>
+        <StyledModalBlock>
           <div>
             <StyledLabel>Password (min 7 characters)</StyledLabel>
             <StyledTextInput
@@ -194,7 +194,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
               />
             </MessageBox>
           ) : null}
-        </StyledFormBlock>
+        </StyledModalBlock>
         <ButtonBox>
           <MediumButton register>Register</MediumButton>
         </ButtonBox>

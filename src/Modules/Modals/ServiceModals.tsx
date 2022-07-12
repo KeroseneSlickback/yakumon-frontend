@@ -8,7 +8,7 @@ import {
 } from "../../Components/Buttons";
 import {
   StyledForm,
-  StyledFormBlock,
+  StyledModalBlock,
   StyledFormSelect,
   StyledLabel,
   StyledTextInput,
@@ -84,7 +84,7 @@ export const NewServiceModal = (props: Props) => {
       <ModalH3 paddingBottom>Add New Service</ModalH3>
       <h4>Enter the infomation below to add a service.</h4>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledFormBlock>
+        <StyledModalBlock>
           <div>
             <StyledLabel>Service Name:</StyledLabel>
             <StyledTextInput
@@ -142,7 +142,7 @@ export const NewServiceModal = (props: Props) => {
           <ButtonBox>
             <MediumButton register>Add</MediumButton>
           </ButtonBox>
-        </StyledFormBlock>
+        </StyledModalBlock>
       </StyledForm>
       <ClosedButtonDiv>
         <CloseButton onClick={props.closeModal} />
@@ -216,7 +216,7 @@ export const EditServiceModal = (props: Props) => {
       <ModalH3>Edit Service</ModalH3>
       <h4>Alter the infomation below to edit service.</h4>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledFormBlock>
+        <StyledModalBlock>
           <div>
             <StyledLabel>Service Name:</StyledLabel>
             <StyledTextInput
@@ -274,7 +274,7 @@ export const EditServiceModal = (props: Props) => {
           <ButtonBox>
             <MediumButton register>Add</MediumButton>
           </ButtonBox>
-        </StyledFormBlock>
+        </StyledModalBlock>
       </StyledForm>
       <ClosedButtonDiv>
         <CloseButton onClick={props.closeModal} />

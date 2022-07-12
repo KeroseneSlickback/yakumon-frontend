@@ -9,7 +9,7 @@ import {
 import { StoreImgDiv } from "../../Components/Containers";
 import {
   StyledForm,
-  StyledFormBlock,
+  StyledModalBlock,
   StyledImgInput,
   StyledLabel,
   StyledTextInput,
@@ -111,7 +111,7 @@ export const UserModal = (props: Props) => {
       <ModalH3 paddingBottom>User Settings</ModalH3>
       <p>Enter any infomation you wish to change.</p>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledFormBlock sideBySide>
+        <StyledModalBlock sideBySide>
           <div>
             <StyledLabel>First name</StyledLabel>
             <StyledTextInput
@@ -132,9 +132,9 @@ export const UserModal = (props: Props) => {
               onChange={handleFormChange}
             />
           </div>
-        </StyledFormBlock>
+        </StyledModalBlock>
 
-        <StyledFormBlock sideBySide>
+        <StyledModalBlock sideBySide>
           <div>
             <StyledLabel>Phone number</StyledLabel>
             <StyledTextInput
@@ -155,8 +155,8 @@ export const UserModal = (props: Props) => {
               onChange={handleFormChange}
             />
           </div>
-        </StyledFormBlock>
-        <StyledFormBlock>
+        </StyledModalBlock>
+        <StyledModalBlock>
           <div>
             <StyledLabel>Email</StyledLabel>
             <StyledTextInput
@@ -177,7 +177,7 @@ export const UserModal = (props: Props) => {
               onChange={handleFormChange}
             />
           </div>
-        </StyledFormBlock>
+        </StyledModalBlock>
         {message ? (
           <MessageBox>
             <RegularMessage
@@ -387,7 +387,7 @@ export const EmployeePatchModal = (props: Props) => {
           <ModalH3 paddingBottom>Employee Edit</ModalH3>
           <h4>Please add or edit your title and picture.</h4>
           <StyledForm onSubmit={handleSubmit}>
-            <StyledFormBlock>
+            <StyledModalBlock>
               <StyledLabel>Title</StyledLabel>
               <StyledTextInput
                 name="title"
@@ -396,8 +396,8 @@ export const EmployeePatchModal = (props: Props) => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-            </StyledFormBlock>
-            <StyledFormBlock>
+            </StyledModalBlock>
+            <StyledModalBlock>
               <div>
                 <StoreImgDiv rearPortal>
                   {displayImg ? (
@@ -423,7 +423,7 @@ export const EmployeePatchModal = (props: Props) => {
                   onChange={handleImageUpload}
                 />
               </div>
-            </StyledFormBlock>
+            </StyledModalBlock>
 
             {formError ? (
               <MessageBox marginTop>

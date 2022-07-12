@@ -2,8 +2,10 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ReserveButton } from "../../Components/Buttons";
 import {
-  FormH1,
+  StoreHourContainer,
+  StoreHourGrid,
   StyledForm,
+  StyledFormBlock,
   StyledFormSelect,
   StyledImgInput,
   StyledLabel,
@@ -31,6 +33,9 @@ import {
   LoadingIcon,
   LoadingIconContainer,
   StoreImg,
+  TopH1,
+  DetailP,
+  TopH2,
 } from "../../Components/Page-accessories";
 import axios from "axios";
 import { FillerImgSvg } from "../../Utilities/Images/SVGComponents/FillerImgSvg";
@@ -298,12 +303,11 @@ const EditStorePortal = () => {
         </LoadingIconContainer>
       ) : (
         <StyledForm onSubmit={handleSubmit}>
-          <PageSectionCard formFormatting>
-            <FormH1 pageSection>Edit Store</FormH1>
-            <h4>Please change the infomation below as you wish</h4>
+          <PageSectionCard>
+            <TopH1>Edit Store</TopH1>
           </PageSectionCard>
-          <PageSectionCard styled formFormatting>
-            <div>
+          <PageSectionCard styled>
+            <StyledFormBlock>
               <StyledLabel>Store Name:</StyledLabel>
               <StyledTextInput
                 name="storeName"
@@ -312,8 +316,8 @@ const EditStorePortal = () => {
                 value={formData.storeName}
                 onChange={handleFormChange}
               />
-            </div>
-            <div>
+            </StyledFormBlock>
+            <StyledFormBlock>
               <StyledLabel>Store Type:</StyledLabel>
               <StyledFormSelect
                 name="storeType"
@@ -332,8 +336,8 @@ const EditStorePortal = () => {
                 </option>
                 <option value="Massage Salon">Massage Salon</option>
               </StyledFormSelect>
-            </div>
-            <div>
+            </StyledFormBlock>
+            <StyledFormBlock>
               <StyledLabel>Store Description:</StyledLabel>
               <StyledTextArea
                 large
@@ -341,13 +345,13 @@ const EditStorePortal = () => {
                 placeholder="A simple store created from our wish to provide the best experience..."
                 value={formData.storeDescription}
                 onChange={handleFormChange}
-              ></StyledTextArea>
-            </div>
+              />
+            </StyledFormBlock>
           </PageSectionCard>
-          <PageSectionCard formFormatting>
-            <div>
+          <PageSectionCard>
+            <StyledFormBlock>
               <StyledLabel>Store Website:</StyledLabel>
-              <p>Please provide a clickable URL</p>
+              <DetailP>Please provide a clickable URL</DetailP>
               <StyledTextInput
                 name="storeWebsite"
                 type="text"
@@ -355,10 +359,10 @@ const EditStorePortal = () => {
                 value={formData.storeWebsite}
                 onChange={handleFormChange}
               />
-            </div>
-            <div>
+            </StyledFormBlock>
+            <StyledFormBlock>
               <StyledLabel>Store Location:</StyledLabel>
-              <p>Please provide a written address</p>
+              <DetailP>Please provide a written address</DetailP>
               <StyledTextInput
                 name="location"
                 type="text"
@@ -366,12 +370,12 @@ const EditStorePortal = () => {
                 value={formData.location}
                 onChange={handleFormChange}
               />
-            </div>
-            <div>
+            </StyledFormBlock>
+            <StyledFormBlock>
               <StyledLabel>Store Location Link:</StyledLabel>
-              <p>
+              <DetailP>
                 Please provide a sharable link from Google Maps to your location
-              </p>
+              </DetailP>
               <StyledTextInput
                 name="locationLink"
                 type="text"
@@ -379,8 +383,8 @@ const EditStorePortal = () => {
                 value={formData.locationLink}
                 onChange={handleFormChange}
               />
-            </div>
-            <div>
+            </StyledFormBlock>
+            <StyledFormBlock>
               <StyledLabel>Phone Number</StyledLabel>
               <StyledTextInput
                 name="phoneNumber"
@@ -389,21 +393,19 @@ const EditStorePortal = () => {
                 value={formData.phoneNumber}
                 onChange={handleFormChange}
               />
-            </div>
+            </StyledFormBlock>
           </PageSectionCard>
-          <PageSectionCard styled formFormatting>
-            <div>
-              <StyledLabel>Hours:</StyledLabel>
-              <p>
-                If changing hours, please input all hours for each day again.
-              </p>
+          <PageSectionCard styled>
+            <StyledFormBlock>
+              <TopH2>Hours:</TopH2>
+              <DetailP>Please input all hours for each day again.</DetailP>
               {formData.hours?.map((day, dayIndex) => {
                 return (
-                  <div key={dayIndex}>
+                  <StoreHourContainer key={dayIndex}>
                     <h4>{daysArray[dayIndex]}</h4>
-                    <div>
+                    <StoreHourGrid>
                       <span>
-                        <p>Open</p>
+                        <DetailP>Open</DetailP>
                         <StyledFormSelect
                           compact
                           name="open"
@@ -423,7 +425,7 @@ const EditStorePortal = () => {
                         </StyledFormSelect>
                       </span>
                       <span>
-                        <p>Close</p>
+                        <DetailP>Close</DetailP>
                         <StyledFormSelect
                           compact
                           name="close"
@@ -443,7 +445,7 @@ const EditStorePortal = () => {
                         </StyledFormSelect>
                       </span>
                       <CheckboxSpan>
-                        <p>Closed?</p>
+                        <DetailP>Closed?</DetailP>
                         <input
                           name="closed"
                           type="checkbox"
@@ -451,13 +453,13 @@ const EditStorePortal = () => {
                           onChange={(e) => handleCheckboxChange(e, dayIndex)}
                         />
                       </CheckboxSpan>
-                    </div>
-                  </div>
+                    </StoreHourGrid>
+                  </StoreHourContainer>
                 );
               })}
-            </div>
+            </StyledFormBlock>
           </PageSectionCard>
-          <PageSectionCard formFormatting>
+          <PageSectionCard>
             <StoreImgDiv rearPortal>
               {storeImg ? (
                 <StoreImg
@@ -468,19 +470,19 @@ const EditStorePortal = () => {
                 <FillerImgSvg rearPortal />
               )}
             </StoreImgDiv>
-            <div>
+            <StyledFormBlock topPadding extraBottomPadding>
               <StyledLabel>Store Image</StyledLabel>
-              <p>
+              <DetailP>
                 Please upload a jpg, jpeg, or png image under 200kb only. Photos
                 with a 1/1 aspect ratio work best.
-              </p>
+              </DetailP>
               <StyledImgInput
                 type="file"
                 name="picture"
                 accept="image/png, image/jpeg, image/jpg"
                 onChange={handleImageUpload}
               />
-            </div>
+            </StyledFormBlock>
           </PageSectionCard>
           <PageSectionCard secondary>
             {message ? (

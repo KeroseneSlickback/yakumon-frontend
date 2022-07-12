@@ -10,6 +10,29 @@ export const StyledForm = styled.form`
 `;
 
 export const StyledFormBlock = styled.div<{
+  topPadding?: boolean;
+  extraBottomPadding?: boolean;
+}>`
+  &:last-child {
+    margin-bottom: 24px;
+  }
+
+  ${(props) =>
+    props.topPadding &&
+    css`
+      margin-top: 16px;
+    `}
+
+  ${(props) =>
+    props.extraBottomPadding &&
+    css`
+      &:last-child {
+        margin-bottom: 32px;
+      }
+    `}
+`;
+
+export const StyledModalBlock = styled.div<{
   sideBySide?: boolean;
   nonDivMargin?: boolean;
 }>`
@@ -102,22 +125,14 @@ export const StyledFormSelect = styled.select<{ compact?: boolean }>`
 
 export const StyledImgInput = styled.input`
   margin-top: 8px;
+  max-width: 200px;
 `;
 
-export const FormH1 = styled.h1<{ pageSection?: boolean; row?: boolean }>`
-  ${(props) =>
-    props.pageSection &&
-    css`
-      font-size: 1.65rem;
-      padding: 0px 0px 18px 0px;
-      margin: 0 12px;
-    `}
+export const StoreHourContainer = styled.div`
+  margin: 8px 0;
+`;
 
-  ${(props) =>
-    props.row &&
-    css`
-      margin: 0;
-      line-height: 1.2;
-      text-align: center;
-    `}
+export const StoreHourGrid = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
 `;

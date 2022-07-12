@@ -7,7 +7,7 @@ import {
 } from "../../Components/Buttons";
 import {
   StyledForm,
-  StyledFormBlock,
+  StyledModalBlock,
   StyledLabel,
   StyledTextInput,
 } from "../../Components/FormComponents";
@@ -74,7 +74,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
       <ModalH3 paddingBottom>Login</ModalH3>
       <h4>Please enter your infomation</h4>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledFormBlock>
+        <StyledModalBlock>
           <div>
             <StyledLabel>Username</StyledLabel>
             <StyledTextInput
@@ -108,7 +108,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
           <ButtonBox>
             <MediumButton register>Login</MediumButton>
           </ButtonBox>
-        </StyledFormBlock>
+        </StyledModalBlock>
       </StyledForm>
       <ClosedButtonDiv>
         <CloseButton onClick={closeModal} />
