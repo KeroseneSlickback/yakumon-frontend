@@ -33,7 +33,7 @@ const OwnerEmployeeLogin = () => {
     if (authContext.owner && authContext.employee) {
       return (
         <SinglePageContainer>
-          <PageSectionCard absolute>
+          <PageSectionCard title>
             <TopH1>Please choose an Entrance</TopH1>
             <RegisterLoginDiv>
               <div>
@@ -51,7 +51,7 @@ const OwnerEmployeeLogin = () => {
     } else if (authContext.owner) {
       return (
         <SinglePageContainer>
-          <PageSectionCard absolute>
+          <PageSectionCard title>
             <TopH1>Welcome Store Owner</TopH1>
             <div>
               <Link to={"/portal/owner"}>
@@ -64,7 +64,7 @@ const OwnerEmployeeLogin = () => {
     } else if (authContext.employee) {
       return (
         <SinglePageContainer>
-          <PageSectionCard absolute smallp>
+          <PageSectionCard title>
             <TopH1>Welcome Store Employee</TopH1>
             <div>
               <Link to={"/portal/employee"}>
@@ -81,7 +81,7 @@ const OwnerEmployeeLogin = () => {
     } else {
       return (
         <SinglePageContainer>
-          <PageSectionCard absolute>
+          <PageSectionCard title>
             <TopH1>Not Yet an Owner or Employee?</TopH1>
             <div>
               <p>
@@ -100,7 +100,7 @@ const OwnerEmployeeLogin = () => {
   } else {
     return (
       <SinglePageContainer>
-        <PageSectionCard absolute>
+        <PageSectionCard title>
           <TopH1>Welcome Owner or Employee</TopH1>
           <h2>Please Login or Register</h2>
           <RegisterLoginDiv>

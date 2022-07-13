@@ -42,8 +42,8 @@ export const TopH3 = styled.h3`
 export const StoreImg = styled.img<{ rearPortal?: boolean }>`
   height: 100%;
   width: 100%;
-  max-height: 50vh;
   z-index: 0;
+  max-height: 50vh;
   object-fit: cover;
   border-radius: 1rem 1rem 0 0;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
@@ -53,7 +53,6 @@ export const StoreImg = styled.img<{ rearPortal?: boolean }>`
     props.rearPortal &&
     css`
       width: 70%;
-      height: 70%;
       max-height: 35vh;
       border-radius: 1rem;
     `}

@@ -10,6 +10,7 @@ import {
 } from "../../Components/Buttons";
 import {
   ExtraPaddingWrapper,
+  OwnerShowcaseGrid,
   PageSectionCard,
   SinglePageContainer,
   StoreImgDiv,
@@ -130,119 +131,121 @@ const OwnerSection = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageSectionCard>
+          <PageSectionCard title>
             <TopH1>Welcome, {authContext.user?.firstName}</TopH1>
           </PageSectionCard>
-          {!user
-            ? null
-            : !user.ownedStores
-            ? null
-            : user.ownedStores.map((store, storeIndex) => {
-                return (
-                  <PageSectionCard styled key={storeIndex}>
-                    <div>
-                      <TopH1>{store.storeName}</TopH1>
-                      <StoreImgDiv rearPortal>
-                        {store.picture ? (
-                          <StoreImg
-                            rearPortal
-                            src={`data:image/png;base64,${store.picture}`}
-                            alt={store.storeName}
-                          />
-                        ) : (
-                          <FillerImgSvg rearPortal />
-                        )}
-                      </StoreImgDiv>
-                    </div>
-                    <StoreInfoContainer rearPortal>
+          <OwnerShowcaseGrid>
+            {!user
+              ? null
+              : !user.ownedStores
+              ? null
+              : user.ownedStores.map((store, storeIndex) => {
+                  return (
+                    <PageSectionCard styled tabletGrid key={storeIndex}>
                       <div>
-                        <span>
-                          <img src={location} alt="location" />
-                          <a
-                            href={store.locationLink}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {store.location}
-                          </a>
-                        </span>
-                        {store?.storeWebsite ? (
+                        <TopH1>{store.storeName}</TopH1>
+                        <StoreImgDiv rearPortal>
+                          {store.picture ? (
+                            <StoreImg
+                              rearPortal
+                              src={`data:image/png;base64,${store.picture}`}
+                              alt={store.storeName}
+                            />
+                          ) : (
+                            <FillerImgSvg rearPortal />
+                          )}
+                        </StoreImgDiv>
+                      </div>
+                      <StoreInfoContainer rearPortal>
+                        <div>
                           <span>
-                            <img src={site} alt="site" />
+                            <img src={location} alt="location" />
                             <a
-                              href={store.storeWebsite}
+                              href={store.locationLink}
                               target="_blank"
                               rel="noreferrer"
                             >
-                              Visit Website
+                              {store.location}
                             </a>
                           </span>
-                        ) : null}
-                        <span>
-                          <img src={phone} alt="phone" />
-                          <p>{store.phoneNumber}</p>
-                        </span>
-                        <span>
-                          <img src={clock} alt="clock" />
-                          <StoreHourTable>
-                            <tbody>
-                              {store?.hours.map((day, dayIndex) => {
-                                return (
-                                  <StoreHour
-                                    key={day._id}
-                                    day={day}
-                                    weekday={weekdaysArray[dayIndex]}
-                                  />
-                                );
-                              })}
-                            </tbody>
-                          </StoreHourTable>
-                        </span>
-                      </div>
-                    </StoreInfoContainer>
-                    <AccordionModal buttonMessage="View Employees">
-                      {store.employees.map((employee, index) => {
-                        return (
-                          <div key={index}>
-                            <Link to={`/reservation/${employee._id}`}>
-                              {employee.firstName} {employee.lastName}
-                            </Link>
-                            <EmptyButton
-                              onClick={() =>
-                                toggleRemoveEmployee(employee._id, store._id)
-                              }
-                            >
-                              <img src={close} alt="remove employee" />
-                            </EmptyButton>
-                          </div>
-                        );
-                      })}
-                      <SmallButton
-                        onClick={() => toggleAddEmployee(store._id)}
-                        bottomPadding
-                      >
-                        Add Employee
-                      </SmallButton>
-                    </AccordionModal>
-                    <EditDeleteButtonDiv>
-                      <SmallButton
-                        nonConstraint
-                        onClick={() => editStore(store._id)}
-                      >
-                        Edit Store
-                      </SmallButton>
-                      <SmallButton
-                        warning
-                        nonConstraint
-                        onClick={() => deleteStore(store._id)}
-                      >
-                        Delete
-                      </SmallButton>
-                    </EditDeleteButtonDiv>
-                  </PageSectionCard>
-                );
-              })}
-          <PageSectionCard secondary>
+                          {store?.storeWebsite ? (
+                            <span>
+                              <img src={site} alt="site" />
+                              <a
+                                href={store.storeWebsite}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                Visit Website
+                              </a>
+                            </span>
+                          ) : null}
+                          <span>
+                            <img src={phone} alt="phone" />
+                            <p>{store.phoneNumber}</p>
+                          </span>
+                          <span>
+                            <img src={clock} alt="clock" />
+                            <StoreHourTable>
+                              <tbody>
+                                {store?.hours.map((day, dayIndex) => {
+                                  return (
+                                    <StoreHour
+                                      key={day._id}
+                                      day={day}
+                                      weekday={weekdaysArray[dayIndex]}
+                                    />
+                                  );
+                                })}
+                              </tbody>
+                            </StoreHourTable>
+                          </span>
+                        </div>
+                      </StoreInfoContainer>
+                      <AccordionModal buttonMessage="View Employees">
+                        {store.employees.map((employee, index) => {
+                          return (
+                            <div key={index}>
+                              <Link to={`/reservation/${employee._id}`}>
+                                {employee.firstName} {employee.lastName}
+                              </Link>
+                              <EmptyButton
+                                onClick={() =>
+                                  toggleRemoveEmployee(employee._id, store._id)
+                                }
+                              >
+                                <img src={close} alt="remove employee" />
+                              </EmptyButton>
+                            </div>
+                          );
+                        })}
+                        <SmallButton
+                          onClick={() => toggleAddEmployee(store._id)}
+                          bottomPadding
+                        >
+                          Add Employee
+                        </SmallButton>
+                      </AccordionModal>
+                      <EditDeleteButtonDiv>
+                        <SmallButton
+                          nonConstraint
+                          onClick={() => editStore(store._id)}
+                        >
+                          Edit Store
+                        </SmallButton>
+                        <SmallButton
+                          warning
+                          nonConstraint
+                          onClick={() => deleteStore(store._id)}
+                        >
+                          Delete
+                        </SmallButton>
+                      </EditDeleteButtonDiv>
+                    </PageSectionCard>
+                  );
+                })}
+          </OwnerShowcaseGrid>
+          <PageSectionCard secondary disconnectedSubmit>
             <CenterButtonDiv>
               <StyledLinkButton to="/portal/newstore">
                 Create New Store

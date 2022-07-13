@@ -7,6 +7,7 @@ import {
   ReservationTitleBlock,
   ExtraPaddingWrapper,
   SinglePageContainer,
+  PageDivider,
 } from "../Components/Containers";
 import {
   ServiceContainer,
@@ -183,110 +184,114 @@ const Reservation = () => {
         </LoadingIconContainer>
       ) : (
         <StyledForm onSubmit={handleFormSubmit}>
-          <PageSectionCard>
-            <ReservationImgHeaderContainer>
-              {userImg ? (
-                <StylistImg
-                  src={`data:image/png;base64,${userImg}`}
-                  alt={user?.firstName}
-                />
-              ) : (
-                <FillerImgSvg stylist />
-              )}
-              <ReservationTitleBlock>
-                <TopH1 noPadding>
-                  {user?.firstName} {user?.lastName}
-                </TopH1>
-                <p>{user?.title}</p>
-              </ReservationTitleBlock>
-            </ReservationImgHeaderContainer>
-          </PageSectionCard>
-          <PageSectionCard styled>
-            <TopH2 extraBottomPadding>Start Your Reservation</TopH2>
-            {loggedIn ? (
-              <>
-                {user?.services && user.services.length > 0 ? (
-                  <>
-                    <p>Select a service.</p>
-                    <ServiceContainer>
-                      {user.services
-                        ? user.services.map((service) => {
-                            return (
-                              <ListItem
-                                key={service._id}
-                                text1={service.serviceName}
-                                text2={timesArrayShort[service.timeSpan]}
-                                text3={service.price}
-                                handleOnChange={() =>
-                                  selectService(service._id)
-                                }
-                                selected={reservation.service}
-                                id={service._id}
-                                services
-                              ></ListItem>
-                            );
-                          })
-                        : null}
-                    </ServiceContainer>
-                  </>
-                ) : (
-                  <p>
-                    This employee hasn't made services yet. Please check back
-                    later.
-                  </p>
-                )}
-              </>
-            ) : (
-              <RegisterLoginDiv>
-                <p>Please Register or Login</p>
-                <div>
-                  <MediumButton
-                    type="button"
-                    onClick={toggleRegisterModal}
-                    register
-                  >
-                    Register
-                  </MediumButton>
-                  <MediumButton type="button" onClick={toggleLoginModal} log>
-                    Login
-                  </MediumButton>
-                </div>
-              </RegisterLoginDiv>
-            )}
-          </PageSectionCard>
-          <PageSectionCard smallPaddingBottom>
-            <TopH3>
-              Select any white section as the start of your reservation.
-            </TopH3>
-            <ScheduleView
-              appointments={user?.appointments}
-              services={user?.services}
-              selectedService={reservation.service}
-              store={user?.store}
-              handleOnSelect={selectTime}
-            />
-          </PageSectionCard>
-          <PageSectionCard styled>
-            <p>Comments</p>
-            <StyledTextArea
-              marginBottom
-              name="comments"
-              placeholder="Add comments here..."
-              value={reservation.comments}
-              onChange={handleTextAreaChange}
-            ></StyledTextArea>
-            <ButtonBox centered>
-              {formError ? (
-                <MessageBox>
-                  <RegularMessage
-                    message={formError.message}
-                    warning={formError.warning}
+          <PageDivider left>
+            <PageSectionCard title>
+              <ReservationImgHeaderContainer>
+                {userImg ? (
+                  <StylistImg
+                    src={`data:image/png;base64,${userImg}`}
+                    alt={user?.firstName}
                   />
-                </MessageBox>
-              ) : null}
-              <ReserveButton register>Reserve Now</ReserveButton>
-            </ButtonBox>
-          </PageSectionCard>
+                ) : (
+                  <FillerImgSvg stylist />
+                )}
+                <ReservationTitleBlock>
+                  <TopH1 noPadding>
+                    {user?.firstName} {user?.lastName}
+                  </TopH1>
+                  <p>{user?.title}</p>
+                </ReservationTitleBlock>
+              </ReservationImgHeaderContainer>
+            </PageSectionCard>
+            <PageSectionCard styled mobileOverlap>
+              <TopH2 extraBottomPadding>Start Your Reservation</TopH2>
+              {loggedIn ? (
+                <>
+                  {user?.services && user.services.length > 0 ? (
+                    <>
+                      <p>Select a service.</p>
+                      <ServiceContainer>
+                        {user.services
+                          ? user.services.map((service) => {
+                              return (
+                                <ListItem
+                                  key={service._id}
+                                  text1={service.serviceName}
+                                  text2={timesArrayShort[service.timeSpan]}
+                                  text3={service.price}
+                                  handleOnChange={() =>
+                                    selectService(service._id)
+                                  }
+                                  selected={reservation.service}
+                                  id={service._id}
+                                  services
+                                ></ListItem>
+                              );
+                            })
+                          : null}
+                      </ServiceContainer>
+                    </>
+                  ) : (
+                    <p>
+                      This employee hasn't made services yet. Please check back
+                      later.
+                    </p>
+                  )}
+                </>
+              ) : (
+                <RegisterLoginDiv>
+                  <p>Please Register or Login</p>
+                  <div>
+                    <MediumButton
+                      type="button"
+                      onClick={toggleRegisterModal}
+                      register
+                    >
+                      Register
+                    </MediumButton>
+                    <MediumButton type="button" onClick={toggleLoginModal} log>
+                      Login
+                    </MediumButton>
+                  </div>
+                </RegisterLoginDiv>
+              )}
+            </PageSectionCard>
+          </PageDivider>
+          <PageDivider right>
+            <PageSectionCard smallPaddingBottom>
+              <TopH3>
+                Select any white section as the start of your reservation.
+              </TopH3>
+              <ScheduleView
+                appointments={user?.appointments}
+                services={user?.services}
+                selectedService={reservation.service}
+                store={user?.store}
+                handleOnSelect={selectTime}
+              />
+            </PageSectionCard>
+            <PageSectionCard styled>
+              <p>Comments</p>
+              <StyledTextArea
+                marginBottom
+                name="comments"
+                placeholder="Add comments here..."
+                value={reservation.comments}
+                onChange={handleTextAreaChange}
+              ></StyledTextArea>
+              <ButtonBox centered>
+                {formError ? (
+                  <MessageBox>
+                    <RegularMessage
+                      message={formError.message}
+                      warning={formError.warning}
+                    />
+                  </MessageBox>
+                ) : null}
+                <ReserveButton register>Reserve Now</ReserveButton>
+              </ButtonBox>
+            </PageSectionCard>
+          </PageDivider>
         </StyledForm>
       )}
 

@@ -2,10 +2,16 @@ import styled, { css } from "styled-components";
 import { devices } from "../Styles/Variables";
 
 export const StyledForm = styled.form`
-  padding: 8px 0 0 0;
+  /* padding: 8px 0 0 0; */
   width: 100%;
-  @media ${devices.mobileL} {
-    max-width: 400px;
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 400px;
+
+  @media ${devices.tabletM} {
+    max-width: 800px;
+    grid-gap: 8px;
+    grid-template-columns: 1fr 1fr;
   }
 `;
 

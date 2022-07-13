@@ -80,9 +80,25 @@ export const FullWidthContainer = styled.div`
   width: 100%;
 `;
 
-export const PageDivider = styled.div<{ left?: boolean; right?: boolean }>``;
+export const PageDivider = styled.div<{ left?: boolean; right?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  ${(props) =>
+    props.right &&
+    css`
+      &:not(:first-child) {
+        margin-top: -32px;
+        @media ${devices.tabletM} {
+          margin-top: 0;
+        }
+      }
+    `}
+`;
 
 export const PageSectionCard: any = styled.div<{
+  title?: boolean;
   styled?: boolean;
   secondary?: boolean;
   noPadding?: boolean;
@@ -90,8 +106,11 @@ export const PageSectionCard: any = styled.div<{
   smallPaddingTopAndBottom?: boolean;
   left?: boolean;
   right?: boolean;
+  mobileOverlap?: boolean;
+  tabletGrid?: boolean;
+  aboveHead?: boolean;
+  disconnectedSubmit?: boolean;
 }>`
-  /* width: 100%; */
   color: ${({ theme }) => theme.white1};
   background-color: ${({ theme }) => theme.purple1};
   border-radius: 1rem 1rem 0 0;
@@ -100,11 +119,13 @@ export const PageSectionCard: any = styled.div<{
   flex-direction: column;
   width: 100%;
 
-  &:not(:first-child) {
-    margin-top: -32px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
-      rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
+  &:first-child {
+    margin-top: 0;
   }
+
+  margin-top: -32px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
+    rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
 
   &:last-child {
     border-radius: 1rem;
@@ -115,12 +136,18 @@ export const PageSectionCard: any = styled.div<{
   }
 
   ${(props) =>
+    props.title &&
+    css`
+      margin-top: 0;
+      box-shadow: none;
+    `}
+
+  ${(props) =>
     props.styled &&
     css`
       background-color: ${({ theme }) => theme.white1};
       color: ${({ theme }) => theme.black};
     `}
-
   ${(props) =>
     props.secondary &&
     css`
@@ -135,18 +162,54 @@ export const PageSectionCard: any = styled.div<{
         padding-bottom: 0px;
       }
     `}
-
     ${(props) =>
     props.smallPaddingBottom &&
     css`
       padding: 0 0 8px 0;
     `}
-
     ${(props) =>
     props.smallPaddingTopAndBottom &&
     css`
       padding: 16px 0 8px 0;
     `}
+    ${(props) =>
+    props.mobileOverlap &&
+    css`
+      padding-bottom: 48px;
+
+      @media ${devices.tabletM} {
+        padding-bottom: 16px;
+      }
+    `}
+
+    ${(props) =>
+    props.aboveHead &&
+    css`
+      &:not(:last-child) {
+        padding-bottom: 16px;
+      }
+    `}
+
+    ${(props) =>
+    props.disconnectedSubmit &&
+    css`
+      margin-top: 16px;
+      max-width: 400px;
+    `}
+
+    @media ${devices.tabletM} {
+    ${(props) =>
+      props.tabletGrid &&
+      css`
+        border-radius: 1rem;
+        &:not(:first-child) {
+          margin-top: 0px;
+        }
+        &:not(:last-child) {
+          padding-bottom: 16px;
+        }
+      `}
+  }
 `;
 
 export const StoreImgDiv = styled.div<{ rearPortal?: boolean }>`
@@ -173,25 +236,27 @@ export const ShowcaseGrid = styled.div<{ employee?: boolean }>`
   display: grid;
   grid-gap: 8px;
   grid-template-columns: repeat(auto-fill, minmax(200px, 0.8fr));
-  /* grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr)); */
   justify-content: center;
   align-items: center;
-
-  /* @media ${devices.tabletS} { */
-  /* grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
-    grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr));
-  }
-
-  @media ${devices.tabletM} {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-template-rows: repeat(auto-fit, minmax(13rem, 1fr));
-  } */
 
   ${(props) =>
     props.employee &&
     css`
       grid-template-columns: repeat(auto-fill, minmax(200px, 0.65fr));
     `}
+`;
+
+export const OwnerShowcaseGrid = styled.div`
+  margin-top: -32px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+  justify-content: center;
+  align-items: center;
+
+  @media ${devices.tabletM} {
+    grid-gap: 8px;
+  }
 `;
 
 export const SelectContainer = styled(Link)`
@@ -320,6 +385,7 @@ export const ReservationImgHeaderContainer = styled.div`
 
 export const ReservationTitleBlock = styled.div`
   display: grid;
+  justify-content: center;
   grid-gap: 8px;
 `;
 
