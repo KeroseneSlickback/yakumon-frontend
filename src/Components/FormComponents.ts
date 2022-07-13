@@ -15,6 +15,11 @@ export const StyledForm = styled.form`
   }
 `;
 
+export const StyledMobalForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const StyledFormBlock = styled.div<{
   topPadding?: boolean;
 }>`

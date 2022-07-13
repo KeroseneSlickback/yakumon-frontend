@@ -249,7 +249,7 @@ export const ShowcaseGrid = styled.div<{ employee?: boolean }>`
   display: grid;
   grid-gap: 8px;
   grid-template-columns: repeat(auto-fill, minmax(200px, 0.8fr));
-  justify-content: center;
+  /* justify-items: center; */
   align-items: center;
 
   ${(props) =>

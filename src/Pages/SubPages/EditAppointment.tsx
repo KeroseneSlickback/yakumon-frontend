@@ -167,7 +167,7 @@ const EditAppointment = () => {
           </PageSectionCard>
           <StyledForm onSubmit={handleFormSubmit}>
             <PageDivider left>
-              <PageSectionCard styled>
+              <PageSectionCard styled mobileOverlap>
                 <h3>Reservation Details</h3>
                 <AppointmentViewDiv>
                   <p>Customer:</p>
@@ -205,7 +205,7 @@ const EditAppointment = () => {
                   <p>Service:</p>
                   <h4>{appointment.service.serviceName}</h4>
                 </AppointmentViewDiv>
-                <AppointmentViewDiv bottomMargin>
+                <AppointmentViewDiv>
                   <p>Comment:</p>
                   {appointment.comments.split("\n").map((str, i) => {
                     return <p key={i}>{str}</p>;

@@ -8,7 +8,7 @@ import {
 } from "../../Components/Buttons";
 import { StoreImgDiv } from "../../Components/Containers";
 import {
-  StyledForm,
+  StyledMobalForm,
   StyledModalBlock,
   StyledImgInput,
   StyledLabel,
@@ -110,7 +110,7 @@ export const UserModal = (props: Props) => {
     <ModalContainer>
       <ModalH3 paddingBottom>User Settings</ModalH3>
       <p>Enter any infomation you wish to change.</p>
-      <StyledForm onSubmit={handleSubmit}>
+      <StyledMobalForm onSubmit={handleSubmit}>
         <StyledModalBlock sideBySide>
           <div>
             <StyledLabel>First name</StyledLabel>
@@ -133,7 +133,6 @@ export const UserModal = (props: Props) => {
             />
           </div>
         </StyledModalBlock>
-
         <StyledModalBlock sideBySide>
           <div>
             <StyledLabel>Phone number</StyledLabel>
@@ -189,7 +188,7 @@ export const UserModal = (props: Props) => {
         <ButtonBox smallTopPadding>
           <MediumButton register>Submit Changes</MediumButton>
         </ButtonBox>
-      </StyledForm>
+      </StyledMobalForm>
       <br />
       <ButtonBox>
         <MediumButton onClick={props.confirmDelete}>
@@ -386,7 +385,7 @@ export const EmployeePatchModal = (props: Props) => {
         <>
           <ModalH3 paddingBottom>Employee Edit</ModalH3>
           <h4>Please add or edit your title and picture.</h4>
-          <StyledForm onSubmit={handleSubmit}>
+          <StyledMobalForm onSubmit={handleSubmit}>
             <StyledModalBlock>
               <StyledLabel>Title</StyledLabel>
               <StyledTextInput
@@ -436,7 +435,7 @@ export const EmployeePatchModal = (props: Props) => {
             <ButtonBox topPadding>
               <MediumButton register>Submit</MediumButton>
             </ButtonBox>
-          </StyledForm>
+          </StyledMobalForm>
         </>
       )}
       <ClosedButtonDiv>
