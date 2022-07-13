@@ -4,6 +4,7 @@ import {
   PageSectionCard,
   ExtraPaddingWrapper,
   SinglePageContainer,
+  PageDivider,
 } from "../../Components/Containers";
 import {
   ServiceContainer,
@@ -163,74 +164,82 @@ const EmployeeCreateAppointment = () => {
           <LoadingIcon />
         </LoadingIconContainer>
       ) : (
-        <StyledForm onSubmit={handleFormSubmit}>
-          <PageSectionCard>
+        <>
+          <PageSectionCard title aboveHead>
             <TopH1>New Appointment</TopH1>
           </PageSectionCard>
-          <PageSectionCard secondary>
-            <CustomerSearchBlock
-              handleOnChange={handleCustomerSelect}
-              selected={reservation.customer}
-              guest
-            />
-          </PageSectionCard>
-          <PageSectionCard styled>
-            <p>Select a service</p>
-            <ServiceContainer>
-              {stylist?.services
-                ? stylist?.services.map((service) => {
-                    return (
-                      <ListItem
-                        key={service._id}
-                        text1={service.serviceName}
-                        text2={service.price}
-                        handleOnChange={() => selectService(service._id)}
-                        selected={reservation.service}
-                        id={service._id}
-                        services
-                      ></ListItem>
-                    );
-                  })
-                : null}
-            </ServiceContainer>
-          </PageSectionCard>
-          <PageSectionCard smallPaddingTopAndBottom>
-            {stylist ? (
-              <ScheduleView
-                appointments={stylist?.appointments}
-                services={stylist?.services}
-                selectedService={reservation.service}
-                store={stylist?.store}
-                handleOnSelect={selectTime}
-                unlockDates
-              />
-            ) : null}
-          </PageSectionCard>
-          <PageSectionCard styled>
-            <h3>Comments</h3>
-            <DetailP>
-              For Guest User, please enter the customer's infomation below.
-            </DetailP>
-            <StyledTextArea
-              marginBottom
-              name="comments"
-              placeholder="Add comments here..."
-              value={reservation.comments}
-              onChange={handleTextAreaChange}
-            ></StyledTextArea>
-            <ButtonBox centered>
-              {formError ? (
-                <MessageBox>
-                  <RegularMessage
-                    message={formError.message}
-                    warning={formError.warning}
+          <StyledForm onSubmit={handleFormSubmit}>
+            <PageDivider left>
+              <PageSectionCard secondary>
+                <CustomerSearchBlock
+                  handleOnChange={handleCustomerSelect}
+                  selected={reservation.customer}
+                  guest
+                />
+              </PageSectionCard>
+              <PageSectionCard styled mobileOverlap>
+                <p>Select a service</p>
+                <ServiceContainer>
+                  {stylist?.services
+                    ? stylist?.services.map((service) => {
+                        return (
+                          <ListItem
+                            key={service._id}
+                            text1={service.serviceName}
+                            text2={service.price}
+                            handleOnChange={() => selectService(service._id)}
+                            selected={reservation.service}
+                            id={service._id}
+                            services
+                          ></ListItem>
+                        );
+                      })
+                    : null}
+                </ServiceContainer>
+              </PageSectionCard>
+            </PageDivider>
+            <PageDivider right>
+              <PageSectionCard smallPaddingTopAndBottom>
+                {stylist ? (
+                  <ScheduleView
+                    appointments={stylist?.appointments}
+                    services={stylist?.services}
+                    selectedService={reservation.service}
+                    store={stylist?.store}
+                    handleOnSelect={selectTime}
+                    unlockDates
                   />
-                </MessageBox>
-              ) : null}
+                ) : null}
+              </PageSectionCard>
+              <PageSectionCard styled>
+                <h3>Comments</h3>
+                <DetailP>
+                  For Guest User, please enter the customer's infomation below.
+                </DetailP>
+                <StyledTextArea
+                  marginBottom
+                  name="comments"
+                  placeholder="Add comments here..."
+                  value={reservation.comments}
+                  onChange={handleTextAreaChange}
+                ></StyledTextArea>
+              </PageSectionCard>
+            </PageDivider>
+          </StyledForm>
+          <PageSectionCard secondary disconnectedSubmit>
+            {formError ? (
+              <MessageBox>
+                <RegularMessage
+                  message={formError.message}
+                  warning={formError.warning}
+                />
+              </MessageBox>
+            ) : null}
+            <ButtonBox centered>
               <ReserveButton register>Reserve Now</ReserveButton>
             </ButtonBox>
           </PageSectionCard>
-        </StyledForm>
+        </>
       )}
     </SinglePageContainer>
   );

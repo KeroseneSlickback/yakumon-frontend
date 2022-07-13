@@ -10,11 +10,17 @@ export const StyledTr = styled.tr<{ head?: boolean; dateList?: boolean }>`
   display: grid;
   grid-template-columns: 1.5fr repeat(4, 1fr);
   justify-items: center;
+
   &:nth-child(even) {
     background-color: ${({ theme }) => theme.purple3};
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   }
+
+  &:last-child {
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+
   ${(props) =>
     props.head &&
     css`

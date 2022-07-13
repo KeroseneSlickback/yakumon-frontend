@@ -80,6 +80,19 @@ export const FullWidthContainer = styled.div`
   width: 100%;
 `;
 
+export const PageSplitContainer = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 400px;
+
+  @media ${devices.tabletM} {
+    max-width: 800px;
+    grid-gap: 8px;
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
 export const PageDivider = styled.div<{ left?: boolean; right?: boolean }>`
   display: flex;
   flex-direction: column;
@@ -381,6 +394,13 @@ export const ReservationImgHeaderContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
+
+  @media ${devices.tabletM} {
+    grid-template-columns: 1fr;
+    grid-gap: 24px;
+    justify-items: center;
+    margin-bottom: 16px;
+  }
 `;
 
 export const ReservationTitleBlock = styled.div`

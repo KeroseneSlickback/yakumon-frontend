@@ -70,6 +70,11 @@ export const StylistImg = styled.img`
     height: 160px;
     width: 160px;
   }
+
+  @media ${devices.tabletM} {
+    height: 200px;
+    width: 200px;
+  }
 `;
 
 export const RegisterLoginDiv = styled.div`

@@ -5,6 +5,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ReserveButton } from "../../Components/Buttons";
 import {
+  PageDivider,
   PageSectionCard,
   SinglePageContainer,
 } from "../../Components/Containers";
@@ -160,92 +161,100 @@ const EditAppointment = () => {
           <LoadingIcon />
         </LoadingIconContainer>
       ) : appointment !== null ? (
-        <StyledForm onSubmit={handleFormSubmit}>
-          <PageSectionCard>
+        <>
+          <PageSectionCard title aboveHead>
             <TopH1>Edit Appointment</TopH1>
           </PageSectionCard>
-          <PageSectionCard styled>
-            <h3>Reservation Details</h3>
-            <AppointmentViewDiv>
-              <p>Customer:</p>
-              <h4>
-                {appointment.owner.firstName} {appointment.owner.lastName}
-              </h4>
-            </AppointmentViewDiv>
-            <AppointmentViewDiv>
-              <p>Phone Number:</p>
-              <h4>{appointment.owner.phoneNumber}</h4>
-            </AppointmentViewDiv>
-            <AppointmentViewDiv>
-              <p>Appointment Date:</p>
-              <h4>
-                {format(
-                  parseJSON(appointment?.timeSlots[0].slotDateTime),
-                  "MMMM dd yyyy"
-                )}
-              </h4>
-            </AppointmentViewDiv>
-            <AppointmentViewDiv>
-              <p>Appointment Time:</p>
-              <h4>
-                {format(
-                  parseJSON(appointment?.timeSlots[0].slotDateTime!),
-                  "h:mm b"
-                )}
-              </h4>
-            </AppointmentViewDiv>
-            <AppointmentViewDiv>
-              <p>Appointment Duration:</p>
-              <h4>{timesArray[appointment.timeSlots.length]}</h4>
-            </AppointmentViewDiv>
-            <AppointmentViewDiv>
-              <p>Service:</p>
-              <h4>{appointment.service.serviceName}</h4>
-            </AppointmentViewDiv>
-            <AppointmentViewDiv bottomMargin>
-              <p>Comment:</p>
-              {appointment.comments.split("\n").map((str, i) => {
-                return <p key={i}>{str}</p>;
-              })}
-            </AppointmentViewDiv>
-          </PageSectionCard>
-          <PageSectionCard smallPaddingBottom>
-            <TopH3>Select a date/time to edit</TopH3>
-            {user ? (
-              <ScheduleView
-                appointments={user.appointments}
-                services={user.services}
-                selectedService={reservation.service}
-                store={user.store}
-                user={user}
-                handleOnSelect={selectTime}
-                edit={true}
-                editAppointmentTimeslots={appointment.timeSlots}
-              />
-            ) : null}
-          </PageSectionCard>
-          <PageSectionCard styled>
-            <h3>Comments</h3>
-            <StyledTextArea
-              marginBottom
-              name="comments"
-              placeholder="Add comments here..."
-              value={reservation.comments}
-              onChange={handleTextAreaChange}
-            />
-            <ButtonBox centered>
-              {formError ? (
-                <MessageBox>
-                  <RegularMessage
-                    message={formError.message}
-                    warning={formError.warning}
+          <StyledForm onSubmit={handleFormSubmit}>
+            <PageDivider left>
+              <PageSectionCard styled>
+                <h3>Reservation Details</h3>
+                <AppointmentViewDiv>
+                  <p>Customer:</p>
+                  <h4>
+                    {appointment.owner.firstName} {appointment.owner.lastName}
+                  </h4>
+                </AppointmentViewDiv>
+                <AppointmentViewDiv>
+                  <p>Phone Number:</p>
+                  <h4>{appointment.owner.phoneNumber}</h4>
+                </AppointmentViewDiv>
+                <AppointmentViewDiv>
+                  <p>Appointment Date:</p>
+                  <h4>
+                    {format(
+                      parseJSON(appointment?.timeSlots[0].slotDateTime),
+                      "MMMM dd yyyy"
+                    )}
+                  </h4>
+                </AppointmentViewDiv>
+                <AppointmentViewDiv>
+                  <p>Appointment Time:</p>
+                  <h4>
+                    {format(
+                      parseJSON(appointment?.timeSlots[0].slotDateTime!),
+                      "h:mm b"
+                    )}
+                  </h4>
+                </AppointmentViewDiv>
+                <AppointmentViewDiv>
+                  <p>Appointment Duration:</p>
+                  <h4>{timesArray[appointment.timeSlots.length]}</h4>
+                </AppointmentViewDiv>
+                <AppointmentViewDiv>
+                  <p>Service:</p>
+                  <h4>{appointment.service.serviceName}</h4>
+                </AppointmentViewDiv>
+                <AppointmentViewDiv bottomMargin>
+                  <p>Comment:</p>
+                  {appointment.comments.split("\n").map((str, i) => {
+                    return <p key={i}>{str}</p>;
+                  })}
+                </AppointmentViewDiv>
+              </PageSectionCard>
+            </PageDivider>
+            <PageDivider right>
+              <PageSectionCard smallPaddingBottom>
+                <TopH3>Select a date/time to edit</TopH3>
+                {user ? (
+                  <ScheduleView
+                    appointments={user.appointments}
+                    services={user.services}
+                    selectedService={reservation.service}
+                    store={user.store}
+                    user={user}
+                    handleOnSelect={selectTime}
+                    edit={true}
+                    editAppointmentTimeslots={appointment.timeSlots}
                   />
-                </MessageBox>
-              ) : null}
+                ) : null}
+              </PageSectionCard>
+              <PageSectionCard styled>
+                <h3>Comments</h3>
+                <StyledTextArea
+                  marginBottom
+                  name="comments"
+                  placeholder="Add comments here..."
+                  value={reservation.comments}
+                  onChange={handleTextAreaChange}
+                />
+              </PageSectionCard>
+            </PageDivider>
+          </StyledForm>
+          <PageSectionCard secondary disconnectedSubmit>
+            {formError ? (
+              <MessageBox>
+                <RegularMessage
+                  message={formError.message}
+                  warning={formError.warning}
+                />
+              </MessageBox>
+            ) : null}
+            <ButtonBox centered>
               <ReserveButton register>Edit</ReserveButton>
             </ButtonBox>
           </PageSectionCard>
-        </StyledForm>
+        </>
       ) : null}
     </SinglePageContainer>
   );

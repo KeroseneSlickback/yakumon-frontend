@@ -7,6 +7,7 @@ import {
   StoreDescContainer,
   StoreImgDiv,
   PageDivider,
+  PageSplitContainer,
 } from "../Components/Containers";
 import {
   LoadingIcon,
@@ -77,106 +78,108 @@ const Store = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageDivider left>
-            <PageSectionCard title>
-              <TopH1 extraPadding>{store?.storeName}</TopH1>
-            </PageSectionCard>
-            <PageSectionCard noPadding>
-              <StoreImgDiv>
-                {storeImg ? (
-                  <StoreImg
-                    src={`data:image/png;base64,${storeImg}`}
-                    alt={store?.storeName}
-                  />
-                ) : (
-                  <FillerImgSvg storeImg />
-                )}
-              </StoreImgDiv>
-            </PageSectionCard>
-            <PageSectionCard styled>
-              <StoreInfoContainer>
-                <div>
-                  <span>
-                    <img src={location} alt="location" />
-                    <a
-                      href={store?.locationLink}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {store?.location}
-                    </a>
-                  </span>
-                  {store?.storeWebsite ? (
+          <PageSectionCard title aboveHead>
+            <TopH1 extraPadding>{store?.storeName}</TopH1>
+          </PageSectionCard>
+          <PageSplitContainer>
+            <PageDivider left>
+              <PageSectionCard noPadding>
+                <StoreImgDiv>
+                  {storeImg ? (
+                    <StoreImg
+                      src={`data:image/png;base64,${storeImg}`}
+                      alt={store?.storeName}
+                    />
+                  ) : (
+                    <FillerImgSvg storeImg />
+                  )}
+                </StoreImgDiv>
+              </PageSectionCard>
+              <PageSectionCard styled>
+                <StoreInfoContainer>
+                  <div>
                     <span>
-                      <img src={site} alt="site" />
+                      <img src={location} alt="location" />
                       <a
-                        href={store.storeWebsite}
+                        href={store?.locationLink}
                         target="_blank"
                         rel="noreferrer"
                       >
-                        Visit Website
+                        {store?.location}
                       </a>
                     </span>
-                  ) : null}
-                  <span>
-                    <img src={phone} alt="phone" />
-                    <p>{store?.phoneNumber}</p>
-                  </span>
-                  <span>
-                    <img src={clock} alt="clock" />
-                    <StoreHourTable>
-                      <tbody>
-                        {store?.hours.map((day, dayIndex) => {
-                          return (
-                            <StoreHour
-                              key={day._id}
-                              day={day}
-                              weekday={weekdaysArray[dayIndex]}
-                            />
-                          );
-                        })}
-                      </tbody>
-                    </StoreHourTable>
-                  </span>
-                </div>
-              </StoreInfoContainer>
-            </PageSectionCard>
-            <PageSectionCard secondary mobileOverlap>
-              <StoreDescContainer>
-                <TopH2>Description:</TopH2>
-                {store?.storeDescription.split("\n").map((str, i) => {
-                  return <p key={i}>{str}</p>;
-                })}
-              </StoreDescContainer>
-            </PageSectionCard>
-          </PageDivider>
-          <PageDivider right>
-            <PageSectionCard styled>
-              <TopH2>Select a Stylist</TopH2>
-              <ShowcaseGrid employee>
-                {store?.employees.map((employee) => {
-                  return (
-                    <SelectContainer
-                      to={`/reservation/${employee._id}`}
-                      key={employee._id}
-                    >
-                      {employee.picture ? (
-                        <ShowcaseImg
-                          src={`data:image/png;base64,${employee.picture}`}
-                          alt="hairsalon"
-                        />
-                      ) : (
-                        <FillerImgSvg storeImg />
-                      )}
-                      <h3>
-                        {employee.firstName} {employee.lastName}
-                      </h3>
-                    </SelectContainer>
-                  );
-                })}
-              </ShowcaseGrid>
-            </PageSectionCard>
-          </PageDivider>
+                    {store?.storeWebsite ? (
+                      <span>
+                        <img src={site} alt="site" />
+                        <a
+                          href={store.storeWebsite}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Visit Website
+                        </a>
+                      </span>
+                    ) : null}
+                    <span>
+                      <img src={phone} alt="phone" />
+                      <p>{store?.phoneNumber}</p>
+                    </span>
+                    <span>
+                      <img src={clock} alt="clock" />
+                      <StoreHourTable>
+                        <tbody>
+                          {store?.hours.map((day, dayIndex) => {
+                            return (
+                              <StoreHour
+                                key={day._id}
+                                day={day}
+                                weekday={weekdaysArray[dayIndex]}
+                              />
+                            );
+                          })}
+                        </tbody>
+                      </StoreHourTable>
+                    </span>
+                  </div>
+                </StoreInfoContainer>
+              </PageSectionCard>
+              <PageSectionCard secondary mobileOverlap>
+                <StoreDescContainer>
+                  <TopH2>Description:</TopH2>
+                  {store?.storeDescription.split("\n").map((str, i) => {
+                    return <p key={i}>{str}</p>;
+                  })}
+                </StoreDescContainer>
+              </PageSectionCard>
+            </PageDivider>
+            <PageDivider right>
+              <PageSectionCard styled>
+                <TopH2>Select a Stylist</TopH2>
+                <ShowcaseGrid employee>
+                  {store?.employees.map((employee) => {
+                    return (
+                      <SelectContainer
+                        to={`/reservation/${employee._id}`}
+                        key={employee._id}
+                      >
+                        {employee.picture ? (
+                          <ShowcaseImg
+                            src={`data:image/png;base64,${employee.picture}`}
+                            alt="hairsalon"
+                          />
+                        ) : (
+                          <FillerImgSvg storeImg />
+                        )}
+                        <h3>
+                          {employee.firstName} {employee.lastName}
+                        </h3>
+                      </SelectContainer>
+                    );
+                  })}
+                </ShowcaseGrid>
+              </PageSectionCard>
+            </PageDivider>
+          </PageSplitContainer>
         </>
       )}
     </SinglePageContainer>

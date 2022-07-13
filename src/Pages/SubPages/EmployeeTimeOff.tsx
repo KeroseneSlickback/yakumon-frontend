@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ReserveButton } from "../../Components/Buttons";
 import {
   ExtraPaddingWrapper,
+  PageDivider,
   PageSectionCard,
   SinglePageContainer,
 } from "../../Components/Containers";
@@ -167,34 +168,40 @@ const EmployeeTimeOff = () => {
           <LoadingIcon />
         </LoadingIconContainer>
       ) : (
-        <StyledForm onSubmit={handleFormSubmit}>
-          <PageSectionCard>
+        <>
+          <PageSectionCard title aboveHead>
             <TopH1>Time Off</TopH1>
           </PageSectionCard>
-          <PageSectionCard styled>
-            <p>
-              Select multiple time blocks to list them as "Time off" in your
-              schedule.
-            </p>
-            <br />
-            <p>
-              You may select previously selected sections to revert them to open
-              time.
-            </p>
-          </PageSectionCard>
-          <PageSectionCard smallPaddingTopAndBottom>
-            {user ? (
-              <ScheduleView
-                appointments={user?.appointments}
-                services={user?.services}
-                store={user?.store}
-                handleOnSelect={selectTime}
-                timeOff
-                unlockDates
-              />
-            ) : null}
-          </PageSectionCard>
-          <PageSectionCard styled>
+          <StyledForm onSubmit={handleFormSubmit}>
+            <PageDivider left>
+              <PageSectionCard styled>
+                <p>
+                  Select multiple time blocks to list them as "Time off" in your
+                  schedule.
+                </p>
+                <br />
+                <p>
+                  You may select previously selected sections to revert them to
+                  open time.
+                </p>
+              </PageSectionCard>
+            </PageDivider>
+            <PageDivider right>
+              <PageSectionCard smallPaddingTopAndBottom>
+                {user ? (
+                  <ScheduleView
+                    appointments={user?.appointments}
+                    services={user?.services}
+                    store={user?.store}
+                    handleOnSelect={selectTime}
+                    timeOff
+                    unlockDates
+                  />
+                ) : null}
+              </PageSectionCard>
+            </PageDivider>
+          </StyledForm>
+          <PageSectionCard secondary disconnectedSubmit>
             <ButtonBox centered>
               {formError ? (
                 <MessageBox>
@@ -207,7 +214,7 @@ const EmployeeTimeOff = () => {
               <ReserveButton register>Submit Time</ReserveButton>
             </ButtonBox>
           </PageSectionCard>
-        </StyledForm>
+        </>
       )}
     </SinglePageContainer>
   );

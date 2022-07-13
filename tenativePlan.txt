@@ -1,1 +1,3 @@
+- Employe edit on full screen?
 - No TimeOff set but positive message? 
+- No message on New Appointment for Employee for nothing filled in.
