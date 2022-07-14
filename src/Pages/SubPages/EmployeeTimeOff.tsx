@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ReserveButton } from "../../Components/Buttons";
 import {
-  ExtraPaddingWrapper,
   PageDivider,
   PageSectionCard,
   SinglePageContainer,
@@ -200,20 +199,20 @@ const EmployeeTimeOff = () => {
                 ) : null}
               </PageSectionCard>
             </PageDivider>
+            <PageSectionCard secondary disconnectedSubmit span2>
+              <ButtonBox centered>
+                {formError ? (
+                  <MessageBox>
+                    <RegularMessage
+                      message={formError.message}
+                      warning={formError.warning}
+                    />
+                  </MessageBox>
+                ) : null}
+                <ReserveButton register>Submit Time</ReserveButton>
+              </ButtonBox>
+            </PageSectionCard>
           </StyledForm>
-          <PageSectionCard secondary disconnectedSubmit>
-            <ButtonBox centered>
-              {formError ? (
-                <MessageBox>
-                  <RegularMessage
-                    message={formError.message}
-                    warning={formError.warning}
-                  />
-                </MessageBox>
-              ) : null}
-              <ReserveButton register>Submit Time</ReserveButton>
-            </ButtonBox>
-          </PageSectionCard>
         </>
       )}
     </SinglePageContainer>

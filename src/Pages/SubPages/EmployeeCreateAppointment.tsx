@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect, ChangeEvent } from "react";
 import { ReserveButton } from "../../Components/Buttons";
 import {
   PageSectionCard,
-  ExtraPaddingWrapper,
   SinglePageContainer,
   PageDivider,
 } from "../../Components/Containers";
@@ -54,7 +53,8 @@ const EmployeeCreateAppointment = () => {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormError(null);
-    if (!reservation.slotDateTime || !reservation.service) {
+    console.log("Log!");
+    if (!reservation.slotDateTime || reservation.service === "") {
       setFormError((prev) => ({
         ...prev,
         message: "Please Select a Service and Time",
@@ -225,20 +225,20 @@ const EmployeeCreateAppointment = () => {
                 ></StyledTextArea>
               </PageSectionCard>
             </PageDivider>
+            <PageSectionCard secondary disconnectedSubmit span2>
+              {formError ? (
+                <MessageBox>
+                  <RegularMessage
+                    message={formError.message}
+                    warning={formError.warning}
+                  />
+                </MessageBox>
+              ) : null}
+              <ButtonBox centered>
+                <ReserveButton register>Reserve Now</ReserveButton>
+              </ButtonBox>
+            </PageSectionCard>
           </StyledForm>
-          <PageSectionCard secondary disconnectedSubmit>
-            {formError ? (
-              <MessageBox>
-                <RegularMessage
-                  message={formError.message}
-                  warning={formError.warning}
-                />
-              </MessageBox>
-            ) : null}
-            <ButtonBox centered>
-              <ReserveButton register>Reserve Now</ReserveButton>
-            </ButtonBox>
-          </PageSectionCard>
         </>
       )}
     </SinglePageContainer>

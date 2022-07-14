@@ -286,20 +286,20 @@ const Reservation = () => {
                 ></StyledTextArea>
               </PageSectionCard>
             </PageDivider>
+            <PageSectionCard secondary disconnectedSubmit span2>
+              <ButtonBox centered>
+                {formError ? (
+                  <MessageBox>
+                    <RegularMessage
+                      message={formError.message}
+                      warning={formError.warning}
+                    />
+                  </MessageBox>
+                ) : null}
+                <ReserveButton register>Reserve Now</ReserveButton>
+              </ButtonBox>
+            </PageSectionCard>
           </StyledForm>
-          <PageSectionCard secondary disconnectedSubmit>
-            <ButtonBox centered>
-              {formError ? (
-                <MessageBox>
-                  <RegularMessage
-                    message={formError.message}
-                    warning={formError.warning}
-                  />
-                </MessageBox>
-              ) : null}
-              <ReserveButton register>Reserve Now</ReserveButton>
-            </ButtonBox>
-          </PageSectionCard>
         </>
       )}
 

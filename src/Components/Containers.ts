@@ -132,6 +132,7 @@ export const PageSectionCard: any = styled.div<{
   tabletGrid?: boolean;
   aboveHead?: boolean;
   disconnectedSubmit?: boolean;
+  span2?: boolean;
 }>`
   color: ${({ theme }) => theme.white1};
   background-color: ${({ theme }) => theme.purple1};
@@ -227,6 +228,14 @@ export const PageSectionCard: any = styled.div<{
     css`
       margin-top: 16px;
       max-width: 400px;
+    `}
+
+    ${(props) =>
+    props.span2 &&
+    css`
+      @media ${devices.tabletM} {
+        grid-column: span 2;
+      }
     `}
 
     @media ${devices.tabletM} {

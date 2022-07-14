@@ -6,7 +6,6 @@ import {
   MediumButton,
 } from "../../Components/Buttons";
 import {
-  StyledForm,
   StyledModalBlock,
   StyledLabel,
   StyledTextInput,

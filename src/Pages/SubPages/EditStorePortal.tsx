@@ -493,20 +493,20 @@ const EditStorePortal = () => {
                 </StyledFormBlock>
               </PageSectionCard>
             </PageDivider>
+            <PageSectionCard secondary disconnectedSubmit span2>
+              {message ? (
+                <MessageBox>
+                  <RegularMessage
+                    message={message.message}
+                    warning={message.warning}
+                  />
+                </MessageBox>
+              ) : null}
+              <ButtonBox centered>
+                <ReserveButton register>Edit Store</ReserveButton>
+              </ButtonBox>
+            </PageSectionCard>
           </StyledForm>
-          <PageSectionCard secondary disconnectedSubmit>
-            {message ? (
-              <MessageBox>
-                <RegularMessage
-                  message={message.message}
-                  warning={message.warning}
-                />
-              </MessageBox>
-            ) : null}
-            <ButtonBox centered>
-              <ReserveButton register>Edit Store</ReserveButton>
-            </ButtonBox>
-          </PageSectionCard>
         </>
       )}
     </SinglePageContainer>

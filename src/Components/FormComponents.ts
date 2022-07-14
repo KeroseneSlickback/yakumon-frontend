@@ -12,6 +12,7 @@ export const StyledForm = styled.form`
     max-width: 800px;
     grid-gap: 8px;
     grid-template-columns: 1fr 1fr;
+    justify-items: center;
   }
 `;
 

@@ -10,6 +10,7 @@ import {
   ButtonBox,
   ModalContainer,
   ModalH3,
+  ModalH4,
 } from "../../Components/ModalComponents";
 import { BackendResponseDataType, MessageType } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
@@ -27,7 +28,7 @@ export const DeleteStoreModal = (props: Props) => {
   return (
     <ModalContainer>
       <ModalH3 paddingBottom>{props.title}</ModalH3>
-      <h4>{props.subTitle}</h4>
+      <ModalH4 paddingBottom>{props.subTitle}</ModalH4>
       <ButtonBox sideBySide topPadding>
         <MediumButton register onClick={props.toggleConfirm}>
           Confirm
@@ -79,7 +80,7 @@ export const DoubleConfirmDeleteStoreModal = (props: Props) => {
   return (
     <ModalContainer>
       <ModalH3 paddingBottom>{props.title}</ModalH3>
-      <h4>{props.subTitle}</h4>
+      <ModalH4 paddingBottom>{props.subTitle}</ModalH4>
       {message ? (
         <MessageBox marginTop>
           <RegularMessage message={message.message} warning={message.warning} />

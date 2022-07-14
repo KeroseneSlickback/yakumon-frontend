@@ -13,9 +13,9 @@ import {
 const NotAuthorized = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    // setTimeout(() => {
-    //   navigate("/");
-    // }, 2000);
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   }, [navigate]);
   return (
     <SinglePageContainer>

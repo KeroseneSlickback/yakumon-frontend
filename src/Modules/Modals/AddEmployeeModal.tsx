@@ -8,7 +8,7 @@ import {
 } from "../../Components/Buttons";
 import { ExtraPaddingWrapper } from "../../Components/Containers";
 import { CustomerSearchBlock } from "../../Components/CustomerSearchComponents";
-import { StyledForm } from "../../Components/FormComponents";
+import { StyledModalForm } from "../../Components/FormComponents";
 import {
   ButtonBox,
   ModalContainer,
@@ -69,8 +69,8 @@ const AddEmployeeModal = (props: Props) => {
   };
   return (
     <ModalContainer>
-      <ModalH3>Add Employee</ModalH3>
-      <StyledForm onSubmit={handleSubmit}>
+      <ModalH3 paddingBottom>Add Employee</ModalH3>
+      <StyledModalForm onSubmit={handleSubmit}>
         <ExtraPaddingWrapper smallPadding>
           <CustomerSearchBlock
             handleOnChange={handleFormChange}
@@ -88,7 +88,7 @@ const AddEmployeeModal = (props: Props) => {
         <ButtonBox>
           <MediumButton register>Add Employee</MediumButton>
         </ButtonBox>
-      </StyledForm>
+      </StyledModalForm>
       <ClosedButtonDiv>
         <CloseButton onClick={props.closeModal} />
       </ClosedButtonDiv>

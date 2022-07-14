@@ -240,20 +240,20 @@ const EditAppointment = () => {
                 />
               </PageSectionCard>
             </PageDivider>
+            <PageSectionCard secondary disconnectedSubmit span2>
+              {formError ? (
+                <MessageBox>
+                  <RegularMessage
+                    message={formError.message}
+                    warning={formError.warning}
+                  />
+                </MessageBox>
+              ) : null}
+              <ButtonBox centered>
+                <ReserveButton register>Edit</ReserveButton>
+              </ButtonBox>
+            </PageSectionCard>
           </StyledForm>
-          <PageSectionCard secondary disconnectedSubmit>
-            {formError ? (
-              <MessageBox>
-                <RegularMessage
-                  message={formError.message}
-                  warning={formError.warning}
-                />
-              </MessageBox>
-            ) : null}
-            <ButtonBox centered>
-              <ReserveButton register>Edit</ReserveButton>
-            </ButtonBox>
-          </PageSectionCard>
         </>
       ) : null}
     </SinglePageContainer>

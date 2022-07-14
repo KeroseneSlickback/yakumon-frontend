@@ -18,6 +18,7 @@ import {
   ButtonBox,
   ModalContainer,
   ModalH3,
+  ModalH4,
 } from "../../Components/ModalComponents";
 import {
   LoadingIcon,
@@ -109,7 +110,7 @@ export const UserModal = (props: Props) => {
   return (
     <ModalContainer>
       <ModalH3 paddingBottom>User Settings</ModalH3>
-      <p>Enter any infomation you wish to change.</p>
+      <ModalH4 paddingBottom>Enter any infomation you wish to change.</ModalH4>
       <StyledModalForm onSubmit={handleSubmit}>
         <StyledModalBlock sideBySide>
           <div>
@@ -240,7 +241,9 @@ export const UserDeleteConfirm = (props: Props) => {
   return (
     <ModalContainer>
       <ModalH3 paddingBottom>Delete User Account</ModalH3>
-      <h4>Are you sure you want to delete your account?</h4>
+      <ModalH4 paddingBottom>
+        Are you sure you want to delete your account?
+      </ModalH4>
       {message ? (
         <MessageBox marginTop>
           <RegularMessage message={message.message} warning={message.warning} />
@@ -384,7 +387,9 @@ export const EmployeePatchModal = (props: Props) => {
       ) : (
         <>
           <ModalH3 paddingBottom>Employee Edit</ModalH3>
-          <h4>Please add or edit your title and picture.</h4>
+          <ModalH4 paddingBottom>
+            Please add or edit your title and picture.
+          </ModalH4>
           <StyledModalForm onSubmit={handleSubmit}>
             <StyledModalBlock>
               <StyledLabel>Title</StyledLabel>
