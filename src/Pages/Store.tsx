@@ -78,7 +78,7 @@ const Store = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageSectionCard title aboveHead>
+          <PageSectionCard head aboveHead>
             <TopH1 extraPadding>{store?.storeName}</TopH1>
           </PageSectionCard>
           <PageSplitContainer>

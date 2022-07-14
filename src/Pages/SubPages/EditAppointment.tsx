@@ -162,7 +162,7 @@ const EditAppointment = () => {
         </LoadingIconContainer>
       ) : appointment !== null ? (
         <>
-          <PageSectionCard title aboveHead>
+          <PageSectionCard head aboveHead>
             <TopH1>Edit Appointment</TopH1>
           </PageSectionCard>
           <StyledForm onSubmit={handleFormSubmit}>
@@ -232,7 +232,6 @@ const EditAppointment = () => {
               <PageSectionCard styled>
                 <h3>Comments</h3>
                 <StyledTextArea
-                  marginBottom
                   name="comments"
                   placeholder="Add comments here..."
                   value={reservation.comments}

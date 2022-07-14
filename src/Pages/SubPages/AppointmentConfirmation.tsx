@@ -54,10 +54,10 @@ const AppointmentConfirmation = () => {
       getData();
     }, 300);
     return () => clearTimeout(debounce);
-  }, []);
+  }, [id]);
 
   return (
-    <SinglePageContainer>
+    <SinglePageContainer limit>
       {error ? (
         <MessageBox absolute>
           <RegularMessage message={error.message} warning={error.warning} />
@@ -67,8 +67,8 @@ const AppointmentConfirmation = () => {
           <LoadingIcon />
         </LoadingIconContainer>
       ) : appointment !== null ? (
-        <PageSectionCard absolute>
-          <PageSectionCard>
+        <PageSectionCard head>
+          <PageSectionCard head>
             <TopH1>Appointment Made Successfully</TopH1>
           </PageSectionCard>
           <PageSectionCard styled>

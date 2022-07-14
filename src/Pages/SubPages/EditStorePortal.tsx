@@ -304,7 +304,7 @@ const EditStorePortal = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageSectionCard title aboveHead>
+          <PageSectionCard head aboveHead>
             <TopH1>Edit Store</TopH1>
           </PageSectionCard>
           <StyledForm onSubmit={handleSubmit}>

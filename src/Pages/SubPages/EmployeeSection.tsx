@@ -2,7 +2,6 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  ExtraPaddingWrapper,
   PageDivider,
   PageSectionCard,
   PageSplitContainer,
@@ -171,7 +170,7 @@ const EmployeeSection = () => {
         </LoadingIconContainer>
       ) : user ? (
         <>
-          <PageSectionCard title aboveHead>
+          <PageSectionCard head aboveHead>
             <TopH1>Welcome, {authContext.user?.firstName}</TopH1>
           </PageSectionCard>
           <PageSplitContainer>

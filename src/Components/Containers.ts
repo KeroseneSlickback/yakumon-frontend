@@ -71,13 +71,17 @@ export const FooterButtonDiv = styled.div`
 `;
 
 // Page containers
-export const SinglePageContainer = styled.div<{ homePage?: boolean }>`
+export const SinglePageContainer = styled.div<{ limit?: boolean }>`
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
   width: 100%;
 
-  ${(props) => props.homePage && css``}
+  ${(props) =>
+    props.limit &&
+    css`
+      max-width: 400px;
+    `}
 
   @media ${devices.mobileL} {
     width: 90%;
@@ -96,12 +100,16 @@ export const PageSplitContainer = styled.div`
 
   @media ${devices.tabletM} {
     max-width: 800px;
-    grid-gap: 8px;
+    grid-gap: 16px;
     grid-template-columns: 1fr 1fr;
   }
 `;
 
-export const PageDivider = styled.div<{ left?: boolean; right?: boolean }>`
+export const PageDivider = styled.div<{
+  left?: boolean;
+  right?: boolean;
+  topPadding?: boolean;
+}>`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -116,10 +124,16 @@ export const PageDivider = styled.div<{ left?: boolean; right?: boolean }>`
         }
       }
     `}
+
+  ${(props) =>
+    props.topPadding &&
+    css`
+      padding-top: 16px;
+    `}
 `;
 
 export const PageSectionCard: any = styled.div<{
-  title?: boolean;
+  head?: boolean;
   centered?: boolean;
   styled?: boolean;
   secondary?: boolean;
@@ -159,7 +173,7 @@ export const PageSectionCard: any = styled.div<{
   }
 
   ${(props) =>
-    props.title &&
+    props.head &&
     css`
       margin-top: 0;
       box-shadow: none;

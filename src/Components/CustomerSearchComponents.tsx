@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { MessageType, UserType } from "../Utilities/types";
 import { ListItem } from "./CheckboxComponents";

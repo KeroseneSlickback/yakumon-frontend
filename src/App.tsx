@@ -4,7 +4,6 @@ import MainLayout from "./Modules/Layout/MainLayout";
 import Home from "./Pages/Home";
 import Store from "./Pages/Store";
 import Reservation from "./Pages/Reservation";
-import Confirmation from "./Pages/Confirmation";
 
 import { theme, GlobalStyles } from "./Styles/Variables";
 import RearPortal from "./Pages/SubPages/RearPortal";
@@ -31,7 +30,6 @@ function App() {
           <Route index element={<Home />} />
           <Route path="store/:id" element={<Store />} />
           <Route path="reservation/:id" element={<Reservation />} />
-          <Route path="confirmation/:id" element={<Confirmation />} />
           <Route
             path="appointmentConfirm/:id"
             element={<AppointmentConfirmation />}

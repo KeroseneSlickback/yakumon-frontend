@@ -9,7 +9,6 @@ import {
   StyledLinkButton,
 } from "../../Components/Buttons";
 import {
-  ExtraPaddingWrapper,
   OwnerShowcaseGrid,
   PageSectionCard,
   SinglePageContainer,
@@ -131,7 +130,7 @@ const OwnerSection = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageSectionCard title>
+          <PageSectionCard head>
             <TopH1>Welcome, {authContext.user?.firstName}</TopH1>
           </PageSectionCard>
           <OwnerShowcaseGrid>

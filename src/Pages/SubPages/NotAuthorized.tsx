@@ -19,7 +19,7 @@ const NotAuthorized = () => {
   }, [navigate]);
   return (
     <SinglePageContainer>
-      <PageSectionCard title centered>
+      <PageSectionCard head centered>
         <TopH1>Not Authorized</TopH1>
         <p>You will be redirected shortly</p>
       </PageSectionCard>

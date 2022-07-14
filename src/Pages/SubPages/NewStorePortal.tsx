@@ -263,7 +263,7 @@ const NewStorePortal = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageSectionCard title aboveHead>
+          <PageSectionCard head aboveHead>
             <TopH1>Create a Store</TopH1>
           </PageSectionCard>
           <StyledForm onSubmit={handleSubmit}>

@@ -154,7 +154,7 @@ const EmployeeTimeOff = () => {
       getData();
     }, 500);
     return () => clearTimeout(debounce);
-  }, []);
+  }, [id]);
 
   return (
     <SinglePageContainer>
@@ -168,7 +168,7 @@ const EmployeeTimeOff = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageSectionCard title aboveHead>
+          <PageSectionCard head aboveHead>
             <TopH1>Time Off</TopH1>
           </PageSectionCard>
           <StyledForm onSubmit={handleFormSubmit}>

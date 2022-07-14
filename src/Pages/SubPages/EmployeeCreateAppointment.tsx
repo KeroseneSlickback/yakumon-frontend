@@ -151,7 +151,7 @@ const EmployeeCreateAppointment = () => {
       getData();
     }, 500);
     return () => clearTimeout(debounce);
-  }, []);
+  }, [id]);
 
   return (
     <SinglePageContainer>
@@ -165,7 +165,7 @@ const EmployeeCreateAppointment = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <PageSectionCard title aboveHead>
+          <PageSectionCard head aboveHead>
             <TopH1>New Appointment</TopH1>
           </PageSectionCard>
           <StyledForm onSubmit={handleFormSubmit}>
@@ -217,7 +217,6 @@ const EmployeeCreateAppointment = () => {
                   For Guest User, please enter the customer's infomation below.
                 </DetailP>
                 <StyledTextArea
-                  marginBottom
                   name="comments"
                   placeholder="Add comments here..."
                   value={reservation.comments}

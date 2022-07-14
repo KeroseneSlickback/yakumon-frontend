@@ -5,7 +5,6 @@ import {
   PageSectionCard,
   ReservationImgHeaderContainer,
   ReservationTitleBlock,
-  ExtraPaddingWrapper,
   SinglePageContainer,
   PageDivider,
 } from "../Components/Containers";
@@ -186,7 +185,7 @@ const Reservation = () => {
         <>
           <StyledForm onSubmit={handleFormSubmit}>
             <PageDivider left>
-              <PageSectionCard title>
+              <PageSectionCard head>
                 <ReservationImgHeaderContainer>
                   {userImg ? (
                     <StylistImg
@@ -262,7 +261,7 @@ const Reservation = () => {
                 )}
               </PageSectionCard>
             </PageDivider>
-            <PageDivider right>
+            <PageDivider right topPadding>
               <PageSectionCard smallPaddingBottom>
                 <TopH3>
                   Select any white section as the start of your reservation.
@@ -278,7 +277,6 @@ const Reservation = () => {
               <PageSectionCard styled>
                 <p>Comments</p>
                 <StyledTextArea
-                  marginBottom
                   name="comments"
                   placeholder="Add comments here..."
                   value={reservation.comments}

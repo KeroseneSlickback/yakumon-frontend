@@ -51,8 +51,8 @@ const Home = () => {
   }, []);
 
   return (
-    <SinglePageContainer homePage>
-      <PageSectionCard title>
+    <SinglePageContainer>
+      <PageSectionCard head>
         <TopH1>Welcome to Yakumon</TopH1>
       </PageSectionCard>
       <PageSectionCard styled>

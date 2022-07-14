@@ -10,7 +10,7 @@ export const StyledForm = styled.form`
 
   @media ${devices.tabletM} {
     max-width: 800px;
-    grid-gap: 8px;
+    grid-gap: 16px;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
   }
@@ -80,7 +80,6 @@ export const StyledTextInput = styled.input`
 
 export const StyledTextArea = styled.textarea<{
   large?: boolean;
-  marginBottom?: boolean;
 }>`
   height: 100px;
   width: 100%;
@@ -91,11 +90,6 @@ export const StyledTextArea = styled.textarea<{
     props.large &&
     css`
       height: 160px;
-    `}
-  ${(props) =>
-    props.marginBottom &&
-    css`
-      margin-bottom: 16px;
     `}
 `;
 

@@ -24,9 +24,9 @@ export const StyledTr = styled.tr<{ head?: boolean; dateList?: boolean }>`
   ${(props) =>
     props.head &&
     css`
-      margin: 0 18px;
+      margin: 0 16px;
       grid-template-columns: 1fr 3fr 1fr;
-      padding-bottom: 12px;
+      padding-bottom: 8px;
     `}
   ${(props) =>
     props.dateList &&
