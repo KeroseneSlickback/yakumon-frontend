@@ -128,7 +128,9 @@ export const PageDivider = styled.div<{
   ${(props) =>
     props.topPadding &&
     css`
-      padding-top: 16px;
+      @media ${devices.tabletM} {
+        padding-top: 16px;
+      }
     `}
 `;
 
