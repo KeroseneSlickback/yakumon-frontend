@@ -29,6 +29,15 @@ export const ModalH3 = styled.h3<{ paddingBottom?: boolean }>`
     `}
 `;
 
+export const ModalH4 = styled.h4<{ paddingBottom?: boolean }>`
+  font-size: 0.9rem;
+  ${(props) =>
+    props.paddingBottom &&
+    css`
+      padding-bottom: 8px;
+    `}
+`;
+
 export const ButtonBox = styled.div<{
   centered?: boolean;
   sideBySide?: boolean;

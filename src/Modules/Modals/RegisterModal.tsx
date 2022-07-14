@@ -6,7 +6,7 @@ import {
   MediumButton,
 } from "../../Components/Buttons";
 import {
-  StyledForm,
+  StyledModalForm,
   StyledModalBlock,
   StyledLabel,
   StyledTextInput,
@@ -101,7 +101,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
     <ModalContainer>
       <ModalH3 paddingBottom>Register</ModalH3>
       <h4>Please enter the infomation below to register</h4>
-      <StyledForm onSubmit={handleSubmit}>
+      <StyledModalForm onSubmit={handleSubmit}>
         <StyledModalBlock sideBySide>
           <div>
             <StyledLabel>First Name</StyledLabel>
@@ -198,7 +198,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
         <ButtonBox>
           <MediumButton register>Register</MediumButton>
         </ButtonBox>
-      </StyledForm>
+      </StyledModalForm>
       <ClosedButtonDiv>
         <CloseButton onClick={closeModal} />
       </ClosedButtonDiv>

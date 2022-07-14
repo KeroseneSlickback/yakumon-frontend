@@ -13,13 +13,13 @@ import {
 const NotAuthorized = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    setTimeout(() => {
-      navigate("/");
-    }, 2000);
+    // setTimeout(() => {
+    //   navigate("/");
+    // }, 2000);
   }, [navigate]);
   return (
     <SinglePageContainer>
-      <PageSectionCard absolute>
+      <PageSectionCard title centered>
         <TopH1>Not Authorized</TopH1>
         <p>You will be redirected shortly</p>
       </PageSectionCard>

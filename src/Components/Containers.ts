@@ -120,6 +120,7 @@ export const PageDivider = styled.div<{ left?: boolean; right?: boolean }>`
 
 export const PageSectionCard: any = styled.div<{
   title?: boolean;
+  centered?: boolean;
   styled?: boolean;
   secondary?: boolean;
   noPadding?: boolean;
@@ -161,6 +162,16 @@ export const PageSectionCard: any = styled.div<{
     css`
       margin-top: 0;
       box-shadow: none;
+    `}
+
+  ${(props) =>
+    props.centered &&
+    css`
+      display: flex;
+      padding-top: 48px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     `}
 
   ${(props) =>

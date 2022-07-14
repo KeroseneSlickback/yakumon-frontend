@@ -10,11 +10,13 @@ import {
   StyledModalBlock,
   StyledLabel,
   StyledTextInput,
+  StyledModalForm,
 } from "../../Components/FormComponents";
 import {
   ButtonBox,
   ModalContainer,
   ModalH3,
+  ModalH4,
 } from "../../Components/ModalComponents";
 import AuthContext from "../../Utilities/AuthContext";
 import {
@@ -72,8 +74,8 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
   return (
     <ModalContainer>
       <ModalH3 paddingBottom>Login</ModalH3>
-      <h4>Please enter your infomation</h4>
-      <StyledForm onSubmit={handleSubmit}>
+      <ModalH4 paddingBottom>Please enter your infomation</ModalH4>
+      <StyledModalForm onSubmit={handleSubmit}>
         <StyledModalBlock>
           <div>
             <StyledLabel>Username</StyledLabel>
@@ -109,7 +111,8 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
             <MediumButton register>Login</MediumButton>
           </ButtonBox>
         </StyledModalBlock>
-      </StyledForm>
+      </StyledModalForm>
+
       <ClosedButtonDiv>
         <CloseButton onClick={closeModal} />
       </ClosedButtonDiv>

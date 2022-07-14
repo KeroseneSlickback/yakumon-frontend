@@ -15,7 +15,7 @@ export const StyledForm = styled.form`
   }
 `;
 
-export const StyledMobalForm = styled.form`
+export const StyledModalForm = styled.form`
   display: flex;
   flex-direction: column;
 `;

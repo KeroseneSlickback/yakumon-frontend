@@ -7,7 +7,7 @@ import {
   MediumButton,
 } from "../../Components/Buttons";
 import {
-  StyledForm,
+  StyledModalForm,
   StyledModalBlock,
   StyledFormSelect,
   StyledLabel,
@@ -17,6 +17,7 @@ import {
   ButtonBox,
   ModalContainer,
   ModalH3,
+  ModalH4,
 } from "../../Components/ModalComponents";
 import { MessageType, ServiceType } from "../../Utilities/types";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
@@ -82,8 +83,11 @@ export const NewServiceModal = (props: Props) => {
   return (
     <ModalContainer>
       <ModalH3 paddingBottom>Add New Service</ModalH3>
-      <h4>Enter the infomation below to add a service.</h4>
-      <StyledForm onSubmit={handleSubmit}>
+      <ModalH4 paddingBottom>
+        Enter the infomation below to add a service.
+      </ModalH4>
+
+      <StyledModalForm onSubmit={handleSubmit}>
         <StyledModalBlock>
           <div>
             <StyledLabel>Service Name:</StyledLabel>
@@ -143,7 +147,7 @@ export const NewServiceModal = (props: Props) => {
             <MediumButton register>Add</MediumButton>
           </ButtonBox>
         </StyledModalBlock>
-      </StyledForm>
+      </StyledModalForm>
       <ClosedButtonDiv>
         <CloseButton onClick={props.closeModal} />
       </ClosedButtonDiv>
@@ -213,9 +217,12 @@ export const EditServiceModal = (props: Props) => {
 
   return (
     <ModalContainer>
-      <ModalH3>Edit Service</ModalH3>
-      <h4>Alter the infomation below to edit service.</h4>
-      <StyledForm onSubmit={handleSubmit}>
+      <ModalH3 paddingBottom>Edit Service</ModalH3>
+      <ModalH4 paddingBottom>
+        Alter the infomation below to edit service.
+      </ModalH4>
+
+      <StyledModalForm onSubmit={handleSubmit}>
         <StyledModalBlock>
           <div>
             <StyledLabel>Service Name:</StyledLabel>
@@ -275,7 +282,7 @@ export const EditServiceModal = (props: Props) => {
             <MediumButton register>Add</MediumButton>
           </ButtonBox>
         </StyledModalBlock>
-      </StyledForm>
+      </StyledModalForm>
       <ClosedButtonDiv>
         <CloseButton onClick={props.closeModal} />
       </ClosedButtonDiv>
