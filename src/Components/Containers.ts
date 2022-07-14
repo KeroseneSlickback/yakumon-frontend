@@ -41,6 +41,10 @@ export const NavBarHeader = styled.header`
   h1 {
     padding-left: 6px;
   }
+
+  @media ${devices.tabletS} {
+    justify-content: space-around;
+  }
 `;
 
 // Footer containers
@@ -55,6 +59,10 @@ export const FooterContainer = styled.footer`
   margin-top: auto;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
     rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
+
+  @media ${devices.tabletS} {
+    justify-content: space-evenly;
+  }
 `;
 
 export const FooterButtonDiv = styled.div`
@@ -248,14 +256,14 @@ export const ShowcaseGrid = styled.div<{ employee?: boolean }>`
   margin-top: 16px;
   display: grid;
   grid-gap: 8px;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 0.8fr));
-  /* justify-items: center; */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   align-items: center;
+  justify-content: center;
 
   ${(props) =>
     props.employee &&
     css`
-      grid-template-columns: repeat(auto-fill, minmax(200px, 0.65fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 0.75fr));
     `}
 `;
 

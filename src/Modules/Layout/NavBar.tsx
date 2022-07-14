@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { BackDrop } from "../../Components/Backdrop";
-import { SmallButton } from "../../Components/Buttons";
+import { LargeFlexibleButton } from "../../Components/Buttons";
 import { NavBarHeader } from "../../Components/Containers";
 import { NavLogButtonBox } from "../../Components/ModalComponents";
 import AuthContext from "../../Utilities/AuthContext";
@@ -42,13 +42,13 @@ const NavBar = () => {
       </Link>
       <NavLogButtonBox>
         {authContext.loggedIn ? (
-          <SmallButton onClick={showLogout}>Logout</SmallButton>
+          <LargeFlexibleButton onClick={showLogout}>Logout</LargeFlexibleButton>
         ) : (
           <>
-            <SmallButton register onClick={showRegister}>
+            <LargeFlexibleButton register onClick={showRegister}>
               Register
-            </SmallButton>
-            <SmallButton onClick={showLogin}>Login</SmallButton>
+            </LargeFlexibleButton>
+            <LargeFlexibleButton onClick={showLogin}>Login</LargeFlexibleButton>
           </>
         )}
       </NavLogButtonBox>

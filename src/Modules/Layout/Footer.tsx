@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { BackDrop } from "../../Components/Backdrop";
-import { TinyButton } from "../../Components/Buttons";
+import { FlexibleButton } from "../../Components/Buttons";
 import { FooterButtonDiv, FooterContainer } from "../../Components/Containers";
 import { DetailP } from "../../Components/Page-accessories";
 import AuthContext from "../../Utilities/AuthContext";
@@ -35,12 +35,12 @@ const Footer = () => {
       <FooterButtonDiv>
         {authContext.loggedIn ? (
           <div>
-            <TinyButton onClick={toggleModal}>User Settings</TinyButton>
+            <FlexibleButton onClick={toggleModal}>User Settings</FlexibleButton>
           </div>
         ) : null}
         <div>
           <Link to={"/portal"}>
-            <TinyButton>Employee/Owner Area</TinyButton>
+            <FlexibleButton>Employee/Owner Area</FlexibleButton>
           </Link>
         </div>
       </FooterButtonDiv>

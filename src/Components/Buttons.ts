@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { devices } from "../Styles/Variables";
 
 export const TinyButton = styled.button<{
   register?: boolean;
@@ -119,6 +120,28 @@ export const CenterButtonDiv = styled.div<{
     css`
       justify-content: space-between;
     `}
+`;
+
+export const FlexibleButton = styled(TinyButton)`
+  @media ${devices.tabletS} {
+    padding: 4px 6px;
+  }
+  @media ${devices.tabletM} {
+    font-size: 0.7rem;
+  }
+  @media ${devices.tabletL} {
+    font-size: 0.8rem;
+  }
+`;
+
+export const LargeFlexibleButton = styled(SmallButton)`
+  @media ${devices.tabletS} {
+    padding: 6px 8px;
+  }
+
+  @media ${devices.tabletL} {
+    font-size: 0.85rem;
+  }
 `;
 
 export const ReserveButton = styled(TinyButton)`
