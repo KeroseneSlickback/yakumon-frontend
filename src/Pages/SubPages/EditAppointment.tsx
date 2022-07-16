@@ -165,7 +165,7 @@ const EditAppointment = () => {
           <PageSectionCard head aboveHead>
             <TopH1>Edit Appointment</TopH1>
           </PageSectionCard>
-          <StyledForm onSubmit={handleFormSubmit}>
+          <StyledForm onSubmit={handleFormSubmit} expandable>
             <PageDivider left>
               <PageSectionCard styled mobileOverlap>
                 <h3>Reservation Details</h3>

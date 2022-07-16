@@ -168,7 +168,7 @@ const EmployeeCreateAppointment = () => {
           <PageSectionCard head aboveHead>
             <TopH1>New Appointment</TopH1>
           </PageSectionCard>
-          <StyledForm onSubmit={handleFormSubmit}>
+          <StyledForm onSubmit={handleFormSubmit} expandable>
             <PageDivider left>
               <PageSectionCard secondary>
                 <CustomerSearchBlock

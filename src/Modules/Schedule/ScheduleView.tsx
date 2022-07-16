@@ -31,6 +31,7 @@ import {
 } from "../../Components/ScheduleComponents";
 import { ScheduleBlankButton, ScheduleButton } from "../../Components/Buttons";
 import AuthContext from "../../Utilities/AuthContext";
+import { useFindWindowSize } from "../../Utilities/Hooks/useFindWindowSize";
 
 const ScheduleView = ({
   appointments,
@@ -45,6 +46,7 @@ const ScheduleView = ({
   timeOff,
 }: SchedulePropTypes) => {
   const authContext = useContext(AuthContext);
+  const { width } = useFindWindowSize();
   const [employeeCheck, setEmployeeCheck] = useState<boolean>(false);
   const [customerBlock, setCustomerBlock] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -88,6 +90,13 @@ const ScheduleView = ({
       setStartDate(subDays(new Date(), 1));
     }
   }, [user?._id, authContext.user?._id, selectedService]);
+
+  useEffect(() => {
+    if (width >= 800) {
+      let variable = (width - 800) / 150;
+      setOutputDays(4 + Math.floor(variable));
+    }
+  }, [width]);
 
   useEffect(() => {
     setLoad(true);
@@ -320,7 +329,7 @@ const ScheduleView = ({
       ) : (
         <StyledTable>
           <StyledThead>
-            <StyledTr head>
+            <StyledTr head outputDays={outputDays}>
               <StyledTh>
                 <ScheduleButton
                   onClick={decrementDate}
@@ -345,7 +354,7 @@ const ScheduleView = ({
             </StyledTr>
           </StyledThead>
           <StyledTbody>
-            <StyledTr dateList>
+            <StyledTr dateList outputDays={outputDays}>
               <StyledTh></StyledTh>
               {displayData.dateList.map((date, index) => {
                 return (
@@ -357,7 +366,7 @@ const ScheduleView = ({
             </StyledTr>
             {dateTimeArray.map((time, index1) => {
               return (
-                <StyledTr key={index1}>
+                <StyledTr key={index1} outputDays={outputDays}>
                   <StyledTh
                     thirty={time.hour.includes("30") ? true : false}
                     key={index1}

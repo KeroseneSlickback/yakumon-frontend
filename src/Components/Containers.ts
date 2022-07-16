@@ -92,7 +92,7 @@ export const FullWidthContainer = styled.div`
   width: 100%;
 `;
 
-export const PageSplitContainer = styled.div`
+export const PageSplitContainer = styled.div<{ expandable?: boolean }>`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;
@@ -102,7 +102,18 @@ export const PageSplitContainer = styled.div`
     max-width: 800px;
     grid-gap: 16px;
     grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    justify-content: center;
   }
+
+  ${(props) =>
+    props.expandable &&
+    css`
+      @media ${devices.laptop} {
+        grid-template-columns: 1fr 2fr;
+        max-width: 90%;
+      }
+    `}
 `;
 
 export const PageDivider = styled.div<{
@@ -122,6 +133,15 @@ export const PageDivider = styled.div<{
         @media ${devices.tabletM} {
           margin-top: 0;
         }
+      }
+    `}
+
+  ${(props) =>
+    props.left &&
+    css`
+      @media ${devices.tabletM} {
+        min-width: 350px;
+        max-width: 400px;
       }
     `}
 

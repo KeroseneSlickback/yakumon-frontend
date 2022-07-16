@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { devices } from "../Styles/Variables";
 
-export const StyledForm = styled.form`
+export const StyledForm = styled.form<{ expandable?: boolean }>`
   /* padding: 8px 0 0 0; */
   width: 100%;
   display: grid;
@@ -13,7 +13,17 @@ export const StyledForm = styled.form`
     grid-gap: 16px;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
+    justify-content: center;
   }
+
+  ${(props) =>
+    props.expandable &&
+    css`
+      @media ${devices.laptop} {
+        grid-template-columns: 1fr 2fr;
+        max-width: 90%;
+      }
+    `}
 `;
 
 export const StyledModalForm = styled.form`

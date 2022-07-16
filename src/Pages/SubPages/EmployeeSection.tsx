@@ -173,7 +173,7 @@ const EmployeeSection = () => {
           <PageSectionCard head aboveHead>
             <TopH1>Welcome, {authContext.user?.firstName}</TopH1>
           </PageSectionCard>
-          <PageSplitContainer>
+          <PageSplitContainer expandable>
             <PageDivider left>
               {user.store ? (
                 <PageSectionCard styled>

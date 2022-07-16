@@ -41,10 +41,12 @@ import ScheduleView from "../Modules/Schedule/ScheduleView";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
 import { timesArrayShort } from "../Utilities/Helpers/HelperObjArrays";
+import { useFindWindowSize } from "../Utilities/Hooks/useFindWindowSize";
 
 const Reservation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { width } = useFindWindowSize();
   const { loggedIn, user: AuthUser } = useContext(AuthContext);
   const [user, setUser] = useState<UserType | null>(null);
   const [userImg, setUserImg] = useState<string | null>(null);
@@ -58,6 +60,7 @@ const Reservation = () => {
     comments: "",
     service: "",
   });
+  // console.log(width);
 
   const closeModal = () => {
     setViewRegister(false);
@@ -183,7 +186,7 @@ const Reservation = () => {
         </LoadingIconContainer>
       ) : (
         <>
-          <StyledForm onSubmit={handleFormSubmit}>
+          <StyledForm onSubmit={handleFormSubmit} expandable>
             <PageDivider left>
               <PageSectionCard head>
                 <ReservationImgHeaderContainer>

@@ -6,9 +6,17 @@ export const StyledThead = styled.thead``;
 
 export const StyledTbody = styled.tbody``;
 
-export const StyledTr = styled.tr<{ head?: boolean; dateList?: boolean }>`
+export const StyledTr = styled.tr<{
+  head?: boolean;
+  dateList?: boolean;
+  outputDays?: number;
+}>`
   display: grid;
-  grid-template-columns: 1.5fr repeat(4, 1fr);
+
+  grid-template-columns: 1.5fr repeat(
+      ${({ outputDays }) => outputDays || 4},
+      1fr
+    );
   justify-items: center;
 
   &:nth-child(even) {
