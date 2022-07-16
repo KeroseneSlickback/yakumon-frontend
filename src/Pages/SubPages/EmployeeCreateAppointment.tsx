@@ -53,7 +53,6 @@ const EmployeeCreateAppointment = () => {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormError(null);
-    console.log("Log!");
     if (!reservation.slotDateTime || reservation.service === "") {
       setFormError((prev) => ({
         ...prev,

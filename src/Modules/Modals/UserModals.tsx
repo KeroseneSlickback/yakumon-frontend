@@ -179,7 +179,7 @@ export const UserModal = (props: Props) => {
           </div>
         </StyledModalBlock>
         {message ? (
-          <MessageBox>
+          <MessageBox marginTop>
             <RegularMessage
               message={message.message}
               warning={message.warning}

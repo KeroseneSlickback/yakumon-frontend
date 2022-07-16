@@ -60,11 +60,8 @@ const EmployeeTimeOff = () => {
               },
             }
           )
-          .then((res) => {
-            console.log("Fine", res);
-          })
           .catch((e) => {
-            console.log(e);
+            throw new Error(e);
           });
       }
       if (removeTimeOff.length > 0) {
@@ -77,11 +74,8 @@ const EmployeeTimeOff = () => {
               removeTimeOff,
             },
           })
-          .then((res) => {
-            console.log("Fine", res);
-          })
           .catch((e) => {
-            console.log(e.response);
+            throw new Error(e);
           });
       }
       setFormError({

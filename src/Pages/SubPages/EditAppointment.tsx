@@ -98,7 +98,6 @@ const EditAppointment = () => {
   }, [id]);
 
   const selectTime = (headSlot: ScheduleDateType) => {
-    console.log(headSlot);
     setReservation((prev) => ({
       ...prev,
       slotDateTime: headSlot.time,

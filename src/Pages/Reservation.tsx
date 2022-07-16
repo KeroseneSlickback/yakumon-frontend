@@ -60,7 +60,6 @@ const Reservation = () => {
     comments: "",
     service: "",
   });
-  // console.log(width);
 
   const closeModal = () => {
     setViewRegister(false);
@@ -122,7 +121,6 @@ const Reservation = () => {
           message: `${e.response.data.error}`,
           warning: true,
         });
-        console.log(e);
       });
   };
 

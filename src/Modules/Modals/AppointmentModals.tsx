@@ -62,7 +62,6 @@ export const ViewAppointmentModal = ({
   showDeleteAppointment,
   showEditAppointment,
 }: ViewAppointmentProps) => {
-  console.log(appointment);
   return (
     <ModalContainer>
       <ModalH3 paddingBottom>Appointment View</ModalH3>
@@ -151,7 +150,6 @@ export const DeleteAppointmentModal = (props: DeleteAppointmentProps) => {
         }
       )
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setMessage({
             message: "Appointment Deleted Successfully",

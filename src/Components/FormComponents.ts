@@ -114,7 +114,7 @@ export const ServiceContainer = styled.div`
 
 export const StyledFormSelect = styled.select<{ compact?: boolean }>`
   background-color: ${({ theme }) => theme.white1};
-  margin: 4px 0 14px 0;
+  margin: 4px 0 4px 0;
   cursor: pointer;
   border-radius: 0.25rem;
   display: flex;

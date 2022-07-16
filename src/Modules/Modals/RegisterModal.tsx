@@ -195,7 +195,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
             </MessageBox>
           ) : null}
         </StyledModalBlock>
-        <ButtonBox>
+        <ButtonBox smallTopPadding>
           <MediumButton register>Register</MediumButton>
         </ButtonBox>
       </StyledModalForm>

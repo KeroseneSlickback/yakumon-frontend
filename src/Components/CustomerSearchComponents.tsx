@@ -48,8 +48,7 @@ export const CustomerSearchBlock = (props: Props) => {
           .then((res) => {
             setCustomers(res.data);
           })
-          .catch((e) => {
-            console.log(e);
+          .catch(() => {
             setCustomerError({
               message: "Could not find Users",
               warning: true,
