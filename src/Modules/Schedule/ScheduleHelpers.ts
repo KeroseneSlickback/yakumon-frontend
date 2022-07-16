@@ -10,6 +10,7 @@ interface TakenArrayType {
   time: Date;
   appointmentId: string;
   timeOff?: boolean;
+  blockOrder?: number;
 }
 
 // helper function, flattens stylist's appointment timeSlots to a single array of day/times
@@ -20,6 +21,7 @@ const flattenArrayDates = async (stylistArray: StylistAppointmentType[]) => {
         time: parseJSON(timeslot.slotDateTime),
         appointmentId: timeslot.appointment,
         timeOff: timeslot.timeOff ? timeslot.timeOff : false,
+        blockOrder: timeslot.blockOrder,
       };
     });
   });
@@ -77,6 +79,7 @@ const compareAndFillArray = async (
             applicable: false,
             appointmentId: editTimeSlot.appointmentId,
             timeOff: filledTimeSlot.timeOff,
+            blockOrder: filledTimeSlot.blockOrder,
           };
         } else {
           slot = {
@@ -85,6 +88,7 @@ const compareAndFillArray = async (
             applicable: false,
             appointmentId: filledTimeSlot.appointmentId,
             timeOff: filledTimeSlot.timeOff,
+            blockOrder: filledTimeSlot.blockOrder,
           };
         }
       } else {

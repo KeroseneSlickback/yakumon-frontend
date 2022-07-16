@@ -208,6 +208,8 @@ export const ScheduleBlankButton = styled.button<{
   chosen?: boolean;
   enabled?: boolean;
   offChosen?: boolean;
+  blockOrder?: string | null;
+  initial?: boolean;
 }>`
   ${(props) =>
     props.enabled &&
@@ -221,42 +223,24 @@ export const ScheduleBlankButton = styled.button<{
   margin: none;
   padding: none;
 
-  @keyframes pulseGreen {
-    0% {
-      box-shadow: 0 0 1px 2px rgba(168, 240, 208, 0.8);
-    }
-    50% {
-      box-shadow: 0 0 1px 2px rgba(168, 240, 208, 1);
-    }
-    100% {
-      box-shadow: 0 0 1px 2px rgba(168, 240, 208, 0.8);
-    }
-  }
-
-  @keyframes pulseRed {
-    0% {
-      box-shadow: 0 0 1px 2px rgba(155, 0, 0, 0.8);
-    }
-    50% {
-      box-shadow: 0 0 1px 2px rgba(155, 0, 0, 1);
-    }
-    100% {
-      box-shadow: 0 0 1px 2px rgba(155, 0, 0, 0.8);
-    }
-  }
+  box-shadow: 3px 0 3px 0px ${({ blockOrder }) => blockOrder || "transparent"},
+    -3px 0 3px 0px ${({ blockOrder }) => blockOrder || "transparent"};
 
   ${(props) =>
     props.chosen &&
     css`
-      /* animation: pulseGreen 1.5s ease-in-out infinite; */
-
-      box-shadow: 0 0 1px 2px rgba(168, 240, 208, 1);
+      box-shadow: 0 0 1px 2px #66ebaf;
     `}
+
+  ${(props) =>
+    props.initial &&
+    css`
+      box-shadow: 2px -2px 2px 2px #62e1a7, -2px -2px 2px 2px #62e1a7;
+    `}
+
   ${(props) =>
     props.offChosen &&
     css`
-      /* animation: pulseRed 1.5s ease-in-out infinite; */
-
       box-shadow: 0 0 1px 2px rgba(155, 0, 0, 1);
     `}
 `;

@@ -22,6 +22,7 @@ export const timesArrayShort = [
   "3h 30 mins",
   "4 hours",
   "4h 30 mins",
+  "5 hours",
 ];
 
 export const daysArray = [

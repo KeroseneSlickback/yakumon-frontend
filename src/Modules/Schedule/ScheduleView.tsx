@@ -32,6 +32,7 @@ import {
 import { ScheduleBlankButton, ScheduleButton } from "../../Components/Buttons";
 import AuthContext from "../../Utilities/AuthContext";
 import { useFindWindowSize } from "../../Utilities/Hooks/useFindWindowSize";
+import { gradients } from "../../Styles/Variables";
 
 const ScheduleView = ({
   appointments,
@@ -390,10 +391,17 @@ const ScheduleView = ({
                           <CrossSvg key={index2} />
                         ) : !slot.available &&
                           employeeCheck &&
-                          slot.appointmentId ? (
+                          slot.appointmentId &&
+                          slot.blockOrder ? (
                           <ScheduleBlankButton
-                            chosen
+                            // chosen
                             enabled
+                            initial={slot.blockOrder === 1}
+                            blockOrder={
+                              slot.blockOrder > 1
+                                ? gradients[slot.blockOrder]
+                                : null
+                            }
                             onClick={() => chosenStartDate(slot)}
                             type="button"
                           >

@@ -25,7 +25,7 @@ export const NavBarHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   width: 100vw;
-  padding: 0 18px;
+  padding: 8px 18px 0 18px;
   a {
     padding: 6px;
     display: flex;

@@ -1,3 +1,4 @@
-- Find window size and recalculate schedule size? 
 
 - Add set variable for day count to add different colors to schedule view?
+
+- clickable "Off" schedule button for employee time off

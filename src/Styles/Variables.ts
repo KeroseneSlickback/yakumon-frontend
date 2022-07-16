@@ -87,3 +87,17 @@ export const devices = {
   laptop: `only screen and (min-width: ${sizes.laptop})`,
   laptopL: `only screen and (min-width: ${sizes.laptopL})`,
 };
+
+export const gradients = [
+  "blank",
+  "#62E1A7",
+  "#9FF3CD",
+  "#B8F6DA",
+  "#BFF7DE",
+  "#C6F8E1",
+  "#D0F9E6",
+  "#D9FAEB",
+  "#E3FCF0",
+  "#EAFDF4",
+  "#F5FEFA",
+];
