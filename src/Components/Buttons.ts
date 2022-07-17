@@ -229,7 +229,7 @@ export const ScheduleBlankButton = styled.button<{
   ${(props) =>
     props.chosen &&
     css`
-      box-shadow: 0 0 1px 2px #66ebaf;
+      box-shadow: 0 0 1px 2px #62e1a7;
     `}
 
   ${(props) =>

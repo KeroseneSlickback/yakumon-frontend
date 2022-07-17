@@ -55,7 +55,7 @@ const Home = () => {
       <PageSectionCard head>
         <TopH1>Welcome to Yakumon</TopH1>
       </PageSectionCard>
-      <PageSectionCard styled>
+      <PageSectionCard styled largeLimit>
         <TopH2>Select a Store to Start a Reservation</TopH2>
         <ShowcaseGrid>
           {error ? (

@@ -37,14 +37,8 @@ export const CircleSvg: React.FC<SvgPropsDefault> = (props) => (
 );
 
 export const CrossSvg: React.FC<SvgPropsDefault> = (props) => (
-  <SvgContainer>
-    <svg
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="#666666"
-      strokeWidth="2"
-      {...props}
-    >
+  <SvgContainer {...props}>
+    <svg fill="none" viewBox="0 0 24 24" stroke="#666666" strokeWidth="2">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

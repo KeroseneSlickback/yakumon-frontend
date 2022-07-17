@@ -170,6 +170,7 @@ export const PageSectionCard: any = styled.div<{
   aboveHead?: boolean;
   disconnectedSubmit?: boolean;
   span2?: boolean;
+  largeLimit?: boolean;
 }>`
   color: ${({ theme }) => theme.white1};
   background-color: ${({ theme }) => theme.purple1};
@@ -284,6 +285,12 @@ export const PageSectionCard: any = styled.div<{
       }
     `}
 
+    ${(props) =>
+    props.largeLimit &&
+    css`
+      max-width: 800px;
+    `}
+
     @media ${devices.tabletM} {
     ${(props) =>
       props.tabletGrid &&
@@ -362,7 +369,6 @@ export const SelectContainer = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* width: fit-content; */
 
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
     rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
@@ -415,15 +421,6 @@ export const StoreInfoContainer = styled.div<{ rearPortal?: boolean }>`
       }
       img {
         height: 20px;
-      }
-      table {
-        td {
-          font-size: 0.8rem;
-          padding: 0 6px 4px 6px;
-          @media ${devices.mobileM} {
-            font-size: 0.9rem;
-          }
-        }
       }
     }
   }

@@ -395,7 +395,7 @@ const ScheduleView = ({
                           slot.blockOrder ? (
                           <ScheduleBlankButton
                             enabled
-                            initial={slot.blockOrder === 1}
+                            chosen={slot.blockOrder === 1}
                             blockOrder={
                               slot.blockOrder > 1
                                 ? gradients[slot.blockOrder]
@@ -404,7 +404,10 @@ const ScheduleView = ({
                             onClick={() => chosenStartDate(slot)}
                             type="button"
                           >
-                            <CrossSvg key={index2} />
+                            <CrossSvg
+                              key={index2}
+                              possibleHead={slot.blockOrder === 1}
+                            />
                           </ScheduleBlankButton>
                         ) : !slot.available && slot.appointmentId ? (
                           <ScheduleBlankButton type="button">

@@ -37,6 +37,7 @@ export const TopH2 = styled.h2<{ extraBottomPadding?: boolean }>`
 export const TopH3 = styled.h3`
   padding: 16px 18px;
   text-align: center;
+  font-size: 1.1rem;
 `;
 
 export const StoreImg = styled.img<{ rearPortal?: boolean }>`
@@ -140,15 +141,14 @@ export const LoadingIcon = styled.div<{ padding?: boolean }>`
 `;
 
 export const StoreHourTable = styled.table`
-  width: 100%;
+  width: 80%;
   tr {
     display: grid;
     grid-template-columns: 52px 1fr 10px 1fr;
-    @media ${devices.mobileM} {
-      grid-template-columns: 62px 1fr 10px 1fr;
-    }
 
     td {
+      padding: 0 6px 4px 6px;
+      font-size: 0.8rem;
       justify-self: center;
       &:first-child {
         justify-self: end;
@@ -158,6 +158,9 @@ export const StoreHourTable = styled.table`
       }
       &:nth-child(4) {
         justify-self: start;
+      }
+      @media ${devices.mobileM} {
+        font-size: 0.9rem;
       }
     }
   }
