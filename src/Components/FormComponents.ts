@@ -137,5 +137,6 @@ export const StoreHourContainer = styled.div`
 
 export const StoreHourGrid = styled.div`
   display: grid;
+  margin: 0px 18px;
   grid-template-columns: 2fr 2fr 1fr;
 `;

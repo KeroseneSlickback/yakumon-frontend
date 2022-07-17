@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import { BackDrop } from "../../Components/Backdrop";
 import { MediumButton } from "../../Components/Buttons";
 import {
+  ContraintContainer,
   PageSectionCard,
   SinglePageContainer,
 } from "../../Components/Containers";
-import { RegisterLoginDiv, TopH1 } from "../../Components/Page-accessories";
+import {
+  RegisterLoginDiv,
+  TopH1,
+  TopH2,
+} from "../../Components/Page-accessories";
 import LoginModal from "../../Modules/Modals/LoginModal";
 import RegisterModal from "../../Modules/Modals/RegisterModal";
 import AuthContext from "../../Utilities/AuthContext";
@@ -51,7 +56,7 @@ const OwnerEmployeeLogin = () => {
     } else if (authContext.owner) {
       return (
         <SinglePageContainer>
-          <PageSectionCard head>
+          <PageSectionCard head plainCenter>
             <TopH1>Welcome Store Owner</TopH1>
             <div>
               <Link to={"/portal/owner"}>
@@ -64,9 +69,9 @@ const OwnerEmployeeLogin = () => {
     } else if (authContext.employee) {
       return (
         <SinglePageContainer>
-          <PageSectionCard head>
+          <PageSectionCard head plainCenter>
             <TopH1>Welcome Store Employee</TopH1>
-            <div>
+            <ContraintContainer>
               <Link to={"/portal/employee"}>
                 <MediumButton portal>Employee Portal</MediumButton>
               </Link>
@@ -74,16 +79,16 @@ const OwnerEmployeeLogin = () => {
                 If you wish to become a store owner, please email the admin at
                 admin@yakumon.com and await to be whitelisted by Yakumon's team.
               </p>
-            </div>
+            </ContraintContainer>
           </PageSectionCard>
         </SinglePageContainer>
       );
     } else {
       return (
         <SinglePageContainer>
-          <PageSectionCard head>
+          <PageSectionCard head plainCenter>
             <TopH1>Not Yet an Owner or Employee?</TopH1>
-            <div>
+            <ContraintContainer>
               <p>
                 If you wish to be listed as an employee on Yakumon, please make
                 a request to your store's owner.
@@ -92,7 +97,7 @@ const OwnerEmployeeLogin = () => {
                 If you wish to become a store owner, please email the admin at
                 admin@yakumon.com and await to be whitelisted by Yakumon's team.
               </p>
-            </div>
+            </ContraintContainer>
           </PageSectionCard>
         </SinglePageContainer>
       );
@@ -100,9 +105,9 @@ const OwnerEmployeeLogin = () => {
   } else {
     return (
       <SinglePageContainer>
-        <PageSectionCard head>
+        <PageSectionCard head plainCenter>
           <TopH1>Welcome Owner or Employee</TopH1>
-          <h2>Please Login or Register</h2>
+          <TopH2>Please Login or Register</TopH2>
           <RegisterLoginDiv>
             <div>
               <MediumButton onClick={toggleRegisterModal} register>

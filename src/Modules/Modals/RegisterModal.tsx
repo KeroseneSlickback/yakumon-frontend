@@ -109,7 +109,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
               required
               name="firstName"
               type="text"
-              placeholder="Will"
+              placeholder="Veronica"
               value={formData.firstName}
               onChange={handleFormChange}
             />
@@ -120,7 +120,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
               required
               name="lastName"
               type="text"
-              placeholder="Spaur"
+              placeholder="Williams"
               value={formData.lastName}
               onChange={handleFormChange}
             />
@@ -144,7 +144,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
               required
               name="username"
               type="text"
-              placeholder="FantasticSam"
+              placeholder="Username"
               value={formData.username}
               onChange={handleFormChange}
             />

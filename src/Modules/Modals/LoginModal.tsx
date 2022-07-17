@@ -82,7 +82,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
               required
               name="username"
               type="text"
-              placeholder="FantasticSam"
+              placeholder="Username"
               value={formData.username}
               onChange={handleFormChange}
             />

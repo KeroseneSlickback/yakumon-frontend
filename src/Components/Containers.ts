@@ -157,6 +157,7 @@ export const PageDivider = styled.div<{
 export const PageSectionCard: any = styled.div<{
   head?: boolean;
   centered?: boolean;
+  plainCenter?: boolean;
   styled?: boolean;
   secondary?: boolean;
   noPadding?: boolean;
@@ -206,6 +207,15 @@ export const PageSectionCard: any = styled.div<{
     css`
       display: flex;
       padding-top: 48px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    `}
+
+    ${(props) =>
+    props.plainCenter &&
+    css`
+      display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -312,9 +322,17 @@ export const ShowcaseGrid = styled.div<{ employee?: boolean }>`
   margin-top: 16px;
   display: grid;
   grid-gap: 8px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   align-items: center;
   justify-content: center;
+
+  @media ${devices.tabletS} {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  @media ${devices.tabletL} {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
 
   ${(props) =>
     props.employee &&
@@ -337,6 +355,7 @@ export const OwnerShowcaseGrid = styled.div`
 `;
 
 export const SelectContainer = styled(Link)`
+  /* max-width: 400px; */
   text-decoration: none;
   color: ${({ theme }) => theme.black};
   background-color: ${({ theme }) => theme.white1};
@@ -391,9 +410,6 @@ export const StoreInfoContainer = styled.div<{ rearPortal?: boolean }>`
         @media ${devices.mobileM} {
           font-size: 0.9rem;
         }
-        @media ${devices.mobileL} {
-          font-size: 1rem;
-        }
       }
       img {
         height: 20px;
@@ -404,9 +420,6 @@ export const StoreInfoContainer = styled.div<{ rearPortal?: boolean }>`
           padding: 0 6px 4px 6px;
           @media ${devices.mobileM} {
             font-size: 0.9rem;
-          }
-          @media ${devices.mobileL} {
-            font-size: 1rem;
           }
         }
       }
@@ -480,4 +493,11 @@ export const ExtraPaddingWrapper = styled.div<{ smallPadding?: boolean }>`
     css`
       padding-bottom: 8px;
     `}
+`;
+
+export const ContraintContainer = styled.div`
+  width: 50%;
+  p {
+    margin-top: 16px;
+  }
 `;

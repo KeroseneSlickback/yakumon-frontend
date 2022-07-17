@@ -394,7 +394,6 @@ const ScheduleView = ({
                           slot.appointmentId &&
                           slot.blockOrder ? (
                           <ScheduleBlankButton
-                            // chosen
                             enabled
                             initial={slot.blockOrder === 1}
                             blockOrder={

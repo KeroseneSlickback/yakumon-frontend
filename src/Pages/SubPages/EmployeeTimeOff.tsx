@@ -165,7 +165,7 @@ const EmployeeTimeOff = () => {
           <PageSectionCard head aboveHead>
             <TopH1>Time Off</TopH1>
           </PageSectionCard>
-          <StyledForm onSubmit={handleFormSubmit}>
+          <StyledForm onSubmit={handleFormSubmit} expandable>
             <PageDivider left>
               <PageSectionCard styled>
                 <p>
