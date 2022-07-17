@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 
-// Add further types to this to spread them across for size as well?
 declare module "styled-components" {
   interface DefaultTheme {
     green1?: string;
@@ -74,8 +73,6 @@ const sizes = {
   laptop: "1024px",
   laptopL: "1440px",
 };
-
-// from tabletMedium => go to mobile design
 
 export const devices = {
   mobileS: `only screen and (min-width: ${sizes.mobileS})`,

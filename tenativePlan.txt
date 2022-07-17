@@ -1,2 +1,8 @@
 
+- Single user, full page, on store page is odd -- center?
+
 - When backend is up, update guest User ID
+
+- Backend Date in schema might lead to duplicate index?
+How about inputting them all as strings?
+-- The issue is about reworking everything from the backend date checking and front-end ingestation

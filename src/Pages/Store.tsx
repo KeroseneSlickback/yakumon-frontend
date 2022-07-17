@@ -155,7 +155,7 @@ const Store = () => {
               </PageSectionCard>
             </PageDivider>
             <PageDivider right>
-              <PageSectionCard styled>
+              <PageSectionCard styled contentFit>
                 <TopH2>Select a Stylist</TopH2>
                 <ShowcaseGrid employee>
                   {store?.employees.map((employee) => {

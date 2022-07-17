@@ -116,7 +116,7 @@ export const PageSplitContainer = styled.div<{ expandable?: boolean }>`
     `}
 `;
 
-export const PageDivider = styled.div<{
+export const PageDivider: any = styled.div<{
   left?: boolean;
   right?: boolean;
   topPadding?: boolean;
@@ -171,6 +171,7 @@ export const PageSectionCard: any = styled.div<{
   disconnectedSubmit?: boolean;
   span2?: boolean;
   largeLimit?: boolean;
+  contentFit?: boolean;
 }>`
   color: ${({ theme }) => theme.white1};
   background-color: ${({ theme }) => theme.purple1};
@@ -291,6 +292,12 @@ export const PageSectionCard: any = styled.div<{
       max-width: 800px;
     `}
 
+    ${(props) =>
+    props.contentFit &&
+    css`
+      max-width: fit-content;
+    `}
+
     @media ${devices.tabletM} {
     ${(props) =>
       props.tabletGrid &&
@@ -344,8 +351,12 @@ export const ShowcaseGrid = styled.div<{ employee?: boolean }>`
   ${(props) =>
     props.employee &&
     css`
-      grid-template-columns: repeat(auto-fill, minmax(200px, 0.75fr));
+      /* grid-template-columns: repeat(auto-fit, minmax(200px, 240px)); */
       justify-items: center;
+      margin: 16px 8px 0px 8px;
+      @media ${devices.laptop} {
+        grid-template-columns: 1fr 1fr;
+      }
     `}
 `;
 
@@ -482,7 +493,10 @@ export const ReservationImgHeaderContainer = styled.div`
 export const ReservationTitleBlock = styled.div`
   display: grid;
   justify-content: center;
-  grid-gap: 8px;
+  grid-gap: 16px;
+  p {
+    text-align: center;
+  }
 `;
 
 export const ExtraPaddingWrapper = styled.div<{ smallPadding?: boolean }>`

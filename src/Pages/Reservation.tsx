@@ -99,7 +99,7 @@ const Reservation = () => {
       ...reservation,
       employee: id,
       customer: AuthUser?._id,
-      createAt: currentTime,
+      createdAt: currentTime,
     };
     axios
       .post<StylistAppointmentType>(
