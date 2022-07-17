@@ -24,14 +24,12 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
   ${(props) =>
     props.storeImg &&
     css`
-      z-index: 0;
-      object-fit: cover;
       border-radius: 1rem;
+      max-height: 240px;
+      width: 240px;
       svg {
-        height: 200px;
-        width: 500px;
-        z-index: 0;
-        object-fit: cover;
+        height: 240px;
+        width: 240px;
         border-radius: 1rem;
         box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px,
           rgba(0, 0, 0, 0.3) 0px 0px 4px,

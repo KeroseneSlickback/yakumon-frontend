@@ -1,1 +1,3 @@
 - Check over customerserachcomponent for multiple accounts
+
+- When backend is up, update guest User ID

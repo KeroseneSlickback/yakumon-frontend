@@ -338,6 +338,7 @@ export const ShowcaseGrid = styled.div<{ employee?: boolean }>`
     props.employee &&
     css`
       grid-template-columns: repeat(auto-fill, minmax(200px, 0.75fr));
+      justify-items: center;
     `}
 `;
 
@@ -345,7 +346,7 @@ export const OwnerShowcaseGrid = styled.div`
   margin-top: -32px;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
   justify-content: center;
   align-items: center;
 
@@ -355,12 +356,13 @@ export const OwnerShowcaseGrid = styled.div`
 `;
 
 export const SelectContainer = styled(Link)`
-  /* max-width: 400px; */
   text-decoration: none;
   color: ${({ theme }) => theme.black};
   background-color: ${({ theme }) => theme.white1};
   display: flex;
   flex-direction: column;
+  align-items: center;
+  /* width: fit-content; */
 
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
     rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;

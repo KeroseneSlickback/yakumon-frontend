@@ -15,6 +15,8 @@ import {
   ShowcaseImg,
   StoreHourTable,
   StoreImg,
+  StoreStylistImg,
+  StylistImg,
   TopH1,
   TopH2,
 } from "../Components/Page-accessories";
@@ -163,9 +165,9 @@ const Store = () => {
                         key={employee._id}
                       >
                         {employee.picture ? (
-                          <ShowcaseImg
+                          <StoreStylistImg
                             src={`data:image/png;base64,${employee.picture}`}
-                            alt="hairsalon"
+                            alt="stylist"
                           />
                         ) : (
                           <FillerImgSvg storeImg />
