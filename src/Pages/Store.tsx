@@ -25,7 +25,7 @@ import location from "../Utilities/Images/SVGs/location.svg";
 import clock from "../Utilities/Images/SVGs/clock.svg";
 import phone from "../Utilities/Images/SVGs/phone.svg";
 import site from "../Utilities/Images/SVGs/site.svg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MessageType, StoreType } from "../Utilities/types";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -83,7 +83,7 @@ const Store = () => {
           <PageSectionCard head aboveHead>
             <TopH1 extraPadding>{store?.storeName}</TopH1>
           </PageSectionCard>
-          <PageSplitContainer>
+          <PageSplitContainer expandable>
             <PageDivider left>
               <PageSectionCard noPadding>
                 <StoreImgDiv>
@@ -154,8 +154,8 @@ const Store = () => {
                 </StoreDescContainer>
               </PageSectionCard>
             </PageDivider>
-            <PageDivider right>
-              <PageSectionCard styled contentFit>
+            <PageDivider right mediumLimit>
+              <PageSectionCard styled>
                 <TopH2>Select a Stylist</TopH2>
                 <ShowcaseGrid employee>
                   {store?.employees.map((employee) => {
@@ -163,6 +163,7 @@ const Store = () => {
                       <SelectContainer
                         to={`/reservation/${employee._id}`}
                         key={employee._id}
+                        store
                       >
                         {employee.picture ? (
                           <StoreStylistImg

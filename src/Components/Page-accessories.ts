@@ -79,8 +79,8 @@ export const StylistImg = styled.img`
 `;
 
 export const StoreStylistImg = styled(StylistImg)`
-  height: 200px;
-  width: 200px;
+  height: 180px;
+  width: 180px;
 `;
 
 export const RegisterLoginDiv = styled.div`

@@ -110,7 +110,7 @@ export const PageSplitContainer = styled.div<{ expandable?: boolean }>`
     props.expandable &&
     css`
       @media ${devices.laptop} {
-        grid-template-columns: 1fr 2fr;
+        display: flex;
         max-width: 90%;
       }
     `}
@@ -120,6 +120,7 @@ export const PageDivider: any = styled.div<{
   left?: boolean;
   right?: boolean;
   topPadding?: boolean;
+  mediumLimit?: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -152,6 +153,12 @@ export const PageDivider: any = styled.div<{
         padding-top: 16px;
       }
     `}
+
+    ${(props) =>
+    props.mediumLimit &&
+    css`
+      max-width: 500px;
+    `}
 `;
 
 export const PageSectionCard: any = styled.div<{
@@ -170,8 +177,9 @@ export const PageSectionCard: any = styled.div<{
   aboveHead?: boolean;
   disconnectedSubmit?: boolean;
   span2?: boolean;
-  largeLimit?: boolean;
   contentFit?: boolean;
+  mediumLimit?: boolean;
+  largeLimit?: boolean;
 }>`
   color: ${({ theme }) => theme.white1};
   background-color: ${({ theme }) => theme.purple1};
@@ -262,7 +270,6 @@ export const PageSectionCard: any = styled.div<{
         padding-bottom: 16px;
       }
     `}
-
     ${(props) =>
     props.aboveHead &&
     css`
@@ -270,14 +277,12 @@ export const PageSectionCard: any = styled.div<{
         padding-bottom: 16px;
       }
     `}
-
     ${(props) =>
     props.disconnectedSubmit &&
     css`
       margin-top: 16px;
       max-width: 400px;
     `}
-
     ${(props) =>
     props.span2 &&
     css`
@@ -295,7 +300,13 @@ export const PageSectionCard: any = styled.div<{
     ${(props) =>
     props.contentFit &&
     css`
-      max-width: fit-content;
+      width: fit-content;
+    `}
+
+    ${(props) =>
+    props.mediumLimit &&
+    css`
+      max-width: 500px;
     `}
 
     @media ${devices.tabletM} {
@@ -351,12 +362,11 @@ export const ShowcaseGrid = styled.div<{ employee?: boolean }>`
   ${(props) =>
     props.employee &&
     css`
-      /* grid-template-columns: repeat(auto-fit, minmax(200px, 240px)); */
-      justify-items: center;
-      margin: 16px 8px 0px 8px;
-      @media ${devices.laptop} {
-        grid-template-columns: 1fr 1fr;
-      }
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      align-self: center;
     `}
 `;
 
@@ -373,7 +383,7 @@ export const OwnerShowcaseGrid = styled.div`
   }
 `;
 
-export const SelectContainer = styled(Link)`
+export const SelectContainer = styled(Link)<{ store?: boolean }>`
   text-decoration: none;
   color: ${({ theme }) => theme.black};
   background-color: ${({ theme }) => theme.white1};
@@ -393,6 +403,12 @@ export const SelectContainer = styled(Link)`
   &:hover {
     background-color: ${({ theme }) => theme.white2};
   }
+
+  ${(props) =>
+    props.store &&
+    css`
+      margin: 2px;
+    `}
 `;
 
 export const SelectContainerDiv = styled.div`
