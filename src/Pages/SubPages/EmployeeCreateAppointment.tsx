@@ -79,7 +79,7 @@ const EmployeeCreateAppointment = () => {
     };
     axios
       .post<StylistAppointmentType>(
-        "http://localhost:8888/appointment",
+        "https://yakumon.herokuapp.com/appointment",
         reservationData,
         {
           headers: {
@@ -135,7 +135,7 @@ const EmployeeCreateAppointment = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<UserType>(`http://localhost:8888/user/${id}`)
+          .get<UserType>(`https://yakumon.herokuapp.com/user/${id}`)
           .then((res) => {
             setLoad(false);
             setStylist(res.data);

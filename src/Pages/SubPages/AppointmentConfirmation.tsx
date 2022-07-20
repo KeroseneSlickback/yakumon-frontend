@@ -33,7 +33,7 @@ const AppointmentConfirmation = () => {
       const getData = () => {
         axios
           .get<StylistAppointmentType>(
-            `http://localhost:8888/appointment/${id}`,
+            `https://yakumon.herokuapp.com/appointment/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${jwt}`,

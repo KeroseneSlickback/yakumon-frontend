@@ -52,7 +52,7 @@ const EmployeeTimeOff = () => {
 
         axios
           .post<StylistAppointmentType>(
-            "http://localhost:8888/timeoff",
+            "https://yakumon.herokuapp.com/timeoff",
             sendingData,
             {
               headers: {
@@ -66,14 +66,17 @@ const EmployeeTimeOff = () => {
       }
       if (removeTimeOff.length > 0) {
         axios
-          .delete<BackendResponseDataType>("http://localhost:8888/timeoff", {
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
-            data: {
-              removeTimeOff,
-            },
-          })
+          .delete<BackendResponseDataType>(
+            "https://yakumon.herokuapp.com/timeoff",
+            {
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+              data: {
+                removeTimeOff,
+              },
+            }
+          )
           .catch((e) => {
             throw new Error(e);
           });
@@ -133,7 +136,7 @@ const EmployeeTimeOff = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<UserType>(`http://localhost:8888/user/${id}`)
+          .get<UserType>(`https://yakumon.herokuapp.com/user/${id}`)
           .then((res) => {
             setLoad(false);
             setUser(res.data);

@@ -69,7 +69,7 @@ const OwnerSection = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<UserType>(`http://localhost:8888/user/${owner?._id}`)
+          .get<UserType>(`https://yakumon.herokuapp.com/user/${owner?._id}`)
           .then((response) => {
             setLoad(false);
             response.data.ownedStores?.forEach((store) => {

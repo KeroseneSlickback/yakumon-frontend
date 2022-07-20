@@ -48,7 +48,7 @@ const Store = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<StoreType>(`http://localhost:8888/store/${id}`)
+          .get<StoreType>(`https://yakumon.herokuapp.com/store/${id}`)
           .then((response) => {
             setLoad(false);
             setStore(response.data);

@@ -28,7 +28,7 @@ const Home = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<StoreType[]>("http://localhost:8888/store")
+          .get<StoreType[]>("https://yakumon.herokuapp.com/store")
           .then((response) => {
             response.data.forEach((store) => {
               if (store.picture) {

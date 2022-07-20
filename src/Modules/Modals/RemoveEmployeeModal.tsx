@@ -35,7 +35,7 @@ const RemoveEmployeeModal = (props: Props) => {
     };
     axios
       .patch<BackendResponseDataType>(
-        "http://localhost:8888/user/employeeauthenticate",
+        "https://yakumon.herokuapp.com/user/employeeauthenticate",
         formData,
         {
           headers: {

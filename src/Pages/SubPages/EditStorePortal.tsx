@@ -80,7 +80,7 @@ const EditStorePortal = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<StoreType>(`http://localhost:8888/store/${id}`)
+          .get<StoreType>(`https://yakumon.herokuapp.com/store/${id}`)
           .then((response) => {
             setLoad(false);
             if (response.data.picture) {
@@ -257,7 +257,7 @@ const EditStorePortal = () => {
     try {
       if (objectEvaluation || hourEvaluation) {
         axios.patch<StoreType>(
-          `http://localhost:8888/store/${id}`,
+          `https://yakumon.herokuapp.com/store/${id}`,
           returnObject,
           {
             headers: {
@@ -268,7 +268,7 @@ const EditStorePortal = () => {
       }
       if (imageInputted) {
         axios.patch<BackendResponseDataType>(
-          `http://localhost:8888/store/${id}/picture`,
+          `https://yakumon.herokuapp.com/store/${id}/picture`,
           imageFormData,
           {
             headers: {

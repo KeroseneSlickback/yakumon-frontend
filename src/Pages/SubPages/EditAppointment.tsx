@@ -56,7 +56,7 @@ const EditAppointment = () => {
       const getData = async () => {
         await axios
           .get<StylistAppointmentType>(
-            `http://localhost:8888/appointment/${id}`,
+            `https://yakumon.herokuapp.com/appointment/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${jwt}`,
@@ -81,7 +81,7 @@ const EditAppointment = () => {
             });
           });
         await axios
-          .get<UserType>(`http://localhost:8888/user/${parsedUser._id}`)
+          .get<UserType>(`https://yakumon.herokuapp.com/user/${parsedUser._id}`)
           .then((res) => {
             setUser(res.data);
           })
@@ -125,7 +125,7 @@ const EditAppointment = () => {
     };
     axios
       .patch<StylistAppointmentType>(
-        `http://localhost:8888/appointment/${appointment?._id}`,
+        `https://yakumon.herokuapp.com/appointment/${appointment?._id}`,
         editReservationData,
         {
           headers: {

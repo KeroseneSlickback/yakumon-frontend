@@ -60,7 +60,10 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
     try {
       verifyPassword(formData.password, formData.passwordConfirmation);
       axios
-        .post<BackendResponseDataType>("http://localhost:8888/user/", formData)
+        .post<BackendResponseDataType>(
+          "https://yakumon.herokuapp.com/user/",
+          formData
+        )
         .then((response) => {
           localStorage.setItem("user", JSON.stringify(response.data.user));
           localStorage.setItem("jwt", response.data.token.split(" ")[1]);

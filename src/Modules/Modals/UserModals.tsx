@@ -73,7 +73,7 @@ export const UserModal = (props: Props) => {
 
     axios
       .patch<BackendResponseDataType>(
-        "http://localhost:8888/user",
+        "https://yakumon.herokuapp.com/user",
         verifiedObject,
         {
           headers: {
@@ -212,7 +212,7 @@ export const UserDeleteConfirm = (props: Props) => {
     const jwt = localStorage.getItem("jwt");
     setMessage(null);
     axios
-      .delete<BackendResponseDataType>(`http://localhost:8888/user`, {
+      .delete<BackendResponseDataType>(`https://yakumon.herokuapp.com/user`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
@@ -311,7 +311,7 @@ export const EmployeePatchModal = (props: Props) => {
     try {
       if (imageInputted) {
         axios.patch<BackendResponseDataType>(
-          "http://localhost:8888/user/picture",
+          "https://yakumon.herokuapp.com/user/picture",
           imageFormData,
           {
             headers: {
@@ -322,7 +322,7 @@ export const EmployeePatchModal = (props: Props) => {
       }
       if (sendingObjCheck) {
         axios.patch<BackendResponseDataType>(
-          "http://localhost:8888/user",
+          "https://yakumon.herokuapp.com/user",
           sendingObj,
           {
             headers: {
@@ -352,7 +352,7 @@ export const EmployeePatchModal = (props: Props) => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<UserType>(`http://localhost:8888/user/${props.userId}`)
+          .get<UserType>(`https://yakumon.herokuapp.com/user/${props.userId}`)
           .then((res) => {
             setLoad(false);
             if (res.data.picture) {

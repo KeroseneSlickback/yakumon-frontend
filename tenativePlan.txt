@@ -1,5 +1,0 @@
-
-- Single user, full page, on store page is odd -- center?
-
-- When backend is up, update guest User ID
-

@@ -215,7 +215,7 @@ const NewStorePortal = () => {
 
     if (objectEvaluation && hourEvaluation && imageInputted) {
       axios
-        .post<StoreType>("http://localhost:8888/store", returnObject, {
+        .post<StoreType>("https://yakumon.herokuapp.com/store", returnObject, {
           headers: {
             Authorization: `Bearer ${jwt}`,
           },
@@ -225,7 +225,7 @@ const NewStorePortal = () => {
             const storeId = res.data._id;
             axios
               .patch<StoreType>(
-                `http://localhost:8888/store/${storeId}/picture`,
+                `https://yakumon.herokuapp.com/store/${storeId}/picture`,
                 imageFormData,
                 {
                   headers: {
