@@ -15,6 +15,7 @@ import {
   ButtonBox,
   ModalContainer,
   ModalH3,
+  ModalH4,
 } from "../../Components/ModalComponents";
 import AuthContext from "../../Utilities/AuthContext";
 import {
@@ -103,7 +104,9 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
   return (
     <ModalContainer>
       <ModalH3 paddingBottom>Register</ModalH3>
-      <h4>Please enter the infomation below to register</h4>
+      <ModalH4 paddingBottom>
+        Please enter the infomation below to register
+      </ModalH4>
       <StyledModalForm onSubmit={handleSubmit}>
         <StyledModalBlock sideBySide>
           <div>
