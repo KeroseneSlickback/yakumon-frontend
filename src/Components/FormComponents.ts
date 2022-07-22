@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { devices } from "../Styles/Variables";
 
 export const StyledForm = styled.form<{ expandable?: boolean }>`
-  /* padding: 8px 0 0 0; */
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;

@@ -18,7 +18,6 @@ export const MainPageContainer = styled.main`
   align-items: center;
 `;
 
-// Navbar containers
 export const NavBarHeader = styled.header`
   display: flex;
   flex-direction: row;
@@ -47,7 +46,6 @@ export const NavBarHeader = styled.header`
   }
 `;
 
-// Footer containers
 export const FooterContainer = styled.footer`
   border-radius: 0.5rem 0.5rem 0 0px;
   background-color: ${({ theme }) => theme.white1};
@@ -70,7 +68,6 @@ export const FooterButtonDiv = styled.div`
   gap: 2px;
 `;
 
-// Page containers
 export const SinglePageContainer = styled.div<{ limit?: boolean }>`
   display: grid;
   grid-template-columns: 1fr;
@@ -345,22 +342,11 @@ export const CheckboxSpan = styled.span`
 
 export const ShowCaseContainer = styled.div<{ employee?: boolean }>`
   margin-top: 16px;
-  /* display: grid; */
-  /* grid-gap: 16px; */
-  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   justify-items: center;
-
-  /* @media ${devices.tabletS} {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
-  @media ${devices.tabletL} {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
-  } */
 
   ${(props) =>
     props.employee &&

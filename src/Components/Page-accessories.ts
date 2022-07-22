@@ -154,7 +154,6 @@ export const LoadingIcon = styled.div<{ padding?: boolean }>`
 `;
 
 export const StoreHourTable = styled.table`
-  /* width: 80%; */
   tr {
     display: grid;
     grid-template-columns: 52px 1fr 10px 1fr;
