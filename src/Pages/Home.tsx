@@ -4,7 +4,7 @@ import {
   PageSectionCard,
   SelectContainer,
   SinglePageContainer,
-  ShowcaseGrid,
+  ShowCaseContainer,
   SelectContainerDiv,
 } from "../Components/Containers";
 import {
@@ -57,7 +57,7 @@ const Home = () => {
       </PageSectionCard>
       <PageSectionCard styled largeLimit>
         <TopH2>Select a Store to Start a Reservation</TopH2>
-        <ShowcaseGrid>
+        <ShowCaseContainer>
           {error ? (
             <MessageBox>
               <RegularMessage message={error.message} warning={error.warning} />
@@ -84,7 +84,7 @@ const Home = () => {
               );
             })
           )}
-        </ShowcaseGrid>
+        </ShowCaseContainer>
       </PageSectionCard>
     </SinglePageContainer>
   );

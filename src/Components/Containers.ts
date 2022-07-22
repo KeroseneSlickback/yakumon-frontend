@@ -294,7 +294,7 @@ export const PageSectionCard: any = styled.div<{
     ${(props) =>
     props.largeLimit &&
     css`
-      max-width: 800px;
+      max-width: 740px;
     `}
 
     ${(props) =>
@@ -343,30 +343,31 @@ export const CheckboxSpan = styled.span`
   justify-content: center;
 `;
 
-export const ShowcaseGrid = styled.div<{ employee?: boolean }>`
+export const ShowCaseContainer = styled.div<{ employee?: boolean }>`
   margin-top: 16px;
-  display: grid;
-  grid-gap: 8px;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  /* display: grid; */
+  /* grid-gap: 16px; */
+  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  justify-items: center;
 
-  @media ${devices.tabletS} {
+  /* @media ${devices.tabletS} {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
   @media ${devices.tabletL} {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  }
+    grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+  } */
 
   ${(props) =>
     props.employee &&
     css`
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      align-self: center;
+      justify-content: space-around;
     `}
 `;
 
@@ -390,12 +391,15 @@ export const SelectContainer = styled(Link)<{ store?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 280px;
+  margin: 8px;
 
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px, rgba(0, 0, 0, 0.3) 0px 0px 4px,
     rgba(0, 0, 0, 0.05) 0px 0px 4px 1px inset;
   border-radius: 1rem;
   h3 {
     padding: 8px;
+    font-size: 1.1rem;
     align-self: center;
     justify-self: center;
   }
@@ -404,10 +408,27 @@ export const SelectContainer = styled(Link)<{ store?: boolean }>`
     background-color: ${({ theme }) => theme.white2};
   }
 
+  @media ${devices.tabletS} {
+    width: 300px;
+  }
+
+  @media ${devices.tabletL} {
+    width: 320px;
+  }
+
   ${(props) =>
     props.store &&
     css`
-      margin: 2px;
+      margin: 4px;
+      width: 220px;
+
+      @media ${devices.tabletS} {
+        width: 220px;
+      }
+
+      @media ${devices.tabletL} {
+        width: 220px;
+      }
     `}
 `;
 

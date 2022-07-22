@@ -3,7 +3,7 @@ import {
   SinglePageContainer,
   StoreInfoContainer,
   SelectContainer,
-  ShowcaseGrid,
+  ShowCaseContainer,
   StoreDescContainer,
   StoreImgDiv,
   PageDivider,
@@ -12,11 +12,10 @@ import {
 import {
   LoadingIcon,
   LoadingIconContainer,
-  ShowcaseImg,
+  StoreDescriptionP,
   StoreHourTable,
   StoreImg,
   StoreStylistImg,
-  StylistImg,
   TopH1,
   TopH2,
 } from "../Components/Page-accessories";
@@ -25,7 +24,7 @@ import location from "../Utilities/Images/SVGs/location.svg";
 import clock from "../Utilities/Images/SVGs/clock.svg";
 import phone from "../Utilities/Images/SVGs/phone.svg";
 import site from "../Utilities/Images/SVGs/site.svg";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { MessageType, StoreType } from "../Utilities/types";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -149,15 +148,15 @@ const Store = () => {
                 <StoreDescContainer>
                   <TopH2>Description:</TopH2>
                   {store?.storeDescription.split("\n").map((str, i) => {
-                    return <p key={i}>{str}</p>;
+                    return <StoreDescriptionP key={i}>{str}</StoreDescriptionP>;
                   })}
                 </StoreDescContainer>
               </PageSectionCard>
             </PageDivider>
             <PageDivider right mediumLimit>
               <PageSectionCard styled>
-                <TopH2>Select a Stylist</TopH2>
-                <ShowcaseGrid employee>
+                <TopH2 textCenter>Select a Stylist</TopH2>
+                <ShowCaseContainer employee>
                   {store?.employees.map((employee) => {
                     return (
                       <SelectContainer
@@ -179,7 +178,7 @@ const Store = () => {
                       </SelectContainer>
                     );
                   })}
-                </ShowcaseGrid>
+                </ShowCaseContainer>
               </PageSectionCard>
             </PageDivider>
           </PageSplitContainer>

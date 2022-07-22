@@ -2,10 +2,14 @@ import styled, { css } from "styled-components";
 import { devices } from "../Styles/Variables";
 
 export const ShowcaseImg = styled.img`
-  height: 200px;
+  height: 240px;
   width: 100%;
   object-fit: cover;
   border-radius: 1rem;
+
+  @media ${devices.tabletM} {
+    height: 240px;
+  }
 `;
 
 export const TopH1 = styled.h1<{
@@ -25,12 +29,21 @@ export const TopH1 = styled.h1<{
   ${(props) => props.lessPadding && css``}
 `;
 
-export const TopH2 = styled.h2<{ extraBottomPadding?: boolean }>`
+export const TopH2 = styled.h2<{
+  extraBottomPadding?: boolean;
+  textCenter?: boolean;
+}>`
   font-size: 1.25rem;
   ${(props) =>
     props.extraBottomPadding &&
     css`
       padding-bottom: 8px;
+    `}
+
+  ${(props) =>
+    props.textCenter &&
+    css`
+      align-self: center;
     `}
 `;
 
@@ -79,8 +92,8 @@ export const StylistImg = styled.img`
 `;
 
 export const StoreStylistImg = styled(StylistImg)`
-  height: 180px;
-  width: 180px;
+  height: 220px;
+  width: 220px;
 `;
 
 export const RegisterLoginDiv = styled.div`
@@ -188,4 +201,8 @@ export const AppointmentConfirmContainer = styled.div`
       font-size: 1.3rem;
     }
   }
+`;
+
+export const StoreDescriptionP = styled.p`
+  line-height: 1.35rem;
 `;
