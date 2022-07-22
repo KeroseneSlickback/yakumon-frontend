@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { ChangeEvent, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   CloseButton,
   ClosedButtonDiv,
@@ -27,6 +28,7 @@ import {
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
 const RegisterModal = ({ closeModal }: ModalCloseProp) => {
+  const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const [formData, setFormData] = useState<UserRegisterType>({
     firstName: "",
@@ -74,7 +76,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
           });
           setTimeout(() => {
             authContext.login();
-            closeModal();
+            navigate(0);
           }, 1000);
         });
     } catch (e: any) {
