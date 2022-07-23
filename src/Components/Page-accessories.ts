@@ -5,7 +5,7 @@ export const ShowcaseImg = styled.img`
   height: 240px;
   width: 100%;
   object-fit: cover;
-  border-radius: 1rem;
+  border-radius: 1rem 1rem 0rem 0rem;
 
   @media ${devices.tabletM} {
     height: 240px;

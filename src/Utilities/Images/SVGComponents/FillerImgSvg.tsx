@@ -11,7 +11,7 @@ const SvgContainer = styled(SvgDefaultContainer)<SvgPropsDefault>`
   justify-content: center;
   align-items: center;
   max-height: 200px;
-  border-radius: 1rem;
+  border-radius: 1rem 1rem 0rem 0rem;
   height: 100%;
   width: 100%;
   background-color: ${({ theme }) => theme.white1};
