@@ -52,7 +52,7 @@ export const DoubleConfirmDeleteStoreModal = (props: Props) => {
     setMessage(null);
     axios
       .delete<BackendResponseDataType>(
-        `https://yakumon.herokuapp.com/${props.type}/${props.id}`,
+        `https://yakumon-backend.onrender.com/${props.type}/${props.id}`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,

@@ -142,7 +142,7 @@ export const DeleteAppointmentModal = (props: DeleteAppointmentProps) => {
     setMessage(null);
     axios
       .delete<BackendResponseDataType>(
-        `https://yakumon.herokuapp.com/appointment/${props.appointment?._id}`,
+        `https://yakumon-backend.onrender.com/appointment/${props.appointment?._id}`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,

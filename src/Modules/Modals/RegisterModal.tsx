@@ -64,7 +64,7 @@ const RegisterModal = ({ closeModal }: ModalCloseProp) => {
       verifyPassword(formData.password, formData.passwordConfirmation);
       axios
         .post<BackendResponseDataType>(
-          "https://yakumon.herokuapp.com/user/",
+          "https://yakumon-backend.onrender.com/user/",
           formData
         )
         .then((response) => {

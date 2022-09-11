@@ -44,7 +44,7 @@ export const CustomerSearchBlock = (props: Props) => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<UserType[]>("https://yakumon.herokuapp.com/user/all")
+          .get<UserType[]>("https://yakumon-backend.onrender.com/user/all")
           .then((res) => {
             setCustomers(res.data);
           })

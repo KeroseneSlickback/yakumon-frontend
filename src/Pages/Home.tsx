@@ -29,7 +29,7 @@ const Home = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<StoreType[]>("https://yakumon.herokuapp.com/store")
+          .get<StoreType[]>("https://yakumon-backend.onrender.com/store")
           .then((response) => {
             response.data.forEach((store) => {
               if (store.picture) {

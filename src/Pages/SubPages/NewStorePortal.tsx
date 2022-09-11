@@ -216,17 +216,21 @@ const NewStorePortal = () => {
 
     if (objectEvaluation && hourEvaluation && imageInputted) {
       axios
-        .post<StoreType>("https://yakumon.herokuapp.com/store", returnObject, {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        })
+        .post<StoreType>(
+          "https://yakumon-backend.onrender.com/store",
+          returnObject,
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        )
         .then((res) => {
           if (res.status === 201) {
             const storeId = res.data._id;
             axios
               .patch<StoreType>(
-                `https://yakumon.herokuapp.com/store/${storeId}/picture`,
+                `https://yakumon-backend.onrender.com/store/${storeId}/picture`,
                 imageFormData,
                 {
                   headers: {

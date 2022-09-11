@@ -42,7 +42,7 @@ const AddEmployeeModal = (props: Props) => {
     };
     axios
       .patch<BackendResponseDataType>(
-        "https://yakumon.herokuapp.com/user/employeeauthenticate",
+        "https://yakumon-backend.onrender.com/user/employeeauthenticate",
         formData,
         {
           headers: {

@@ -87,7 +87,9 @@ const EmployeeSection = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<UserType>(`https://yakumon.herokuapp.com/user/${user?._id}`)
+          .get<UserType>(
+            `https://yakumon-backend.onrender.com/user/${user?._id}`
+          )
           .then((res) => {
             setLoad(false);
             setUser(res.data);
@@ -148,7 +150,7 @@ const EmployeeSection = () => {
     setAppointmentLookup(null);
     axios
       .get<StylistAppointmentType>(
-        `https://yakumon.herokuapp.com/appointment/${headSlot.appointmentId}`,
+        `https://yakumon-backend.onrender.com/appointment/${headSlot.appointmentId}`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,

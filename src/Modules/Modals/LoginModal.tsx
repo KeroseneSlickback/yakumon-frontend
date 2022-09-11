@@ -41,7 +41,7 @@ const LoginModal = ({ closeModal }: ModalCloseProp) => {
     setMessage(null);
     axios
       .post<BackendResponseDataType>(
-        "https://yakumon.herokuapp.com/user/login",
+        "https://yakumon-backend.onrender.com/user/login",
         formData
       )
       .then((res) => {

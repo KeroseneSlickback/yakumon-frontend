@@ -102,7 +102,7 @@ const Reservation = () => {
     };
     axios
       .post<StylistAppointmentType>(
-        "https://yakumon.herokuapp.com/appointment",
+        "https://yakumon-backend.onrender.com/appointment",
         reservationData,
         {
           headers: {
@@ -151,7 +151,7 @@ const Reservation = () => {
     const debounce = setTimeout(() => {
       const getData = () => {
         axios
-          .get<UserType>(`https://yakumon.herokuapp.com/user/${id}`)
+          .get<UserType>(`https://yakumon-backend.onrender.com/user/${id}`)
           .then((response) => {
             setLoad(false);
             setUser(response.data);

@@ -58,11 +58,15 @@ export const NewServiceModal = (props: Props) => {
     setMessage(null);
     const jwt = localStorage.getItem("jwt");
     axios
-      .post<ServiceType>("https://yakumon.herokuapp.com/service", formData, {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      })
+      .post<ServiceType>(
+        "https://yakumon-backend.onrender.com/service",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
       .then(() => {
         setMessage({
           message: "Successfuly made service",
@@ -190,7 +194,7 @@ export const EditServiceModal = (props: Props) => {
     const jwt = localStorage.getItem("jwt");
     axios
       .patch<ServiceType>(
-        `https://yakumon.herokuapp.com/service/${props.service?._id}`,
+        `https://yakumon-backend.onrender.com/service/${props.service?._id}`,
         formData,
         {
           headers: {
@@ -300,7 +304,7 @@ export const RemoveServiceModal = (props: Props) => {
     const jwt = localStorage.getItem("jwt");
     axios
       .delete<ServiceType>(
-        `https://yakumon.herokuapp.com/service/${props.serviceId}`,
+        `https://yakumon-backend.onrender.com/service/${props.serviceId}`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
