@@ -40,8 +40,9 @@ const Home = () => {
             setLoad(false);
           })
           .catch((e) => {
+            console.log(e.response.data);
             setError({
-              message: `${e.response.data.error}`,
+              message: `${e.response.data.message}`,
               warning: true,
             });
           });

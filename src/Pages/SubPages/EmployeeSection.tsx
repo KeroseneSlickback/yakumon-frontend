@@ -17,7 +17,6 @@ import {
   StoreHourTable,
   StoreImg,
   TopH1,
-  TopH2,
   TopH3,
 } from "../../Components/Page-accessories";
 import RegularMessage, {
