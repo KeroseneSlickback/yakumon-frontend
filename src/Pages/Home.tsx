@@ -14,6 +14,7 @@ import {
   ShowcaseImg,
   TopH2,
 } from "../Components/Page-accessories";
+import DelayMessageModule from "../Modules/Messages/DelayMessageModule";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
 import { MessageType, StoreType } from "../Utilities/types";
@@ -65,6 +66,7 @@ const Home = () => {
           ) : load ? (
             <LoadingIconContainer>
               <LoadingIcon />
+              <DelayMessageModule load={load} />
             </LoadingIconContainer>
           ) : (
             fetchedStores?.map((store) => {

@@ -110,6 +110,7 @@ export const LoadingIconContainer = styled.div<{
   marginBottom?: boolean;
 }>`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   ${(props) =>

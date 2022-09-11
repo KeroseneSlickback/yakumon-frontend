@@ -64,6 +64,7 @@ import {
   timesArray,
   weekdaysArray,
 } from "../../Utilities/Helpers/HelperObjArrays";
+import DelayMessageModule from "../../Modules/Messages/DelayMessageModule";
 
 const EmployeeSection = () => {
   const authContext = useContext(AuthContext);
@@ -168,6 +169,7 @@ const EmployeeSection = () => {
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />
+          <DelayMessageModule load={load} />
         </LoadingIconContainer>
       ) : user ? (
         <>

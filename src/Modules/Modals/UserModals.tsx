@@ -33,6 +33,7 @@ import {
   MessageType,
   UserType,
 } from "../../Utilities/types";
+import DelayMessageModule from "../Messages/DelayMessageModule";
 import RegularMessage, { MessageBox } from "../Messages/RegularMessage";
 
 interface Props {
@@ -383,6 +384,7 @@ export const EmployeePatchModal = (props: Props) => {
       ) : load ? (
         <LoadingIconContainer>
           <LoadingIcon />
+          <DelayMessageModule load={load} />
         </LoadingIconContainer>
       ) : (
         <>

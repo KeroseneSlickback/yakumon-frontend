@@ -15,6 +15,7 @@ import {
   LoadingIconContainer,
   TopH1,
 } from "../../Components/Page-accessories";
+import DelayMessageModule from "../../Modules/Messages/DelayMessageModule";
 import RegularMessage, {
   MessageBox,
 } from "../../Modules/Messages/RegularMessage";
@@ -162,6 +163,7 @@ const EmployeeTimeOff = () => {
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />
+          <DelayMessageModule load={load} />
         </LoadingIconContainer>
       ) : (
         <>

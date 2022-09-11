@@ -42,6 +42,7 @@ import RegularMessage, {
   MessageBox,
 } from "../../Modules/Messages/RegularMessage";
 import AddEmployeeModal from "../../Modules/Modals/AddEmployeeModal";
+import DelayMessageModule from "../../Modules/Messages/DelayMessageModule";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -127,6 +128,7 @@ const OwnerSection = () => {
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />
+          <DelayMessageModule load={load} />
         </LoadingIconContainer>
       ) : (
         <>

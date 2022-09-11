@@ -17,6 +17,7 @@ import {
   TopH1,
   TopH3,
 } from "../../Components/Page-accessories";
+import DelayMessageModule from "../../Modules/Messages/DelayMessageModule";
 import RegularMessage, {
   MessageBox,
 } from "../../Modules/Messages/RegularMessage";
@@ -159,6 +160,7 @@ const EditAppointment = () => {
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />
+          <DelayMessageModule load={load} />
         </LoadingIconContainer>
       ) : appointment !== null ? (
         <>

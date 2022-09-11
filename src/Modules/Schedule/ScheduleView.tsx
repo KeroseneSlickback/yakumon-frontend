@@ -33,6 +33,7 @@ import { ScheduleBlankButton, ScheduleButton } from "../../Components/Buttons";
 import AuthContext from "../../Utilities/AuthContext";
 import { useFindWindowSize } from "../../Utilities/Hooks/useFindWindowSize";
 import { gradients } from "../../Styles/Variables";
+import DelayMessageModule from "../Messages/DelayMessageModule";
 
 const ScheduleView = ({
   appointments,
@@ -326,6 +327,7 @@ const ScheduleView = ({
       {load ? (
         <LoadingIconContainer marginBottom>
           <LoadingIcon padding />
+          <DelayMessageModule load={load} />
         </LoadingIconContainer>
       ) : (
         <StyledTable>

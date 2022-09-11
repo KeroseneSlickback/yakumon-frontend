@@ -34,6 +34,7 @@ import RegularMessage, {
   MessageBox,
 } from "../../Modules/Messages/RegularMessage";
 import { CustomerSearchBlock } from "../../Components/CustomerSearchComponents";
+import DelayMessageModule from "../../Modules/Messages/DelayMessageModule";
 
 const EmployeeCreateAppointment = () => {
   const { id } = useParams();
@@ -161,6 +162,7 @@ const EmployeeCreateAppointment = () => {
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />
+          <DelayMessageModule load={load} />
         </LoadingIconContainer>
       ) : (
         <>

@@ -45,6 +45,7 @@ import {
   hoursArray,
   listHoursArray,
 } from "../../Utilities/Helpers/HelperObjArrays";
+import DelayMessageModule from "../../Modules/Messages/DelayMessageModule";
 
 const EditStorePortal = () => {
   const navigate = useNavigate();
@@ -301,6 +302,7 @@ const EditStorePortal = () => {
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />
+          <DelayMessageModule load={load} />
         </LoadingIconContainer>
       ) : (
         <>

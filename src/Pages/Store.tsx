@@ -31,6 +31,7 @@ import { useParams } from "react-router-dom";
 import StoreHour from "../Components/StoreHour";
 import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
+import DelayMessageModule from "../Modules/Messages/DelayMessageModule";
 
 const weekdaysArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
@@ -76,6 +77,7 @@ const Store = () => {
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />
+          <DelayMessageModule load={load} />
         </LoadingIconContainer>
       ) : (
         <>

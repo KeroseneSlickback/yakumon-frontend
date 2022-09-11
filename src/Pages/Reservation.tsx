@@ -41,12 +41,11 @@ import ScheduleView from "../Modules/Schedule/ScheduleView";
 import RegularMessage, { MessageBox } from "../Modules/Messages/RegularMessage";
 import { FillerImgSvg } from "../Utilities/Images/SVGComponents/FillerImgSvg";
 import { timesArrayShort } from "../Utilities/Helpers/HelperObjArrays";
-import { useFindWindowSize } from "../Utilities/Hooks/useFindWindowSize";
+import DelayMessageModule from "../Modules/Messages/DelayMessageModule";
 
 const Reservation = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { width } = useFindWindowSize();
   const { loggedIn, user: AuthUser } = useContext(AuthContext);
   const [user, setUser] = useState<UserType | null>(null);
   const [userImg, setUserImg] = useState<string | null>(null);
@@ -181,6 +180,7 @@ const Reservation = () => {
       ) : load ? (
         <LoadingIconContainer absolute>
           <LoadingIcon />
+          <DelayMessageModule load={load} />
         </LoadingIconContainer>
       ) : (
         <>
