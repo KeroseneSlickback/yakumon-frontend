@@ -370,7 +370,7 @@ export const OwnerShowcaseGrid = styled.div`
   }
 `;
 
-export const SelectContainer = styled(Link)<{ store?: boolean }>`
+export const SelectContainer = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.black};
   background-color: ${({ theme }) => theme.white1};
@@ -401,21 +401,19 @@ export const SelectContainer = styled(Link)<{ store?: boolean }>`
   @media ${devices.tabletL} {
     width: 320px;
   }
+`;
 
-  ${(props) =>
-    props.store &&
-    css`
-      margin: 4px;
-      width: 220px;
+export const StoreSelectContainer = styled(SelectContainer)`
+  margin: 4px;
+  width: 220px;
 
-      @media ${devices.tabletS} {
-        width: 220px;
-      }
+  @media ${devices.tabletS} {
+    width: 220px;
+  }
 
-      @media ${devices.tabletL} {
-        width: 220px;
-      }
-    `}
+  @media ${devices.tabletL} {
+    width: 220px;
+  }
 `;
 
 export const SelectContainerDiv = styled.div`

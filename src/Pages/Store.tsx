@@ -2,12 +2,12 @@ import {
   PageSectionCard,
   SinglePageContainer,
   StoreInfoContainer,
-  SelectContainer,
   ShowCaseContainer,
   StoreDescContainer,
   StoreImgDiv,
   PageDivider,
   PageSplitContainer,
+  StoreSelectContainer,
 } from "../Components/Containers";
 import {
   LoadingIcon,
@@ -161,10 +161,9 @@ const Store = () => {
                 <ShowCaseContainer employee>
                   {store?.employees.map((employee) => {
                     return (
-                      <SelectContainer
+                      <StoreSelectContainer
                         to={`/reservation/${employee._id}`}
                         key={employee._id}
-                        store
                       >
                         {employee.picture ? (
                           <StoreStylistImg
@@ -177,7 +176,7 @@ const Store = () => {
                         <h3>
                           {employee.firstName} {employee.lastName}
                         </h3>
-                      </SelectContainer>
+                      </StoreSelectContainer>
                     );
                   })}
                 </ShowCaseContainer>
