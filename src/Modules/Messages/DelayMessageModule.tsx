@@ -26,7 +26,9 @@ const DelayMessageModule = ({ load }: Props) => {
   const [message, setMessage] = useState("");
   useEffect(() => {
     const timer = setTimeout(() => {
-      setMessage("Loading might take longer due to slow backend response.");
+      setMessage(
+        "The backend host has a slow initial start, thank you for your patience."
+      );
     }, 3000);
     return () => clearTimeout(timer);
   }, []);
