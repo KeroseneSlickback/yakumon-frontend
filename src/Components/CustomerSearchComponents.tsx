@@ -9,7 +9,7 @@ import { StyledLabel, StyledTextInput } from "./FormComponents";
 const CustomerSearchDiv = styled.div``;
 
 const CustomerResultsDiv = styled.div<{
-  height?: any;
+  height?: number;
 }>`
   background-color: ${({ theme }) => theme.white1};
   border-radius: 0.5rem;
@@ -32,7 +32,7 @@ interface Props {
 }
 
 export const CustomerSearchBlock = (props: Props) => {
-  const contentEL = useRef<any>(null);
+  const contentEL = useRef<HTMLDivElement | null>(null);
   const [height, setHeight] = useState(0);
   const [customers, setCustomers] = useState<UserType[] | null>(null);
   const [searchResults, setSearchResults] = useState<UserType[] | null>(null);
@@ -62,7 +62,7 @@ export const CustomerSearchBlock = (props: Props) => {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      if (searchResults && searchResults.length > 0) {
+      if (searchResults && searchResults.length > 0 && contentEL.current) {
         setHeight(contentEL.current.scrollHeight);
       }
     }, 100);

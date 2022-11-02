@@ -100,10 +100,15 @@ const ScheduleView = ({
     }
   }, [width]);
 
+  /*
+  When component initially mounts, it creates a blank array. 
+  Blank array creates schedule and automatically fills in spots if appointments are taken up.
+  When service is selected, or employee is setting time-off, days are filtered to find open slots.
+  Open slots are dictated by service. 
+*/
+
   useEffect(() => {
     setLoad(true);
-    // create a new startDate based on previous times the number of steps
-    // When next/previous are clicked, increment date from that, but don't allow under 0
     setTimeout(() => {
       if (appointments && store?.hours) {
         const storeHours = store.hours;

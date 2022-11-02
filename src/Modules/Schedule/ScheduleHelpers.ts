@@ -1,6 +1,7 @@
 import { addDays, getDay, isEqual, parseJSON, set, startOfDay } from "date-fns";
 import {
   ScheduleArrayType,
+  ScheduleDateType,
   StoreDayHour,
   StylistAppointmentType,
   TimeSlotType,
@@ -37,30 +38,39 @@ const flattenEditAppointment = async (timeSlots: TimeSlotType[]) => {
   });
 };
 
-// helper function that compares an array of dates to given date
-// work around due to date-fns having issues with async/await functionality
+/*
+ helper function that compares an array of dates to given date
+ work around due to date-fns having issues with async/await functionality
+*/
+
 const compareDatesInArray = async (
   array: TakenArrayType[],
   givenDate: Date
 ) => {
-  let findMatching = (obj: any) => {
+  let findMatching = (obj: TakenArrayType) => {
     return isEqual(obj.time, givenDate);
   };
   const foundId = array.findIndex(findMatching);
   return array[foundId];
 };
 
+/*
+  Cross-references the blank array with the array of flattened appointments
+  Loops twice through blank array to expose each day within the 30min time block
+  comareDatesInArray() is called to check if appointment is taken
+  If taken, the function notes that; if not, fills in basic infomation
+*/
 const compareAndFillArray = async (
   blankArray: ScheduleArrayType[],
   takenArray: TakenArrayType[],
   flattenedEditAppointment?: TakenArrayType[]
 ) => {
-  let returnArray = [];
+  let returnArray: ScheduleArrayType[] = [];
 
   for (let i = 0; i < blankArray.length; i++) {
     let slots = blankArray[i].slots;
     let hour = blankArray[i].hour;
-    let slotsArray: any[] = [];
+    let slotsArray: ScheduleDateType[] = [];
     for (let j = 0; j < slots.length; j++) {
       let slot = slots[j];
       let filledTimeSlot = await compareDatesInArray(takenArray, slot.time);
@@ -108,6 +118,9 @@ const compareAndFillArray = async (
   return returnArray;
 };
 
+/*
+  Creates an array of objects based from each 30min section with slots for each day of output
+*/
 const outputByHour = async (
   array: StoreDayHour[],
   givenDate: Date,
@@ -222,6 +235,11 @@ const outputByHour = async (
   return builtArray;
 };
 
+/*
+  Initially called to create array of 30min block objects with given number of days with appointments filled in.
+  NOTE: await not needed
+*/
+
 export const scheduleArrayBuild = async (
   startDate: Date,
   storeHours: StoreDayHour[],
@@ -248,11 +266,18 @@ export const scheduleArrayBuild = async (
   return checkedArray;
 };
 
+/*
+  function resorts the array of 30min blocks with day slots to day blocks with 30min slots
+  When flipped, it counts how many 'available' slots there are based on the steps given by the selected service
+  If the function counts the correct amount of steps without interuption, like another appointment or end of day, the slots are available to be chosen.
+  When done, flips the array back to help JSX output.
+*/
+
 export const scheduleSectionFilter = async (
   scheduleArray: ScheduleArrayType[],
   steps: number
 ) => {
-  let reorderedArray: any[] = [];
+  let reorderedArray: ScheduleDateType[][] = [];
   let workingHourArray: string[] = [];
   for (let i = 0; i < scheduleArray.length; i++) {
     let workingTimeSection = scheduleArray[i].slots;
@@ -266,11 +291,12 @@ export const scheduleSectionFilter = async (
       }
     }
   }
-  let setArray: any[] = [];
+  console.log(reorderedArray);
+  let setArray: ScheduleDateType[][] = [];
   for (let i = 0; i < reorderedArray.length; i++) {
-    let aggrivateArray: any[] = [];
+    let aggrivateArray: ScheduleDateType[] = [];
     let workingDay = reorderedArray[i];
-    let countingArray: any[] = [];
+    let countingArray: ScheduleDateType[] = [];
     for (let j = 0; j <= workingDay.length; j++) {
       let workingTime = workingDay[j];
       if (!workingTime) {

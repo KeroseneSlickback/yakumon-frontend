@@ -113,7 +113,7 @@ export const PageSplitContainer = styled.div<{ expandable?: boolean }>`
     `}
 `;
 
-export const PageDivider: any = styled.div<{
+export const PageDivider = styled.div<{
   left?: boolean;
   right?: boolean;
   topPadding?: boolean;
@@ -158,7 +158,7 @@ export const PageDivider: any = styled.div<{
     `}
 `;
 
-export const PageSectionCard: any = styled.div<{
+export const PageSectionCard = styled.div<{
   head?: boolean;
   centered?: boolean;
   plainCenter?: boolean;

@@ -19,7 +19,7 @@ export const AccordionButton = styled.button`
   }
 `;
 
-export const AccordionDiv = styled.div<{ height?: any }>`
+export const AccordionDiv = styled.div<{ height?: number }>`
   padding: 0px 18px;
   background-color: ${({ theme }) => theme.white2};
   overflow: hidden;
